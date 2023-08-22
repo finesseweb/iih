@@ -17,9 +17,20 @@ class Application_Form_BatchSchedule extends Zend_Form
 				$this->addElement($department);
         
 
-//	$Academic_model = new Application_Model_Academic();
-//	$data = $Academic_model->getDropDownList();
+	$Academic_model = new Application_Model_Session();
+	$data = $Academic_model->getDropDownList();
 		//print_r($data); die;
+        $session_id = $this->createElement('select','session_id')
+                            ->removeDecorator('label')
+                            ->setAttrib('class',array('form-control','chosen-select'))
+                                                        ->setAttrib('required','required')
+                        ->setRequired(true)
+                            ->addMultiOptions(array('' => 'Select'))
+                            ->addMultiOptions($data)
+                            ->removeDecorator("htmlTag");
+        $this->addElement($session_id);
+        
+
 		$academic_year_id = $this->createElement('select','academic_year_id')
 							->removeDecorator('label')
 							->setAttrib('class',array('form-control','chosen-select'))
@@ -40,9 +51,12 @@ class Application_Form_BatchSchedule extends Zend_Form
 						  ->addMultiOptions($data)
 						   ->removeDecorator("htmlTag");
 		$this->addElement($department_id);*/
-        $FeeCategory_model = new Application_Model_ScholarStructure();
-        $data1 = $FeeCategory_model->getDropDownListOfTerms();
-        $term_id = $this->createElement('select', 'term_id')
+        // $FeeCategory_model = new Application_Model_ScholarStructure();
+        $FeeCategory_model = new Application_Model_TermMaster();
+        // $data1 = $FeeCategory_model->getDropDownListOfTerms();
+        $data1 = $FeeCategory_model->getDropDownList();
+        // print_r($data1); exit;
+        $Term_id = $this->createElement('select', 'Term_id')
                 ->removeDecorator('label')
                 ->setAttrib('class', array('form-control', 'chosen-select'))
                 ->setAttrib('required', 'required')
@@ -51,7 +65,7 @@ class Application_Form_BatchSchedule extends Zend_Form
                 ->addMultiOptions(array('' => 'Select'))
                // ->addMultiOptions($data1)
                 ->setRegisterInArrayValidator(false);
-        $this->addElement($term_id);	
+        $this->addElement($Term_id);	
         
         
         $section = $this->createElement('select', 'section')
