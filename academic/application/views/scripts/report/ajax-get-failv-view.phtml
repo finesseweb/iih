@@ -1,0 +1,88 @@
+
+<style>
+    table{
+        margin:0;
+    }
+    .sub{
+        border:.01em solid #932e90;
+
+    }
+    .logo{
+        display:none;
+    }
+
+
+
+</style>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css">
+<div class="table-responsive" id="studentData">
+    <table class="table right-column table-striped table-bordered mb30 jambo_table bulk_action testTable" id="datatable" width="100%" cellspacing ="0" >
+        <thead>
+            <tr>
+                <th class="sub">
+                    S.No
+                </th>
+                <th class="sub">
+                    Name
+                </th class="sub">
+                <th class="sub">
+                    Exam Roll
+                </th>
+                 <th class="sub">
+                    Registration No.
+                </th>
+                <th class="sub">
+                    Form id
+                </th>
+                <th class="sub">
+                    Phone
+                </th>
+                <th class="sub">
+                    email
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php $i =0 ;
+        array_multisort( array_column($this->result, "exam_roll"), SORT_ASC, $this->result );
+       // echo "<prE>";print_r($this->result);exit;
+        foreach($this->result as $key => $value){ ?>
+                <tr>
+                    <td class="sub"><?=++$i;?></td>
+                    <td class="sub"><?=$value['stu_fname'];?></td>
+                     <td class="sub"><?=$value['exam_roll'];?></td>
+                    <td class="sub"><?=$value['reg_no'];?></td>
+                    <td class="sub"><?=$value['stu_id'];?></td>
+                     <td class="sub"><?=$value['father_mobileno'];?></td>
+                     <td class="sub"><?=$value['stu_email_id'];?></td>
+                </tr>
+
+        <?php } ?>
+        </tbody>
+
+
+    </table>
+</div>
+</center>
+</body>
+<!--Import jQuery before export.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+    <!--Data Table-->
+    <script type="text/javascript"  src=" https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript"  src=" https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+
+    <!--Export table buttons-->
+    <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js" ></script>
+    <script type="text/javascript"  src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
+  <script>
+<script>
+     var table = $('#datatable').DataTable();
+</script>
+</html>
+

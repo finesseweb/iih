@@ -1,0 +1,337 @@
+<style>
+
+    @media print {
+
+        table td:nth-child(5)
+
+        {
+
+            display:none;
+
+        }
+
+        table th:nth-child(5)
+
+        {
+
+            display:none;
+
+        }
+
+        *{
+
+            visibility:hidden;
+
+        }
+
+        table,th,td 
+
+        {
+
+            visibility:visible;                    
+
+        } 
+
+        .title1
+
+        {
+
+            visibility:visible; 
+
+        }
+
+    }
+    #academic_year_id_chosen{
+        display:none;
+    }
+
+</style>
+<div class="right_col">
+<?php if ($this->type) { ?>
+<div class="padding-md">
+<div class="row">
+<div class="row">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<h3 class="page-title txt-color-blueDark">
+<i class="fa fa-bars">Fee Wavier</i>
+</h3>
+</div>
+</div>
+<div class="panel panel-default">
+<form class="no-margin" id="formValidate1" action="<?php echo $this->form->getAction() ?>" method="post" data-validate="parsley" >
+<div class='panel-header'> </div>
+<div class="panel-body">
+<div class="row">
+<div class="col-sm-3">
+<div class="form-group">
+<label class="control-label">Fee type<span class="asterisk">*</span></label>
+<?php echo $this->form->csrftoken; ?>
+<?php echo $this->form->fee_wave; ?>
+</div>
+</div>            
+<div class="col-sm-3">
+<div class="form-group">
+<label class="control-label">Term<span class="asterisk">*</span></label>
+<?php echo $this->form->term_id; ?>
+</div>
+</div>
+<div class="col-sm-4">
+<div class="form-group">
+<label class="control-label">Remarks</label>
+<?php echo $this->form->remarks; ?>
+</div>
+</div>    
+</div>
+<div class="row">
+<div class="col-sm-10">
+<div class="form-group">
+<label class="control-label" >Students</label>
+<select class="form-control select2" name='selected_students[]'  required="required" id= 'selected_student' multiple="multiple">
+<?php
+
+
+if($this->results) { echo "<option value=".$this->results['stu_id']." selected>".$this->results['stu_id']."</option>"; }?>
+</select>
+</div>
+</div>
+<div class="col-sm-2">
+<div class="form-group">
+<button type="button" class="btn btn-info btn-lg" style="margin-top:9%" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span></button>
+</div>
+ </div>
+<div id="myModal" class="modal fade" role="dialog">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal">&times;</button>
+<h4 class="modal-title">Form Id's<br/><small style="color:red;">(Paste or write multiple Form ids here.)</small></h4>
+</div>
+<div class="modal-body">
+<div class="form-group">
+<textarea class="form-control" rows="5" id="comment"></textarea>
+</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-info" id="stu_id_submit" data-dismiss="modal">Submit</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="" id="electives"></div>
+</div>
+<div class="panel-footer">									
+<div class="row">
+<div class="col-sm-7 col-sm-offset-5">
+ <?php if ($this->type == 'add') { ?> 
+ <div style="float:left;margin-right:2px;">
+ <button class="btn btn-primary submit">Submit</button>
+ </div>
+<div style="float:left;padding:0px 10px;">
+<button type="reset" class="btn btn-danger btn-default">Reset</button>
+</div>
+<?php } else { ?>
+<div style="float:left;">
+<button class="btn btn-primary submit">Update</button>
+</div>
+<div style="float:left;">
+<a class="btn btn-primary" href="<?php echo $this->mainconfig['host']; ?>elective/selection">Back</a>
+</div>
+<?php } ?>
+</div>
+</div>
+</div>
+</div>
+</form>
+</div><!-- /panel -->
+</div><!-- /.col-->				
+</div>
+<?php } else { ?>
+ <?php
+if (count($this->messages)) {
+foreach ($this->messages as $message) { ?>
+<div class="alert <?php echo $_SESSION['message_class']; ?>">
+ <a type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
+<?php echo $this->escape($message); ?>
+</div>
+<?php } }?>
+<div class="">
+<div class="">
+<div class="row">
+<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+<h3 class="page-title txt-color-blueDark">
+<i class="fa fa-bars"> Fee Wavier</i>
+</h3>
+</div>
+<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">	 
+<a class="btn btn-primary pull-right" style="margin-top: 25px;" href="<?php echo $this->mainconfig['host']; ?>student/selection/type/add">Add </a>
+</div>
+</div>
+<div class="x_panel">
+<div class="x_title">
+<div class="col-sm-3">
+<div class="form-group">
+<label class="control-label">Academic Year<span class="asterisk">*</span></label>
+<?php echo $this->form->academic_year_list; ?>
+
+</div>
+</div>  
+<div class="col-sm-3">
+<div class="form-group">
+<label class="control-label">Session <span class="asterisk">*</span></label>
+<?php echo $this->form->session; ?>
+
+</div>
+</div>
+<div class="col-sm-3">
+<div class="form-group">
+<label class="control-label">Batch <span class="asterisk">*</span></label>
+<?php echo $this->form->academic_id; ?>
+
+</div>
+</div> 
+<div class="col-sm-3">
+<div class="form-group">
+    <label class="control-label"></label>
+    <button class="pull-right btn btn-info" style="margin-top: 25px;" id="showrecords" value="show">Show </button>
+</div>
+</div>     
+<div class="clearfix"></div>
+</div>
+<div class="x_content">
+<div class="padding-md clearfix">
+<div class="ajaxData" id="ajaxData">     
+<table class="table table-striped table-bordered mb30 jambo_table bulk_action" id="dataTable">
+<thead>
+<tr>
+<th>S.  No.</th>
+<th>Student Name</th>
+<th>Roll No</th>
+<th>Subject</th>
+<th>Session</th>
+<th>Exam ID</th>
+<th>Form Id</th>
+<th>Term</th>
+<th>Waive Type</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<?php
+   $i = 1;
+   $pagination_tr = '';
+   $session = new Application_Model_Session();
+   if (count($this->paginator) != 0) {
+    foreach ($this->paginator as $results) { ?>
+<tr>
+<td><?php echo $i;
+$i++; ?>
+</td>	
+<td><?php echo $results['Name']; ?></td>
+<td><?php echo $results['roll_no']; ?></td>
+<td><?php echo $results['batch']; ?></td>
+<td><?php echo $session->getRecord($results['session_id'])['session']; ?></td>
+<td><?php echo $results['examid']; ?></td>
+<td><?php echo $results['stu_id']; ?></td>
+<td><?php echo $results['cmn_terms']; ?></td>
+ <?php 
+$results['waivetype'] = str_replace('1',"Col Fee",$results['waivetype']);
+$results['waivetype'] = str_replace('2',"Non-Col Fee",$results['waivetype']);
+$results['waivetype'] = str_replace('3',"Semester Fee",$results['waivetype']);
+?>
+<td><?php echo $results['waivetype']; ?></td>
+<td><a href="<?php echo $this->mainconfig['host']; ?>student/selection/type/delete/id/<?php echo $results['id']; ?>" class="edit" title="Edit"><span class="fa fa-remove fa-lg"></span></a></td>
+</tr>            
+ <?php }
+ $pagination_tr = $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
+} ?>
+</tbody>
+</table>
+ <?php echo $pagination_tr; ?>
+</div>
+</div><!-- /.padding-md -->
+</div><!-- /panel -->
+</div>
+</div>
+</div><!-- /.padding-md -->		
+<?php } ?>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $('#fee_wave').select2();
+        $('#selected_student').select2();
+    });
+ $('#stu_id_submit').on('click', function () {
+        var formIds = $('textarea').val();
+        var patt = /F-\d{4}-\d{1,}/g;
+        var result = formIds.match(patt);
+        var i = 0;
+
+        $('#selected_student').empty();
+
+        for (var ele in result) {
+            $('#selected_student').append(`<option selected value=${result[ele]}>${result[ele]}</option>`);
+            i++;
+
+        }
+        $('#count').remove();
+        $('#selected_student').select2();
+        $('#selected_student').parent().append('<div class="form-control-static pull-right" id="count" style="font-size:1.6em;"><strong>' + i + ' : Selected Students</strong></div>')
+
+    });
+
+
+$('body').on('change', '#academic_year_list', function () {
+        $('#department').removeAttr('disabled');
+        var year_id = $('#academic_year_list').val();
+        if (year_id) {
+            
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-Get-Session'; ?>',
+                data: {year_id: year_id}
+            }).done(function (data) {
+                $('#session').empty('');
+                $('#session').html(data);
+                $('#session').trigger("chosen:updated");
+            });
+        }
+    });
+    //End
+    //Get Batch By Session
+    $('body').on('change', '#session', function () {
+        var year_id = $('#session').val();
+        if (year_id) {
+
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-batch'; ?>',
+                data: {session: year_id}
+            }).done(function (data) {
+                $('#academic_id').empty('');
+                $('#academic_id').html(data);
+                $('#academic_id').trigger("chosen:updated");
+            });
+        }
+    });
+    
+     $('body').on('click', '#showrecords', function () {
+        var year_id = $('#academic_id').val();
+        if (year_id) {
+
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'student/ajax-get-selection'; ?>',
+                data: {year_id: year_id}
+            }).done(function (data) {
+                $('#ajaxData').empty('');
+                $('#ajaxData').html(data);
+                
+            });
+        }
+    });
+
+</script>
+

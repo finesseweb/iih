@@ -1,0 +1,547 @@
+<style>
+    .modal-dialog {
+        width:850px;
+        margin: 30px auto;
+    }
+    .select2{
+        width:300px !important;
+    }
+</style>
+<div class="right_col">
+    <div class="load-box">
+        <img src="<?php echo $this->mainconfig['publicpath']; ?>/images/loader.gif" width='200px'  class="loder_img1" />
+    </div>
+    <?php if ($this->type == 'add' || $this->type == 'edit') { ?>
+
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+                <h3 class="page-title txt-color-blueDark" >
+                    <div><i class="fa fa-eye">Addon Course</i></div>
+                </h3>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="panel panel-default">
+
+            <form class="no-margin" id="formValidate1" action="<?php echo $this->form->getAction() ?>" method="post" data-validate="parsley"  enctype="multipart/form-data">
+
+
+                <div class="panel-body">
+
+                    <div class="row" >
+                        <?php echo $this->form->csrftoken; ?>
+                        <div class="col-sm-3 employee_class">
+                            <div class="form-group">
+                                <label class="control-label">Academic Year</label>
+                                <?php echo $this->form->academic_year; ?>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 employee_class">
+                            <div class="form-group">
+                                <label class="control-label">Name</label>
+                                <?php echo $this->form->name; ?>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 employee_class">
+                            <div class="form-group">
+                                <label class="control-label">Code</label>
+                                <?php echo $this->form->code; ?>
+                            </div>
+                        </div>
+                        
+                        <?php echo $this->form->csrftoken; ?>
+                        <div class="col-sm-3 employee_class">
+                            <div class="form-group">
+                                <label class="control-label">Conducted By </label>
+                                <?php echo $this->form->conductedby; ?>
+                            </div>
+                        </div>	
+                        <div class="col-sm-3 employee_class">
+                            <div class="form-group">
+                                <label class="control-label">Capacity</label>
+                                <?php echo $this->form->capacity; ?>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 employee_class">
+                            <div class="form-group">
+                                <label class="control-label">Fee<span class="asterisk">*</span></label>
+                                <?php echo $this->form->fee; ?>
+                            </div>
+                        </div>	
+                        <div class="col-sm-3 employee_class">
+                            <div class="form-group">
+                                <label class="control-label">Total Credit<span class="asterisk">*</span></label>
+                                <?php echo $this->form->tot_credit; ?>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 employee_class">
+                            <div class="form-group">
+                                <label class="control-label">Status<span class="asterisk">*</span></label>
+                                <?php echo $this->form->status; ?>
+                            </div>
+                        </div>	
+                        <div class="col-sm-3 employee_class">
+                            <div class="form-group">
+                                <label class="control-label">Co-odinator<span class="asterisk">*</span></label>
+                        <select   name="empl_id" class="form-control chosen-select" >
+                            <option value="" >Select</option>
+                                       <?php    foreach($this->hod as $e=>$emp){
+                                                
+                                                                 $selected = '';
+                                                                 if($e == $this->empl_id){
+                                                                         $selected = "selected";
+                                                                 }?>
+                                            <option value="<?php echo $e;?>" <?php echo $selected; ?> >
+                                                <?php echo $emp;?></option>
+                                            <?php } 
+                                            ?>
+                                       </select>
+                                         </div>
+                        </div>	
+                         <div class="col-sm-3 employee_class">
+                             <div class="form-group">
+                                <label class="control-label">Co-odinator Sign.<span class="asterisk"></span></label>
+                                <input name="file[]" id="file" type="file" accept="image/jpg, image/jpeg, image/png"  />
+                                <div class='form-control-statuc' >
+                                    <span class='text-danger'>*only .jpg or .png files can be upload</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 employee_class">
+                            <img src="<?=$this->filename;?>" height="80" alt ="uploaded signature..." />
+                       </div>
+                            
+                        <div class="panel-footer">									
+                            <div class="row">
+                                <div class="col-sm-7 col-sm-offset-5">
+                                    <?php if ($this->type == 'add') { ?> 
+                                        <div style="float:left;margin-right:2px;">
+                                            <button class="btn btn-primary submit" id="restirct">Submit</button>
+                                        </div>
+                                        <div style="float:left;padding:0px 10px;">
+                                            <button type="reset" class="btn btn-danger btn-default">Reset</button>
+                                        </div>
+                                        <?php
+                                    } else {
+                                        $login_empl_id = $this->login_storage->empl_id;
+
+                                        if (!$this->isGradeReportPublished) {
+                                            //  echo "<pre>";print_r($this->administrator_role); exit;
+                                            if (($login_empl_id == $this->grade_detail['employee_id']) || in_array($this->role_id, $this->administrator_role)) {
+                                                ?>
+
+
+
+                                                <?php
+                                            }
+                                        } else {
+                                            echo '<div class="pull-right font-weight-bold">Grade is already published. You can\'t edit it</div>';
+                                        }
+                                        ?>
+                                        <div style="float:left;">
+                                            <button class="btn btn-primary submit">Update</button>
+                                        </div>
+                                        <div style="float:left;">
+                                            <a class="btn btn-primary" href="<?php echo $this->mainconfig['host']; ?>entrance-report/addon-course-report">Back</a>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+
+
+        </div>    
+
+    </div>
+<?php } else if ($this->type == "bulkadd") { ?>
+    <div class="">
+        <div class="">
+            <div class="row">
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h3 class="page-title txt-color-blueDark">
+                        <i class="fa fa-bars">Addon Course [Bulk Add] </i>
+
+                    </h3>
+                </div>
+
+            </div>
+
+            <div class="x_panel">
+                <div class="x_content">
+                    <div class='row'>
+                <div class="col-sm-3 employee_class">
+                    <div class="form-group disabled" >
+                        <label class="control-label">Academic Year</label>
+                        <?php echo $this->form->academic_year; ?>
+                    </div>
+                    <?php //echo '<pre>'; print_r($this->id); die;   ?>
+                </div>
+                    </div>
+                     <form class="no-margin" id="formValidate1" action="<?php echo $this->form->getAction() ?>" method="post" data-validate="parsley" >
+
+                    <div class="padding-md clearfix">
+                        <div class="table-responsive" id="ajaxMigData">
+
+
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-sm-3 employee_class">
+                    <div class="form-group disabled" >
+                        <label class="control-label" style="color:red">Migrate Academic Year</label>
+                        <?php echo $this->form->academic_year; ?>
+                    </div>
+                    <?php //echo '<pre>'; print_r($this->id); die;   ?>
+                </div>
+                								
+                    <div class="row">
+                        <div class="col-sm-7 col-sm-offset-5">
+
+                                <div style="float:left;margin-right:2px;">
+                                    <button class="btn btn-primary submit" id="restirct">Migrate</button>
+                                </div>
+
+                        </div>
+                    </div>
+</form>
+   
+        <?php } else if ($this->type == "getStudents") { ?>
+
+            <div class="">
+                <div class="">
+                    <div class="row">
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <h3 class="page-title txt-color-blueDark">
+                                <i class="fa fa-bars"> Entrance Exam (Addon Course Report) </i>
+
+                            </h3>
+                        </div>
+                        <?php
+                        //    if(in_array($this->role_id, $this->administrator_role)){
+                        ?>
+
+                        <?php
+                        //  }
+                        ?>
+                    </div>
+
+                    <div class="x_panel">
+
+                        <div class="x_title">
+                            <div class="col-sm-3 employee_class">
+                                <div class="form-group disabled" >
+                                    <label class="control-label">Stream<span class="asterisk">*</span></label>
+                                    <?php echo $this->form->department_type; ?>
+                                </div>
+                                <?php //echo '<pre>'; print_r($this->id); die;   ?>
+                            </div>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                </li>
+                                <li><a class=""><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="x_content">
+
+                            <div class="padding-md clearfix">
+                                <div class="table-responsive" id="ajaxData">
+                                    <table class="table table-striped table-bordered mb30 jambo_table bulk_action" id="dataTable" >
+                                        <caption> <b> <u> Student List></b></caption>
+                                        <thead>
+                                            <tr>
+                                                <th>S.No.</th>
+                                                <th>Name</th>
+                                                <th>Form Id</th>
+                                                <th>Email Id</th>
+                                                <th>Mobile No</th>
+                                                <th>Roll No</th>
+                                                <th>Reg. No</th>
+                                                <th>Exam Roll No.</th>
+                                                <th>Department</th>
+                                                <th>status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $i = 1;
+                                            $pagination_tr = '';
+                                            if (count($this->paginator) != 0) {
+                                                foreach ($this->paginator as $results) {
+                                                    //echo '<pre>'; print_r($results);
+                                                    ?>
+                                                    <tr>
+                                                        <td><?php
+                                                            echo $i;
+
+                                                            $i++;
+                                                            ?>
+                                                        </td>
+
+
+                                                        <td><?php echo $results['applicant_name']; ?></td>
+                                                        <td><?php echo $results['form_id']; ?></td>
+                                                        <td><?= !empty($results['stu_email_id']) ? $results['stu_email_id'] : '<b style="color:red">Not In Erp'; ?></td>
+                                                        <td><?= !empty($results['father_mobileno']) ? $results['father_mobileno'] : '<b style="color:red">Not In Erp'; ?></td>
+                                                        <td><?= !empty($results['roll_no']) ? $results['roll_no'] : '<b style="color:red">Not In Erp</b>'; ?></td>
+                                                        <td><?= !empty($results['reg_no']) ? $results['reg_no'] : '<b style="color:red">Not In Erp'; ?></td>
+                                                        <td><?= !empty($results['exam_roll']) ? $results['exam_roll'] : '<b style="color:red">Not In Erp'; ?></td>
+                                                        <td><?php echo $results['department_type']; ?></td>
+                                                        <td>
+                                                            <?php 
+                                               echo($results['stu_status'] == 1 
+                                                    ? "<b style='color:green;'>Active</b>" 
+                                                    : ($results['stu_status'] == 2 
+                                                        ? "<b>Discontinue</b>" 
+                                                        : ($results['stu_status'] == 3 
+                                                            ? "<b style='color:red;'>T.C</b>." 
+                                                        : ($results['stu_status'] == 4 
+                                                            ? "<b style='color:red;'>Alumni</b>." 
+                                                        : ($results['stu_status'] == 5 
+                                                            ? "<b style='color:red;'>Left</b>." 
+                                                            : "<b>Block Marksheets</b>"))))); 
+                                                ?>
+
+                                            </td>
+
+                                                    </tr>            
+
+                                                    <?php
+                                                }
+                                                $pagination_tr = $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
+                                            } else {
+                                                ?>
+                                                <tr>
+                                                    <td colspan="5">
+                                                        <h2 style="color:red">
+                                                            No Records Available.
+                                                        </h2>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
+
+                                        </tbody>
+                                    </table>
+                                    <?php echo $pagination_tr; ?>
+
+                                </div><!-- /.padding-md -->
+                            </div><!-- /panel -->
+                        </div>
+                    </div>
+
+                <?php } else { ?>
+
+                    <?php
+                   
+                    if (count($this->messages)) {
+                        foreach ($this->messages as $message) {
+                           
+                            ?>
+                            <div class="alert  <?php echo $_SESSION['message_class']; ?> ">
+                                <a type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
+                                <?php echo $this->escape($message); ?>
+                            </div>
+                            <?php
+                        }
+                    }
+                    ?>
+                    <!-- widget grid -->
+                    <div class="">
+                        <div class="">
+                            <div class="row">
+
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <h3 class="page-title txt-color-blueDark">
+                                        <i class="fa fa-bars"> Entrance Exam (Addon Course Report) </i>
+                                        <a class="btn btn-primary pull-right" style="margin-top: 25px;" href="<?php echo $this->mainconfig['host']; ?>/entrance-report/addon-course-report/type/bulkadd">Bulk Add Course </a>
+
+                                        <a class="btn btn-primary pull-right" style="margin-top: 25px;" href="<?php echo $this->mainconfig['host']; ?>/entrance-report/addon-course-report/type/add">Add Course </a>
+                                    </h3>
+                                </div>
+                                <?php
+                                //    if(in_array($this->role_id, $this->administrator_role)){
+                                ?>
+
+                                <?php
+                                //  }
+                                ?>
+                            </div>
+
+                            <div class="x_panel">
+
+                                <div class="x_title">
+                                    <div class="col-sm-3 employee_class">
+                                        <div class="form-group disabled" >
+                                            <label class="control-label">Academic Year <span class="asterisk"></span></label>
+                                            <?php echo $this->form->academic_year; ?>
+                                        </div>
+                                    </div>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        </li>
+                                        <li><a class=""><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="x_content">
+
+                                    <div class="padding-md clearfix">
+                                        <div class="table-responsive" id="ajaxData">
+                                            <table class="table table-striped table-bordered mb30 jambo_table bulk_action" id="dataTable" >
+                                                <caption> <b> <u> Addon Course Wise Report [<?= $this->year ?>] </u></b></caption>
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.No.</th>
+                                                        <th>Addon Course Name</th>
+                                                        <th>Addon Fee</th>
+                                                        <th>Capacity </th>
+                                                        <th>Applied Students</th>  
+                                                        <th>Paid Students</th>  
+                                                        <th class="no_print">Edit</th>
+                                                        <th class="no_print">View Applicants</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $i = 1;
+                                                    $pagination_tr = '';
+                                                    if (count($this->paginator) != 0) {
+                                                        foreach ($this->paginator as $results) {
+                                                           // echo '<pre>'; print_r($this->paginator); exit;
+                                                            ?>
+                                                            <tr>
+                                                                <td><?php
+                                                                    echo $i;
+
+                                                                    $i++;
+                                                                    ?>
+                                                                </td>
+
+
+                                                                <td><?php echo $results['name']; ?></td>
+                                                                <td><?php echo $results['fee']; ?></td>
+                                                                <td><?php echo $results['capacity'];
+                                                        ;
+                                                                    ?></td>
+                                                                <td><?php echo $results['total_applied']; ?></td>
+                                                                <td><?php echo $results['paid']; ?></td>
+
+
+                                                                <td style="text-align:center"><a href="<?php echo $this->mainconfig['host']; ?>entrance-report/addon-course-report/type/edit/id/<?php echo $results['itemid']; ?>/acad/<?php echo $results['academic_year']; ?>" target="_blank" class="edit" title="Edit"><button type="button" class="btn btn-info">Edit</button></a></td>
+
+                                                                <td style="text-align:center"><a href="<?php echo $this->mainconfig['host']; ?>entrance-report/addon-course-report/type/getStudents/addon_id/<?php echo $results['id']; ?>/acad/<?php echo $results['academic_year']; ?>" target="_blank" class="edit" title="Edit"><button type="button" class="btn btn-info">View Applicants</button></a></td>
+                                                            </tr>            
+
+                                                            <?php
+                                                        }
+                                                        $pagination_tr = $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
+                                                    } else {
+                                                        ?>
+                                                        <tr>
+                                                            <td colspan="5">
+                                                                <h2 style="color:red">
+                                                                    No Records Available.
+                                                                </h2>
+                                                            </td>
+                                                        </tr>
+    <?php } ?>
+
+                                                </tbody>
+                                            </table>
+    <?php echo $pagination_tr; ?>
+
+                                        </div><!-- /.padding-md -->
+                                    </div><!-- /panel -->
+                                </div>
+                            </div>
+<?php } ?>
+                    </div>
+<script>
+
+
+//Added By Kedar : 08 Oct 2020
+    $('body').on('change', '#department_type', function () {
+        let stream = $('#department_type').val();
+        let addonId = '<?= !empty($this->id) ? $this->id : ''; ?>';
+
+        if (stream) {
+            $('.load-box').css('display', 'block');
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'entrance-report/ajax-get-applicants-by-addon-stream'; ?>',
+                data: {stream: stream, addonId: addonId}
+            }).done(function (data) {
+                $('#ajaxData').empty('');
+                $('#ajaxData').html(data);
+                $('.load-box').css('display', 'none');
+            });
+        }
+    });
+    //End : 08 Oct 2020
+    //Added By Kedar : 02 Nov 2021
+    $('body').on('change', '#academic_year', function () {
+        let year = $('#academic_year').val();
+
+
+        if (year) {
+            $('.load-box').css('display', 'block');
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'entrance-report/ajax-get-addon-course-by-year'; ?>',
+                data: {year: year}
+            }).done(function (data) {
+                $('#ajaxData').empty('');
+                $('#ajaxData').html(data);
+                $('.load-box').css('display', 'none');
+            });
+        }
+    });
+    //End :  02 Nov 2021
+    let type= '<?= $this->type; ?>';
+    if(type== 'edit'){
+         $('#academic_year').attr('disabled','disabled');
+         $('#name').attr('disabled','disabled');
+         $('#code').attr('disabled','disabled');
+         $('#conductedby').attr('disabled','disabled');
+     }
+    if(type== 'bulkadd'){
+        $('body').on('change', '#academic_year', function () {
+        let year = $('#academic_year').val();
+
+
+        if (year) {
+            $('.load-box').css('display', 'block');
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'entrance-report/ajax-get-addon-course-for-mig'; ?>',
+                data: {year: year}
+            }).done(function (data) {
+                $('#ajaxMigData').empty('');
+                $('#ajaxMigData').html(data);
+                $('.load-box').css('display', 'none');
+            });
+        }
+    });
+    }
+
+</script>

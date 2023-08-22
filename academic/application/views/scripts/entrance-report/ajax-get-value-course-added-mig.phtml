@@ -1,0 +1,67 @@
+<table class="table table-striped table-bordered mb30 jambo_table bulk_action" id="dataTable" >
+    <caption> <b> <u> Addon Course</u></b></caption>
+    <thead>
+        <tr>
+            <th>S.No.</th>
+             <th>Semester </th>
+            <th>Value Added Course </th>
+             <th>Description </th>
+            <th>Course Code</th>
+            <th>Capacity </th>
+            <th>Conducted By </th>
+            <th>Total Credit </th>
+            <th>Action </th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $i = 1;
+        $pagination_tr = '';
+        if (count($this->paginator) != 0) {
+            foreach ($this->paginator as $results) {
+                // echo '<pre>'; print_r($results); exit;
+                ?>
+                <tr>
+                    <td><?php
+                        echo $i;
+
+                        $i++;
+                        ?>
+                    </td>
+
+                    <td><?php echo $results['semester']; ?></td>
+                    <td><?php echo $results['course_name']; ?></td>
+                     <td><?php echo $results['course_description']; ?></td>
+                      
+                    <input type="hidden" name="course_name[]" id="course_name" value="<?=$results['course_name'] ?>"/>
+                    <input type="hidden" name="course_description[]" id="course_desc" value="<?=$results['course_description'] ?>"/>
+                    <input type="hidden" name="semester[]" id="semester" value="<?=$results['semester'] ?>"/>
+                    <input type="hidden" name="countable[]" id="countable" value="<?=$results['countable'] ?>"/>
+                    <td><input type="text" name="course_code[]" id="code" value="<?php echo $results['course_code']; ?>" style="width:170px" /></td>
+                    <td><input type="text" name="capacity[]" id="capacity" value="<?php echo $results['capacity']; ?>" style="width:70px" /></td>
+                    <td><input type="text" name="conductedby[]" id="conductedby" value="<?php echo $results['conductedby']; ?>" style="width:180px" /></td>
+                   <td><input type="text" name="tot_credit[]" id="fee" value="<?php echo $results['tot_credit']; ?>" style="width:70px" /></td>          
+                  <td style="color:red;font-size:2em; cursor:pointer; text-align:center; vertical-align:center;" class="removecell" ><i class="fa fa-remove"></i></td>
+             </tr>   
+                <?php
+            }
+            $pagination_tr = $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
+        } else {
+            ?>
+            <tr>
+                <td colspan="5">
+                    <h2 style="color:red">
+                        No Records Available.
+                    </h2>
+                </td>
+            </tr>
+<?php } ?>
+
+    </tbody>
+</table>
+<?php echo $pagination_tr; ?>
+<script>
+    $('.removecell').click(function(){
+       $(this).parent().remove();
+    });
+</script>

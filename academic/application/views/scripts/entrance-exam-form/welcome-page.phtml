@@ -1,0 +1,151 @@
+<style>
+body {
+         font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        background-image:url("https://pwcadmissions.in/demopwc/academic/public/img/college1.jpg");
+        background-size:cover;
+            overflow:hidden;
+    }
+    .multistepformArea{
+    padding-top: 1px;
+    background-color: white;
+	width: 60%;
+    min-width: 300px;
+	margin: 50px auto;
+	position: relative;
+	
+}
+/*form styles*/
+.regForm {
+    width: 95%;
+    min-width: 300px;
+	margin: 50px auto;
+	position: relative;
+}
+#formValidate1 fieldset {
+
+	border: 0 none;
+	border-radius: 3px;
+	box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+	box-sizing: border-box;
+	position: relative;
+	 z-index: 999;
+}
+.footer_social_browser_contact_area{
+    position:absolute;
+    bottom:0;
+    width:100%;
+}
+.instruction{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    
+}
+.multistepformArea{
+    background-color:#0000;
+    opacity:1;
+    width:100%;
+    color:black;
+    font-style:Raleway;
+    
+}
+#overlay{
+    width:100%;
+    background:#000;
+    opacity:.4;
+    min-height:70em;
+
+    
+}
+.overlayid{
+    position:absolute;
+    margin-top:50px;
+    width:100%;
+    height:100%;
+    background-color:#fff;
+    opacity:.9;
+   border-radius: 100px 40px;
+    
+}
+.employee_class{
+    font-size:1.2em;
+}
+h3,h2,h1,h5,p,b{
+    
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    color : #000;
+}
+.navbar {
+    padding: 0;
+    margin-top: 20px !important;
+}
+</style>
+<div id="overlay"></div>
+<div class="instruction">
+    <div class="overlayid"></div>
+    <div class="multistepformArea">
+        <form class="regForm" id="formValidate1" action="" method="post" data-validate="parsley" >
+
+            <div class="row">
+                <div class="col-sm-12"><h3 class="text-success text-center" style="margin-bottom:30px;">Registration Successful !</h3>
+                    <fieldset>
+                       <?php //echo '<pre>'; print_r($this->paginator); ?>
+
+                        <h5>&nbsp;Dear Applicant <?= ucfirst($this->paginator['applicant_name'])?> ,</h5>
+                        <div class="col-sm-12 employee_class" style="margin-top:20px;">
+                         <p> Your Registration Number is IIHER-00<?=$this->a_id ?>  </p>
+						 <input type="hidden" name="application_no" id="a_id"  value="<?=$this->paginator['application_no']?>">
+						 <input type="hidden" name="password" id="p_id"  value="<?=$this->paginator['password']?>">
+                         
+                        </div>
+                       
+                       
+                       
+                      
+                         <div class="col-sm-12 employee_class" >
+                            <b style="color:#ff471a">Please Note Down for College Academic Record. and for Any query contact office.</b>
+							<p> Please <a href="#" onclick="getcontinuelogin()">Click Here </a> to continue Application Form to using username and password created by you </p>
+                        </div>
+                          
+                        </div>
+                     
+            </div>
+                    </fieldset> 
+                    &nbsp;<br>
+                    <br>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    /*$('#continue').hide();
+    $('#instruction').click(function(){
+        if (this.checked) {
+            $('#continue').show();
+        }else{
+            $('#continue').hide();
+        }
+    });*/
+	
+function getcontinuelogin() {
+	//alert('hii');
+	var aid=  $('#a_id').val();
+	var pid=  $('#p_id').val();
+	
+	 $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'entrance-exam-form/ajax-login'; ?>',
+                data: {app_id : aid,pwd:pid}
+            }).done(function( data ) {
+                if(data)
+				{
+					window.location.href = "<?php echo $this->mainconfig['host'] ?>multi-step-form/index/type/step1/a_id/"+data;
+				}
+                
+            }); 
+	
+}
+	
+</script>

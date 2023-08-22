@@ -1,0 +1,250 @@
+<div class="right_col bdoypayment">
+    <div class="load-box">
+        <img src="<?php echo $this->mainconfig['publicpath']; ?>/images/loader.gif" width='200px'  class="loder_img1" />
+    </div>
+    
+ 
+ <?php if($this->type == "getStudents") { ?>
+       
+        
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h3 class="page-title txt-color-blueDark">
+                    <i class="fa fa-bars">Participants Details</i>
+
+                </h3>
+            </div>
+<!--            <div class="col-sm-3 employee_class">
+                <div class="form-group">
+                  <label class="control-label">Academic Year<span class="asterisk">*</span></label>
+                    <?php echo $this->form->academic_year_list; ?>
+                </div>
+                </div> 
+                <div class="col-sm-3 employee_class">
+                <div class="form-group">
+                  <label class="control-label">Session<span class="asterisk">*</span></label>
+                    <?php echo $this->form->session; ?>
+                </div>
+                </div> 
+                <div class="col-sm-3 employee_class">
+                <div class="form-group">
+                  <label class="control-label">Batch<span class="asterisk">*</span></label>
+                    <?php echo $this->form->academic_id; ?>
+                </div>
+                </div> -->
+        </div>
+    <div class="padding-md">
+    <div class="panel panel-default">
+        <div class="panel-body cont">
+           
+        
+                <div class="x_title">
+                    <div id="divTableDataHolder">
+    <table class="table table-striped table-bordered mb30 jambo_table bulk_action "
+        id="dataTable">
+        <thead>
+            <tr>
+                <th>S.No.</th>
+                <th >Student Name</th>
+                <th >Father Name</th>
+                <th>UID</th>
+                <th>Roll No</th>
+                <th>Exam Roll</th>
+                 <th>Regs No</th>
+                 <th>Mobile No</th>
+                 <th>Email ID</th>
+                 <th>Photo</th>
+                 <th>Action</th>
+                <th style="width: 50px;">status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $i = 1;
+
+            if (count($this->paginator) != 0) {
+
+                foreach ($this->paginator as $results) {
+                   //echo "<pre>";print_r($results);die;
+                    ?>
+                    <tr>
+                        <td><?php echo $i;
+
+                    $i++;
+                    ?>
+                        </td>						
+
+                        <td><?php echo $results['students']; ?></td>
+                        <td><?php echo $results['father_fname']; ?></td>
+                        <td><?php echo $results['stu_id']; ?></td>
+                        <td><?php echo $results['roll_no']; ?></td>
+                        <td><?php echo $results['exam_roll']; ?></td>
+                        <td><?php echo $results['reg_no']; ?></td>
+                         <td><?php echo $results['father_mobileno']; ?></td>
+                         <td><?php echo $results['stu_email_id']; ?></td>
+                         <td><img class="img img-rounded pull-right" src="<?= $this->baseUrl($results['filename']); ?>" width="100px" alt="img" /></td>
+                        
+                         <td>
+                             <a href="<?php echo $this->mainconfig['host']; ?>student/student-details/type/downloads/stu_id/<?php echo $results['stu_id']; ?>" class="Download" title="Download"><button type="button" class="btn btn-download">Download Img</button></a>
+                         </td>
+                         <td>
+                            <?php 
+                            switch ($results['stu_status']) {
+                                case 1:
+                                  echo '<b style="color:green">Active</b>';
+                                  break;
+                                case 2:
+                                  echo '<b style="color:red">Discontinue</b>';
+                                  break;
+                                case 3:
+                                  echo '<b style="color:red">T.C.</b>';
+                                  break;
+                                case 4:
+                                  echo '<b style="color:yellowgreen">Alumni</b>';
+                                  break;
+                                case 5:
+                                  echo '<b style="color:orange">Left</b>';
+                                  break;
+                                
+                                default:
+                                  echo "n/a";
+                            }
+                            ?>
+                        </td>
+
+                    </tr>            
+
+                <?php
+                } 
+            }
+            ?>
+
+        </tbody>
+</table>
+                    </div>
+<?php } else { ?>
+                    
+        <div class="row">
+            <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+                <h3 class="page-title txt-color-blueDark">
+                    <i class="fa fa-bars">Participants Details</i>
+
+                </h3>
+            </div>
+        </div>
+        <div class="panel panel-default">
+        <div class="panel-body cont">
+           
+                <div class="x_title">
+                    <div class="row">
+                        <div class="col-sm-3 pul-right ">
+                            <!--<label class="control-label">Academic Year<span class="asterisk">*</span></label>-->
+                            <div class="form-group">
+                                <?php echo $this->form->academic_year_list; ?>
+                            </div>   
+                        </div>
+                        <div class="col-sm-3 pul-right ">
+                            <!--<label class="control-label">Session <span class="asterisk">*</span></label>-->
+                            <div class="form-group">
+                                <?php echo $this->form->session; ?>
+                            </div>
+                           
+                        </div>
+                        <div class="col-sm-3 ">
+                            
+                        <button type="button" id="getRecord" class="btn btn-primary" style="float: left" value="0" >Get Record</button>
+                        </div>
+                       
+                        
+                    
+                </div>
+                <div  id="ajaxData"> 
+            <table class="table table-striped table-bordered mb30 jambo_table bulk_action " id="dataTable">
+        <thead>
+            <tr>
+                <th>S.No.</th>
+                <th style="width: 15em">Department </th>
+                <th style="width: 15em">No. Of Active Students</th>
+                <th>No. of Left Students</th>
+                <th>Total Students</th>
+                <th>View Students</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+            </table>
+                </div>
+                </div>
+            </div>
+    <?php } ?>
+        </div>
+        </div>  
+        </div>
+    </div>
+    </div>
+<script>
+    $('body').on('change', '#academic_year_list', function () {
+        $('#department').removeAttr('disabled');
+        var year_id = $('#academic_year_list').val();
+        if (year_id) {
+            
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-Get-Session'; ?>',
+                data: {year_id: year_id}
+            }).done(function (data) {
+                $('#session').empty('');
+                $('#session').html(data);
+                $('#session').trigger("chosen:updated");
+            });
+        }
+    });
+
+    //Added: By Kedar 13 Nov. 2019
+    $(document).on('click','#getRecord',function() { 
+        var session_id = $('#session').val();
+        if (session_id) {
+            $('.load-box').css('display','block');
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'student/ajax-get-dept-wise-student-count'; ?>',
+                data: {session_id: session_id}
+            }).done(function (data) {
+                $('#ajaxData').empty('');
+                $('#ajaxData').html(data);
+                $('.load-box').css('display','none');
+            });
+        }
+    });
+    //End
+    //Get Batch By Session
+    $('body').on('change', '#session', function () {
+    //alert('jj');
+        var year_id = $('#session').val();
+        if (year_id) {
+
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-batch'; ?>',
+                data: {session: year_id}
+            }).done(function (data) {
+                $('#academic_id').empty('');
+                $('#academic_id').html(data);
+                $('#academic_id').trigger("chosen:updated");
+            });
+        }
+    });
+    
+    
+    $(document).ready(function () {
+            $('#dataTable').DataTable();
+            $("[id$=myButtonControlID]").click(function (e) {
+                window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('div[id$=divTableDataHolder]').html()));
+                e.preventDefault();
+            });
+        });
+
+
+    //End
+</script>

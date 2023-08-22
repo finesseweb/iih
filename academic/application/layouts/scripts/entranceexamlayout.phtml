@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+    <?php 
+    $uri = Zend_Controller_Front::getInstance()->getRequest()->getRequestUri();
+   $url1= 'https://pwcadmissions.in/academic/alumniassociation/';
+   $url2 = 'https://pwcadmissions.in/academic/contribution/';
+    $uri = $this->userAgent()->getServerValue('request_uri');
+    $ur = explode('/',$uri);
+    $url= $this->mainconfig['host'].$ur['2'].'/';
+   // echo $url; die();
+    if($url1==$url) {?>
+       <title> Alumni Association PWC Patna. </title>
+       <?php } elseif($url2==$url) {?>
+        <title> Contribution PWC Patna. </title>
+    <?php }else {?>
+    <title> Admissions Open for UG and PG Programs - PWC Patna. </title>
+    <?php } ?>
+   
+
+    <link href="<?php echo $this->mainconfig['publicpath']; ?>admission.css" rel="stylesheet">
+    <link href="<?php echo $this->mainconfig['publicpath']; ?>css/animate.css" rel="stylesheet">
+    <link href="<?php echo $this->mainconfig['publicpath']; ?>css/responsive.css" rel="stylesheet">
+    <link href="<?php echo $this->mainconfig['publicpath']; ?>css/custome.css" rel="stylesheet">
+    <link href="<?php echo $this->mainconfig['publicpath']; ?>css/jquery-ui.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo $this->mainconfig['publicpath']; ?>css/intlTelInput.css">
+    <link rel="stylesheet" href="<?php echo $this->mainconfig['publicpath']; ?>css/demo.css">
+   
+    <style>
+   
+   
+        .awesomplete {
+            width: 100%;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .awesomplete {
+            display: block !important;
+        }
+        
+        .awesomplete > ul {
+            z-index: 9999999 !important;
+            background: linear-gradient(to bottom right, white, hsla(0, 0%, 100%, 1.0)) !important;
+        }
+        .darkHeader a {
+            color: #d62832 !important;
+        }
+        
+        .dvBAhE{
+           padding-right: 0px!important;
+        }
+        
+        h3.text-uppercase {
+    margin-top:0px !important;
+       }
+       
+       .npf_wgts{
+           box-shadow: 0 0 10px #767676 !important;
+       }
+       .key{
+           min-height:8rem;
+       }
+       .footer_social_browser_contact_area{
+           position:fixed;
+           width:100%;
+           bottom:0;
+       }
+
+
+.nav-tabs.Programmestabs li {
+    text-align: center;
+    border: 0;
+     position: relative; 
+     top: -100px; 
+    z-index: 99;
+    margin: 0 30px;
+}
+
+  </style>
+    <!-- Google Tag Manager -->
+ </head>
+
+<body>
+  
+   <div id="preloader">
+        <div class="boxplus-load"></div>
+    </div>
+     <!--<div id="overlay"></div>-->
+    <header>
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-sm navbar-light fixed-top" id="mainNav">
+            <div class="container px-2 px-md-auto">
+                <a class="navbar-brand" href="#"><img src="<?php echo $this->mainconfig['publicpath']; ?>img/1572850577Logo.png" alt="MIT WPU Logo White" class="logox d-none d-md-block">
+                <!--<img src="img/logocolor.png" alt="MIT WPU" class="logofixed">-->
+                </a>
+                <a class="navbar-brand" href="#"><img src="<?php echo $this->mainconfig['publicpath']; ?>img/1572850577Logo.png" alt="MIT WPU Logo White" class=" d-block d-md-none">
+                <!--<img src="img/logocolor.png" alt="MIT WPU" class="logofixed">-->
+                </a>
+               <!-- <ul class="list-inline text-right pr-2 d-block d-md-none">
+                    <li class="list-inline-item"><a href="javascript:void(0);" class=" nav-link btnread" data-toggle="modal" data-target="#enquire-modal">Enquire Now</a></li>
+                </ul>-->
+                <div class="collapse d-none d-md-block" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item d-none d-md-block">
+                           <!-- <a class="nav-link btnread virt_btn d-none d-md-block" href="http://www.iviewd.com/mit_pune/" target="_blank"> VIRTUAL TOUR</a>-->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+     <?php echo $this->layout()->content; ?>  
+    <!-- footer 
+    <div class="footer_social_browser_contact_area  clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 float-left">
+                    <div class="made_by_text text-md-left text-center">
+                        <p class="mb-0">&copy; PWC <?=date("Y");?>.</p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="made_by_text text-md-right text-center">
+                        <p class="mb-0" >Powered by <a href="https://www.shikshaerp.com/" target="_blank" style="color: aquamarine;">shikshaerp.com</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ footer -->
+
+    <script src="<?php echo $this->mainconfig['publicpath']; ?>css/entrance/js/jquery-2.2.4.min.js"></script>
+    <script>
+    
+    $(document).ready(function () {
+    var originSrc = $(".logox").attr("src");
+    console.log(originSrc);
+    $(window).scroll(function () {
+        
+        var scroll = $(window).scrollTop();
+        console.log(scroll);
+        if (scroll >= 20) {
+            $(".navbar").addClass("darkHeader");
+            $(".logox").attr("src", "<?php echo $this->mainconfig['publicpath']; ?>img/1572850577Logo.jpg");
+        } else {
+            $(".navbar").removeClass("darkHeader");
+            $(".logox").attr("src", originSrc);
+        }
+    });
+    
+});
+</script>
+    <!-- Popper js -->
+    <!--<script src="js/popper.min.js" defer></script>
+    <script src="js/bootstrap.min.js" defer></script>-->
+    <!-- All Plugins JS -->
+ <!--   <script src="js/plugins.js" defer></script>
+    <script src="js/active.js" defer></script>
+    <script src="js/scripts.js" defer></script>
+    <script src="js/wow.min.js" defer></script>
+    <script src="build/js/intlTelInput.js"></script>
+    <script src="js/jquery-latest.min.js"></script>
+    <script src="js/jquery-ui.js" defer></script>
+    <script src="js/city.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.4/awesomplete.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.4/awesomplete.js"></script>
+    <script src="https://leaverou.github.io/awesomplete/awesomplete.js"></script>
+    <script src="utm_code.js"></script>
+    <script src="js/form_submit_home.js"></script>-->
+  
+    <script src="<?php echo $this->mainconfig['publicpath']; ?>css/entrance/js/mainscripts.js"></script>
+  
+    	<script src="<?php echo $this->mainconfig['publicpath']; ?>css/entrance/js/jquery-2.2.4.min.js"></script>
+	<!-- Popper js -->
+	<script src="<?php echo $this->mainconfig['publicpath']; ?>css/entrance/js/popper.min.js" defer></script>
+	<script src="<?php echo $this->mainconfig['publicpath']; ?>css/entrance/js/bootstrap.min.js" defer></script>
+	<!-- All Plugins JS -->
+	<script src="<?php echo $this->mainconfig['publicpath']; ?>css/entrance/js/plugins.js" defer></script>
+	<script src="<?php echo $this->mainconfig['publicpath']; ?>css/entrance/js/active.js" defer></script>
+	<script src="../ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script src="<?php echo $this->mainconfig['publicpath']; ?>css/entrance/js/scripts.js" defer></script>
+	<script src="<?php echo $this->mainconfig['publicpath']; ?>css/entrance/js/wow.min.js" defer></script>
+	<script src="<?php echo $this->mainconfig['publicpath']; ?>css/entrance/js/intlTelInput.js"></script>
+	<script src="<?php echo $this->mainconfig['publicpath']; ?>css/entrance/js/jquery-latest.min.js"></script>
+	<script src="<?php echo $this->mainconfig['publicpath']; ?>css/entrance/js/jquery-ui.js" defer></script>
+	<link rel="stylesheet" href="../cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.4/awesomplete.css">
+	<script type="text/javascript"
+		src="../cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.4/awesomplete.js"></script>
+	<script src="../projects.verou.me/awesomplete/awesomplete.js"></script>
+	<script src="<?php echo $this->mainconfig['publicpath']; ?>css/entrance/js/city.min.js"></script>
+	<script src="<?php echo $this->mainconfig['publicpath']; ?>css/entrance/js/form_submit_home.min.js"></script>
+    
+    <style type='text/css'>
+        .embeddedServiceHelpButton .helpButton .uiButton {
+            background-color: #005290;
+            font-family: "Times New Roman", sans-serif;
+        }
+        
+        .embeddedServiceHelpButton .helpButton .uiButton:focus {
+            outline: 1px solid #005290;
+        }
+        
+        .embeddedServiceHelpButton .uiButton .helpButtonLabel .message {
+            overflow: initial;
+            border-style: none;
+            margin: 0;
+            background-color: inherit;
+            color: inherit;
+        }
+        
+        .embeddedServiceSidebarFormField:nth-child(6),
+        .embeddedServiceSidebarFormField:nth-child(7),
+        .embeddedServiceSidebarFormField:nth-child(8),
+        .embeddedServiceSidebarFormField:nth-child(9) {
+            display: none;
+        }
+    </style>
+    <script type="text/javascript">
+
+/*        $(document).ready(function() {
+            $("#resulttable").hide();
+            $("#pay_fees_btn").show();
+
+            $("#resulttable1").hide();
+            $("#pay_fees_btn1").show();
+
+            $("#getresultbtn").click(function(e) {
+                e.preventDefault();
+                $('#resulterror').html("");
+                $("#resulttable").hide();
+                var regno = $.trim($("#regno").val());
+                if (!regno) {
+                    $('#resulterror').html("Enter Your Registration No.");
+                    return false;
+                }
+
+                $.ajax({
+                    url: "getmbaresult.php",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        regno: regno
+                    },
+                    type: 'POST',
+                    success: function(response) {
+                        if (response.status == "1") {
+
+                            $('#remark').html(response.data.result);
+                            $('#name').html(response.data.name);
+                            $('#category').html(response.data.category);
+                            $('#alloted').html(response.data.formno);
+
+                            console.log("result: " + response.data.result)
+
+                            if (response.data.result == "Hold" || response.data.result == "Rejected" || response.data.result == "Waiting") {
+                                $('#pay_fees_btn').hide();
+                            } else {
+                                $('#pay_fees_btn').show();
+                            }
+
+                            $("#resulttable").show();
+
+                        } else {
+                            // alert("please try again.");
+                            $('#resulterror').html("Registration number not found");
+                        }
+                    }
+                });
+            });
+            $("#getresultbtn1").click(function(e) {
+                e.preventDefault();
+                $('#resulterror1').html("");
+                $("#resulttable1").hide();
+                var regno = $.trim($("#regno1").val());
+                if (!regno) {
+                    $('#resulterror1').html("Enter Your Registration No.");
+                    return false;
+                }
+
+                $.ajax({
+                    url: "getmbaresult.php",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        regno: regno
+                    },
+                    type: 'POST',
+                    success: function(response) {
+                        if (response.status == "1") {
+
+                            $('#remark1').html(response.data.result);
+                            $('#name1').html(response.data.name);
+                            $('#category1').html(response.data.category);
+                            $('#alloted1').html(response.data.formno);
+
+                            console.log("result: " + response.data.result)
+
+                            if (response.data.result == "Hold" || response.data.result == "Rejected" || response.data.result == "Waiting") {
+                                $('#pay_fees_btn1').hide();
+                            } else {
+                                $('#pay_fees_btn1').show();
+                            }
+
+                            $("#resulttable1").show();
+
+                        } else {
+                            // alert("please try again.");
+                            $('#resulterror1').html("Registration number not found");
+                        }
+                    }
+                });
+            });
+
+        });*/
+    </script>
+    <script>
+       /* var countryData = window.intlTelInputGlobals.getCountryData();
+        var input = document.querySelector("#phone_home");
+        var iti = window.intlTelInput(input, {
+            allowDropdown: true,
+            autoHideDialCode: false,
+            autoPlaceholder: "polite",
+            placeholderNumberType: "MOBILE",
+            separateDialCode: true,
+            initialCountry: "IN",
+            nationalMode: false,
+            dropdownContainer: document.body,
+            utilsScript: "build/js/utils.js",
+        });*/
+
+        /* listen to the telephone input for changes
+        input.addEventListener('countrychange', function(e) {*/
+            // console.log(iti.getSelectedCountryData().iso2);
+      /*      $('#country_short_code').val(iti.getSelectedCountryData().iso2);
+            if (iti.getSelectedCountryData().iso2 != "in") {
+                $('#city_div').hide();
+                $('#cityhide1').show();
+            } else {
+                $('#city_div').show();
+                $('#cityhide1').hide();
+            }
+        });*/
+    </script>
+    
+    
+    
+    <script type="text/javascript">
+		var wpuEnqUtmSource = '';
+		var wpuEnqUtmMedium = '';
+		var wpuEnqUtmCampaign = '';
+
+		var schoolNameFromUrl = '';
+		var programNameFromUrl = '';
+
+		$(document).ready(function () {
+			handleSchoolProgramListsOptGroup();
+			getUrlParams();
+		});
+
+		function getUrlParams() {
+			var wpuEnqUrlStr = window.location.href;
+			var wpuEnqUrl = new URL("https://admissions.mitwpu.edu.in/wpuEnqUrlStr");
+			var wpuEnqUrlSearchParams = wpuEnqUrl.searchParams;
+
+			wpuEnqUtmSource = wpuEnqUrlSearchParams.get('utm_source');
+			wpuEnqUtmMedium = wpuEnqUrlSearchParams.get('utm_medium');
+			wpuEnqUtmCampaign = wpuEnqUrlSearchParams.get('utm_campaign');
+
+			schoolNameFromUrl = wpuEnqUrlSearchParams.get('program');
+			programNameFromUrl = wpuEnqUrlSearchParams.get('specialization');
+
+			if (schoolNameFromUrl !== null)
+			{
+				document.getElementById('category1').click();
+				document.getElementById('category1').value = schoolNameFromUrl;
+				document.getElementById('category1').dispatchEvent(new Event('change'));
+
+				if (programNameFromUrl !== null)
+				{
+					setTimeout(() => {
+						document.getElementById('category2').click();
+						document.getElementById('category2').value = programNameFromUrl;
+						document.getElementById('category2').dispatchEvent(new Event('change'));
+					}, 1500);
+				}
+			}
+			else
+			{
+				if (programNameFromUrl == null)
+				{
+					jQuery('#category2').prop('disabled', true);
+				}
+			}
+		}
+
+		var countryData = window.intlTelInputGlobals.getCountryData();
+		var input = document.querySelector("#phone_home");
+
+		var iti = window.intlTelInput(input, {
+			allowDropdown: true,
+			autoHideDialCode: false,
+			autoPlaceholder: "polite",
+			placeholderNumberType: "MOBILE",
+			separateDialCode: true,
+			initialCountry: "IN",
+			nationalMode: false,
+			dropdownContainer: document.body,
+			utilsScript: "enquiry/frontend/js/utils.js",
+		});
+
+		input.addEventListener('countrychange', function (e) {
+			$('#country_short_code').val(iti.getSelectedCountryData().iso2);
+			if (iti.getSelectedCountryData().iso2 != "in") {
+				$('#city_div').hide();
+				$('#cityhide1').show();
+			} else {
+				$('#city_div').show();
+				$('#cityhide1').hide();
+			}
+		});
+	</script>
+
+	<script language="javascript">print_state("state");</script>
+
+	<!-- Start of HubSpot Embed Code -->
+	<!--<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/8183801.js"></script>-->
+	<!-- End of HubSpot Embed Code -->
+	
+	
+	<!--Start of SuperBot Chat Script-->
+ <script type="text/javascript" async>
+// window.$superbot||(function(d,s){var _sb=$superbot=function(c){_sb._.push(c)},$=_sb.s=d.createElement(s),e=d.getElementsByTagName(s)[0];_sb.set=function(o){_sb.set._.push(o)};_sb._=[];_sb.set._=[];$.async=!0;$.setAttribute("charset","utf-8");$.src="https://app.superbot.works/agent.js?a=eay1z4EL62&l=en";_sb.t=+new Date;$.type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
+// var _sb_visitor="";
+// </script>
+<!--End of SuperBot Chat Script-->
+	<script type="text/javascript">
+var s=document.createElement("script");
+s.type="text/javascript";
+s.async=true;
+s.src="../widgets.in5.nopaperforms.com/emwgts.html";
+document.body.appendChild(s);
+</script>
+
+</body>
+
+
+<!-- Mirrored from admissions.mitwpu.edu.in/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 23 Mar 2022 12:44:40 GMT -->
+</html>
+								
+											
+													

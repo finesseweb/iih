@@ -1,0 +1,42 @@
+<table class="table table-striped table-bordered mb30 jambo_table bulk_action" id="datatable-responsive">
+    <thead>
+        <tr>
+            <th>S.No.</th>												
+            <th>Session</th>
+            <th>Credit course</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $i = 1;
+        $pagination_tr = '';
+        if (count($this->paginator) != 0) {
+
+            foreach ($this->paginator as $results) {
+                //print_r($results);die;
+                ?>
+                <tr>
+                    <td><?php
+                        echo $i;
+
+                        $i++;
+                        ?>
+                    </td>						
+
+
+                    <td><?php echo $results['session']; ?></td>
+                    <input type="hidden" name="credit_course[]" value="<?= $results['credit_course'] ?>" />
+                    <td><?php echo $results['credit_course']; ?></td>
+
+                    
+                </tr>            
+
+                <?php
+            }
+            $pagination_tr = $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
+        }
+        ?>
+
+    </tbody>
+</table>
+<?php echo $pagination_tr; ?>

@@ -1,0 +1,48 @@
+<table class="table table-striped table-bordered mb30 jambo_table bulk_action" id="datatable-responsive">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center;">S. No.</th>	
+                                        <th style="text-align:center">Degree</th>
+                                         <th style="text-align:center;">Stream</th>
+                                        <th style="text-align:center;">Major Course</th>
+                                        <th style="text-align:center">Description</th>
+                                        
+                                        <th style="text-align:center">status</th>
+                                        <th class="no_print" style="text-align:center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align:center;">
+                                    <?php
+                                    $i = 1;
+                                    $pagination_tr = '';
+                                    if (count($this->paginator) != 0) {
+
+                                        foreach ($this->paginator as $results) {
+                                            ?>
+                                            <tr>
+                                                <td><?php
+                                                    echo $i;
+                                                    $i++;
+                                                    ?>
+                                                </td>						
+                                             <!--   <td><?php// echo date('d-m-Y', strtotime($results['created_date'])); ?></td>-->
+                                                <td><?=$results['degree_id'];  ?></td>
+                                                  <td><?php echo $results['department_type']; ?><!-- for  stream--></td>
+                                                  <td><?php echo $results['department']; ?> <!-- for  major--></td>
+                                                   <td><?=$results['description'];  ?></td>
+                                                  
+                                                <?php if ($results['status'] == 0) { ?>
+                                                    <td>Active</td>
+                                                <?php } else { ?>
+                                                    <td class='text-danger'>Inactive</td>
+                                                <?php } ?>
+     <td><a href="<?php echo $this->mainconfig['host']; ?>plan/department/type/edit/id/<?php echo $results['id']; ?>" class="edit" title="Edit">View / Edit</a>&nbsp;</td> 
+                                            </tr>            
+                                            <?php
+                                        }
+                                        $pagination_tr = $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                            <?php echo $pagination_tr; ?>

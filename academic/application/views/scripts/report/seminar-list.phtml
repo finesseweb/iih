@@ -1,0 +1,366 @@
+<style>
+   
+    #refresh{
+        cursor:pointer;
+    }
+    
+    
+</style>
+<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
+<div class="right_col bdoypayment">
+    <div class="load-box" style="z-index:998">
+    <img src="<?php echo $this->mainconfig['publicpath']; ?>/images/loader.gif" width='200px'  class="loder_img1" />
+</div>
+    
+     <?php if($this->type){
+       //  print_r($this->row);
+         ?> 
+     <div class="row">
+                    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-5">
+                        <h3 class="page-title txt-color-blueDark">
+                            <i class="fa fa-bars">Seminar Details</i>
+
+                        </h3>
+                    </div>
+                </div>
+ <form method="post" action="" enctype="multipart/form-data">
+                    <div class="row">
+                     
+                              <div class=" col-lg-3 ">
+                                    <div class="form-group">
+                                        <label>Name of the Paper Presenter </label>
+                                        <input type="text" name="name" id="name" required="required" readonly class="form-control alumin" >
+                                </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group" >
+                                        <label>Email id </label>
+                                        <input type="text" name="email" id="email" class="form-control alumin" readonly required="required" >
+                                </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Mobile Number (WhatsApp Activated)</label>
+                                        <input type="text" name="number" id="number" class="form-control alumin" readonly required="required" >
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Designation</label>
+                                        <select name="designation" id="designation" class="form-control alumin" readonly required="required">
+                                            <option value="">Select</option>
+                                            <option value="Faculty Member">Faculty Member</option>
+                                            <option value="PG Student">PG Student</option>
+                                            <option value="Research Scholar">Research Scholar</option>
+                                            <option value="Other Professional">Other Professional</option>
+                                        </select>
+                                        
+                                </div>
+                                </div>
+    
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Title of the Paper</label>
+                                        <input type="text" name="title" id="title" class="form-control alumin" readonly required="required" >
+                                </div>
+                                </div>
+                                   <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Choose Sub-Theme of the Paper</label>
+                                          <select name="theme" id="theme" class="form-control alumin" readonly required="required">
+                                            <option value="">Select</option>
+                                            <option value="Trends of Urbanization in the world">Trends of Urbanization in the world</option>
+                                            <option value="Trends of Urbanization in post-independent India">Trends of Urbanization in post-independent India</option>
+                                            <option value="Urban Systems">Urban Systems</option>
+                                            <option value="Ecology of cities and towns">Ecology of cities and towns</option>
+                                            <option value="Urban environmental issues">Urban environmental issues</option>
+                                            <option value="Urban societies">Urban societies</option>
+                                            <option value="Amenities and Services">Amenities and Services</option>
+                                            <option value="Changing landscape and land use of urban centres">Changing landscape and land use of urban centres</option>
+                                            <option value="Urban economy">Urban economy</option>
+                                            <option value="Urbanization and gender issues">Urbanization and gender issues</option>
+                                            <option value="Smart City- Concept, Development and Challenges">Smart City- Concept, Development and Challenges</option>
+                                            <option value="Urban Problems and Slum improvement">Urban Problems and Slum improvement</option>
+                                            <option value="Urban Planning">Urban Planning</option>
+                                            <option value="Towards Sustainable Development">Towards Sustainable Development</option>
+                                            <option value="Sustainable Development Goals">Sustainable Development Goals</option>
+                                            <option value="Women Work-force">Women Work-force</option>
+                                            <option value="Urban Governance">Urban Governance</option>
+                                            <option value="Any other relevant topic/issue">Any other relevant topic/issue</option>
+                                        </select>
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Institutional Affiliation/Organization</label>
+                                        <input type="text" name="instituition" id="instituition" required="required" readonly class="form-control alumin" >
+                                </div>
+                                </div>
+                                   <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>State</label>
+                                        <input type="text" name="state" id="state" readonly class="form-control alumin" >
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Nationality</label><br>
+                                        <select name="nationality" id="nationality" class="form-control alumin" readonly required="required">
+                                            <option value="">Select</option>
+                                            <option value="Indian">Indian</option>
+                                            <option value="Foreign National">Foreign National</option>
+                                        </select>
+                                </div>
+                                </div>
+                                   
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Payment Mode</label>
+                                        <select name="pay_mode" id="mpay_mode" class="form-control alumin">
+                                            <option value="">Select</option>
+                                            <option value="Online">Online</option>
+                                            <option value="NEFT">NEFT</option>
+                                            <option value="RTGS">RTGS</option>
+                                        </select>
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Life Membership Registration Amount</label>
+                                        <input type="text" name="reg_amt" id="reg_amt" class="form-control alumin" value="500" readonly="readonly">
+                                </div>
+                                </div>
+                                
+                                
+                                </div>
+                           <div class="row" >
+                                   <div class="col-md-3" id="payement5" style="display: none;" >
+                                    <div class="form-group">
+                                        <label>Bank Name</label>
+                                        <input type="text" name="bank_name" id="bank_name" class="form-control alumin" value="<?=$this->row['bank_name']?>" >
+                                </div>
+                                </div>
+                                   <div class="col-md-3" id="payement6" style="display: none;">
+                                    <div class="form-group">
+                                        <label>Transaction ID</label>
+                                        <input type="text" name="mmp_txn" id="transaction_id" class="form-control alumin" value="<?=$this->row['mmp_txn']?>">
+                                </div>
+                                </div>
+                                  <div class="col-md-3" id="payement7" style="display: none;" >
+                                    <div class="form-group">
+                                        <label>UTR No.</label>
+                                        <input type="text" name="bank_txn" id="utr_no" class="form-control alumin" value="<?=$this->row['bank_txn']?>">
+                                </div>
+                                </div>
+                                  <div class="col-md-3" id="payement8" style="display: none;">
+                                    <div class="form-group">
+                                        <label>Transaction Date</label>
+                                        <input type="date" name="date" id="adhar_doc" class="form-control alumin" value="<?=$this->row['date']?>" >
+                                </div>
+                                </div>
+                                <!--  <div class="col-md-3" id="payment4" style="display: none;" >-->
+                                <!--    <div class="form-group">-->
+                                <!--        <label> Document (Allow Only .jpg/.png/.pdf)</label>-->
+                                <!--        <input type="file" name="document" id="document" class="form-control alumin"  >-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <div class="col-md-3" id="payment5" style="display: none;" >
+                                    <div class="form-group">
+                                        <label> Download Document </label>
+                                        <ul><li><a href="<?php echo $this->mainconfig['publicpath'].'seminar/doc/'.$this->row['document'] ?>" download="<?php echo $this->row['document'] ?>"><?=$this->row['document']?></a></li></ul>
+                                        
+                                </div>
+                                </div>
+                                </div>   
+                                <div class="row"><input type="submit" name="" class="btn btn-info"></div>
+                    </div>
+                    
+                              </form>
+
+   <?php } else { ?>    
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-5">
+                        <h3 class="page-title txt-color-blueDark">
+                            <i class="fa fa-bars">Seminar Details</i>
+
+                        </h3>
+                    </div>
+                </div>
+                
+                
+
+                <div class="col-md-12">
+                    <div class="col-sm-3 employee_class">
+                        <div class="form-group">
+                    <label class="control-label">From Date<span class="asterisk">*</span></label>
+                        <?php //echo $this->form->academic_year; ?>
+                    <input type="date" name="f_date" id="f_date" class="form-control">
+                        </div>
+                    </div>     
+                    <div class="col-sm-3 employee_class">
+                        <div class="form-group">
+                        <label class="control-label">To Date<span class="asterisk">*</span></label>
+                     <?php //echo $this->form->session; ?>
+                        <input type="date" name="to_date" id="to_date" class="form-control">
+                        </div>
+                    </div>
+                  <div class="col-sm-3 employee_class">
+                        <div class="form-group">
+                            <button type="button" id="getRecords" class="btn btn-primary pull-right" style="margin-top:1.5em;z-index:999;" value="0" >Get Records</button>
+                        </div>
+                   </div>
+                   
+                   
+                <div style="float:left;padding-left:10%;">
+                </div>
+                </div>
+                 <div class="col-md-12">
+                   <div class="table-responsive" id="ajaxData"> 
+                       <table class="table table-striped table-bordered mb30 jambo_table bulk_action dataTable" id="datatable-responsive" style="height:100%">
+                            <thead>
+                                <tr>
+
+                                    <th class="no-sort">S.No.</th>
+                                    <th>Name</th>
+                                    <th>Email ID</th>
+                                    <th>Mobile No </th>
+                                    <th>Title</th>
+                                    <th>Theme</th>
+                                    <th>Instituition </th>
+                                    <th>Payment Mode</th>
+                                    <th>Registration Amount</th>
+                                    <th>Payment Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               
+                                                <tr>
+                                                    <td colspan="9">
+                                                        <h2 style="color:red">
+                                                            No Records Available.
+                                                </h2>
+                                            </td>
+                                        </tr>
+                               
+
+                            </tbody>
+                        </table>
+
+                        
+                       
+                    </div>
+                </div>
+       
+            </div>    
+           
+
+        </div>
+   <?php } ?>
+        </div>
+ 
+ <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
+     <script>
+     
+      $('body').on('click', '#getRecords', function() {
+    
+    let f_date = $('#f_date').val();
+    let to_date = $('#to_date').val();
+   
+    
+    $('.load-box').css('display','block');
+    $.ajax({
+        type: "POST",
+        url: '<?php echo $this->mainconfig['host'] . 'report/ajax-get-seminar-record'; ?>',
+        data: {f_date:f_date,to_date:to_date}
+    }).done(function (data) {
+        $('#ajajxData').empty('');
+        $('#ajaxData').html(data);
+        $('.load-box').css('display','none');
+
+    });
+});
+     
+var inputvalue = `<?php echo json_encode($this->row);?>`;
+    if(inputvalue){
+        var arrayinput = JSON.parse(inputvalue);
+       var  pay = arrayinput['pay_mode'];
+         if(pay=='NEFT' || pay=='RTGS') {
+       
+        
+        $("#payement5").show();
+        $("#payement6").show();
+        $("#payement7").show();
+        $("#payement8").show();
+        $("#payement9").show();
+        $("#payement5 .form-control").attr("required","required");
+        $("#payement6 .form-control").attr("required","required");
+        $("#payement7 .form-control").attr("required","required");
+        $("#payement8 .form-control").attr("required","required");
+        $("#payement9 .form-control").attr("required","required");
+        $("#payment5").show();
+        }
+        else {
+ 
+        
+         $('#payement5').hide();
+        $('#payement6').hide();
+        $('#payement7').hide();
+        $('#payement8').hide();
+        $('#payement9').hide(); 
+        $("#payment5").hide();
+        $('#payement5 .form-control').removeAttr("required");
+        $('#payement6 .form-control').removeAttr("required");
+        $('#payement7 .form-control').removeAttr("required");
+        $('#payement8 .form-control').removeAttr("required");
+        $('#payement9 .form-control').removeAttr("required");
+        }
+        
+        $(".form-control").each(function(){
+            var id = $(this).attr("id");
+            
+            $('[name="'+id+'"]').val(arrayinput[id]);
+             $('[name="pay_mode"]').val(arrayinput['pay_mode']);
+        });
+       
+    }
+
+
+        $('body').on('keyup change drop paste',"#designation",function() {
+            var ind = $('option:selected',this).index();
+                if(ind==2 || ind == 3){
+                   $('input[readonly]').val(200);
+                }
+                else
+                {
+                  $('input[readonly]').val(500);
+                }
+        });
+  
+        $('body').on('keyup change drop paste',"#mpay_mode",function() {
+    var pay=$("#mpay_mode").val();
+   
+    if(pay=='NEFT' || pay=='RTGS') {
+       
+        
+        $("#payement5").show();
+        $("#payement6").show();
+        $("#payement7").show();
+        $("#payement8").show();
+        $("#payement9").show();
+        }
+        else {
+ 
+        
+         $('#payement5').hide();
+        $('#payement6').hide();
+        $('#payement7').hide();
+        $('#payement8').hide();
+        $('#payement9').hide(); 
+        }
+    }); 
+   
+    </script>

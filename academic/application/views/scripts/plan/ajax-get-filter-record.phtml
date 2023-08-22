@@ -1,0 +1,176 @@
+<table class="table table-striped table-bordered mb30 jambo_table bulk_action" id="datatable-responsive">
+    <thead>
+        <tr>
+            <th >S. No.</th>
+            <th>Session</th>
+            <th>Batch</th>
+            <th>Semester</th>
+            <th>Exam Type</th>
+            <th >Month Of Exam </th>
+            <th >Result Publish Date</th>
+            <th >Revaluation Date</th>
+            <th >END Date</th>
+            <th class="no_print" style="text-align:center">Admin Mark-Sheet Status</th>
+            <th class="no_print" style="text-align:center">Student Mark-Sheet Status</th>
+            <th class="no_print" style="text-align:center">Admit Card Status</th>
+            <th class="no_print" style="text-align:center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $i = 1;
+        $pagination_tr = '';
+        if (count($this->paginator) != 0) {
+
+            foreach ($this->paginator as $results) {
+                ?>
+                <tr>
+                    <td><?php
+                        echo $i;
+                        $i++;
+                        ?>
+                    </td>
+                    <td><?php echo $results['session']; ?></td>
+                    <td><?= !empty($results['academic_id']) ? $results['short_code'] : 'N/A' ?></td>
+                    <td><?php echo $results['term_name']; ?></td>
+                    <?php if ($results['exam_type'] == 1) { ?>
+                        <td>Collegiate</td>
+                    <?php } else { ?>
+                        <td class='text-danger'>Non-Collegiate</td>
+                    <?php } ?>
+                    <td><?php echo $results['exam_date']; ?></td>
+                    <td><?php echo $results['result_publish_date']; ?></td>
+                    <td><?php echo $results['reval_date']; ?></td>
+                    <td><?php echo $results['end_date']; ?></td>
+<!--                    <td style="text-align:center"><a href="<?php echo $this->mainconfig['host']; ?>plan/exam-dates/type/lock_marksheet/id/<?php echo $results['id']; ?>/update_id/<?php echo $results['mark_sheet_status']; ?>" class="delete" title="Update"><?php
+                            if ($results['mark_sheet_status'] == 0) {
+                                echo '<span style="color:red" class="fa fa-lock fa-lg"></span>';
+                            } else {
+                                echo '<span style="color:green" class="fa fa-unlock fa-lg"></span>';
+                            }
+                            ?></a>
+                    </td>-->
+                    <td >
+                        <input type="hidden" value="<?= $results['id']; ?>" id="id">
+                        <input type="hidden" value="<?= $results['mark_sheet_status']; ?>" id="status">
+                        <div class="ms_status" id='ms_status-<?= $results['id']; ?>'>
+                        <?php
+                            if ($results['mark_sheet_status'] == 0) {
+                                echo '<button type="button"   <span style="color:red" class="fa fa-lock fa-lg mslockStatus"></span> </button>';
+                            } else {
+                                echo '<button type="button" <span style="color:green" class="fa fa-unlock fa-lg mslockStatus"></span> </button>';
+                            }
+                        ?>
+                        </div>
+                    </td>
+                    <td >
+                        <input type="hidden" value="<?= $results['id']; ?>" id="id">
+                        <input type="hidden" value="<?= $results['stu_mark_sheet_status']; ?>" id="status">
+                        <div class="ms_stu_status" id='ms_stu_status-<?= $results['id']; ?>'>
+                        <?php
+                            if ($results['stu_mark_sheet_status'] == 0) {
+                                echo '<button type="button"   <span style="color:red" class="fa fa-lock fa-lg stumslockStatus"></span> </button>';
+                            } else {
+                                echo '<button type="button" <span style="color:green" class="fa fa-unlock fa-lg stumslockStatus"></span> </button>';
+                            }
+                        ?>
+                        </div>
+                    </td>
+                    <td >
+                        <input type="hidden" value="<?= $results['id']; ?>" id="id">
+                        <input type="hidden" value="<?= $results['admit_card_status']; ?>" id="status">
+                        <div class="adm_status" id='adm_status-<?= $results['id']; ?>'>
+                        <?php
+                            if ($results['admit_card_status'] == 0) {
+                                echo '<button type="button"   <span style="color:red" class="fa fa-lock fa-lg aclockStatus"></span> </button>';
+                            } else {
+                                echo '<button type="button" <span style="color:green" class="fa fa-unlock fa-lg aclockStatus"></span> </button>';
+                            }
+                        ?>
+                        </div>
+                    </td>
+<!--                    <td  style="text-align:center"><a href="<?php echo $this->mainconfig['host']; ?>plan/exam-dates/type/lock_admitcard/id/<?php echo $results['id']; ?>/update_id/<?php echo $results['admit_card_status']; ?>" class="delete" title="Update"><?php
+                            if ($results['admit_card_status'] == 0) {
+                                echo '<span style="color:red" class="fa fa-lock fa-lg"></span>';
+                            } else {
+                                echo '<span style="color:green" class="fa fa-unlock fa-lg"></span>';
+                            }
+                            ?></a></td>-->
+                    <td><a href="<?php echo $this->mainconfig['host']; ?>plan/exam-dates/type/edit/id/<?php echo $results['id']; ?>" class="edit" title="Edit">View / Edit</a>&nbsp;</td> 
+                </tr>            
+                <?php
+            }
+            $pagination_tr = $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
+        }
+        ?>
+    </tbody>
+</table>
+<?php echo $pagination_tr; ?>
+<script>
+    
+    setDatatables();
+    // for marksheet status
+    $(".mslockStatus").click(function() {
+    let id = $(this).closest("td").find("#id").val();
+    let status_id=$(this).closest("td").find('#status').val();
+    
+    //alert(id + status_id);
+    
+    $.ajax({
+        type: "POST",
+        url: '<?php echo $this->mainconfig['host'] . 'plan/ajax-update-mark-sheet-status'; ?>',
+        data: {id:id,status_id:status_id}
+    }).done(function (data) {
+        if(data== 'Unlocked'){
+            var Unlock = "<button type='button' <span style='color:green' class='fa fa-unlock fa-lg mslockStatus'></span> </button>";  
+            $("#ms_status-"+id).html(Unlock);
+        }else{
+            var lock = "<button type='button' <span style='color:red' class='fa fa-lock fa-lg mslockStatus'></span> </button>";    
+            $("#ms_status-"+id).html(lock);
+        }
+    }); 
+    });
+    
+    $(".stumslockStatus").click(function() {
+    let id = $(this).closest("td").find("#id").val();
+    let status_id=$(this).closest("td").find('#status').val();
+    
+    //alert(id + status_id);
+    
+    $.ajax({
+        type: "POST",
+        url: '<?php echo $this->mainconfig['host'] . 'plan/ajax-update-stu-mark-sheet-status'; ?>',
+        data: {id:id,status_id:status_id}
+    }).done(function (data) {
+        if(data== 'Unlocked'){
+            var Unlock = "<button type='button' <span style='color:green' class='fa fa-unlock fa-lg stumslockStatus'></span> </button>";  
+            $("#ms_stu_status-"+id).html(Unlock);
+        }else{
+            var lock = "<button type='button' <span style='color:red' class='fa fa-lock fa-lg stumslockStatus'></span> </button>";    
+            $("#ms_stu_status-"+id).html(lock);
+        }
+    }); 
+    });
+    
+    //For admit card
+    $(".aclockStatus").click(function() {
+    let id = $(this).closest("td").find("#id").val();
+    let status_id=$(this).closest("td").find('#status').val();
+    
+    //alert(id + status_id);
+    
+    $.ajax({
+        type: "POST",
+        url: '<?php echo $this->mainconfig['host'] . 'plan/ajax-update-admit-card-status'; ?>',
+        data: {id:id,status_id:status_id}
+    }).done(function (data) {
+        if(data== 'Unlocked'){
+            var Unlock = "<button type='button' <span style='color:green' class='fa fa-unlock fa-lg aclockStatus'></span> </button>";  
+            $("#adm_status-"+id).html(Unlock);
+        }else{
+            var lock = "<button type='button' <span style='color:red' class='fa fa-lock fa-lg aclockStatus'></span> </button>";    
+            $("#adm_status-"+id).html(lock);
+        }
+    });     
+});
+    </script>

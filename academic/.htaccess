@@ -1,0 +1,26 @@
+#RewriteEngine On
+#
+#RewriteCond %{HTTPS} off
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+#RewriteRule ^(.*)$ public/$1?%{QUERY_STRING} [QSA,L].
+
+<IfModule mod_headers.c>
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+Header set X-XSS-Protection "1; mode=block"
+Header always append X-Frame-Options SAMEORIGIN
+Header set X-Content-Type-Options nosniff
+Header set Content-Security-Policy:  "default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob: data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;"
+#Header set Content-Security-Policy "default-src 'self'"
+# Header set Access-Control-Allow-Origin "*"
+ Header set Access-Control-Allow-Origin "https://pwcadmissions.in"
+</IfModule>
+
+
+RewriteEngine On
+#RewriteCond %{HTTPS} off
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,NE,R=301]
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteRule ^(.*)$ public/$1?%{QUERY_STRING} [QSA,L]

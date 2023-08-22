@@ -1,0 +1,818 @@
+
+   <!-- jQuery -->
+ 
+    
+    <!-- Bootstrap -->
+    
+    <script src="<?php echo $this->mainconfig['publicpath'];?>vendors/nprogress/nprogress.js"></script>
+    <!-- gauge.js -->
+ <link href="<?php echo $this->mainconfig['publicpath'];?>css/multislider/custom.css" rel="stylesheet">
+
+
+    <!-- Compiled and minified JavaScript -->
+<!--<script src="<?php echo $this->mainconfig['publicpath'];?>vendors/bootstrap/dist/js/bootstrap.min.js"></script>-->
+    <!-- Custom Theme Scripts -->
+    <!--<script src="<?php echo $this->mainconfig['publicpath'];?>build/js/custom.min.js"></script>         -->
+                
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>   
+              <!-- CSS -->
+
+                      <style>
+                          .bg-dark{
+                              background:#000 !important;
+                              color:#fff;
+                          }
+                         .card{
+                             box-shadow:1px 2px 4px #000;
+                             margin:0.4em;
+                             padding-bottom:0.3em;
+                         }
+/*                          .fixed_height_320 {*/
+/*    height: 335px;*/
+/*}*/
+.x_title {
+    border-bottom: 2px solid #E6E9ED;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+canvas{
+
+max-height:252px !important;
+}
+
+.item{
+    margin:.3em;
+}
+.item img{
+    position:relative;
+    
+    top:50%;
+    left:50%;
+    transform:translate(-50%,30%);
+}
+.toppers{
+    position:absolute;
+    top:8%;
+    
+    font-size:2em;
+    letter-spacing:1.5em;
+    color:#c7c7c7;
+    font-weight:bolder;
+    transform:rotate(-20deg);
+}
+.media-body{
+    font-size:1em;
+}
+blockquote{
+     font-size:.9em;
+}
+
+
+                      </style>
+                      
+                      
+<div class="right_col"  role="main">
+    <div class="row x_title">
+            <div class="col-md-12">
+                <div class="col-md-6 col-xs-12 pull-left">
+                    <h3>School Management Dashboard</h3>
+                </div>
+                 <div class="col-md-6 col-xs-12 ">
+                    <div class="dropdown pull-right">
+                      <button class=" dropdown-toggle" type="button" data-toggle="dropdown">Theme
+                      <span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                        <li><a href="#" data-id="Light">Light</a></li>
+                        <li><a href="#" data-id="Dark">Dark</a></li>
+                      </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12" >
+            <div class="row">
+               <div class="col-md-12 col-sm-12 col-xs-12" >
+              <div class="x_panel tile fixed_height_320" style="height:665px;overflow: scroll;">
+                <div class="x_title">
+                  <h2>Student Messages</h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Settings 1</a>
+                        </li>
+                        <li><a href="#">Settings 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                                          <div class="dashboard-widget-content">
+                                              <div id="complain_box" style="height:100%">
+                                                  <div class="container" >
+                                                        No Unread Messages
+                                                  </div>
+                                              </div>
+                                        
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-9 col-lg-9 col-sm-9 col-xs-12">
+                <div class="row">
+                  <div class="filter col-md-6 col-sm-6 pull-left">
+                   <div class="row">   
+                 <div class="card filters col-md-4">
+                     <div class="x_title">
+                    <h6>Select Session</h6>
+                    <div class="clearfix"></div>
+                  </div>
+                    <div id="filters--session-range" class="card-body pull-left" style=" cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                      <i class="fa fa-filter"></i>
+                      <!--<span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>-->
+                      <?php $session_details = new Application_Model_Session();
+                            $session_details = $session_details->getRecords();
+                            
+                      ?>
+                      <select id="session-dropdown" class="">
+                          <?php foreach($session_details as $key => $value){ ?>
+                          <option value="<?=$value['id']?>"><?=$value['session'];?></option>
+                          <?php } ?>
+                      </select>
+                    </div>
+                  </div>
+
+                <div class="card filters col-md-4">
+                    <div class="x_title">
+                    <h6>Select Semester</h6>
+                    <div class="clearfix"></div>
+                  </div>
+                    <div id="filters--Semester-range" class="card-body pull-left" style=" cursor: pointer;  margin:0px 5px; padding: 5px 10px; border: 1px solid #ccc">
+                          <i class="fa fa-filter"></i>
+                      <select id="semester-dropdown" class="">
+                          <option value="t1">Semester I</option>
+                          <option value="t2">Semester II</option>
+                          <option value="t3">Semester III</option>
+                          <option value="t4">Semester IV</option>
+                          <option value="t5">Semester V</option>
+                          <option value="t6">Semester VI</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                   <div class="card filters col-md-3">
+                       <div class="x_title">
+                    <h6>Select Department</h6>
+                    <div class="clearfix"></div>
+                  </div>
+                    <div id="filters--Department-range" class="card-body pull-left" style="cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                          <i class="fa fa-filter"></i>
+                      <select id="department-dropdown" class="">
+                    </select>
+                    </div>
+                  </div>
+                  </div>
+                 
+                      <div class="row tile_count">
+                        <div class="card col-md-4 col-sm-4 col-xs-6 tile_stats_count bg-green">
+                          <span class="count_top"><i class="fa fa-user"></i> Total Students</span>
+                          <div class="count" id="total_student">0</div>
+                          <span class="count_bottom"><i class="">0% </i> From last Week</span>
+                        </div>
+                        <div class="card col-md-4 col-sm-4 col-xs-6 tile_stats_count bg-blue">
+                          <span class="count_top"><i class="fa fa-clock-o"></i> Result</span>
+                           <div class="count " id="pass_students">0%</div>
+                          <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>0 </i> From last Week</span>
+                        </div>
+                        <div class="card col-md-3 col-sm-4 col-xs-6 tile_stats_count bg-red">
+                          <span class="count_top"><i class="fa fa-book"></i> Total Courses</span>
+                          <div class="count " id="total_courses">0</div>
+                          <span class="count_bottom"><i class=""><i class="fa fa-sort-asc"></i>0 </i> From last Week</span>
+                        </div>
+                         <div class="card col-md-4 col-sm-4 col-xs-6 tile_stats_count bg-orange">
+                          <span class="count_top"><i class="fa fa-user"></i> Active Students</span>
+                          <div class="count " id="active_students" >0</div>
+                          <span class="count_bottom"><i class=""><i class="fa fa-sort-asc"></i>0 </i> From last Week</span>
+                        </div>
+                         <div class="card col-md-4 col-sm-4 col-xs-6 tile_stats_count bg-green">
+                          <span class="count_top"><i class="fa fa-user"></i> Inactive Students</span>
+                          <div class="count" id="inactive_students">0</div>
+                          <span class="count_bottom"><i class=""><i class="fa fa-sort-asc"></i>0 </i> From last Week</span>
+                        </div>
+                         <div class="card col-md-3 col-sm-4 col-xs-6 tile_stats_count bg-blue">
+                          <span class="count_top"><i class="fa fa-user"></i> New Enrollments</span>
+                          <div class="count" id="new_students">0</div>
+                          <span class="count_bottom"><i class=""><i class="fa fa-sort-asc"></i>0</i> From last Week</span>
+                        </div>
+                      </div>
+                
+                  </div>
+                      
+                   <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="x_panel tile fixed_height_320">
+                <div class="x_title">
+                  <h2>New Student Enrollments</h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Settings 1</a>
+                        </li>
+                        <li><a href="#">Settings 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div class="dashboard-widget-content">
+                    
+                  <div id="myChart" style="width:100%; height: 20em;" ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+                  
+                  
+                  
+                </div>
+                <div class="row">
+                    
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="x_panel tile fixed_height_320">
+                <div class="x_title">
+                  <h2>Examination Result Overview</h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Settings 1</a>
+                        </li>
+                        <li><a href="#">Settings 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div class="dashboard-widget-content">
+                    
+                  <div id="myChart0" style="width:100%; height: 20em;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="x_panel tile fixed_height_320">
+                <div class="x_title">
+                  <h2>Department Toppers</h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Settings 1</a>
+                        </li>
+                        <li><a href="#">Settings 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div class="dashboard-widget-content">
+                	 <div id="exampleSlider">
+       <div class="MS-content">
+           
+       </div>
+       <div class="MS-controls">
+           <button class="MS-left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+           <button class="MS-right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+       </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+                </div>
+                </div>
+                </div>
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="row">
+                     
+            
+            
+             <div class="col-md-7 col-sm-7col-xs-12 " >
+              <div class="x_panel tile fixed_height_320" style="overflow: scroll !important;">
+                <div class="x_title">
+                  <h2>Academic Fee Details</h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Settings 1</a>
+                        </li>
+                        <li><a href="#">Settings 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div class="dashboard-widget-content">
+                    
+                 <table id="example" class="table table-bordered table-hover display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Hon's Course</th>
+                <th>batch</th>
+                <th>Semester</th>
+                <th>Fees</th>
+                <th>Paid Fee</th>
+                <th>Status</th>
+            </tr>
+            <tr id="search_cl">
+                
+               <th>Name</th>
+                <th>Department</th>
+                <th>Hon's Course</th>
+                <th>batch</th>
+                <th>Semester</th>
+                <th>Fees</th>
+                <th>Paid Fee</th>
+                <th>status</th>
+            </tr>
+            </tr>
+        </thead>
+        <tbody>
+           
+        </tbody>
+        <tfoot>
+           
+        </tfoot>
+    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+             <div class="col-md-5 col-sm-5 col-xs-12">
+              <div class="x_panel tile fixed_height_320">
+                <div class="x_title">
+                  <h2>Academic Toppers</h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Settings 1</a>
+                        </li>
+                        <li><a href="#">Settings 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                                          <div class="dashboard-widget-content">
+                                              <div id="myChart3" style="width:100%; height: 20em;" ></div>
+                                        
+                  </div>
+                </div>
+              </div>
+            </div>
+                </div>
+            
+        </div>
+    </div>
+</div>
+            <script src="<?php echo $this->mainconfig['publicpath'];?>vendors/jquery/dist/jquery.min.js"></script>
+      
+  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+ <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- Include Multislider -->
+    <script src="<?php echo $this->mainconfig['publicpath'];?>js/multislider/multislider.min.js"></script>
+          <script>
+        
+   
+         $(document).ready(function() {
+             
+             function getMail(){
+                  $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'index/ajax-get-complain-mail'; ?>',
+                data: {}
+            }).done(function (data) {
+                $('#complain_box').empty();
+                $('#complain_box').html("<p>No Unread Messages</p>");
+                if(data){
+                    $('#complain_box').empty();
+                    $('#complain_box').html(data);
+                }
+            
+                 
+                });
+                 
+             }
+             
+            //  setInterval(function(){ getMail(); }, 3000);
+             
+             
+  
+
+              $('.dropdown-toggle').dropdown();
+                    var semester = $('#semester-dropdown').val();
+            var session=$('#session-dropdown').val();
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'index/ajax-get-department'; ?>',
+                data: {cmn_terms: semester,session: session}
+            }).done(function (data) {
+                $('#department-dropdown').empty('');
+                $('#department-dropdown').html(data);
+                var department = $('#department-dropdown').val();
+                $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'index/ajax-get-dashboard'; ?>',
+                data: {cmn_terms:semester,session,department}
+            }).done(function (data) {
+            var parsedData = JSON.parse(data);
+                for(keys in parsedData){
+                        if(keys=="card_details"){
+                            for(details in parsedData[keys]){
+                                $('#'+details).text(parsedData[keys][details]);
+                            }
+                        }
+                        else if(keys=="student_details"){
+                             var treeData = [['Remarks', 'Department', 'No of Students', 'increase/decrease (color)'],
+                                            ['Courses', null, 0, 0]];
+                             for(elements in parsedData[keys]['label']){
+                                 treeData.push([parsedData[keys]['label'][elements],'Courses',0,0]);
+                                treeData.push([parsedData[keys]['label'][elements]+'-'+'Pass ('+parsedData[keys]['passdata'][elements]+')',parsedData[keys]['label'][elements],parsedData[keys]['passdata'][elements],Math.floor((Math.random() * 50) + 1)]);
+                                 treeData.push([parsedData[keys]['label'][elements]+'-'+'Fail ('+parsedData[keys]['faildata'][elements]+')',parsedData[keys]['label'][elements],parsedData[keys]['faildata'][elements],Math.floor((Math.random() * 50) + 1)]);
+                                  treeData.push([parsedData[keys]['label'][elements]+'-'+'Not Attended ('+parsedData[keys]['notattendeddata'][elements]+')',parsedData[keys]['label'][elements],parsedData[keys]['notattendeddata'][elements],Math.floor((Math.random() * 50) + 1)]);
+                                
+                             }
+                             mychart0(treeData);
+                        }
+                        else if(keys=="new_enrollements"){
+                           
+                                steppedChartData = parsedData[keys]['data'];
+                            mychart(parsedData[keys]['title'],steppedChartData);
+                        }else if(keys=="toppersdata"){
+                            var mychartdata = parsedData[keys]['toppers'];
+                            mychart3("label",mychartdata);
+                        
+                        }
+                        else if(keys=="toppercoursel")
+                        {
+                           
+                           $('.MS-content').html(parsedData[keys]['html']);
+                           startSlider();
+                               
+                        }
+                        else if(keys=="table"){
+                            $('tbody').empty();
+                            destroyDtable();
+                        $('tbody').html(parsedData[keys]['html']);
+                        setDatatablesDasboard();
+                            
+                        }
+                }
+                                $('.count').each(function () {
+                    $(this).prop('Counter',0).animate({
+                        Counter: $(this).text()
+                    }, {
+                        duration: 4000,
+                        easing: 'swing',
+                        step: function (now) {
+                            $(this).text(Math.ceil(now));
+                        }
+                    });
+                });
+            });
+                
+            });
+                             setDatatablesDasboard();
+    
+} );
+
+
+           $('body').on('click',".dropdown-menu>li",function(){
+               var theme = $(this).find('a').data('id');
+               if(theme == "Dark"){
+                   $('.right_col').attr("class","right_col bg-dark");
+                    $('select').attr("class","bg-dark");
+                    $('button').attr("style","background:gray; color:#ccc");
+                    $('.x_panel').attr("style","background:rgba(0,25,12,.8);color:#fff;")
+                     $('.card').attr("style","background:rgba(0,25,12,.8);color:#fff;")
+               }
+               else
+               {
+                     $('.right_col').attr("class","right_col");
+                     $('select').attr("class","");
+                      $('button').removeAttr("style");
+                      $('.x_panel').removeAttr("style");
+                      $('.card').removeAttr("style");
+               }
+           });
+                
+                
+                $('body').on('change', '#semester-dropdown,#session-dropdown', function () {
+            var semester = $('#semester-dropdown').val();
+            var session=$('#session-dropdown').val();
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'index/ajax-get-department'; ?>',
+                data: {cmn_terms: semester,session: session}
+            }).done(function (data) {
+                $('#department-dropdown').empty('');
+                $('#department-dropdown').html(data);
+                 var department = $('#department-dropdown').val();
+                $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'index/ajax-get-dashboard'; ?>',
+                data: {cmn_terms:semester,session,department}
+            }).done(function (data) {
+             var parsedData = JSON.parse(data);
+                for(keys in parsedData){
+                        if(keys=="card_details"){
+                            for(details in parsedData[keys]){
+                                $('#'+details).text(parsedData[keys][details]);
+                            }
+                        } else if(keys=="student_details"){
+                                var treeData = [['Remarks', 'Department', 'No of Students', 'increase/decrease (color)'],
+                                            ['Courses', null, 0, 0]];
+                             for(elements in parsedData[keys]['label']){
+                                 treeData.push([parsedData[keys]['label'][elements],'Courses',0,0]);
+                                treeData.push([parsedData[keys]['label'][elements]+'-'+'Pass ('+parsedData[keys]['passdata'][elements]+')',parsedData[keys]['label'][elements],parsedData[keys]['passdata'][elements],Math.floor((Math.random() * 50) + 1)]);
+                                 treeData.push([parsedData[keys]['label'][elements]+'-'+'Fail ('+parsedData[keys]['faildata'][elements]+')',parsedData[keys]['label'][elements],parsedData[keys]['faildata'][elements],Math.floor((Math.random() * 50) + 1)]);
+                                  treeData.push([parsedData[keys]['label'][elements]+'-'+'Not Attended ('+parsedData[keys]['notattendeddata'][elements]+')',parsedData[keys]['label'][elements],parsedData[keys]['notattendeddata'][elements],Math.floor((Math.random() * 50) + 1)]);
+                                
+                             }
+                             mychart0(treeData);
+                        } else if(keys=="new_enrollements"){
+                            
+                                steppedChartData = parsedData[keys]['data'];
+                            mychart(parsedData[keys]['title'],steppedChartData);
+                       }else if(keys=="toppersdata"){
+                            var mychartdata = parsedData[keys]['toppers'];
+                            mychart3("label",mychartdata);
+                        
+                        }
+                        else if(keys=="toppercoursel")
+                        {
+                         
+                          $('.MS-content').html(parsedData[keys]['html']);
+                           startSlider();
+                            
+                        } else if(keys=="table"){
+                            $('tbody').empty();
+                            destroyDtable();
+                        $('tbody').html(parsedData[keys]['html']);
+                        setDatatablesDasboard();
+                            
+                        }
+                }
+                      $('.count').each(function () {
+                    $(this).prop('Counter',0).animate({
+                        Counter: $(this).text()
+                    }, {
+                        duration: 4000,
+                        easing: 'swing',
+                        step: function (now) {
+                            $(this).text(Math.ceil(now));
+                        }
+                    });
+                });
+            });
+            });
+            
+          
+            
+        
+    });
+        $('body').on('change', '#department-dropdown', function () {
+            var semester = $('#semester-dropdown').val();
+            var session=$('#session-dropdown').val();
+             var department = $('#department-dropdown').val();
+             $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'index/ajax-get-dashboard'; ?>',
+                data: {cmn_terms:semester,session,department}
+            }).done(function (data) {
+             var parsedData = JSON.parse(data);
+                for(keys in parsedData){
+                        if(keys=="card_details"){
+                            for(details in parsedData[keys]){
+                                // $('#'+details).empty();
+                                $('#'+details).text(parsedData[keys][details]);
+                            }
+                        } else if(keys=="student_details"){
+                            var treeData = [['Remarks', 'Department', 'No of Students', 'increase/decrease (color)'],
+                                            ['Courses', null, 0, 0]];
+                             for(elements in parsedData[keys]['label']){
+                                 treeData.push([parsedData[keys]['label'][elements],'Courses',0,0]);
+                                treeData.push([parsedData[keys]['label'][elements]+'-'+'Pass ('+parsedData[keys]['passdata'][elements]+')',parsedData[keys]['label'][elements],parsedData[keys]['passdata'][elements],Math.floor((Math.random() * 50) + 1)]);
+                                 treeData.push([parsedData[keys]['label'][elements]+'-'+'Fail ('+parsedData[keys]['faildata'][elements]+')',parsedData[keys]['label'][elements],parsedData[keys]['faildata'][elements],Math.floor((Math.random() * 50) + 1)]);
+                                  treeData.push([parsedData[keys]['label'][elements]+'-'+'Not Attended ('+parsedData[keys]['notattendeddata'][elements]+')',parsedData[keys]['label'][elements],parsedData[keys]['notattendeddata'][elements],Math.floor((Math.random() * 50) + 1)]);
+                                
+                             }
+                             mychart0(treeData);
+                            
+                        } else if(keys=="new_enrollements"){
+                          
+                                steppedChartData = parsedData[keys]['data'];
+                            mychart(parsedData[keys]['title'],steppedChartData);
+                        }else if(keys=="toppersdata"){
+                            var mychartdata = parsedData[keys]['toppers'];
+                            mychart3("label",mychartdata);
+                        
+                        }
+                        else if(keys=="toppercoursel")
+                        {
+                           
+                          $('.MS-content').html(parsedData[keys]['html']);
+                           startSlider();
+                        } else if(keys=="table"){
+                            $('tbody').empty();
+                            destroyDtable();
+                        $('tbody').html(parsedData[keys]['html']);
+                        setDatatablesDasboard();
+                            
+                        }
+                }
+                
+                  $('.count').each(function () {
+                    $(this).prop('Counter',0).animate({
+                        Counter: $(this).text()
+                    }, {
+                        duration: 4000,
+                        easing: 'swing',
+                        step: function (now) {
+                            $(this).text(Math.ceil(now));
+                        }
+                    });
+                });
+            });
+            
+              });
+    
+    
+    
+        // DataTable
+          var table
+          function destroyDtable(){
+                 if ($.fn.DataTable.isDataTable("#example")) {
+        $('#example').DataTable().clear().destroy();
+    } 
+          }
+    function setDatatablesDasboard(){
+     
+       // Setup - add a text input to each footer cell
+    $('#example #search_cl>th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" class="form-control" style="width:4.5em" placeholder="Search '+title+'" />' );
+    } );
+   table = $('#example').DataTable({
+        initComplete: function () {
+            // Apply the search
+            this.api().columns().every( function () {
+                var that = this;
+ 
+                $( 'input', this.header() ).on( 'keyup change clear', function () {
+                    if ( that.search() !== this.value ) {
+                        that
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            } );
+        }
+    });
+}
+
+
+
+
+
+ //===============================[mychart]=============================// 
+ var myChart1 
+ function mychart(title,mychartdata){
+ google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+       function drawChart() {
+        var data = google.visualization.arrayToDataTable(mychartdata);
+
+var options = {
+          title: title,
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        }
+        var chart = new google.visualization.LineChart(document.getElementById('myChart'));
+
+        chart.draw(data, options);
+      }
+}
+
+function startSlider(){
+        $('#exampleSlider').multislider({
+        interval: 4000,
+        slideAll: true,
+        duration: 1500
+    });                
+}
+  //===========================[mychart1]====================================//
+  
+
+  //============================[mychart3]==============================//
+  var myChart3;
+  function mychart3(label,chart3data){
+  google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(chart3data);
+
+        var options = {
+          chart: {
+            title: 'Student Performance',
+            subtitle: '',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('myChart3'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+  
+  }
+  
+        </script>
+       
+        
+        <script>
+            //===================================[mychart0]========================
+
+function mychart0(treedata){
+ google.charts.load('current', {'packages':['treemap']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(treedata);
+        tree = new google.visualization.TreeMap(document.getElementById('myChart0'));
+
+        tree.draw(data, {
+          minHighlightColor: '#8c6bb1',
+        midHighlightColor: '#9ebcda',
+        maxHighlightColor: '#edf8fb',
+        minColor: '#009688',
+        midColor: '#f7f7f7',
+        maxColor: '#ee8100',
+          headerHeight: 15,
+          fontColor: 'black',
+          showScale: true
+        });
+
+      }
+}
+
+//======================================[END]=================
+        </script>

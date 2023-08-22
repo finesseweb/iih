@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>DMI</title>
+    <!-- Bootstrap -->
+    <link href="<?php echo $this->mainconfig['publicpath'];?>vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="<?php echo $this->mainconfig['publicpath'];?>vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="<?php echo $this->mainconfig['publicpath'];?>vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="<?php echo $this->mainconfig['publicpath'];?>vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="<?php echo $this->mainconfig['publicpath'];?>vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="<?php echo $this->mainconfig['publicpath'];?>vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+	<!--<link rel="stylesheet" href="<?php //echo $this->mainconfig['publicpath'];?>css/datepicker3.css"> -->
+    <link href="<?php echo $this->mainconfig['publicpath'];?>vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+	 <!-- Datatables -->
+    <link href="<?php echo $this->mainconfig['publicpath'];?>vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $this->mainconfig['publicpath'];?>vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $this->mainconfig['publicpath'];?>vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $this->mainconfig['publicpath'];?>vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $this->mainconfig['publicpath'];?>vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="<?php echo $this->mainconfig['publicpath'];?>build/css/custom.min.css" rel="stylesheet">
+	<script src="<?php echo $this->mainconfig['publicpath'];?>build/js/custom.min.js"></script>
+	
+	 <link href="<?php echo $this->mainconfig['publicpath'];?>css/smartadmin-production.min.css" rel="stylesheet">
+	 
+	  <link href="<?php echo $this->mainconfig['publicpath'];?>css/smartadmin-skins.min.css" rel="stylesheet">
+	  
+	  <link href="<?php echo $this->mainconfig['publicpath'];?>vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+	<!-- JS -->
+	 <script src="<?php echo $this->mainconfig['publicpath'];?>js/jquery-1.12.2.min.js"></script>
+	 
+	  <script src="<?php echo $this->mainconfig['publicpath'];?>js/jquery-ui.min.js"></script>
+	  
+	
+	<!-- Datepicker -->
+	 <!-- <script src="<?php //echo $this->mainconfig['publicpath'];?>js/datepicker/daterangepicker.js"></script> -->
+	 <!-- JQUERY MASKED INPUT -->
+		<script src="<?php echo $this->mainconfig['publicpath'];?>js/plugin/masked-input/jquery.maskedinput.min.js"></script>
+	<!-- <script src="<?php //echo $this->mainconfig['publicpath'];?>js/libs/jquery-ui-1.10.3.min.js"></script>
+	<script src="<?php //echo $this->mainconfig['publicpath'];?>js/libs/jquery-2.0.2.min.js"></script> -->
+	
+	
+		<script src="<?php echo $this->mainconfig['publicpath'];?>js/jquery.datatables.min.js"></script>
+		<script src="<?php echo $this->mainconfig['publicpath'];?>js/notification/SmartNotification.min.js"></script>
+		
+	<script src="<?php echo $this->mainconfig['publicpath'];?>js/messagebox/messagebox.min.js"></script>
+	<!-- JQUERY SELECT2 INPUT -->
+		
+		
+		<script src="<?php echo $this->mainconfig['publicpath'];?>vendors/select2/dist/js/select2.full.min.js"></script>
+		
+		
+		
+		
+	<?php /*  <script>
+      $(document).ready(function() {
+        var handleDataTableButtons = function() {
+          if ($("#datatable-buttons").length) {
+            $("#datatable-buttons").DataTable({
+              dom: "Bfrtip",
+              buttons: [
+                {
+                  extend: "copy",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "csv",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "excel",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "pdfHtml5",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "print",
+                  className: "btn-sm"
+                },
+              ],
+              responsive: true
+            });
+          }
+        };
+
+        TableManageButtons = function() {
+          "use strict";
+          return {
+            init: function() {
+              handleDataTableButtons();
+            }
+          };
+        }();
+		
+		$('#datatable').dataTable(); 
+
+        $('#datatable-keytable').DataTable({
+          keys: true
+        });
+
+        $('#datatable-responsive').DataTable();
+
+        $('#datatable-scroller').DataTable({
+          ajax: "js/datatables/json/scroller-demo.json",
+          deferRender: true,
+          scrollY: 380,
+          scrollCollapse: true,
+          scroller: true
+        });
+
+        $('#datatable-fixed-header').DataTable({
+          fixedHeader: true
+        });
+
+        var $datatable = $('#datatable-checkbox');
+
+        $datatable.dataTable({
+          'order': [[ 1, 'asc' ]],
+          'columnDefs': [
+            { orderable: false, targets: [0] }
+          ]
+        });
+        $datatable.on('draw.dt', function() {
+          $('input').iCheck({
+            checkboxClass: 'icheckbox_flat-green'
+          });
+        });
+
+        TableManageButtons.init();
+      });
+    </script> */ ?>
+    <!-- /Datatables -->
+	
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view navbar nav_title">
+           <!-- <div class="navbar nav_title" style="border: 0;">
+              <a href="index.html" class="site_title"><span></span></a>
+            </div> -->
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+                <img src="<?php echo $this->mainconfig['publicpath'];?>images/img.png" style="margin:20px 20px 0px;" alt="..." class="profile_img">
+              </div>
+              <div class="profile_info">
+                <span>Welcome,</span>
+                <h2>DMI</h2>
+              </div>
+            </div>
+            <!-- /menu profile quick info -->
+
+            <br />
+			
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+			<?php  /*$sub_title_name = $this->sub_title_name;
+				$marketing = array("mpr","purchase_enquiry","purchase_quotation","purchase_order","purchase");
+				$marketing_active = '';
+				if(in_array($sub_title_name,$marketing)){
+					$marketing_active ="active";
+				} 
+				$office = array("officestaffattendance","staff-otlthrs","officestaffemployee-payslip","officestaff_attendance_report","officestaff_salary_report","officestaff_report","officestaff_pf_report","officestaff_esi_report","officestaff_LIC_report","officestaff_bank_report");
+				$office_active = '';
+				if(in_array($sub_title_name,$office)){
+					$office_active = "active";
+				} */
+
+				$purchase = array("mpr","purchase_enquiry","purchase_quotation","purchase_order","purchase");
+				$sub_title_name = $this->sub_title_name;
+				//print_r($sub_title_name);die;
+				$active = '';
+				if (in_array($sub_title_name, $purchase)) {				
+					$active = "active"; 
+				}
+				$purchase_menu = array("mpr","purchase_enquiry","purchase_quotation","purchase_order","purchase");
+				$purchase_menu_active = '';
+				if (in_array($sub_title_name,$purchase_menu)) {				
+					$purchase_menu_active = "active";
+				}
+				?>
+				
+				
+              <div class="menu_section">
+                <!--<h3>General</h3>-->
+                <ul class="nav side-menu">
+                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li <?php if ($this->sub_title_name == 'index') echo 'class="active"'; ?>>
+										<a href="<?php echo $this->mainconfig['host']; ?>index/purchase-Dashboard">Purchase Dashboard</a>
+									</li>
+							<li <?php if ($this->sub_title_name == 'index') echo 'class="active"'; ?>>
+										<a href="<?php echo $this->mainconfig['host']; ?>index/inventory-Dashboard">Inventory Dashboard</a>
+									</li>
+							<li <?php if ($this->sub_title_name == 'index') echo 'class="active"'; ?>>
+										<a href="<?php echo $this->mainconfig['host']; ?>index/maintainance-Dashboard">Maintenance Dashboard</a>
+									</li>
+									<li <?php if ($this->sub_title_name == 'index') echo 'class="active"'; ?>>
+										<a href="<?php echo $this->mainconfig['host']; ?>index/finance-Dashboard">Finance Dashboard</a>
+									</li>
+									<li <?php if ($this->sub_title_name == 'index') echo 'class="active"'; ?>>
+										<a href="<?php echo $this->mainconfig['host']; ?>index/hrm-Dashboard">HRM Dashboard</a>
+									</li>
+                      
+                    </ul>
+                  </li>
+			
+				  <?php 
+					$storage = new Zend_Session_Namespace("admin_login");
+					
+					$data = $storage->admin_login;
+
+					$role_id = '';
+					if( isset($data) ){
+						$role_id = $data->role_id;
+					}
+ //print_r($this->action_name);die;					
+				?>
+				
+				  <li <?php if($this->action_name=='pr') echo 'class="active"';?>><a href="#"><i class="fa fa-sitemap"></i>Purchase<span class="fa fa-chevron-down"> </span></a>
+                    <ul class="nav child_menu"  <?php if($this->action_name=='pr' || $this->action_name=='masterdata') echo 'style="display:block"';?>>
+                
+                   <!--     <li><a>International<span class="fa fa-chevron-down"></span></a>
+                          <ul class="nav child_menu">
+                            <li <?php //if ($this->sub_title_name == 'purchase_proforma_invoice') echo 'class="active"'; ?>>
+									 <a href="<?php //echo $this->mainconfig['host']; ?>purchase/proforma-invoice">Proforma Invoice</a>
+							</li>
+                            <li <?php //if ($this->sub_title_name == 'purchase_commercial_invoice') echo 'class="active"'; ?>>
+									<a href="<?php //echo $this->mainconfig['host']; ?>purchase/commercial-invoice">Commercial Invoice</a>
+							</li>
+							<li <?php //if ($this->sub_title_name == 'purchase_packing_list') echo 'class="active"'; ?>>
+									<a href="<?php //echo $this->mainconfig['host']; ?>purchase/packing-list">Packing List </a>
+							</li>
+                          </ul>
+                        </li>  -->
+						 <li>
+							
+                            <li <?php if ($this->sub_title_name == 'mpr') echo 'class="active"'; ?>>
+										<a href="<?php echo $this->mainconfig['host']; ?>purchase/material-purchase-requisition">Purchase Indent</a>
+									</li>
+									<li <?php if ($this->sub_title_name == 'purchase_enquiry') echo 'class="active"'; ?>>
+										<a href="<?php echo $this->mainconfig['host']; ?>purchase/enquiry">RFQ</a>
+									</li>
+									<li <?php if ($this->sub_title_name == 'purchase_quotation') echo 'class="active"'; ?>>
+										<a href="<?php echo $this->mainconfig['host']; ?>purchase/quotation">Quotation</a>
+									</li>
+									<li <?php if ($this->sub_title_name == 'purchase_order') echo 'class="active"'; ?>>
+										<a href="<?php echo $this->mainconfig['host']; ?>purchase/order">Order</a>
+									</li>
+									<li <?php if ($this->sub_title_name == 'material') echo 'class="active"'; ?>>
+										<a href="<?php echo $this->mainconfig['host']; ?>purchase/material-receive">Material Receipt</a>
+									</li>
+									<li <?php if ($this->sub_title_name == 'pending-Orders') echo 'class="active"'; ?>>
+										<a href="<?php echo $this->mainconfig['host']; ?>purchase/pending-purchase-orders">Pending Orders</a>
+									</li>
+									
+									<li <?php if ($this->sub_title_name == 'purchase') echo 'class="active"'; ?>>
+										<a href="<?php echo $this->mainconfig['host']; ?>invoice/purchase">Invoice</a>
+									</li>
+								
+                        </li> 
+						
+						<li> <a > Master Data<span class="fa fa-chevron-down"></span></a>
+                          <ul class="nav child_menu" <?php    if($this->action_name=='masterdata' ) echo 'style="display:block"';?>>
+						  <li <?php if ($this->sub_title_name == 'company') echo 'class="active"'; ?> >
+								<a href="<?php echo $this->mainconfig['host']; ?>company/master">Company Master </a>
+							</li>
+						  <li <?php if ($this->sub_title_name == 'Vendor') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>vendor/master">Vendor Master</a>
+							</li>	
+						  <li <?php if ($this->sub_title_name == 'mode') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>mode-of-enquiry/erp-mode-of-enquiry">Mode of Enquiry</a>
+							</li>							
+                            <li <?php if ($this->sub_title_name == 'Departments') echo 'class="active"'; ?> >
+								<a href="<?php echo $this->mainconfig['host']; ?>Departments/master">Department Master </a>
+							</li>
+                            <li <?php if ($this->sub_title_name == 'Items') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>items/category-master">Item Category</a>
+							</li>
+                            <li <?php if ($this->sub_title_name == 'Items-master') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>items/master">Item Master</a>
+							</li>
+							<li <?php if ($this->sub_title_name == 'uom_class') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>uom/uom-master">UOM Master</a>
+							</li>	
+							<li <?php if ($this->sub_title_name == 'terms') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>terms/master">Terms &amp; Conditions </a>
+							</li>
+                          </ul>
+                        </li>
+					
+                       </ul>
+                  
+             </li>				  
+			 <li><a href="#"><i class="fa fa-bar-chart-o"></i>Inventory<span class="fa fa-chevron-down"></span></a>
+				   
+                  <ul  class="nav child_menu" <?php if($this->action_name=='inventory') echo 'style="display:block"';?>>
+                    <li <?php if ($this->sub_title_name == 'inward-register') echo 'class="active"'; ?>>
+						<a href="<?php echo $this->mainconfig['host']; ?>inventory/inward-register">Inward Register</a>
+					</li>
+					<li <?php if ($this->sub_title_name =='inventory_grn') echo 'class="active"'; ?>>
+						<a href="<?php echo $this->mainconfig['host']; ?>purchase/grn">GRN</a>
+					</li>
+					<li <?php if ($this->sub_title_name == 'material_receipt') echo 'class="active"'; ?>>
+						<a href="<?php echo $this->mainconfig['host']; ?>inventory/material-Receipt">Snap Shot</a>
+					</li>
+                    <li  <?php if ($this->sub_title_name == 'process_issue_slip') echo 'class="active"'; ?>>
+						<a href="<?php echo $this->mainconfig['host']; ?>inventory/process-issue-slip">Issue Slip</a>
+					</li>
+					<li <?php if ($this->sub_title_name == 'Daily Stock Statement') echo 'class="active"'; ?>>
+						<a href="<?php echo $this->mainconfig['host']; ?>reports/daily-stock-report">Daily Stock Statement</a>
+					</li>
+                    <li  <?php if ($this->sub_title_name == 'inventory_stock') echo 'class="active"'; ?>>
+						<a href="<?php echo $this->mainconfig['host']; ?>inventory/inventory-stock">Stock Level - Item</a>
+					</li>
+				<!--<li  <?php //if ($this->sub_title_name == 'fg-check') echo 'class="active"'; ?>>
+						<a href="<?php //echo $this->mainconfig['host']; ?>inventory/inventory-stock-fg">Stock Level - FG</a>
+					</li>  -->
+					
+                    <li  <?php if ($this->sub_title_name == 'finish') echo 'class="active"'; ?>>
+						<a href="<?php echo $this->mainconfig['host']; ?>inventory/finished-good-report">Items Report</a>
+					</li>
+				<?php /* 	<li  <?php if ($this->sub_title_name == 'rep_fg-check') echo 'class="active"'; ?>>
+						<a href="<?php echo $this->mainconfig['host']; ?>inventory/replacement-stock-fg">Stock Level - REJ/REP-No's</a>
+					</li> */ ?>
+					<li <?php if ($this->sub_title_name == 'returnable-gate-pass') echo 'class="active"'; ?>>
+						<a href="<?php echo $this->mainconfig['host']; ?>inventory/returnable-gate-pass">Returnable/Non Returnable Gate Pass</a>
+					</li>
+					<li <?php if ($this->sub_title_name == 'Receive-Items') echo 'class="active"'; ?>>
+						<a href="<?php echo $this->mainconfig['host']; ?>inventory/returnable-receive-items">Receive Items (Through RGP)</a>
+					</li>
+					<li <?php if ($this->sub_title_name == 'bin-card') echo 'class="active"'; ?>>
+					    <a href="<?php echo $this->mainconfig['host']; ?>inventory/bin-card">Bin Card</a>
+					</li>
+				</ul>
+              </li> 
+				  <li><a><i class="fa fa-sitemap"></i>Maintenace<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" <?php if (($this->action_name == 'plant') || ($this->action_name =='mt-masterdata') ) echo 'style="display:block"'; ?>>
+                         <!--   <li <?php if ($this->sub_title_name == 'maintenance') echo 'class="active"'; ?> >
+							<a href="<?php echo $this->mainconfig['host']; ?>plant/maintenance">Maintenance </a>
+							</li> -->
+							
+                           <li <?php if ($this->sub_title_name == 'preventive') echo 'class="active"'; ?> >
+							<a href="<?php echo $this->mainconfig['host']; ?>preventive/maintenance">Preventive Maintenance </a>
+							</li> 
+							<li <?php if ($this->sub_title_name == 'process-maintenance') echo 'class="active"'; ?> >
+							<a href="<?php echo $this->mainconfig['host']; ?>process/process-maintenance">Process Maintenance </a>
+							</li>
+							<li <?php if ($this->sub_title_name == 'process-maintenance-report') echo 'class="active"'; ?> >
+							<a href="<?php echo $this->mainconfig['host']; ?>process/process-maintenance-report">Process Maintenance Report </a>
+							</li>
+							<li <?php if ($this->sub_title_name == 'preventive-maintenance-report') echo 'class="active"'; ?> >
+							<a href="<?php echo $this->mainconfig['host']; ?>process/preventive-maintenance-report">Preventive Maintenance Report </a>
+							</li>
+							
+                      
+						<li><a><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i>Masters<span class="fa fa-chevron-down"></span></a>
+						<ul class="nav child_menu" <?php    if($this->action_name=='mt-masterdata' ) echo 'style="display:block"';?> >
+						<li <?php if ($this->sub_title_name == 'Machine-category1') echo 'class="active"'; ?> >
+							<a href="<?php echo $this->mainconfig['host']; ?>machine/equipment-maintainance-parameters">Equipment Maintenance Parameters</a>
+							</li>
+						  
+							<li <?php if ($this->sub_title_name == 'Machine-category') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>machine/category-master">Machine Category</a>
+							</li>
+							<li <?php if ($this->sub_title_name == 'machine') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>machine/master">Machine Master</a>
+							</li>
+							<li <?php if ($this->sub_title_name == 'machine-capacity') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>machine/capacity-master">Machine Capacity Master</a>
+							</li>
+							<li <?php if ($this->sub_title_name == 'machine-make') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>machine/make-master">Machine Make Master</a>
+							</li>
+							<li <?php if ($this->sub_title_name == 'machine-equipment') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>machine/equipment-master">Machine Equipment Master</a>
+							</li>
+							<li <?php if ($this->sub_title_name == 'machine-location') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>machine/location-master">Machine Location Master</a>
+							</li>
+							<li <?php if ($this->sub_title_name == 'machine-prevent-main-freq') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>machine/prevent-main-freq-master">Machine Preventive Maintenance Frequency Master</a>
+							</li>
+						</ul>
+						</li>						
+						</ul>
+              </li> 
+			  
+			   <li><a><i class="fa fa-sitemap"></i>Finance<span class="fa fa-chevron-down"></span></a>
+				   
+                    <ul class="nav child_menu"  <?php if (($this->action_name == 'Transactions') ||($this->action_name=='index') || ($this->action_name=='fin-masterdata')) echo 'style="display:block"'; ?> >
+                   <li ><a><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i>Transactions<span class="fa fa-chevron-down"></span></a>
+					<ul class="nav child_menu" <?php if ($this->action_name == 'Transactions') echo 'style="display:block"'; ?> >
+                          <li <?php if($this->sub_title_name=='receipt-voucher') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>finance/receipt-voucher">Payments</a>
+							</li>
+							<li <?php if($this->sub_title_name=='paymentvoucher') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>finance/payment-voucher">Deposits</a>
+							</li>	
+							<li <?php if($this->sub_title_name=='generalvoucher') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>finance/journal/voucher-index">Journal Entry</a>
+							</li>
+						</ul>
+					</li>			
+<li><a><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i>Inquiries and Reports <span class="fa fa-chevron-down"></span></a>
+					<ul class="nav child_menu" <?php if ($this->action_name == 'index') echo 'style="display:block"'; ?>>	
+							<li <?php if($this->sub_title_name=='trail-balance') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>finance/trail-balance/index">Trial Balance</a>
+							</li>		
+							<li <?php if($this->sub_title_name=='balance-sheet') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>finance/balance-sheet">Balance Sheet Drilldown</a>
+							</li>	
+							<li <?php if($this->sub_title_name=='profit-and-loss') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>finance/Profit-and-loss/index">Profit And Loss Drilldown</a>
+							</li>
+							<li <?php if($this->sub_title_name=='opening-balances') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>finance/opening-balances/index">Banking Reports</a>
+							</li>
+							<li <?php if($this->sub_title_name=='general-ledger') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>finance/journal">General Ledger Reports</a>
+							</li>							
+							<li <?php if($this->sub_title_name=='invoice-statement') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>finance/journal/invoice-statement">Statement</a>
+							</li>
+							<li <?php if($this->sub_title_name=='account-book') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>finance/account-book">Account Book</a>
+							</li>
+							
+							<li <?php if($this->sub_title_name=='trading-account') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>finance/trading-account/index">Trading Account</a>
+							</li>	
+							
+							<li <?php if($this->sub_title_name=='customer-vendor') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>finance/customer-and-vendor">Sundry Debtors and Creditors</a>
+							</li>
+							
+					</ul>
+				</li>
+				
+			
+                      
+						<li><a><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i>Maintenance<span class="fa fa-chevron-down"></span></a>
+						<ul class="nav child_menu" <?php if($this->action_name == 'fin-masterdata') echo 'style="display:block"';?>>
+						<!-- <li <?php //if ($this->sub_title_name == 'dealer') echo 'class="active"'; ?>>
+										<a href="<?php //echo $this->mainconfig['host']; ?>dealer/dealer">Dealer Master </a>
+									</li> -->
+						<!-- <li <?php //if ($this->sub_title_name == 'Vendor') echo 'class="active"'; ?>>
+								<a href="<?php //echo $this->mainconfig['host']; ?>vendor/master">Vendor Master</a>
+							</li> -->	
+						<li <?php if ($this->sub_title_name == 'bank') echo 'class="active"'; ?>>
+							 <a href="<?php echo $this->mainconfig['host']; ?>bank/master">Bank Master</a>
+							 </li>
+                         <li <?php if ($this->sub_title_name == 'Account-master') echo 'class="active"'; ?>>
+							<a href="<?php echo $this->mainconfig['host']; ?>account/master">Account Tags</a>
+							</li>
+						</ul>
+						</li>	
+</ul>						
+					</li>	
+			  
+			  	<li><a><i class="fa fa-sitemap"></i> HRM <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" <?php if (($this->action_name == 'hr') ||($this->action_name=='hr-payslips') || ($this->action_name=='prf-reports')) echo 'style="display:block"'; ?> >
+							
+				      
+						<li><a><i class="fa fa-user-plus"></i> Attendance <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" <?php if($this->action_name=='hr') echo 'style="display:block"'; ?>>
+                         
+					<li <?php if($this->sub_title_name=='staff') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/staff-attendance">Professor Attendance</a>
+							</li>	 
+                    <li <?php if($this->sub_title_name=='substaffattendance') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/substaff-attendance">Assistant Professor Attendance</a>
+							</li>
+					 <li <?php if($this->sub_title_name=='officestaffattendance') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/officestaff-attendance">Office Staff Employee Attendance</a>
+							</li>		
+							
+                    <li <?php if($this->sub_title_name=='driver') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/driver-attendance">Driver Attendance</a>
+							</li>  
+					<li <?php if($this->sub_title_name=='operatorattend') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/operator-attendance">Labour Attendance</a>
+							</li>
+					</ul>
+                   </li>	
+				   
+				   <li><a><i class="fa fa-files-o "></i> Payslips <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" <?php if($this->action_name=='hr-payslips') echo 'style="display:block"'; ?>>
+                    
+                    							<li                
+			 				<?php if($this->sub_title_name=='staff-payslip') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/staff-payslip"> Professor Payslip</a>
+							</li>
+							
+							
+							<li <?php if($this->sub_title_name=='substaffemployee-payslip') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/substaff-emp-payslip"> Assistant Professor Payslip</a>
+							</li>
+							
+							<li <?php if($this->sub_title_name=='officestaffemployee-payslip') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/officestaff-emp-payslip"> Office Staff Employee Payslip</a>
+							</li>
+							
+							<li
+							<?php if($this->sub_title_name=='driver-payslip') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/driver-payslip"> Driver Payslip</a>
+							</li>
+							
+							<li
+							<?php if($this->sub_title_name=='operator-payslip') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/operator-payslip">Labour Payslip</a>
+							</li>
+                    					
+					</ul>
+                   </li>
+
+
+						  
+						  <li><a><i class="fa fa-map-o"></i> Reports <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" <?php if (($this->action_name =='prf-reports') || ($this->action_name =='ass-reports') || ($this->action_name =='off-reports') ||($this->action_name =='dri-reports') ||($this->action_name =='lab-reports'))  echo 'style="display:block"'; ?> >
+						  
+						  <li>
+						<a><span class="menu-item-parent">Professor</span><span class="fa fa-chevron-down"></span></a>
+						  <ul class="nav child_menu" <?php if($this->action_name=='prf-reports') echo 'style="display:block"';?>>
+						  
+							<li <?php if($this->sub_title_name=='staff_attendance_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/staff-montly-attendancereport">Professor Attendance Report</a>
+							</li>
+                            <li <?php if($this->sub_title_name=='hr-staff-montly-salary-report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/staff-montly-salary-report">Professor Salary Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='staff_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/staff-report">Professor Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='staff_pf_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/staff-pf-report">Professor PF Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='staff_esi_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/staff-esi-report">Professor ESI Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='staff_lic_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/staff-lic-report">Professor LIC Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='staff_bank_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/staff-bank-report">Professor Bank Report</a>
+							</li>
+							</ul>
+							</li>
+							
+					
+					        
+							<li>
+						<a><span class="menu-item-parent">Assistant Professors</span><span class="fa fa-chevron-down"></span></a>
+						  <ul class="nav child_menu" <?php if($this->action_name=='ass-reports') echo 'style="display:block"';?>>
+							
+							<li <?php if($this->sub_title_name=='substaff_attendance_report') echo 'class="active"';?> >							
+							<a href="<?php echo $this->mainconfig['host'];?>hr/substaff-montly-attendancereport">Assistant Professor Attendance Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='hr-substaff-montly-salary-report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/substaff-montly-salary-report">Assistant Professor Monthly Salary Report</a>
+							</li>	
+
+							<li <?php if($this->sub_title_name=='substaff_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/substaff-report">Assistant Professor Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='substaff_PF_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/substaff-emppf-report">Assistant Professor PF Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='substaff_esi_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/substaff-empesi-report">Assistant Professor ESI Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='substaff_bank_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/substaff-bank-report">Assistant Professor Bank Report</a>
+							</li>
+					
+					
+	                        </ul>
+                            </li>							
+					
+						  
+						  
+						   <li <?php if($this->action_name=='off-reports') echo 'style="display:block"';?>>
+						<a href="#"><span class="menu-item-parent">Office Staff</span><span class="fa fa-chevron-down"></span></a>
+						  <ul class="nav child_menu">
+						  <li <?php if($this->sub_title_name=='officestaff_attendance_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/office-staff-monthly-attendancereport">Office Staff Attendance Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='officestaff_salary_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/officestaff-montly-salary-report">Office Staff Salary Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='officestaff_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/officestaff-report">Office Staff Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='officestaff_pf_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/officestaff-pf-report">Office Staff PF Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='officestaff_esi_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/officestaff-esi-report">Office Staff ESI Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='officestaff_LIC_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/officestaff-lic-report">Office Staff LIC Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='officestaff_bank_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/officestaff-bank-report">Office Staff Bank Report</a>
+							</li>
+							</ul>
+							</li>
+							
+							
+							<li <?php if($this->action_name=='dri-reports') echo 'style="display:block"';?>>
+						<a href="#"><span class="menu-item-parent">Driver</span><span class="fa fa-chevron-down"></span></a>
+						  <ul class="nav child_menu">
+						
+                        <li <?php if($this->sub_title_name=='driver_attendance_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/driver-montly-attendancereport">Driver Attendance Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='driver_salary_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/driver-montly-salary-report">Driver Salary Report</a>
+							</li>
+
+							<li <?php if($this->sub_title_name=='driver_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/driver--report">Driver Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='driver_employee_pf_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/driver-emp-pf-report">Driver Employee PF Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='driver_employee_esi_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/driver-emp-esi-report">Driver Employee ESI Report</a>
+							</li>	
+							<li <?php if($this->sub_title_name=='driver_employee_bank_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/driver-emp-bank-report">Driver Employee Bank Report</a>
+							</li>
+							</ul>
+                       </li>						
+							
+	                     <li <?php if($this->action_name=='lab-reports') echo 'style="display:block"';?>>
+						<a href="#"><span class="menu-item-parent">Labour</span><span class="fa fa-chevron-down"></span></a>
+						  <ul class="nav child_menu">
+							
+							
+							<li <?php if($this->sub_title_name=='operator_attendance_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/operator-montly-attendancereport">Labour Attendance Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='hr-operator-montly-salary-report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/operator-montly-salary-report">Labour Salary Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='operators_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/operators-report">Labour Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='operators_pf_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/operators-pf-report">Labours PF Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='operators_esi_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/operators-esi-report">Labours ESI Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='operators_lic_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/operators-lic-report">Labours LIC Report</a>
+							</li>
+							<li <?php if($this->sub_title_name=='operators_bank_report') echo 'class="active"';?> >
+							<a href="<?php echo $this->mainconfig['host'];?>hr/operators-bank-report">Labours Bank Report</a>
+							</li>
+							</ul>
+							</li>				
+												</ul>
+			</li>			
+                        <li class="top-menu-hidden" <?php if($this->action_name=='masterdata') echo 'nav-active';?>>
+						<a ><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Master Data</span><span class="fa fa-chevron-down"></span></a>
+						<ul  class="nav child_menu" <?php if($this->action_name=='masterdata') echo 'style="display:block"';?>>
+						
+						<li <?php if ($this->sub_title_name == 'Staff') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>Staff/index">Professor </a>
+							</li>
+						<li <?php if ($this->sub_title_name == 'Sub-Staff Employees') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>substaff/index">Assistant Professor</a>
+							</li>
+						
+						
+						
+                     <li <?php if ($this->sub_title_name == 'Office-staff Employees') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>officestaff/index">Office Staff Master </a>
+							</li>
+							
+							<li <?php if ($this->sub_title_name == 'Driver') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>Driver/index">Driver Master </a>
+							</li>
+							
+							<li <?php if ($this->sub_title_name == 'Operator') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>operators/index">Labour Master </a>
+							</li>
+							
+						<li <?php if($this->sub_title_name=='holiday') echo 'class="active"';?> >
+								<a href="<?php echo $this->mainconfig['host'];?>hr/holidays">Holidays</a>
+							</li>	
+							
+							
+					<?php /*			<li <?php if ($this->sub_title_name == 'Packing-woman Employees') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>Packingwoman/index">Packing Woman Master </a>
+							</li>
+
+                        <li <?php if ($this->sub_title_name == 'Marketing Employees') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>marketing/index">Marketing Employee Master </a>
+							</li>
+                            
+							<li <?php if ($this->sub_title_name == 'Probationary') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>Probationary/index">Probationary Workmen </a>
+							</li>
+							
+							<li <?php if ($this->sub_title_name == 'Lic') echo 'class="active"'; ?>>
+								<a href="<?php echo $this->mainconfig['host']; ?>lic/index">LIC Master </a>
+								</li>
+							
+							
+							*/?>
+							</ul>    
+							
+							
+							
+				   
+						</li>
+
+
+			</ul>
+			</li>
+			  
+               <!--   <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="form.html">General Form</a></li>
+                      <li><a href="form_advanced.html">Advanced Components</a></li>
+                      <li><a href="form_validation.html">Form Validation</a></li>
+                      <li><a href="form_wizards.html">Form Wizard</a></li>
+                      <li><a href="form_upload.html">Form Upload</a></li>
+                      <li><a href="form_buttons.html">Form Buttons</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="general_elements.html">General Elements</a></li>
+                      <li><a href="media_gallery.html">Media Gallery</a></li>
+                      <li><a href="typography.html">Typography</a></li>
+                      <li><a href="icons.html">Icons</a></li>
+                      <li><a href="glyphicons.html">Glyphicons</a></li>
+                      <li><a href="widgets.html">Widgets</a></li>
+                      <li><a href="invoice.html">Invoice</a></li>
+                      <li><a href="inbox.html">Inbox</a></li>
+                      <li><a href="calendar.html">Calendar</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="tables.html">Tables</a></li>
+                      <li><a href="tables_dynamic.html">Table Dynamic</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="chartjs.html">Chart JS</a></li>
+                      <li><a href="chartjs2.html">Chart JS2</a></li>
+                      <li><a href="morisjs.html">Moris JS</a></li>
+                      <li><a href="echarts.html">ECharts</a></li>
+                      <li><a href="other_charts.html">Other Charts</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-clone"></i>Layouts <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
+                      <li><a href="fixed_footer.html">Fixed Footer</a></li>
+                    </ul>
+                  </li>
+                </ul>
+				<div class="menu_section">
+                <h3>Live On</h3>
+                <ul class="nav side-menu">
+                  <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="e_commerce.html">E-commerce</a></li>
+                      <li><a href="projects.html">Projects</a></li>
+                      <li><a href="project_detail.html">Project Detail</a></li>
+                      <li><a href="contacts.html">Contacts</a></li>
+                      <li><a href="profile.html">Profile</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="page_403.html">403 Error</a></li>
+                      <li><a href="page_404.html">404 Error</a></li>
+                      <li><a href="page_500.html">500 Error</a></li>
+                      <li><a href="plain_page.html">Plain Page</a></li>
+                      <li><a href="login.html">Login Page</a></li>
+                      <li><a href="pricing_tables.html">Pricing Tables</a></li>
+                    </ul>
+                  </li>
+				  
+                 <li><a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="#level1_1">Level One</a></li> 
+                        <li><a>Level One<span class="fa fa-chevron-down"></span></a>
+                          <ul class="nav child_menu">
+                            <li class="sub_menu"><a href="level2.html">Level Two</a>
+                            </li>
+                            <li><a href="#level2_1">Level Two</a>
+                            </li>
+                            <li><a href="#level2_2">Level Two</a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li><a href="#level1_2">Level One</a>
+                        </li>
+                   </ul>
+                </li>				  
+                <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li> -->
+              </ul>
+           </div>
+              </div>
+              
+       </div>
+	   
+			
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              <a data-toggle="tooltip" data-placement="top" title="Settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Lock">
+                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Logout">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              </a>
+            </div>
+			
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-arrow-circle-left hit"></i></a>
+              </div>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <img src="<?php echo $this->mainconfig['publicpath'];?>images/img.png" class="" alt="">DMI
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="javascript:;"> Profile</a></li>
+                    <li>
+                      <a href="javascript:;">
+                        <span class="badge bg-red pull-right">50%</span>
+                        <span>Settings</span>
+                      </a>
+                    </li>
+                    <li><a href="javascript:;">Help</a></li>
+                    <li><a href="<?php echo $this->mainconfig['host'];?>index/logout" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                  </ul>
+                </li>
+
+                <li role="presentation" class="dropdown">
+                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-envelope-o"></i>
+                    <span class="badge bg-green">6</span>
+                  </a>
+                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                    <li>
+                      <a>
+                        <span class="image"><img src="<?php echo $this->mainconfig['publicpath'];?>images/img.png" class="img-thumbnail profile_img" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span class="image"><img src="<?php echo $this->mainconfig['publicpath'];?>images/img.png" class="img-thumbnail profile_img" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span class="image"><img src="<?php echo $this->mainconfig['publicpath'];?>images/img.png" class="img-thumbnail profile_img" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span class="image"><img src="<?php echo $this->mainconfig['publicpath'];?>images/img.png" class="img-thumbnail profile_img" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="text-center">
+                        <a>
+                          <strong>See All Alerts</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+
+      <?php echo $this->layout()->content; ?>  
+
+        <!-- footer content -->
+        <footer>
+         <!-- <div class="pull-right">
+            Powered By <a href="http://techintegrasolutions.com">Tech IntegraSolutions</a>
+          </div>-->
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+  </body>
+</html>
+<script src="<?php echo $this->mainconfig['publicpath'];?>vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="<?php echo $this->mainconfig['publicpath'];?>vendors/fastclick/lib/fastclick.js"></script>
+	
+		<script src="<?php echo $this->mainconfig['publicpath'];?>build/js/custom.min.js"></script>
+
+	  

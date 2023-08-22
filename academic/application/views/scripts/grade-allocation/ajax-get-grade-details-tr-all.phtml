@@ -1,0 +1,731 @@
+
+<script>
+    
+    
+var id = '<?=$this->id?$this->id:0;?>';
+if(id != 0){
+$('#fac').hide();
+   $('<div class="col-sm-12 text-center"><h4 class="text-danger"><strong>**Published TABULATION REGISTER Cannot be Modified.<br><small class="text-danger"><b>(Note:</b>&nbsp; Course Listed only with Created Evaluation Components.<b>)</b></small></strong></h4></div>').insertBefore('table');
+}
+else
+{
+   $('#fac').show(); 
+}
+</script>
+<style>
+
+.footer{display:none;}
+
+    
+
+@media print {
+  input,button{
+    display: none;
+  }
+  .footer{position:fixed;bottom:0;}
+
+}
+    
+/*    button{*/
+/*        display:none;*/
+/*    }*/
+    
+/*     table
+    {
+        width: auto;
+        font-size: 1em;
+    }
+    table tr{
+        padding:0 !important;
+    }
+    table tr,th,td {
+        min-width: .1em !important;
+        max-width:3.5em !important;
+        word-wrap:break-word !important;
+         padding:0.5em !important;
+    }*/
+    
+/*     table {
+    table-layout: auto !important;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    width: auto !important;
+    padding:0 !important;
+}*/
+
+/*   @media print*/
+/*{*/
+/*  table { page-break-after:auto !important; }*/
+/*  tr    { page-break-inside:avoid !important; page-break-after:auto !important; }*/
+/*  td    { page-break-inside:avoid !important; page-break-after:auto !important; }*/
+/*  thead { display:table-header-group !important;}*/
+/*  tfoot { display:table-footer-group !important; }*/
+/*}*/
+
+.table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+    font-size:1em !important;
+    margin:0;
+    padding:0 !important;
+    text-align:center !important;
+    vertical-align:middle !important;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th{
+    font-size:1.13em !important;
+    margin:0;
+    padding:0 !important;
+    text-align:center !important;
+    vertical-align:middle !important;
+}
+
+</style>
+<?php
+$studentMarksDetails = $this->studentMarks;
+ $eval_items = new Application_Model_EvaluationComponentsItems();
+    $course_learning = new Application_Model_ElectiveSelection();
+                    $StudentPortal_model = new Application_Model_StudentPortal();
+                      $session_model = new Application_Model_Session();
+                        $Corecourselearning_model = new Application_Model_Corecourselearning();
+                         $acd_details = new Application_Model_Academic();
+                        $deg_details = new Application_Model_Department();
+                          $term_details = new Application_Model_TermMaster();
+                          $gradeItems = new Application_Model_GradeAllocationItems();
+                             $semester_rule = new Application_Model_SemesterRule();
+                              $course_details = new Application_Model_Course();
+                               $ref_grade_item = new Application_Model_ReferenceGradeMasterItems();
+                                 $GradeAllocation_model = new Application_Model_GradeAllocation();
+                                 $exam_model =  new Application_Model_ExamDateModel();
+                            $resultTerm = $term_details->getRecordByAcademicId($this->acad);
+                            
+$fail_Val = array('D'=>'F','F'=>'F');
+$item_result = $this->result;
+$passpercent = $this->passpercent;
+$acad = $this->acad;
+$ter = $this->term;
+$dept_name = $this->dept_name;
+
+
+//====Variable Declaration==========//
+$i = 1;
+$k = 0;
+$mks = $tot_credit=$mksweightage = $tot_credit_point = $tot_grade_point = $one_row = $stu_data_pr = $component = $weightage = 0;
+$EvaluationComponents_model = '';
+$geData = array();
+$geWeightage = array();
+$ct_arr = $weightage_arr = $component_arr = array();
+$extraSem = 0;
+$session = $this->session;
+$session_name = $session_model->getRecord($item_result[0]['session'])['session'];
+$cmn_term = $item_result[count($item_result)-1]['cmn_terms'];
+$examinfo = $exam_model->getRecordByBatchAndTerm($item_result[0]['academic_year_id'],$cmn_term);
+$examyear = date("F - Y",strtotime($examinfo['examination_month']));
+$resultdate = date("d-m-Y",strtotime($examinfo['result_publish_date']));
+
+$semestername = $item_result[count($item_result)-1]['term_description'];
+
+//echo "<pre>";print_r($academic_det);exit;
+if(!empty($acad)){
+$academic_det = $acd_details->getRecord($acad);
+                        $d_id = $academic_det['department'];
+                        $degree_id= $deg_details->getRecord($d_id)['degree_id'];
+//======['start printing tabulation register']=======//
+
+    ?>
+<!--[table head to be aligned into middle]---------->
+    <style>
+
+
+        
+    </style>
+    <div class="box-body table-responsive" >
+        <input type="hidden" id="dept_name" value = "<?=$dept_name;?>"/>
+        <input type="hidden" id="d_id" value = "<?=$degree_id;?>"/>
+        <input type="hidden" id="session_name" value = "<?=$session_name;?>"/>
+        <input type="hidden" id="result_date" value = "<?=$resultdate;?>"/>
+        <input type="hidden" id="exam_month" value = "<?=$examyear;?>"/>
+        <input type="hidden" id="semstername" value = "<?=$semestername;?>"/>
+        <input type="hidden" id="batchcode" value = "<?=$academic_det['batch_code'];?>"/>
+        <?php if($degree_id==1){ ?>
+        <input type="hidden" id="qual" value = "*=Fail"/>
+        <?php }else{ ?>
+        <input type="hidden" id="qual" value = "*=Fail / **=Qualifying Only"/>
+        <?php } ?>
+        <div style="overflow-x:scroll" >
+            <div id='printBox' style="width:100%;font-size:1vh;">
+            <table class="jambo_table bulk_action datatable datatable-multi-row table" cellspacing = 0  border ='1' id='dataTable'  >
+                <thead class="">
+                    <tr style="padding:0">
+                        <?php  ?>
+                        <input type ="hidden" id='tabl_id' value="<?=$this->id?$this->id:0;?>"/>
+                        <th rowspan="4"  class="complex">S. No.</th>
+                        <th rowspan="4" data-datatable-multi-row-rowspan="4" class="complex">UID</th> 
+                             <th rowspan="4" data-datatable-multi-row-rowspan="4"  class="complex">Reg. No./<br/>Exam. Roll No./<br/>Candidate Name/<br/>Father Name</th>
+                        <th></th>
+                        <?php
+                       
+                        for ($i = 0; $i < count($item_result); $i++) { 
+                         $course_type_result = $Corecourselearning_model->getcourseTypeOn($item_result[$i]['academic_year_id'], $item_result[$i]['term_id']); 
+                        ?>
+                       
+                        <th colspan = "<?=count($course_type_result)+2?>">Semester <?=$i+1;?></th>
+                        
+                        <?php } ?>
+                        <th rowspan="2"   style='padding: 0.2em;'>Grand Total</th>
+                        <th rowspan="2"   style='padding: 0.2em;'>CGPA (cr. point/cr.)</th>
+                        <th rowspan="3"   style='padding: 0.2em;'>%(Percentage)</th>
+                        <th rowspan="3"   style='padding: 0.2em;'>CGPA Grades</th>
+                        <th rowspan="3"   style='padding: 0.2em;'>Remarks/<br/>Fail in</th>
+                        </tr>
+                        
+                        
+<!--                        <th rowspan="2" class="complex">ID Number</th>-->
+                        
+                     <tr>
+            
+                <?php
+                /*
+                 * calling model course_corse_learning
+                 * if course credit has been created
+                 * then get the courseType value 
+                 * 
+                 */
+                 $student_course = [];
+                for ($i = 0; $i < count($item_result); $i++) {
+                 
+                $tot_arr = array(); 
+        $credit_head_arr = array();
+                
+                $course_type_result = $Corecourselearning_model->getcourseTypeOn($item_result[$i]['academic_year_id'], $item_result[$i]['term_id']);
+//-------------------------------------------------------****************------------------------------------------------------------------------------------------------//     
+                foreach ($course_type_result as $course_type_key => $course_type_val) {//====printing upper head with component==// 
+          
+                    $item_result[$i]['course_id'] = $course_type_val['course_id'];
+                    $student_course[] = $course_type_val;
+                    ?>
+                  
+<!--                    <th rowspan="2" class="complex">Course Code</th>-->
+                    <?php if ($component == 0) { ?>
+                   
+                        <th class="complex" >Course Code</th>
+ 
+                        <?php $component++;
+                    } ?>
+                    <?php
+                    //====================[getting all the evaluation component]======================================//
+                  $EvaluationComponents_model = new Application_Model_EvaluationComponents();
+                    $result = $EvaluationComponents_model->getAllComponentsonTerms(0, 0, $item_result[$i]['course_id']); 
+                     if($course_type_key == 1 && $item_result[$i]['term_id']===310){
+                                    $course_type_val = $course_type_result[2]; 
+                                }
+                                else if($course_type_key == 2 && $item_result[$i]['term_id']===310){
+                                   $course_type_val = $course_type_result[1];
+                                } 
+                  
+                    ?>
+                        
+                    <th class="complex" style='padding: .2em;'>
+                        <?php if(!in_array($course_type_val['ge_id'],array(34,37,38,14,35,4,3,10,11,23,9))){  
+                        if(!in_array($course_type_val['course_code'],array('AECC 101(H)','AECC 101(E)'))) { 
+                            echo $course_type_val['course_code']; 
+                        }else {
+                             echo 'AECC'; 
+                        }
+                            }
+                        else{ echo $course_type_val['ct_name']; } ?></th>
+                   
+                 
+                    
+    <?php   } //print_r($course_type_val);
+                 //   die();?>
+                <th rowspan="1"   style='padding: 0.2em;'>Total</th>
+                <th class="complex" style='padding: 0.2em;'>SGPA <br/>(Cr. Point/ Cr.)</th>
+                
+               
+                <?php  } ?>
+                </tr> <?php //==========[END Printing upper components]====================//  ?>
+  <!-----------------------------------------------------------**************************---------------------------------------------------------------------------->
+                <tr>
+                    <?php
+                     
+                    for ($i = 0; $i < count($item_result); $i++) {
+                       
+                    //========================[Getting all the course and ge_id for the weightage]============================//
+                    $newData = $EvaluationComponents_model->getAllComponentsonTerms1($item_result[$i]['academic_year_id'], $item_result[$i]['term_id'], 0);
+
+                   
+                    $getNewWeightage = $ct_arr = $getWeightage = array();
+
+                    //==================[Fettering Weightage according to their courses_id]=============================================]=======//
+                    foreach ($newData as $Studkey => $newVal) {
+                        $getWeightage[$newVal['ct_id']][$newVal['course_id']][$newVal['component_id']] = $newVal['weightage'];
+                    }
+                    
+                     $course_type_result = $Corecourselearning_model->getcourseTypeOn($item_result[$i]['academic_year_id'], $item_result[$i]['term_id']);
+                    //===========================[Start printing the lower head with weightage]==============================================//
+                    foreach ($course_type_result as $course_type_key => $course_type_val) {
+                        $component_arr = array();
+                        $item_result[$i]['course_id'] = $course_type_val['course_id'];
+                        //===============[Filtering according to their component id]======================//
+                        foreach ($getWeightage[$course_type_val['ct_id']] as $Studkey => $newVal) {
+                            Ksort($newVal);
+                            foreach ($newVal as $component_id => $weightage_val) {
+                                $getNewWeightage[$course_type_val['ct_id']][$component_id][] = $weightage_val;
+                            }
+                        }
+                        
+                        $result = $getNewWeightage[$course_type_val['ct_id']];
+                        if($course_type_val['count_id'] == 0){
+                        $credit_head_arr[$item_result[$i]['term_id']][] = $course_type_val['credit_value'];
+                        $tot_credit+=$course_type_val['credit_value'];
+                        }
+                        ?>
+                        <?php if ($weightage == 0) { ?>
+                            <th >Credit</th>
+                            <?php $weightage++;
+                        }else if($course_type_key == 0){  ?>
+                      
+                        <th></th>
+                        <?php } ?>
+                        <?php $arr_check = array(); ?>
+                        <!--weightage---->
+                        <th><?= $course_type_val['credit_value'];?></th>
+                        <?php
+                        
+                        
+                        /*
+                         * this loop making single head uniqe if duplicates 
+                         * marks and print the weightage
+                         * 
+                         * 
+                         */
+                         
+                        foreach ($result as $k => $val) {
+                            $val1 = $val;
+                            $val = array_unique($val);
+                            ?>
+                            
+                              
+                             <?php // implode('/', $val);
+                                $new_arr = $val1;
+                                foreach ($new_arr as $weightage_key => $to_val) {
+                                    $tot_arr[$course_type_val['ct_id']][$weightage_key] += $to_val;
+                                }
+                                ?>
+                           
+                            <?php
+                        }
+
+                        $total_sub_mks = array_unique($tot_arr[$course_type_val['ct_id']]);
+                        ?>
+                        
+    <?php }?> 
+      <th><?= array_sum($credit_head_arr[$item_result[$i]['term_id']]); ?></th>
+    <?php } ?>
+    <th></th>
+    <th><?=$tot_credit;?></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+                </tr>
+                
+                
+                
+                   <tr>
+                    <?php
+                    for ($i = 0; $i < count($item_result); $i++) {
+                              
+                $tot_arr = array(); 
+                $credit_head_arr = array();
+                 $total_head_arr = array();
+                    //========================[Getting all the course and ge_id for the weightage]============================//
+                    $newData = $EvaluationComponents_model->getAllComponentsonTerms1($item_result[$i]['academic_year_id'], $item_result[$i]['term_id'], 0);
+
+                   
+                    $getNewWeightage = $ct_arr = $getWeightage = array();
+
+                    //==================[Fettering Weightage according to their courses_id]=============================================]=======//
+                    foreach ($newData as $Studkey => $newVal) {
+                        $getWeightage[$newVal['ct_id']][$newVal['course_id']][$newVal['component_id']] = $newVal['weightage'];
+                    }
+                    
+                     $course_type_result = $Corecourselearning_model->getcourseTypeOn($item_result[$i]['academic_year_id'], $item_result[$i]['term_id']);
+                    //===========================[Start printing the lower head with weightage]==============================================//
+                    foreach ($course_type_result as $course_type_key => $course_type_val) {
+                        $component_arr = array();
+                        $item_result[$i]['course_id'] = $course_type_val['course_id'];
+                        //===============[Filtering according to their component id]======================//
+                        foreach ($getWeightage[$course_type_val['ct_id']] as $Studkey => $newVal) {
+                            Ksort($newVal);
+                            foreach ($newVal as $component_id => $weightage_val) {
+                                $getNewWeightage[$course_type_val['ct_id']][$component_id][] = $weightage_val;
+                            }
+                        }
+                        
+                        $result = $getNewWeightage[$course_type_val['ct_id']];
+                        ?>
+                        <?php if ($mksweightage == 0) { ?>
+                            <th >Full Marks/ Pass Marks</th>
+                            <?php $mksweightage++;
+                        }else if($course_type_key == 0){ ?>
+                    
+                        <th></th>
+                        <?php } ?>
+                        <?php $arr_check = array(); ?>
+                        <!--weightage---->
+                        <th>
+                        <?php
+                        $x = 0;
+                        /*
+                         * this loop making single head uniqe if duplicates 
+                         * marks and print the weightage
+                         * 
+                         * 
+                         */
+                         
+                        foreach ($result as $k => $val) {
+                            $val1 = $val;
+                            $val = array_unique($val);
+                            ?>
+                            
+                             <?php // implode('/', $val);
+                                $new_arr = $val1;
+                                foreach ($new_arr as $weightage_key => $to_val) {
+                                    $tot_arr[$course_type_val['ct_id']][$weightage_key] += $to_val;
+                                }
+                                ?>
+                           
+                            <?php
+                        }
+                        $passpercent = $this->passpercent;
+                        $total_sub_mks = array_unique($tot_arr[$course_type_val['ct_id']]);
+                           if($total_sub_mks[0]==250){
+                                    $passpercent = 50;}
+                               else if($total_sub_mks[0]==25){
+                                   $passpercent = 50;
+                    }
+                    
+                                   $passmarks = ((int)$passpercent/100)*(int)$total_sub_mks[0];
+                                   if($course_type_val['count_id'] == 0){
+                            $total_head_arr[$item_result[$i]['term_id']][]  =  $total_sub_mks[0]; 
+                             $mks += $total_sub_mks[0];
+                                   }
+                        echo $total_sub_mks[0].'/<br/>'.$passmarks;
+                     
+                        ?>
+                    
+                        
+    <?php }?>  
+    <th><?=array_sum($total_head_arr[$item_result[$i]['term_id']]);?></th>
+    <?php }?>
+    <th></th>
+   <th><?=$mks;?></th>
+   <th></th>
+   <th></th>
+   <th></th>
+   <th></th>
+                </tr>
+               
+                
+                
+               
+  <!-----------------------[End printing head]--------------------------------------------------------------------------------------------------->
+                </thead>
+                <tbody id="tprintbody">
+                     
+                    <?php 
+                    $m = 1;
+                     $prevInc =$inc=$inde = 0;
+                    $corce = array();
+                    
+                //===============[Degree_id & cmn terms]==========================//    
+                       
+                        $term_count = $term_details->getRecordByAcademicId($acad);
+                     
+                       // $details = $semester_rule->checkRow($degree_id, $cmn_term);
+               //========================[END]========================//
+                        $appearedAllSemStuData = $StudentPortal_model->getFinalStudentIds($acad,count($term_count));
+                        $appearedAllSemStuData = array_column($appearedAllSemStuData,'student_id');
+                        $total_count = count($studentMarksDetails);
+                    while($inc<$total_count){ 
+                        
+                        if(in_array($studentMarksDetails[$inc]['student_id'],$appearedAllSemStuData)){
+                            $stu_data = $studentMarksDetails[$inc];}
+                            else{
+                                $inc++;
+                                continue;
+                            }
+                        $prevInc =  $inc; 
+                        $totalMarks = 0;
+                        $creditPointTotal = 0;
+                        $creditTotal=0;
+                        $failIn = array();
+                        $course_type_result = array();
+                        $cgpaStyle = "";
+                        $isStuDetails = true;
+                        $isStuGradePoint = true;
+                        $isStudeCreditPoint = true;
+                        $k = 1;
+                    ?>
+                                               
+                         <?php while($k<=3){ 
+                         $inc = $prevInc;
+                         ?>
+                            <tr>                       
+                        <?php for ($i = 0; $i < count($item_result); $i++) { 
+                            $termTotalMarks = 0;
+                            $termCreditPointTotal = 0;
+                            $termCreditTotal = 0;
+                            $creditPoint = 0;
+                            if($k==1){ //=========fetch only once;========//
+                            $core_course = $Corecourselearning_model->studentCorecourse($item_result[$i]['academic_year_id'], $item_result[$i]['term_id']);
+                            $stu_ge = $Corecourselearning_model->studentGe($stu_data['stu_id'],$item_result[$i]['term_id']);
+                            $course_type_result[$item_result[$i]['term_id']] =  array_merge($core_course,$stu_ge);
+                               
+                            }
+                           
+                            $emptyCells = false;
+                            $sgpaPrint = true;
+                            $sgpaStyle = "style='background:rgba(40,180,84,.3)'"; 
+                           usort($course_type_result[$item_result[$i]['term_id']], 'sortByOrder');
+                            ?>
+                           
+                            
+                              <?php   foreach($course_type_result[$item_result[$i]['term_id']] as $courseIndexKey=>$courseData){
+                                 
+                                    if($courseData['course_id']==$studentMarksDetails[$inc]['course_id']) {
+                                        
+                                        if($this->archive==1 && !empty($this->prev)){
+                                            $archive_data = $gradeItems->getArchivedData($item_result[$i]['academic_year_id'], $item_result[$i]['term_id'], $studentMarksDetails[$inc]['student_id'],$courseData['course_id'],$this->prev);  
+                                            $studentMarksDetails[$inc]=  is_array($archive_data)?$archive_data:$studentMarksDetails[$inc];
+                                        } 
+                                        $creditPoint = $studentMarksDetails[$inc]['count_id']==0? $studentMarksDetails[$inc]['credit_value']*$studentMarksDetails[$inc]['number_grade']:0;
+                                        $termTotalMarks+=$studentMarksDetails[$inc]['count_id']==0?$studentMarksDetails[$inc]['obtained_marks']:0;
+                                        $termCreditPointTotal+=$studentMarksDetails[$inc]['count_id']==0?$creditPoint:0;
+                                        $termCreditTotal+=$studentMarksDetails[$inc]['count_id']==0?$studentMarksDetails[$inc]['credit_value']:0;
+                                        $style="";
+                                        $star ='';
+                                      
+                                     
+                                        if(in_array($studentMarksDetails[$inc]['letter_grade'],array('F','D','Ab','NA')) || preg_match("/(F|D|Ab|NA)/i", $studentMarksDetails[$inc]['grade_value'])){
+                                        $failIn[] =  $studentMarksDetails[$inc]['course_code'];
+                                        $cgpaStyle=$style="style='color:Red;font-weight:bolder;font-style: italic;'";
+                                        $sgpaStyle = "style='background:rgba(25,180,145,.3);color:Red;font-weight:bolder;font-style: italic;'";
+                                        $star ='*';
+                                        $sgpaPrint = false;
+                                        }
+                                    ?>
+                                    
+                                                 <?php if($k==1){ ?>
+                                                   <?php if($isStuDetails){ ?>
+                                                   <th rowspan =3><?=$m;?></th>
+                                                    <th rowspan =3><?=$stu_data['stu_id'];?></th>
+                                                        <th style="text-align:left !important;">
+                                                            <?=$stu_data['reg_no'];?>/
+                                                             <?=$stu_data['exam_roll'];?>/
+                                                             <?=$stu_data['stu_fname'];?>/
+                                                             <?=$stu_data['father_fname'];?>
+                                                        </th>
+                                                 <td rowspan=3></td>
+                                                 <?php $isStuDetails=false; } ?>
+                                                        <td  <?=$style;?> class="first" >
+                                                            <?=$studentMarksDetails[$inc]['obtained_marks']."$star";?>
+                                                            <?=!in_array($studentMarksDetails[$inc]['ge_id'],array(0,24,25,37,38,34,27)) && !in_array($studentMarksDetails[$inc]['course_id'],array(34,563,564,570,571,580,861,867,))?"(".$studentMarksDetails[$inc]['course_code'].")":'';?>
+                                                        </td>
+                                                    <?php } ?> 
+                                                    
+                                                     <?php if($k==2){ ?>   
+                                                    <?php if($isStuGradePoint){ ?>
+                                                     <th style="text-align:left !important;" >GRADE POINT</th>   
+                                                    <?php $isStuGradePoint=false; } ?>
+                                                     <td <?=$style;?>><?=$studentMarksDetails[$inc]['number_grade']==0?'--':$studentMarksDetails[$inc]['number_grade'];?></td>
+                                                     <?php } ?> 
+                                                     
+                                                   <?php if($k==3){ ?>  
+                                                    <?php if($isStudeCreditPoint){ ?> 
+                                                     <th style="text-align:left !important;" >Credit Point (Cr. X Grade Point)</th>
+                                                    <?php $isStudeCreditPoint=false; } ?>
+                                                     <td <?=$style;?>><?=$creditPoint==0?'--':$creditPoint;?></td>
+                                               <?php 
+                                                    
+                                                    
+                                                   
+                                               }
+                                               $inc = $studentMarksDetails[$inc]['obtained_marks']==0?$inc+2:$inc+1; 
+                                               $emptyCells = true; ?>
+                                            
+                                    <?php }
+                                } //=========[End course for each]
+                                if(!$emptyCells){?>
+                                            <?php if($k==1){ ?>
+                                                   <?php if($isStuDetails){ ?>
+                                                   <th rowspan =3><?=$m;?></th>
+                                                    <th class="stu_id" rowspan =3><?=$stu_data['stu_id'];?></th>
+                                                        <th style="text-align:left !important;" >
+                                                            <?=$stu_data['reg_no'];?>/
+                                                             <?=$stu_data['exam_roll'];?>/
+                                                             <?=$stu_data['stu_fname'];?>/
+                                                             <?=$stu_data['father_fname'];?>/
+                                                    </th>
+                                                 <td rowspan=3></td>
+                                                 <?php $isStuDetails=false; } ?>
+                                                        <td>--</td>
+                                                        <?php } ?>
+                                                        
+                                                        <?php if($k==2){ ?>   
+                                                    <?php if($isStuGradePoint){ ?>
+                                                     <th style="text-align:left !important;">GRADE POINT</th>   
+                                                    <?php $isStuGradePoint=false; } ?>
+                                                     <td>--</td>
+                                                     <?php } ?>
+                                                     
+                                                     <?php if($k==3){ ?>  
+                                                    <?php if($isStudeCreditPoint){ ?> 
+                                                     <th style="text-align:left !important;">Credit Point (Cr. X Grade Point)</th>
+                                                    <?php $isStudeCreditPoint=false; } ?>
+                                                     <td>--</td>
+                                                     <?php } ?>
+                    <?php $inc++; } ?>
+                    <?php if($k==1){ ?>
+                        <td class="first" ><?=$termTotalMarks;?></td>
+                         <?php } else if($k==2){ ?>
+                        <td style="color:white;">0</td>
+                         <?php }  else if($k==3){ ?>
+                        <td <?=$sgpaStyle;?> ><?=$sgpaPrint?$termCreditPointTotal:'--';?></td>
+                        <?php } ?>
+                    
+                    
+                   <?php 
+                           
+                   //===========SGPA calculation==============//
+                   $sgpa = !$sgpaPrint?'--':number_format($termCreditPointTotal/$termCreditTotal,2); 
+                   if($k==1){ ?>
+                   
+                    <th rowspan="3" <?=$sgpaStyle;?> ><?=$sgpa;?></th>
+                    
+    <?php }
+    $totalMarks+=$termTotalMarks;
+    $creditPointTotal+=$termCreditPointTotal;
+    $creditTotal+=$termCreditTotal;
+                        }//============[END TErms Loop]
+                    //=======================CGPA Calculation==================//
+                        $cgpa = $creditTotal>0 && !count($failIn)?number_format($creditPointTotal/$creditTotal,2):'Pending';
+                           //====================================Percentage(%) Calculation=================//
+                           if($k==1){
+                        if($degree_id==3)
+                        $finalPercent = is_numeric($cgpa)?number_format($cgpa*9.25,2).'%':'--';
+                        else if($degree_id>1)
+                        $finalPercent = is_numeric($cgpa)?number_format($cgpa*9.5,2).'%':'--';
+                        else
+                        $finalPercent = is_numeric($cgpa)?number_format($cgpa*9,2).'%':'--';
+                        $letter_grade = $ref_grade_item->getRecordByNumGrade1($finalPercent, $degree_id, $session);
+                        $letter_grade = $finalPercent=='--'?'--':$letter_grade['letter_grade']." (".$letter_grade['des'].")";
+                           }
+                        if($k==1){ 
+                        $pattern = '/(\s|-|\/)/i';
+                        ?>
+                         
+                        
+                        <th rowspan="3" ><?=$totalMarks;?></th>
+                        <th rowspan="3" <?=$cgpaStyle;?> ><?=$cgpa;?></th>
+                        <th rowspan="3" <?=$cgpaStyle;?> ><?=$finalPercent;?></th>
+                        <th rowspan="3" class="grade" <?=$cgpaStyle;?>><?=!count($failIn)?$letter_grade:"F (Fail)";?></th>
+                        <th rowspan="3" <?=$cgpaStyle;?> ><?=preg_replace($pattern, '<br/>', implode('/',$failIn));?></th> 
+                      
+                <?php   
+                        }
+                    ?>
+                    </tr>
+                    <?php
+                    $k++; } //=====[END INNER WHILE]===============//
+                
+              
+                        $m++; }//=====[End Student For Earch]
+                        
+            }//========[END IF statement]        
+    ?>	
+   
+  
+                </tbody>
+             
+            </table>
+        </div>
+        </div>
+       
+    </div>
+    
+        <div id="myModal" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+                    
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Grade Total Count</h4>
+                          </div>
+                          <div class="modal-body" id="creditcount">
+                           
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                    
+                      </div>
+                    </div>
+                    <?php
+                    
+                    function sortByOrder($a, $b) {
+                                return $a['sort_order'] - $b['sort_order'];
+                            }
+                            ?>
+
+<!--<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>-->
+<script>
+var termarr = '<?php echo json_encode($resultTerm); ?>';
+
+$(document).ready(function(){
+    termarr = JSON.parse(termarr);
+    var li = '';
+    for(indx in termarr){
+        var inc = parseInt(indx)+1;
+        li+=`<li><a href="#">Semester ${inc}</a></li>`
+    }
+    $(".dropdown-menu").empty();
+    $(".dropdown-menu").append(li);
+});
+
+    $(".grade_count").click(function(){
+        var grade_count = $(".grade");
+        var stu_id = $(".stu_id");
+        var grades = Array();
+        var descriptions = Array();
+        var students = Array();
+        var counts = {};
+        grade_count.each(function(i){
+            var gr = $(this).text().split(' ');
+           // var stu = stu_id.eq(i).text();
+         grades.push(gr[0]);
+        });
+        grades.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
+        
+      var table='<table width="100%" class="jambo_table bulk_action datatable datatable-multi-row table" border="1px"><thead><tr><th>Grade</th><th>Count</th></tr></thead><tbody>';
+        for(x in counts){
+            
+                console.log(x);
+                table+=`<tr><td>${x}</td><td>${counts[x]}</td></tr>`;
+             
+         };
+        table+='</tbody></table>';
+        $('#creditcount').html(table);
+       
+       
+      
+
+    });
+ 
+    
+    
+</script>
+

@@ -1,0 +1,262 @@
+<link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<div class="padding-md right_col">
+    <div class="load-box">
+        <img src="<?php echo $this->mainconfig['publicpath']; ?>/images/loader.gif" width='200px'  class="loder_img1" />
+    </div>  
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="page-title txt-color-blueDark" >
+                <div><i class="fa fa-eye"> Admit Card [Collegiate] </i></div>
+                <div class="  pull-right"><a href="<?php echo $this->mainconfig['publicpath']; ?>pdfUpload/back page.pdf" class="cancel btn btn-primary" type ="button" download="Instruction" >Print Instructions</a></div>
+            </h3>
+            
+            <div class="panel panel-default">
+                <form class="no-margin" id="formValidate1" action="<?php echo $this->form->getAction() ?>" method="post" data-validate="parsley" >
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-6 pull-left" style="padding-left : 0 ; margin-left: 0;"> 
+                                            <div class="col-xs-3 pull-left" style="padding-left : 0 ; margin-left: 0;"><p>Min Sl No. <span class="asterisk"></span> <input type="number" id="manualmin" autocomplete="off"> </p></div>
+                                            <div class="col-xs-3 pull-left" style="padding-left : 0 ; margin-left: 0;"><p>Max Sl No. <span class="asterisk"></span><input type="number" id="manualmax" autocomplete="off"></p></div>
+                                            
+                                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-3 employee_class">
+                                <div class="form-group">
+                                  <!--<label class="control-label">Batch<span class="asterisk">*</span></label>-->
+                                    <?php echo $this->form->academic_year; ?>
+                                </div>
+                            </div> 
+                            <div class="col-sm-3 employee_class">
+                                <div class="form-group">
+                                  <!--<label class="control-label">Batch<span class="asterisk">*</span></label>-->
+                                    <?php echo $this->form->session; ?>
+                                </div>
+                            </div> 
+                            <div class="col-sm-3 employee_class">
+                                <div class="form-group">
+                                  <!--<label class="control-label">Batch<span class="asterisk">*</span></label>-->
+                                    <?php echo $this->form->academic_year_id; ?>
+                                </div>
+                            </div> 
+
+
+                            <div class="col-sm-3 employee_class">
+                                <div class="form-group">
+                                <!--  <label class="control-label">Year<span class="asterisk">*</span></label>-->
+                                    <?php echo $this->form->year_id; ?>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3 employee_class">
+                                <div class="form-group">
+                                  <!--<label class="control-label">Term<span class="asterisk">*</span></label>-->
+                                    <select name="term_id" id="term_id" class="form-control">
+                                        <option>Select Term</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-3 employee_class">
+                                <div class="form-group">
+                                    <!--<label class="control-label">Participant Name</label>-->
+                                    <?php echo $this->form->stu_id; ?>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">&nbsp;</label>
+                                    <input type="text" id="batch" class="form-control" style="background-color:#fdf59a;"  readonly />
+                                </div>
+                            </div>
+                        </div>
+                        <div id="getstudent" class="col-sm-12">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-3 text-right"><button class="downloadAll btn btn-primary" type ="button" >Download<i class="fa fa-download"></i></button></div>
+                            <div class=" col-md-3 text-left"><button class="cancel btn btn-primary" type ="button" >Stop <i class="fa fa-close"></i></button></div>
+                            
+                        </div>
+                    </div>
+
+                </form>
+            </div><!-- /panel -->
+        </div><!-- /.col-->				
+    </div><!-- /.row -->
+
+</div><!-- /.padding-md -->	
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+<script>
+    jQuery(document).ready(function () {
+        $('#batch').hide();
+
+        $('body').on('change', '#term_id, #stu_id',  function () {
+            $('.load-box').css('display', 'block');
+            getstudentDetails();
+        });
+    });
+let table = '';
+
+   function getstudentDetails() {
+        $url = '<?php echo $this->mainconfig['host']; ?>report/get-student-admitcard';
+        $.post($url,
+                {
+                    'academic_id': $('#academic_year_id').val(),
+                    'year_id': $('#year_id').val(),
+                    'term_id': $('#term_id').val(),
+                    'stu_id': $('#stu_id').val(),
+                    'session_id':$('#session').val()
+                })
+                .done(function (data) {
+
+                    //$('#payslipData').html('');
+                    $('.load-box').css('display', 'none');
+                    $('#getstudent').empty();
+                    $('#getstudent').html(data);
+                    
+                    setTimeout(setDatatablesManual,3000);
+    
+                });
+
+    }
+    var filesForDownload = [];
+    $("#academic_year_id").change(function () {
+        var academic_year_id = $("#academic_year_id").val();
+        //alert(academic_year_id);
+        //var sel = document.getElementById("academic_year_id");
+        //var value = sel.options[sel.selectedIndex].value; // or sel.value
+        //var text = sel.options[sel.selectedIndex].text; 
+        //alert(text);
+        //$('#batch').val(text);
+        if (academic_year_id != '') {
+            $('.load-box').css('display', 'block');
+            $.ajax({
+                type: "POST",
+                url: "<?php echo $this->mainconfig['host'] . 'report/ajax-get-student-details'; ?>",
+                data: {academic_year_id: academic_year_id}
+            }).done(function (data) {
+                //alert(data);	
+                $("#stu_id").html(data);
+
+                $('.load-box').css('display', 'none');
+            });
+        }
+    });
+
+
+    $('body').on('change', '#academic_year_id', function () {
+        var academic_id = $('#academic_year_id').val();
+        if (academic_id) {
+            $('#batch').show();
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-batch-code'; ?>',
+                data: {academic_id: academic_id}
+            }).done(function (data) {
+                var result = $.parseJSON(data);
+                if ((data != '')) {
+                    $('#batch').val(result['short_code']);
+                }
+            });
+        }
+
+    });
+
+    $('body').on('change', '#year_id', function () {
+        var academic_id = $('#academic_year_id').val();
+        var year_id = $('#year_id').val();
+        if (academic_id && year_id) {
+            $('.load-box').css('display', 'block');
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-term-year-batch'; ?>',
+                data: {batch_id: academic_id, year_id: year_id}
+            }).done(function (data) {
+
+                $('#term_id').html(data);
+                $('.load-box').css('display', 'none');
+
+            });
+        }
+
+    });
+
+ //To filter Session
+    $('body').on('change', '#academic_year', function () {
+        var year_id = $('#academic_year').val();
+        if (year_id) {
+
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-Get-Session'; ?>',
+                data: {year_id: year_id}
+            }).done(function (data) {
+                $('#session').empty('');
+                $('#session').html(data);
+                $('#session').trigger("chosen:updated");
+            });
+        }
+    });
+    //Get Batch By Session
+    $('body').on('change', '#session', function () {
+        var year_id = $('#session').val();
+        if (year_id) {
+
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-batch'; ?>',
+                data: {session: year_id}
+            }).done(function (data) {
+                $('#academic_year_id').empty('');
+                $('#academic_year_id').html(data);
+                $('#academic_year_id').trigger("chosen:updated");
+            });
+        }
+    });
+    
+         
+   
+    function setDatatablesManual() {
+        $.fn.dataTable.ext.search.push(
+                function (settings, data, dataIndex) {
+                    var min = parseInt($('#manualmin').val(), 10);
+                    var max = parseInt($('#manualmax').val(), 10);
+                    var age = parseFloat(data[0]) || 0; // use data for the age column
+
+                    if ((isNaN(min) && isNaN(max)) ||
+                            (isNaN(min) && age <= max) ||
+                            (min <= age && isNaN(max)) ||
+                            (min <= age && age <= max))
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+        );
+
+        table = $('#datatable-responsive').DataTable({
+            "pageLength": -1,
+
+        });
+    }
+
+    // Event listener to the two range filtering inputs to redraw on input
+    $('#manualmin, #manualmax').keyup(function () {
+        //alert("hello");
+        table.draw();
+    });
+
+    $('#manualmin, #manualmax').change(function () {
+        //alert("hello");
+        table.draw();
+    });
+</script>
+

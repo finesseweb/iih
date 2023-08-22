@@ -1,0 +1,149 @@
+<div class="right_col">
+    <div class="padding-md ">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="page-title txt-color-blueDark" >
+                        <div><i class="fa fa-eye"> Addon Course Learning</i></div>
+                    </h3>
+                    <?php //echo '<pre>';print_r($this->messages);exit; ?>
+                     <?php if (count($this->messages)) {
+                foreach ($this->messages as $message) { ?>
+                <div class="alert <?php echo $_SESSION['message_class']; ?> ">
+                    <a type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
+                <?php echo $this->escape($message); ?>
+                </div>
+                <?php }
+                } ?>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                    <div class="row">
+                    <div class="col-sm-3 employee_class">
+                     <div class="form-group">
+                        <label class="control-label">Academic Year<span class="asterisk">*</span></label>
+                         <?php echo $this->form->academic_year; ?>
+                    </div>
+                    </div> 
+                    <div class="col-sm-3 employee_class">
+                    <div class="form-group">
+                        <label class="control-label">Addon Courses<span class="asterisk">*</span></label>
+                       <?php echo $this->form->addon_course_list; ?>
+                    </div>
+                    </div>
+                    
+                     </div>
+                 <form class="no-margin" id="formValidate1" action="<?php echo $this->form->getAction() ?>" method="post" data-validate="parsley" >
+                        <div class="ajaxData" id="ajaxData"></div>
+                    <div class="row">
+                        <div class="col-sm-3 employee_class">
+                                        <div class="form-group">
+                                            <label class="control-label"><span class="asterisk">Academic Year*</span></label>
+                                            <?php echo $this->form->mig_academic_year; ?>
+                                            <?php echo $this->form->csrftoken; ?>
+                                        </div>
+                                    </div>
+<!--                                    <div class="col-sm-3 employee_class">
+                                        <div class="form-group">
+                                            <label class="control-label"><span class="asterisk">Addon Courses*</span></label>
+                                            <?php //echo $this->form->mig_addon_course_list; ?>
+                                        </div>
+                                    </div>-->
+                                </div>
+                            </div>
+                            <div>
+                                <div class="panel-footer">									
+                                    <div class="row">
+                                        <div class="col-sm-7 col-sm-offset-5">
+                                                <div style="float:left;margin-right:2px;" >
+                                                    <button class="btn btn-primary submit" id="submit">Submit</button>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div><!-- /panel -->
+                </div><!-- /.col-->				
+            </div><!-- /.row -->
+
+        </div><!-- /.padding-md -->	
+</div>
+<script>
+//To filter Session
+    $('body').on('change', '#academic_year', function () {
+    
+        var academic_year = $('#academic_year').val();
+        if (academic_year) {
+             $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-addon-courses-by-session'; ?>',
+                data: {academic_year: academic_year}
+                 }).done(function (data) {
+                $('#addon_course_list').empty('');
+                $('#addon_course_list').html(data);
+                $('#addon_course_list').trigger("chosen:updated");
+                });
+        }
+    });
+  
+    $('body').on('change', '#mig_academic_year', function () {
+        var academic_year = $('#mig_academic_year').val();
+        var academic = $('#academic_year').val();
+        //alert(academic_year_id);
+        
+         if (Number(academic_year) >  Number(academic) ) {
+        } else {
+        
+         $("#mig_academic_year").find('option:selected').attr("selected",null);
+           $("#mig_academic_year").trigger("chosen:updated");
+           alert('Migration Batch should be New Batch.');
+        
+        }
+        
+    });
+    $('body').on('change', '#mig_academic_id', function () {
+        var mig_academic_id = $('#mig_academic_id').val();
+        
+        var academic_year_id = $('#academic_year_id').val();
+        //alert(academic_year_id);
+        //alert(mig_academic_id);
+        
+        if (Number(mig_academic_id) >  Number(academic_year_id) ) {
+           
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-term-name'; ?>',
+                data: {academic_year_id: mig_academic_id}
+            }).done(function (data) {
+
+                $('#mig_term_id').empty('');
+                $('#mig_term_id').html(data);
+                $("#mig_term_id").trigger("chosen:updated");
+
+            });
+        }else{
+           $("#mig_academic_id").find('option:selected').attr("selected",null);
+           $("#mig_academic_id").trigger("chosen:updated");
+           alert('Migration Batch should be New Batch.');
+        }
+        
+        
+    });
+ $('#addon_course_list').change(function () {
+        var academic_year = $('#academic_year').val(); 
+        var degree_id = $('#addon_course_list').val()
+        
+        
+          $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-student-by-course-addon-bulk'; ?>',
+                data: {degree_id:degree_id,academic_year:academic_year}
+            }).done(function (data) {
+                $('#ajaxData').empty();
+                $('#ajaxData').html(data);
+               
+                
+            });
+        
+        
+       }); 
+</script>

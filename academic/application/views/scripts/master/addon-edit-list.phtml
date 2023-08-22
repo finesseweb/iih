@@ -1,0 +1,354 @@
+<style>
+    #refresh{
+        cursor:pointer;
+    }
+</style>
+<div class="right_col bdoypayment">
+    <div class="load-box" style="z-index:998">
+        <img src="<?php echo $this->mainconfig['publicpath']; ?>/images/loader.gif" width='200px'  class="loder_img1" />
+    </div>
+      <?php  unset($_SESSION['itemresult']);
+      unset($_SESSION['grades']);
+      if($this->type == "add") { ?>
+     <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
+                    <h3 class="page-title txt-color-blueDark">
+                        <i class="fa fa-bars"> Import List</i>
+
+                    </h3>
+                </div>
+                 <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+                    <h3 class="page-title txt-color-blueDark">
+                        <a href="<?php echo $this->mainconfig['host']?>master/addon-list-updation/" class="btn btn-primary pull-right">Back</a>
+
+                    </h3>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <form action="add"  method="post" enctype="multipart/form-data">
+                <div class="col-sm-3 employee_class">
+                <div class="form-group">
+                    
+                <label class="control-label">Academic Year<span class="asterisk">*</span></label>
+              <?php echo $this->form->academic_year; ?>
+                </div>
+                </div>
+               <div class="col-sm-3 employee_class">
+                <div class="form-group">
+                    
+                <label class="control-label">Addon Course List<span class="asterisk">*</span></label>
+              <?php echo $this->form->addon_course_list; ?>
+                </div>
+                </div>
+              <div class="col-sm-3 employee_class">
+                <div class="form-group">
+                    
+                <label class="control-label"> Course Code<span class="asterisk">*</span></label>
+              <?php //echo $this->form->addon_course_list; ?>
+                <input type="text" name="course_code" id="addon_course_code" readonly="readonly">
+                </div>
+                </div>
+                <div class="col-sm-3 employee_class">
+                <div class="form-group">
+                <label class="control-label">Import CSV File<span class="asterisk">*</span></label>
+                <input type="file" name="file" />
+                </div>
+                </div>
+              
+                    <div class="col-sm-3 employee_class">
+                        <div class="form-group">
+                            <input type="submit" name="submit" value="Import" class="btn btn-primary pull-right" style="margin-top:1.5em;z-index:999;">
+                           </div>
+                    </div>
+               
+                </form>
+                <div style="float:left;padding-left:10%;">
+                </div>
+            </div>
+        
+        </div>    
+
+
+    </div>
+    
+    <?php } else {?>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
+                    <h3 class="page-title txt-color-blueDark">
+                        <i class="fa fa-bars"> Addon Edit Student Marks</i>
+
+                    </h3>
+                </div>
+                <!-------------------[comented due to data is comming from eaxceladdon]--------------->
+                <!-- <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">-->
+                <!--    <h3 class="page-title txt-color-blueDark">-->
+                <!--        <a href="<?php echo $this->mainconfig['host']?>master/addon-list-updation/type/add" class="btn btn-primary pull-right">Add</a>-->
+
+                <!--    </h3>-->
+                <!--</div>-->
+            </div>
+            <div class="col-md-12">
+                   <div class="col-sm-3 employee_class">
+                    <div class="form-group">
+                        <label class="control-label">Session<span class="asterisk">*</span></label>
+                        <?php //echo $this->form->session_id; ?>
+                        <input type ="text" class="form-control" id = "session_id" value="2021-2024" />
+                    </div>
+                </div>    
+                  <div class="col-sm-3 employee_class">
+                <div class="form-group">
+                    
+                <label class="control-label"> Addon Course<span class="asterisk">*</span></label>
+                        <?php //echo $this->form->course_list; ?>
+                    <input type ="text" class="form-control" id = "course_list" />
+                </div>
+                </div>
+                <!--changed due to data is comming from addon excel ------------>
+              <!--   <div class="col-sm-3 employee_class">-->
+              <!--  <div class="form-group">-->
+                    
+              <!--  <label class="control-label"> Course Code<span class="asterisk">*</span></label>-->
+              <?php //echo $this->form->addon_course_list; ?>
+              <!--  <input type="text" name="course_code" id="addon_course_code" readonly="readonly">-->
+              <!--  </div>-->
+              <!--  </div>-->
+                 <div class="col-sm-3 employee_class">
+                        <div class="form-group">
+                            <button type="button" id="getRecords" class="btn btn-primary pull-right" style="margin-top:1.5em;z-index:999;" value="0" >Get Records</button>
+                        </div>
+                    </div>
+                <div style="float:left;padding-left:10%;">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive" id="ajaxData"> 
+                    <table class="table table-striped table-bordered mb30 jambo_table bulk_action dataTable" id="datatable-responsive" style="height:100%">
+                        <thead>
+                            <tr>
+
+                                <th class="no-sort">S.No.</th>
+                                <th>Student Name</th>
+                                <th>UID</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td colspan="9">
+                                    <h2 style="color:red">
+                                        No Records Available.
+                                    </h2>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+                    <div class="row">
+                   <!--// <div class="col-md-offset-3 col-md-3 text-right"><button class="update btn btn-primary" type ="button" >Update</div>-->
+                </div>
+            </div>
+
+        </div>    
+
+
+    </div>
+<?php } ?>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js" integrity="sha512-SGWgwwRA8xZgEoKiex3UubkSkV1zSE1BS6O4pXcaxcNtUlQsOmOmhVnDwIvqGRfEmuz83tIGL13cXMZn6upPyg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+
+var table;
+
+    $('.datepicker').datepicker();
+
+//Author: Kedar: 22 Oct 2020 : To get record by filter crieteria
+    $('body').on('click', '#getRecords', function () {
+
+        
+        let course_list = $('#course_list').val();
+        let session_id = $('#session_id').val();
+        let grade_dept = $('#gradesheet').val();
+        $('.load-box').css('display', 'block');
+        
+        
+             $.ajax({
+           
+            type: "POST",
+            url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-addon-stu-details-all'; ?>',
+            data: {addon_course_list: course_list,academic_year:session_id}
+        }).done(function (data) {
+            var ur_data = []
+
+                  data =  Papa.unparse(data)
+                  data = Papa.parse(data);
+            
+            
+             var parseddata = data['data'];
+            	    headers=parseddata[0];
+            	        var table = createTable(parseddata);
+                        $('#ajaxData').empty('');
+                        $('#ajaxData').html(table);
+                        setDatatablesDasboard();
+                        $('.load-box').css('display', 'none');
+            
+            
+                //   $.ajax({
+                   
+                //     type: "POST",
+                //     url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-addon-stu-record'; ?>',
+                //     data: {stu_details:data['data'],refrence_grade:data.refgrade,dept:grade_dept}
+                // }).done(function (data) {
+                //     $('#ajajxData').empty('');
+                //     $('#ajaxData').html(data);
+                //     $('.load-box').css('display', 'none');
+        
+                // }); 
+        }); 
+        
+        // $.ajax({
+           
+        //     type: "POST",
+        //     url: 'https://script.google.com/macros/s/AKfycbxZltFAf5midwHvgy0srXcG-g1NFIeh6ET8U5FhvRjnEj3egbRBpkmZ62b7ztxQcxeH/exec',
+        //     data: {addon_course_list: course_list,academic_year:session_id}
+        // }).done(function (data) {
+        //     console.log(data);
+        //           $.ajax({
+                   
+        //             type: "POST",
+        //             url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-addon-stu-record'; ?>',
+        //             data: {stu_details:data.contents,refrence_grade:data.refgrade,dept:grade_dept}
+        //         }).done(function (data) {
+        //             $('#ajajxData').empty('');
+        //             $('#ajaxData').html(data);
+        //             $('.load-box').css('display', 'none');
+        
+        //         }); 
+        // }); 
+        
+    });
+    
+
+ $('body').on('change', '#addon_course_list', function () {
+        var academic_year = $('#addon_course_list').val();
+        if (academic_year) {
+             $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-addon-courses-code'; ?>',
+                data: {academic_year: academic_year}
+                 }).done(function (data) {
+                $('#addon_course_code').empty('');
+                $('#addon_course_code').val(data);
+               
+                });
+        }
+    });
+    
+
+    
+    
+    
+ $('body').on('change', '#session_id', function () {
+        let academic_year = $('#session_id').val();
+
+        if (academic_year) {
+           // $('.load-box').css('display', 'block');
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-addon-courses-by-session'; ?>',
+                data: {academic_year: academic_year}
+            }).done(function (data) {
+              //  alert(data);
+                $('#course_list').empty('');
+                $('#course_list').html(data);
+                $('#course_list').trigger("chosen:updated");
+            });
+        }
+});     //End   
+
+function getCells(data, type) {
+  return data.map(cell => `<${type}>${cell}</${type}>`).join('');
+}
+
+function getInputcells(data, type){
+    return data.map(cell => `<${type} class="col-md-1">${cell}</${type}>`).join('');
+}
+
+function createBody(data) {
+  return data.map(row => `<tr>${getCells(row, 'td contenteditable onfocusout="td(this)"')}</tr>`).join('');
+}
+
+function createTable(data) {
+
+  // Destructure the headings (first row) from
+  // all the rows
+  const [headings, ...rows] = data;
+
+  // Return some HTML that uses `getCells` to create
+  // some headings, but also to create the rows
+  // in the tbody.
+  return `
+    <table class="table table-striped table-bordered mb30 jambo_table bulk_action dataTable" id="datatable-responsive">
+      <thead>${getCells(headings, 'th')}</thead>
+      <tbody>${createBody(rows)}</tbody>
+    </table>
+  `;
+}
+ function setDatatablesDasboard(){
+            table = $('#datatable-responsive').DataTable()
+            $("tr td:nth-child(1)").removeAttr("contenteditable");
+        } 
+        
+async function  td(element){
+    var id = $(element).siblings("td:nth-child(1)").text();
+    var pos = $(element).parent("tr").index();
+    var details = [];
+    await $(element).parent(`tr:nth-child(${pos+1})`).children("td").each(function(e,element){
+            details.push($(element).text());
+        
+    });
+    
+   
+    
+   
+    if(id && details){
+        console.log(details);
+        $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-update-addon'; ?>',
+                data: {studetails: details,id,headers}
+            }).done(function (data) {
+                if(data > 0)
+                    alert("data updated");
+            });
+    }
+   /// console.log(sl_no,addoncourse,stu_id);
+}
+
+ // DataTable
+  
+          function destroyDtable(){
+                 if ($.fn.DataTable.isDataTable("#datatable-responsive")) {
+        $('#datatable-responsive').DataTable().clear().destroy();
+                 } 
+          }
+          
+          
+   
+        
+        
+        
+        
+</script>
+

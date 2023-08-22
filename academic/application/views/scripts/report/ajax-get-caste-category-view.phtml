@@ -1,0 +1,82 @@
+
+<div class="table-responsive" id="studentData">
+    <table class="table right-column table-striped table-bordered mb30 jambo_table bulk_action "  id="dataTable" width="100%" cellspacing ="0" >
+        <thead>
+            <tr>
+                <th>
+                    Session
+                </th>
+                <th>
+                    Stream
+                </th>
+                <th>
+                    Subject
+                </th>
+                <th>
+                   Total Admission
+                </th>
+                <?php foreach($this->castcategory as $value) { ?>
+                <th>
+                  <?=$value['cast_category'];?>
+                </th>
+                <th>
+                  At present (Active Students)
+                </th>
+                <th>
+                  At present (Inactive Students)
+                </th>
+                <?php } ?>
+            </tr>
+        </thead>
+        <tbody>
+        <?php 
+        $cast_total = array();
+        
+          foreach($this->paginator as $value) { 
+           
+            $cast_total[$value['department']]['session'] =$value['session'];
+            $cast_total[$value['department']]['degree'] =$value['degree'];
+            $cast_total[$value['department']]['subject'] =$value['department'];
+            $cast_total[$value['department']][$value['cast_category']]['Active'] = $value['Active'];
+            $cast_total[$value['department']][$value['cast_category']]['InActive'] = $value['Inactive'];
+            $cast_total[$value['department']][$value['cast_category']]['totalstudentincategory'] =$cast_total[$value['department']][$value['cast_category']]['Active']+$cast_total[$value['department']][$value['cast_category']]['InActive'];
+            $cast_total[$value['department']]['totaladm'] +=$cast_total[$value['department']][$value['cast_category']]['totalstudentincategory'];
+            $cast_total[$value['department']]['academic_year_id'] = $value['academic_year_id'];
+          } 
+        ?>
+        <?php foreach($cast_total as $value) {  
+        ?>
+
+        <tr>
+            <td><?=$value['session'];?></td>
+            <td><?=$value['degree'];?></td>
+            <td><?=$value['subject'];?></td>
+            <td><?=$value['totaladm'];?>&nbsp;<a class="btn btn-link" target="_blank"  onclick="window.open('<?php echo $this->mainconfig['host'];?>report/studentreportcategory/cc/<?=$castvalue['cast_category'];?>/amid/<?=$value['academic_year_id'];?>/term/<?=$this->terms;?>/country/<?=$this->country;?>/state/<?=$this->state;?>/religion/<?=$this->religion;?>/fl/4', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=1100,height=800');" href="#"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+            <?php foreach($this->castcategory as $castvalue) { ?>
+              <td>
+                  <?php if($value[$castvalue['cast_category']]['totalstudentincategory']){ ?>
+                  <?=$value[$castvalue['cast_category']]['totalstudentincategory'];?>&nbsp;<a class="btn btn-link" target="_blank"  onclick="window.open('<?php echo $this->mainconfig['host'];?>report/studentreportcategory/cc/<?=$castvalue['cast_category'];?>/amid/<?=$value['academic_year_id'];?>/term/<?=$this->terms;?>/country/<?=$this->country;?>/state/<?=$this->state;?>/religion/<?=$this->religion;?>/fl/1', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=1100,height=800');" href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                <?php  } ?>
+                  
+                </td>
+                <td>
+                    <?php if($value[$castvalue['cast_category']]['Active']){ ?>
+                     <?=$value[$castvalue['cast_category']]['Active'];?>&nbsp;<a class="btn btn-link" target="_blank"  onclick="window.open('<?php echo $this->mainconfig['host'];?>report/studentreportcategory/cc/<?=$castvalue['cast_category'];?>/amid/<?=$value['academic_year_id'];?>/term/<?=$this->terms;?>/country/<?=$this->country;?>/state/<?=$this->state;?>/religion/<?=$this->religion;?>/fl/2', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=1100,height=800');" href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                 <?php  } ?>
+                </td>
+                <td>
+                    <?php if($value[$castvalue['cast_category']]['InActive']){ ?>
+                     <?=$value[$castvalue['cast_category']]['InActive'];?>&nbsp;<a class="btn btn-link" target="_blank"  onclick="window.open('<?php echo $this->mainconfig['host'];?>report/studentreportcategory/cc/<?=$castvalue['cast_category'];?>/amid/<?=$value['academic_year_id'];?>/term/<?=$this->terms;?>/country/<?=$this->country;?>/state/<?=$this->state;?>/religion/<?=$this->religion;?>/fl/3', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=1100,height=800');" href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                <?php  } ?>
+                </td>
+            
+            <?php } ?>
+        </tr>
+
+        <?php }?>
+        </tbody>
+    </table>
+</div>
+<script>
+    setDatatables();
+</script>

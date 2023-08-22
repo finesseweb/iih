@@ -1,0 +1,405 @@
+
+<style type="text/css">
+body {
+        background-color: #ffffff;
+    }
+    .bold-checkbox{
+        position: absolute; top: 12px; font-weight:bold;
+    }
+     .modal-header .close {
+    margin-top: -2px;
+    color: white;
+    }
+.modal-header {
+    border-bottom: 0px solid #666;
+}
+.modal-body,.modal-header{
+    background-color: #666;
+
+}
+.register_form{
+    padding-top: 20px;
+    text-align: center;
+}
+.form_header{
+    color: black;
+    background-color: antiquewhite;;
+    border-color: #2e6da4;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 20px;
+    line-height: 1.42857143;
+   
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-weight: 400;
+}
+
+.register_btn{
+    color: #fff;
+    background-color: #932e90;
+    border-color: #2e6da4;
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    padding: 6px 55px;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+* {
+  box-sizing: border-box;
+}
+.header-text{
+    background-color: #932e90;
+    min-width: 200px;
+    min-height: 30px;
+    margin-bottom: 4em;
+}
+
+
+.regForm {
+  background-color: #ffffff;
+  margin: 135px auto;
+  font-family: Raleway;
+  padding: 40px;
+  width: 70%;
+  min-width: 250px;
+}
+
+    .load-box{
+        display:none;
+        position:absolute;
+        width:100%;
+        height:100%;
+        background:rgba(255,255,255,.4);
+        z-index: 999;
+    }
+    
+    .load-box>img{
+        position:absolute;
+        top:60%;
+        left:50%;
+        width:40em;
+        transform: translate(-50%,-50%);
+        
+        
+    }
+    
+    .mob_info{
+        position:absolute;
+    }
+    .input-container {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+}
+.icon {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  background: white;
+}
+#applicant_name{
+       text-transform:uppercase;
+    }
+    .clearfix{
+    bottom: 0px;
+    position: fixed;
+    width: 100%;
+}
+#formValidate1{
+    width: 100%;
+}
+
+
+.gradient-custom {
+/* fallback for old browsers */
+background: #f093fb;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1));
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1))
+}
+
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+font-size: 1rem;
+line-height: 2.15;
+padding-left: .75em;
+padding-right: .75em;
+}
+.card-registration .select-arrow {
+top: 13px;
+}
+
+.form-control-lg {
+	border: 1px solid;
+}
+.asterisk{
+	color:red;
+	font-size:16px;
+}
+</style>
+<link href="<?php echo $this->mainconfig['publicpath']; ?>css/custom.css" rel="stylesheet">
+<div class="row regForm">
+<div class="col-sm-12  form_header"> <b><legend>&nbsp;Registration Form:</legend></b></div>
+<form id="formValidate1" action="<?php echo $this->form->getAction() ?>" method="post" data-validate="parsley" >
+
+<section class="vh-100 ">
+ 
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-12 col-xl-12">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+           
+            <form>
+
+              <div class="row">
+			   
+			   <div class="col-md-3 mb-4">
+
+                  <div class="form-outline">
+				  <label class="form-label" for="lastName">Year <b><span class="asterisk"> *</span></b></label>
+                    <?php echo $this->form->academic_year_list; ?>
+                    <?php echo $this->form->csrftoken; ?>
+                  </div>
+
+                </div>
+				 <div class="col-md-3 mb-4 pb-2">
+
+                  <div class="form-outline">
+				  <label class="form-label" for="phoneNumber">Programme <b><span class="asterisk"> *</span></b></label>
+                    <?php echo $this->form->degree_id; ?>
+                    
+                  </div>
+
+                </div>
+				<div class="col-md-3 mb-4 pb-2">
+
+                  <div class="form-outline">
+				  <label class="form-label" for="emailAddress">Course <b><span class="asterisk"> *</span></b></label>
+                    <?php echo $this->form->course; ?>
+                    
+                  </div>
+
+                </div>
+				 <div class="col-md-3 mb-4">
+
+                  <div class="form-outline">
+				  <label class="form-label" for="lastName">Session <b><span class="asterisk"> *</span></b></label>
+                     <?php echo $this->form->session; ?>
+                    
+                  </div>
+
+                </div>
+				
+                <div class="col-md-3 mb-4">
+
+                  <div class="form-outline">
+				  <label class="form-label" for="firstName">Applicant Name <b><span class="asterisk"> *</span></b></label>
+                    
+                      <?php echo $this->form->applicant_name; ?>
+                  </div>
+
+                </div>
+                <div class="col-md-3 mb-4">
+
+                  <div class="form-outline">
+				  <label class="form-label" for="lastName">Email ID <b><span class="asterisk"> *</span></b></label>
+                   <?php echo $this->form->email_id; ?>
+                    
+                  </div>
+
+                </div>
+				
+				<div class="col-md-3 mb-4">
+
+                  <div class="form-outline">
+				  <label class="form-label" for="lastName">Phone <b><span class="asterisk"> *</span></b></label>
+                    <?php echo $this->form->phone_number; ?>
+                    
+                  </div>
+
+                </div>
+				 <div class="col-md-3 mb-4">
+
+                  <div class="form-outline">
+				  <label class="form-label" for="lastName">Whatsapp Number</label>
+                    <?php echo $this->form->whatsapp_number; ?>
+                    
+                  </div>
+
+                </div>
+               
+              </div>
+<div class="row">
+<div class="col-md-3 mb-4">
+<div class="form-outline">
+<label class="form-label" for="lastName">Username <b><span class="asterisk"> *</span></b></label>
+ <?php echo $this->form->applicant_no; ?>
+</div>
+</div>
+<div class="col-md-3 mb-4">
+<div class="form-outline">
+
+<label class="form-label" for="lastName">Password <b><span class="asterisk"> *</span></b></label>
+ <?php echo $this->form->password; ?>
+</div>
+</div>
+</div>
+              
+
+             
+
+              <div class="mt-4 pt-2">
+                <input class="btn btn-primary " type="submit" value="Submit" />
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+ </section>
+
+
+<script src="<?php echo $this->mainconfig['publicpath']; ?>js/customradio.js"></script> 
+<script>
+    
+    /*$('.load-box2').css('display','none');
+        var myVar='';
+    function sendOtp(){
+        var phone = $('#phone').val();
+        var email_id = $('#email_id').val();
+        if(phone.length == 0 ){
+        alert('Please enter a valid mobile number.');
+        }else if(email_id.length == 0){
+            alert('Please enter email id.');
+        }else{
+     
+        $('.load-box').css('display','block');
+             myVar = setInterval(myTimer, 9000);
+        $.ajax({
+            type: "POST",
+            url: '<?php echo $this->mainconfig['host'] . 'entrance-exam-form/ajax-send-otp'; ?>',
+            data: {phone : phone,email_id:email_id}
+        }).done(function( data ) {
+            //alert(data);
+            if(data==1){
+            $('.load-box').css('display','none');
+            $('#otpSucessMsg').text("An OTP has been sent to your mobile number and email address. Please enter the same below:");
+            $('.mob_info').removeAttr('class');
+            $('.mob_info').attr('class',"mob_info form-group glyphicon glyphicon-ok").css("color", "red");
+            myStopFunction();
+      }else{
+        $('.load-box').css('display','none');
+        myStopFunction();
+        $('.mob_info').removeAttr('class');
+        $('.mob_info').attr('class',"mob_info form-group glyphicon glyphicon-remove").css("color", "red");   
+    }
+        }); 
+        }
+    }*/
+    //Check Duplicate email id in table
+    $('#emailError').text("");
+    $("#email_id").change(function(){
+    //Email validation by kedar : 13 April
+    let userinput = $(this).val();
+    let pattern = /^[a-zA-Z0-9._-]+@[a-zA-Z]+\.[a-z]+$/i
+
+    if(!pattern.test(userinput)){
+        alert('Enter a valid email id.');
+        $('#email_id').val('');
+    }
+    //End
+     var email_id = $('#email_id').val();
+        $.ajax({
+            type: "POST",
+            url: '<?php echo $this->mainconfig['host'] . 'entrance-exam-form/ajax-check-duplicate-email'; ?>',
+            data: {email_id:email_id}
+        }).done(function( data ) {
+            //alert(data);
+            if(data==1){
+                $('#emailError').text("*Email id is already registered with us.");
+                $('#email_id').val('');
+            }else{
+                $('#emailError').text("");
+            }
+        }); 
+    });
+    //End
+    
+//To MATCH PASSWORD
+   
+    $('#cnf_password').blur(function() {
+        if ($('#password').val() == $('#cnf_password').val()) {
+            $('#cnf_password').css("color", "green");
+            $('#cnf_password').val('' + 'Matched');
+            $('#cnfpassError').text("");
+            return false;
+        } else { 
+            $('#cnf_password').css("color", "red");
+            $('#cnfpassError').text("Password does not matched.");
+            $('#cnf_password').val('');
+            return true; 
+        }
+    });
+//End
+function myTimer() {
+    $('.load-box').css('display','none');
+    $('.mob_info').removeAttr('class');
+    $('.mob_info').attr('class',"mob_info form-group fa fa-exclamation");
+    myStopFunction();
+}
+
+
+function myStopFunction() {
+  clearInterval(myVar);
+}
+$('input[data-toggle="number"]').bind('keyup blur',function(){
+    var node = $(this);
+    node.val(node.val().replace(/[^0-9]/g,'') );
+});
+
+function showPasswordFunction() {
+  var x = document.getElementById("password");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
+
+function validatePassword() {
+  const password = document.getElementById("password").value;
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+~`\-={}[\]:;"'<>,.?/])(?!.*\s).{8,}$/;
+  if (!passwordRegex.test(password)) {
+    alert("Your password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.");
+    return false;
+  }
+  return true;
+}
+
+const form = document.getElementById("myForm");
+form.addEventListener("submit", function(event) {
+  if (!validatePassword()) {
+    event.preventDefault();
+  }
+});
+
+
+</script>

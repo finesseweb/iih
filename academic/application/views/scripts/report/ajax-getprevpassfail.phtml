@@ -1,0 +1,189 @@
+         <?php
+                           
+ //echo '<pre>'; print_r($this->paginator); exit;
+ $isLastterm = $this->islastterm;
+ ?>
+<table class="table right-column table-striped table-bordered mb30 jambo_table bulk_action testTable" id="testTable" style="height:100%">
+                        <thead>
+                           <tr>
+                                <th>S.No.</th>
+                                <th>Department</th>
+                                <th>Course Name</th>
+                                <th>Passed Students</th>
+                                <?php if(!$isLastterm){ ?>
+                                <th>Promoted Students</th>
+                                <?php } ?>
+                                <th>Failed Students</th> 
+                                <?php if(!$isLastterm){ ?>
+                                <th>Not Promoted Students</th>
+                                <?php } else { ?>
+                                <th>Pending Students</th>
+                                <th>Outgoing Students</th>
+                                <?php } ?>
+                                <th>Total Appeared Students</th>  
+                                <th>Total Active Students</th>  
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                           
+
+
+                            $i = 1;
+                            $pagination_tr = '';
+                            if (count($this->paginator) != 0) {
+                                $passFail_model = new Application_Model_TabulationReport();
+                                $erpStudent_model = new Application_Model_StudentPortal();
+                                $grade_allocation = new Application_Model_GradeAllocationItems();
+                                 $cmn_terms = array();
+                            if($isLastterm){
+                                for($termno=1; $termno<=$this->termno; $termno++){
+                                    $cmn_terms[] = "t".$termno;
+                                }
+                            }
+                                foreach ($this->paginator as $key=> $results) {
+                                        
+                                        $result  = $grade_allocation->getStudentFailDetailsAlldeleted($results['session'],$results['id'],"('".$results['cmn_terms']."')",$this->date);
+                                        $deletedStudent = array_column($result,"student_id");
+                                        //echo "<pre>";print_r($deletedStudent);exit;
+                                        $result = $grade_allocation->getStudentFailDetailsAlludeleted($results['session'],$results['id'],"('".$results['cmn_terms']."')",$this->date);
+                                          $notdeletedStudent = array_column($result,"student_id");
+                                           $result=$passFail_model->getAppearStudents($results['term_id'],$results['academic_year_id']);
+                                        $students = array_column($result,'student_id');
+                                        if(!$isLastterm){
+                                                $resultPromotion = $grade_allocation->notpromotedtype1($results['session'],$results['id'],"('".$results['cmn_terms']."')",'',$this->date);
+                                                if(!$resultPromotion)
+                                               $resultPromotion = $grade_allocation->notpromotedtype2($results['session'],$results['id'],"('".$results['cmn_terms']."')",0,$this->date);
+                                               
+                                               $resultPromotion2 = $grade_allocation->notpromotedtype1($results['session'],$results['id'],"('".$results['cmn_terms']."')",'');
+                                                if(!$resultPromotion)
+                                               $resultPromotion2 = $grade_allocation->notpromotedtype2($results['session'],$results['id'],"('".$results['cmn_terms']."')",0);
+                                               
+                                        $arr = array_merge($resultPromotion,$resultPromotion2);
+                                       $resultPromotion =  array_unique($arr, SORT_REGULAR);
+                                       $nonPromotedCount = count($resultPromotion);
+                                        }
+                                        else{
+                                            
+                                            $overallpending  = count($grade_allocation->getStudentFailDetailsAccudeleted($results['session'],$results['id'],"('".implode("','",$cmn_terms)."')",$this->date,implode("','",$students))); 
+                                            if(!$overallpending){
+                                                $overallpendingdel  = $grade_allocation->getStudentFailDetailsAlldeleted($results['session'],$results['id'],"'".implode("','",$cmn_terms)."'",$this->date,implode("','",$students));
+                                                $overallpendingdel = array_column($overallpendingdel,"student_id");
+                                                $overallpendingundel = $grade_allocation->getStudentFailDetailsAlludeleted($results['session'],$results['id'],"'".implode("','",$cmn_terms)."'",$this->date,implode("','",$students));
+                                                $overallpendingundel = array_column($overallpendingundel,"student_id");
+                                                $overallpending=count(array_unique(array_merge($overallpendingdel,$overallpendingundel)));
+                                            }
+                                            
+                                            
+                                        }
+                                       
+                                      
+                                       $failCount = count(array_unique(array_merge($deletedStudent,$notdeletedStudent)));
+                                       
+                                        $totalActiveStudent=$erpStudent_model->getStudentCount($results['academic_year_id']);
+                                       
+                                        
+                                        $passCount=count($result)-$failCount;
+                                        
+                                        ?>
+                                        
+                                    <input type="hidden" name="academic_id[]" class="acad" value="<?=$results['academic_year_id'];?>" />
+                                    <input type="hidden" name="term_id[]" class="term" value="<?=$results['term_id'];?>" />
+                                    <?php    $allDepartmentIds[$key]=$results['id'];
+                                    $allAcademicIds[$key]=$results['academic_year_id'];   
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $i;
+                                        $i++;
+                                    ?>
+                                        </td>
+
+                                       <td><?php echo $results['department_type']; ?></td>
+                                        <td><?php echo $results['department']; ?></td>
+                                 
+                                         <td>
+                                            <?= !empty($passCount)?$passCount:'0';?>&nbsp;<a class="btn btn-link" target="_blank"  onclick="window.open('<?php echo $this->mainconfig['host'];?>report/passreport/session/<?php echo $results['session']; ?>/department/<?=$results['id']; ?>/terms/<?=$results['cmn_terms'];?>/fno/<?=1;?>/date/<?=$this->date;?>', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=1100,height=800');" href="#">View</a>
+                                        </td>
+                                         <?php if(!$isLastterm){ ?>
+                                        <td>
+                                            <?= ($failCount+ $passCount)-$nonPromotedCount;?>&nbsp;<a class="btn btn-link" target="_blank"  onclick="window.open('<?php echo $this->mainconfig['host'];?>report/promotionreport/session/<?php echo $results['session']; ?>/department/<?=$results['id']; ?>/terms/<?=$results['cmn_terms'];?>/fno/<?=1;?>/date/<?=$this->date;?>', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=1100,height=800');" href="#">View</a>
+                                        </td>
+                                        <?php }?>
+                                        <td>
+                                            <?= !empty($failCount)?$failCount:'0' ?>&nbsp;<a class="btn btn-link" target="_blank"  onclick="window.open('<?php echo $this->mainconfig['host'];?>report/failreportv/session/<?php echo $results['session']; ?>/department/<?=$results['id']; ?>/terms/<?=$results['cmn_terms'];?>/fno/<?=1;?>/date/<?=$this->date;?>', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=1100,height=800');" href="#">View</a>
+                                        </td>
+                                        <?php if(!$isLastterm){ ?>
+                                        <td>
+                                            <?= !empty($nonPromotedCount)?$nonPromotedCount:'0' ;?>&nbsp;<a class="btn btn-link" target="_blank"  onclick="window.open('<?php echo $this->mainconfig['host'];?>report/promotionreport/session/<?php echo $results['session']; ?>/department/<?=$results['id']; ?>/terms/<?=$results['cmn_terms'];?>/fno/<?=0;?>/date/<?=$this->date;?>', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=1100,height=800');" href="#">View</a>
+                                        </td>
+                                        <?php } else { ?>
+                                        <td>
+                                            
+                                            <?=$overallpending; ?> &nbsp;<a class="btn btn-link" target="_blank"  onclick="window.open('<?php echo $this->mainconfig['host'];?>report/pendingreport/session/<?php echo $results['session']; ?>/department/<?=$results['id']; ?>/acadterms/<?=$results['term_id']."_".$results['academic_year_id'];?>/fno/<?=0;?>/date/<?=$this->date;?>', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=1100,height=800');" href="#">Viewp</a>
+                                        </td>
+                                        
+                                        <td>
+                                            
+                                            <?=($failCount+ $passCount)-$overallpending; ?> &nbsp;<a class="btn btn-link" target="_blank"  onclick="window.open('<?php echo $this->mainconfig['host'];?>report/outgoingreport/session/<?php echo $results['session']; ?>/department/<?=$results['id']; ?>/acadterms/<?=$results['term_id']."_".$results['academic_year_id'];?>/fno/<?=0;?>/date/<?=$this->date;?>', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=1100,height=800');" href="#">ViewO</a>
+                                        </td>
+                                        <?php } ?>
+                                        <td>
+                                            <?= $failCount+ $passCount;?>&nbsp;<a class="btn btn-link" target="_blank"  onclick="window.open('<?php echo $this->mainconfig['host'];?>report/appearreport/session/<?php echo $results['session']; ?>/department/<?=$results['id']; ?>/terms/<?=$results['cmn_terms'];?>/fno/<?=1;?>', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=1100,height=800');" href="#">View</a>
+                                        </td>
+                                        <td>
+                                            <?= !empty($totalActiveStudent)?count($totalActiveStudent):'0' ?>
+                                        </td>
+                                        
+                                        
+                                        
+                                   
+                                       
+                                    </tr>            
+                                   
+                                <?php
+                                }
+                                  $deptIds= implode(",",$allDepartmentIds);
+                                  $academicIds= implode(",",$allAcademicIds);
+                                    // echo '<pre>';print_r($academicIds);
+                               
+                                ?>
+                                
+                       
+                               <?php
+                                $pagination_tr = $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
+                            }
+                            ?>
+
+                        </tbody>
+                       
+                    </table>
+                    
+                    
+               <script>
+                   $(document).ready(function(){
+    //gets table
+var oTable = document.getElementById('testTable');
+
+//gets rows of table
+var rowLength = oTable.rows.length;
+$(oTable).append("<tfoot><tr id='tablefoot'><th colspan=3>Total</th></tr></tfoot>");
+ 
+   var oCells = oTable.rows.item(0).cells;
+   var cellLength = oCells.length;
+   var number = 0;
+   
+   for(var j = 3; j < cellLength; j++){
+       var number = 0;
+       for (i = 1; i < rowLength; i++){
+      // get your cell info here
+         oCells =   oTable.rows.item(i).cells;
+      number += parseInt($(oCells).eq(j).text().match(/\d+/g).join(''));
+      console.log(number);
+   }
+   $('#tablefoot').append('<td>'+number+'</td>')
+}
+})
+               </script>     
+                    
+                    

@@ -1,0 +1,152 @@
+<style>
+body {
+        font-family: 'raleway';
+        background-image:url("https://pwcadmissions.in/demopwc/academic/public/img/college1.jpg");
+        background-size:cover;
+    }
+    .multistepformArea{
+    padding-top: 1px;
+    background-color: white;
+	width: 60%;
+    min-width: 300px;
+	margin: 50px auto;
+	position: relative;
+}
+/*form styles*/
+/*.regForm {*/
+/*    width: 90%;*/
+/*    min-width: 300px;*/
+/*	margin: 50px auto;*/
+/*	position: relative;*/
+/*}*/
+/*#formValidate1 fieldset {*/
+/*	background: white;*/
+/*	border: 0 none;*/
+/*	border-radius: 3px;*/
+/*	box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);*/
+/*	box-sizing: border-box;*/
+/*	position: relative;*/
+/*	width:100%;*/
+/*}*/
+/*#formValidate1 > div{*/
+/*    position:absolute;*/
+/*    top:50%;*/
+/*    left:50%;*/
+/*    transform:translate(-50%,40%);*/
+/*    width:100%;*/
+    
+/*}*/
+.footer_social_browser_contact_area{
+    position:absolute;
+    bottom:0;
+    width:100%;
+}
+#overlay{
+    position:absolute;
+   width:100%;
+    background:#000;
+    opacity:.4;
+    height:100%;
+    z-index:-1;
+}
+
+.payment{
+        position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-40%);
+}
+#overlay{
+    position:absolute;
+   width:100%;
+    background:#000;
+    opacity:.4;
+    height:100%;
+    z-index:-1;
+}
+</style>
+<div id="overlay"></div>
+<div class="payment">
+
+<div class="multistepformArea">
+     <div class=" col-xs-12 col-xs-offset-0  col-sm-12 col-sm-offset-0 col-md-12 col-md-offset-0  col-lg-12 col-lg-offset-0 header">
+  
+
+<a href="<?php echo $this->mainconfig['host']; ?>multi-step-form/logout"<button type="button" id="getDailyAttendance" class="btn btn-success" style="float: right" value="0" >Log Out</button></a> 
+ 
+</div>  
+<form class="regForm" id="formValidate1" action="<?php echo $this->form->getAction() ?>" method="post" data-validate="parsley" >
+ 
+   
+<div class="row" class="displayrow">
+    <fieldset style="width: 100%">
+    <div class="col-sm-12 table-responsive">
+        <?php if($this->paginator['form_id']=='0') {
+            
+             header( "Location:".$this->mainconfig['erp'].'academic/multi-step-form/index/type/step4/a_id/'.md5($this->paginator['application_no']));
+            
+        }
+?>
+        
+            <input type="hidden" name="application_no" value="<?= $this->paginator['application_no']; ?>">
+            <input type="hidden" name="applicant_name" value="<?= $this->paginator['applicant_name']; ?>">
+            <input type="hidden" name="email_id" value="<?= $this->paginator['email_id'] ?>">
+            <input type="hidden" name="phone" value="<?=$this->paginator['phone']; ?>">
+            <input type="hidden" name="form_id" value="<?= $this->paginator['form_id']; ?>">
+            <input type="hidden" name="course" value="<?= $this->paginator['course'] ;?>">
+            <input type="hidden" name="form_fee" value="<?= $this->paginator['examFee'];?>">
+            <input type="hidden" name="product_id" value="<?= $this->paginator['product_id'];?>">
+              <?php echo $this->form->csrftoken; 
+               //  echo "<pre>";print_r($this->paginator);die;
+              ?>   
+            <table class="table table-bordered tableheader"><thead><th scope="col">Name</th><th>Email Id </th><th>Phone No</th><th>Course (Applied For)</th><th>Form Id</th></thead>
+            <tbody>
+                <tr><td><?= $this->paginator['applicant_name'] ?></td>
+                    <td><?= $this->paginator['email_id'] ?></td>
+                    <td><?= $this->paginator['phone'] ?></td>
+                    <td> <?= $this->paginator['course_name'] ?> (<?= $this->paginator['corecourse1'] ?>)</td>
+                    <td><?= $this->paginator['form_id'] ?></td>
+                   
+                </tr>
+            </tbody>
+            </table>    
+<!--        <p>Name: <b>  <?= $this->paginator['applicant_name'] ?></p></b>
+        <p>Email Id :  </label> <b>  <?= $this->paginator['email_id'] ?></p></b>
+        <p> Phone No.:</label>  <b>   <?= $this->paginator['phone'] ?></p></b> 
+        <p>Course (Applied For):</label>  <b> &nbsp; <?= $this->paginator['course_name'] ?></p></b>  
+        <p> Form Id :</label>  <b>  <?= $this->paginator['form_id'] ?></b> </p> <br>-->
+     
+            <div class="col-sm-6 employee_class">
+                <div class="form-group">
+                    <?php $_SESSION['form_fee'] = $this->paginator['examFee']; ?>
+         <!--<input type='Checkbox' name='form_fee' class='evs' value='<?=$this->paginator['examFee'] ;?>' checked='checked' onclick="return false" />-->
+                  Application fee: Rs. <?=$this->paginator['examFee'] ;?>/-
+                  
+                </div>
+                <!-- <p style="color: red; font-size:14px;font-weight:600">After First Transaction,Please Process the next Transaction after 48 hrs. </p>-->
+            </div>
+            <div class="col-sm-3 col-sm-offset-3 employee_class">
+                <div class="form-group">
+                    <?php if($this->paginator['allow_reg']=='0') {?>
+                            <button id="onlinePayment" value="Online" class="btn btn-primary submit paymentMode">Pay Now</button>
+                   <?php } ?>
+                   </div>
+            </div>
+         
+
+            </div>
+        </div>
+        <div style="float:right;margin-right:2px;padding-bottom: 3em;">
+
+</fieldset>
+    </div> 
+     
+        </form>
+                      
+
+    </div>
+<a style="
+    position: absolute;
+    left: inherit;" href="<?=  $this->baseUrl("multi-step-form/status-dashboard/a_id/{$this->a_id}"); ?>"><button type="button" id="getDailyAttendance" class="btn btn-primary" style="float: right" >Back To Home</button></a> 
+</div>

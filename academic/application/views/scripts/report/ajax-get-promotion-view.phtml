@@ -1,0 +1,130 @@
+<script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+crossorigin="anonymous"></script>
+<style>
+    table{
+        margin:0;
+    }
+    .sub{
+        border:.01em solid #932e90;
+
+    }
+    .logo{
+        display:none;
+    }
+
+
+
+</style>
+<?php 
+if($this->outgoing) { 
+$departmentmodel =    new Application_Model_Department();
+$deptdetails =   $departmentmodel->getRecord($this->department);
+$degree_id = $deptdetails['degree_id'];
+}
+?>
+<div class="table-responsive" id="studentData">
+    <table class="table right-column table-striped table-bordered mb30 jambo_table bulk_action testTable" width="100%" cellspacing ="0" >
+        <thead>
+            <tr><?php if($this->outgoing) { ?>
+            <th class="sub">M.No.</th>
+            <?php } else { ?>
+                <th class="sub">
+                    S.No
+                </th>
+                 <?php } ?>
+                <th class="sub">
+                    Name
+                </th class="sub">
+                <th class="sub">
+                    Father Name
+                </th class="sub">
+                <th class="sub">
+                    Exam Roll
+                </th>
+                   <th class="sub">
+                    Registration No.
+                </th>
+                <th class="sub">
+                    Form id
+                </th>
+                <th class="sub">
+                    Phone
+                </th>
+                <th class="sub">
+                    Email
+                </th>
+                <?php if($this->outgoing) {
+                $Grade_Model = new Application_Model_GradeAllocationItems();
+                $passoutModel = new Application_Model_PassOutModel();
+                            
+                ?>
+                <th class="sub">
+                    CGPA
+                </th>
+                <th class="sub">
+                    Percent(%)
+                </th>
+                <?php  } ?>
+            </tr>
+        </thead>
+        <tbody>
+        <?php $i =0 ;
+        array_multisort( array_column($this->result, "exam_roll"), SORT_ASC, $this->result );
+        foreach($this->result as $key => $value){ ?>
+                <tr>
+                    <?php if($this->outgoing) { 
+                    $sldetails = $passoutModel->checkStudentId($value['student_id']);
+                    ?>
+                    <td class="sub"><?=$sldetails['pass_out_no']?$sldetails['pass_out_no']:0;?></td>
+                    
+                    <?php }else{ ?>
+                        <td class="sub"><?=++$i;?></td>
+                    <?php } ?>
+                        
+                    
+                    <td class="sub"><?=$value['stu_fname'];?></td>
+                    <td class="sub"><?=$value['father_fname'];?></td>
+                     <td class="sub"><?=$value['exam_roll'];?></td>
+                     <td class="sub"><?=$value['reg_no'];?></td>
+                     <td class="sub"><?=$value['stu_id'];?></td>
+                     <td class="sub"><?=$value['father_mobileno'];?></td>
+                     <td class="sub"><?=$value['stu_email_id'];?></td>
+                     <?php if($this->outgoing) {
+                     $marksDetails = $Grade_Model->getCGPAForStudent($value['academic_id'],$value['stu_id']);
+                     ?>
+                    <td class="sub">
+                        <?=number_format($marksDetails['cgpa'],2);?>
+                    </td>
+                    
+                    <td class = "sub">
+                        <?php 
+                        $cgpa = number_format($marksDetails['cgpa'],2);
+                    $percent = number_format(($cgpa * 9), 2);
+                    if ($degree_id == 3)
+                        $percent = number_format(($cgpa * 9.25), 2);
+                    else if ($degree_id > 1) {
+                        $percent = number_format(($cgpa * 9.5), 2);
+                    }
+                        ?>
+                        <?=$percent;?>%
+                    </td>
+                    
+                <?php  } ?>
+                </tr>
+
+        <?php } ?>
+        </tbody>
+
+
+    </table>
+</div>
+</center>
+</body>
+<script type="text/javascript" src="jquery.dataTables.js"></script>
+<script>
+     var table = $('.testTable').DataTable();
+</script>
+</html>
+
