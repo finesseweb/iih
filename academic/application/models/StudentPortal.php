@@ -1467,7 +1467,7 @@ public function getSecondLastTerm($session="",$department="",$academic_id=""){
 
         $select->joinleft(array("academic" => "academic_master"), "academic.academic_year_id=$this->_name.academic_id", array("short_code AS academic_year"));
 //=====comented
-        $select->joinleft(array("credits" => "academic_credits"), "credits.academic_id=$this->_name.academic_id", array("credit_number"));
+      //  $select->joinleft(array("credits" => "academic_credits"), "credits.academic_id=$this->_name.academic_id", array("credit_number"));
 
         $select->where("$this->_name.academic_id !=?", 0);
 

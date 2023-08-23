@@ -4,25 +4,23 @@
                           <input type="file" id="customFile"  />
                         </div>
 <table class="table table-striped table-bordered mb30 jambo_table bulk_action "
-                            id="datatable-responsive">
+                            id="datatable-responsive" >
                             <thead>
                                 <tr>
                                     <th>S.  No.</th>
                                     <th>Student Name</th>
-                                    <!---<th>Last Name</th>--->
+                                    <th>Mobile No</th>
+								    <th>Email ID</th>
+									<th>Date of Birth</th>
                                     <th>Father Name</th>
                                     <th>Batch</th>
-                                    <th>Core Course</th>
-                                    <th>Generic Electives</th>
-                                    <th>AECC</th>
-                                    <th>UID</th>
-                               <th >Religion</th>
-                                  <th >Caste Category</th>
-                                  <th >state</th>
-                                    <th >REG NO.</th>
+                                    <th>Programme</th>
+                                    <th>Religion</th>
+                                    <th>Caste Category</th>
+                                    <th>state</th>
+                                    <th>REG NO.</th>
                                     <th>Exam Roll No.</th>
-                                    <th >Class Roll No.</th>
-                                  
+                                    <th>Class Roll No.</th>
                                     <th>Save & Edit</th>
                                     <th>Status</th>
                                     <th>Migration</th> 
@@ -57,15 +55,15 @@
                                                 ?>
                                             </td>                       
                                             <td><?php echo $results['stu_fname'].' '. $results['stu_lname']; ?></td>
-                                            <!--<td><?php echo $results['stu_lname']; ?></td>-->
+                                            <td><?php echo $results['stu_mobileno']; ?></td>
+											<td><?php echo $results['stu_email_id']; ?></td>
+											<td><?php echo $results['stu_dob']; ?></td>
                                             <td><?php echo $results['father_fname'].' '.$results['father_lname']; ?></td>
                                             <td><?php echo $results['academic_year']; ?></td>
                                             <td><?php echo $results['dept_name']; ?></td>
-                                            <td ><?php echo $results['ge_name']; ?></td>
-                                            <td><?php echo $results['aecc_name']; ?></td>
+                                                
                                             
-
-                                            <td><?php echo $results['stu_id']; ?></td>
+                                           
                                              <td><?php echo $results['religion']; ?></td>
                                                   <td><?php echo $results['cast_category']; ?></td>
                                                    <td><?php echo $results['state']; ?></td>

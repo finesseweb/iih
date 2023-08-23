@@ -230,12 +230,12 @@ z-index: 999;
 <li <?php if ($this->sub_title_name == 'section_allotment') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_SECTION_ALLOTMENT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>student/section-allotment" target="_blank">Section  Allotment</a>
 </li>
-<li <?php if ($this->sub_title_name == 'credit_allotment') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_CREDIT_ALLOTMENT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
+<!--<li <?php if ($this->sub_title_name == 'credit_allotment') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_CREDIT_ALLOTMENT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>student/non-credit-allotment/type/add" target="_blank">Non Academic Credit Allotment</a>
 </li>
 <li <?php if ($this->sub_title_name == 'Elective') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_E_SELECTION, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>student/addon-selection" target="_blank">Addon Course Selection</a>
-</li>
+</li>-->
 <li <?php if ($this->sub_title_name == 'Elective') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_E_SELECTION, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>elective/selection" target="_blank">Elective Selection</a>
 </li>
@@ -339,12 +339,12 @@ z-index: 999;
     <li <?php if ($this->action_name == 'experiential-learning-project-allocation') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_LEARN_PROJECT_ALLOCATION, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
     <a href="<?php echo $this->mainconfig['host']; ?>experiential/experiential-learning-project-allocation" target="_blank">Experiential Learning Project Allocation</a>        
     </li>
-    <li <?php if ($this->sub_title_name == 'notificationpush') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_NOTIFICATION, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
+    <!--<li <?php if ($this->sub_title_name == 'notificationpush') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_NOTIFICATION, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
     <a href="<?php echo $this->mainconfig['host']; ?>assignment/index" target="_blank">Notification Push</a>
     </li>
     <li <?php if ($this->sub_title_name == 'participant assignment') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_ASSIGNMENT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
     <a href="<?php echo $this->mainconfig['host']; ?>participant-assignment/index" target="_blank">Participants Assignments</a>
-    </li>
+    </li>-->
                                                         <!---<li><a><i class=""></i>LMS<span class="fa fa-chevron-down"></span></a>
                                                             <ul  class="nav child_menu" <?php if (($this->action_name == 'book')) echo 'style="display:block"'; ?> > 
                                                                 <li <?php if ($this->sub_title_name == 'book') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_BM, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
@@ -568,7 +568,7 @@ z-index: 999;
     </li>
 <!-----------------------End---------------------------------->
 
-                                                <li><a><i class=""></i>Settings<span class="fa fa-chevron-down"></span></a>
+                                              <!--  <li><a><i class=""></i>Settings<span class="fa fa-chevron-down"></span></a>
                                                     <ul  class="nav child_menu" <?php if ($this->action_name == 'settings') echo 'style="display:block"'; ?>> 
 
                                                         <li <?php if ($this->sub_title_name == 'otp_info') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_OTP_INFO, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
@@ -579,7 +579,7 @@ z-index: 999;
                                                         </li>
                                                        <!--- <li <?php if ($this->sub_title_name == 'updateOfflineNumber') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_UPDATE_OFFLINE, $this->login_storage->role_set) ? "style ='display:block !important'" : ''; ?>>
                                                             <a href="<?php echo $this->mainconfig['host']; ?>master/update-offline-applicant-info">Update Offline Applicant Info</a>
-                                                        </li>--->
+                                                        </li>
                                                         <li <?php if ($this->sub_title_name == 'updateOfflineNumber') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_RAZR, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
                                                             <a href="<?php echo $this->mainconfig['host']; ?>razor-pay/index" target="_blank">Razor Settings</a>
                                                         </li>
@@ -592,8 +592,8 @@ z-index: 999;
 
 
                                                     </ul>  
-                                                </li>
-<li><a><i class=""></i>Alumni Section <span class="fa fa-chevron-down"></span></a>
+                                                </li>-->
+<!--<li><a><i class=""></i>Alumni Section <span class="fa fa-chevron-down"></span></a>
    <ul  class="nav child_menu" <?php if ($this->action_name == 'alumni') echo 'style="display:block"'; ?>> 
     <li <?php if ($this->sub_title_name == 'AlUMNIUP') echo 'class="active"'; ?> <?= !in_array(SA_ALUM_FEE_UP, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
     <a href="<?php echo $this->mainconfig['host']; ?>report/alumni-fee-updation" target="_blank">Alumini Fee Updation</a>
@@ -609,8 +609,8 @@ z-index: 999;
     <a href="<?php echo $this->mainconfig['host']; ?>report/contributor-list/" target="_blank">Contributor List</a>
     </li>
     </ul>                                               
-</li>
-<li><a><i class=""></i>Seminar Section <span class="fa fa-chevron-down"></span></a>
+</li>-->
+<!--<li><a><i class=""></i>Seminar Section <span class="fa fa-chevron-down"></span></a>
    <ul  class="nav child_menu" <?php if ($this->action_name == 'Seminar') echo 'style="display:block"'; ?>> 
     <li <?php if ($this->sub_title_name == 'SEMINARUP') echo 'class="active"'; ?> <?= !in_array(SA_SEMINAR_FEE_UP, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
     <a href="<?php echo $this->mainconfig['host']; ?>report/seminar-fee-updation" target="_blank">Seminar Fee Updation</a>
@@ -618,22 +618,22 @@ z-index: 999;
     <!--<li <?php if ($this->sub_title_name == 'CONTRIUP') echo 'class="active"'; ?> <?= !in_array(SA_SEMINAR_FEE_UP, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>-->
     <!--<a href="<?php echo $this->mainconfig['host']; ?>report/contributor-seminar-fee-updation" target="_blank">Contribution Fee Updation</a>-->
     <!--</li>-->
-    <li <?php if ($this->sub_title_name == 'SEMINARLIST') echo 'class="active"'; ?> <?= !in_array(SA_SEMINAR_REG_DT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
+    <!--<li <?php if ($this->sub_title_name == 'SEMINARLIST') echo 'class="active"'; ?> <?= !in_array(SA_SEMINAR_REG_DT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
     <a href="<?php echo $this->mainconfig['host']; ?>report/seminar-list/" target="_blank">Seminar Registraion List</a>
-    </li>
+    </li>-->
    
     <!--<li <?php if ($this->sub_title_name == 'CONTRIILIST') echo 'class="active"'; ?> <?= !in_array(SA_SEMINAR_REG_DT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>-->
     <!--<a href="<?php echo $this->mainconfig['host']; ?>report/contributor-seminar-list/" target="_blank">Contributor List</a>-->
     <!--</li>-->
-    </ul>                                               
-</li>
+    <!--</ul>                                               
+</li>-->
 <!--<li <?php if ($this->action_name == 'JobAnnouncment<') echo 'style="display:block"'; ?>> 
 <a href="<?php echo $this->mainconfig['host']; ?>job-announcement/job-announcement">Job Announcment</a>
 </li>-->
 
-<li <?php if ($this->sub_title_name == 'ToDo') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_TO_DO_LIST, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
+<!--<li <?php if ($this->sub_title_name == 'ToDo') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_TO_DO_LIST, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>To-do/index/">To Do List</a>
-</li>
+</li>-->
 </ul>
 </li>   
 <?php
@@ -909,7 +909,8 @@ $plan = TRUE;
 if ($plan) {
 echo 'active';
 }
-?>"><a class="demo"><img src="<?php echo $this->mainconfig['publicpath']; ?>images/sitting.png" style="color:white;" width="26px" height="22px"></img>&nbsp;&nbsp; Examination Module <span class="fa fa-chevron-down"></span></a>
+?>">
+<!--<a class="demo"><img src="<?php echo $this->mainconfig['publicpath']; ?>images/sitting.png" style="color:white;" width="26px" height="22px"></img>&nbsp;&nbsp; Examination Module <span class="fa fa-chevron-down"></span></a>-->
 <ul class="nav child_menu" <?php
 if ($plan) {
 echo 'style="display:block"';
@@ -950,7 +951,7 @@ echo 'style="display:block"';
 </li>
 <li <?php if ($this->sub_title_name == 'operation') echo 'class="active"'; ?> <?= !in_array(SS_ACAD_OPERATION, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>plan/operation1">Seating Arrangement1</a>
-</li>  ---->
+</li> 
 <li <?php if ($this->sub_title_name == 'coursefee') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_COURSE_FEE, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?> >
 <a href="<?php echo $this->mainconfig['host']; ?>master/coursefee" target="_blank">Exam/ Registration Fees</a>
 </li>
@@ -969,7 +970,7 @@ echo 'style="display:block"';
 </li>
 <li <?php if ($this->sub_title_name == 'sanctionedSeat') echo 'class="active"'; ?> <?= !in_array(SS_ACAD_SANSEAT, $this->login_storage->role_set) ? "style ='display:block !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>entrance-report/sanction-seat" target="_blank">Define Sanction Seat</a>
-</li>
+</li> ---->
 
 </ul>
 </li>
@@ -982,13 +983,13 @@ echo 'style="display:block"';
     }}?>
     <li class="<?php
     if ($addon) { echo 'active'; }   ?>">
-    <a class="demo"><img src="<?php echo $this->mainconfig['publicpath']; ?>images/sitting.png" style="color:white;" width="26px" height="22px"></img>&nbsp;&nbsp; Addon Module <span class="fa fa-chevron-down"></span></a>
+    <!--<a class="demo"><img src="<?php echo $this->mainconfig['publicpath']; ?>images/sitting.png" style="color:white;" width="26px" height="22px"></img>&nbsp;&nbsp; Addon Module <span class="fa fa-chevron-down"></span></a>-->
         <ul class="nav child_menu" <?php
             if ($addon) {
             echo 'style="display:block"';
             }
-    ?>>
-    <li <?php if ($this->sub_title_name == 'AdmissionReport') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_AR_ADDONREPORT, $this->login_storage->role_set) ? "style ='display:none!important'" : ''; ?>>
+    ?>
+    <!--<li <?php if ($this->sub_title_name == 'AdmissionReport') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_AR_ADDONREPORT, $this->login_storage->role_set) ? "style ='display:none!important'" : ''; ?>>
     <a href="<?php echo $this->mainconfig['host']; ?>entrance-report/addon-course-report" target="_blank"> Addon Course and Report</a>
     </li>
         <li <?php if ($this->sub_title_name == 'fees_updation') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_ENTRANCEFEECOLL, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
@@ -997,10 +998,10 @@ echo 'style="display:block"';
      <li <?php if ($this->sub_title_name == 'fees_updation') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_ENTRANCEFEECOLL, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
     <a href="<?php echo $this->mainconfig['host']; ?>master/addon-edit-list" target="_blank">Addons Edit list</a>
     </li>
-    <!--<li <?php if ($this->sub_title_name == 'addoncourse') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_COURSE, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>-->
+    <li <?php if ($this->sub_title_name == 'addoncourse') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_COURSE, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>-->
     <!--<a href="<?php echo $this->mainconfig['host']; ?>master/addoncourse" target="_blank">Addon Course/Paper</a>-->
     <!--</li>-->
-    <li <?php if ($this->sub_title_name == 'addonreferencegrade') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_REF_GRADE, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
+    <!--<li <?php if ($this->sub_title_name == 'addonreferencegrade') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_REF_GRADE, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
     <a href="<?php echo $this->mainconfig['host']; ?>master/addon-reference-grade" target="_blank">Reference Grade</a>
     </li>
     <!-- <li <?php if ($this->sub_title_name == 'addonemployeeallotment') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_FACULTY_ALLOTMENT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>-->
@@ -1014,7 +1015,7 @@ echo 'style="display:block"';
     <!--<a href="<?php echo $this->mainconfig['host']; ?>master/addoncourselearning" target="_blank">Addon Course Learning</a>-->
     <!--</li>-->
     
-     <li <?php if ($this->sub_title_name == 'addonupdation') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_AR_ADDONREPORT, $this->login_storage->role_set) ? "style ='display:none!important'" : ''; ?>>
+     <!--<li <?php if ($this->sub_title_name == 'addonupdation') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_AR_ADDONREPORT, $this->login_storage->role_set) ? "style ='display:none!important'" : ''; ?>>
     <a href="<?php echo $this->mainconfig['host']; ?>master/addon-list-updation" target="_blank"> Addon Students Marksheet</a>
     </li>
     <!--<li <?php if ($this->sub_title_name == 'addongradeallocation') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_REF_GRADE, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>-->
