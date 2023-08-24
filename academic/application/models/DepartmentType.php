@@ -57,7 +57,8 @@ class Application_Model_DepartmentType extends Zend_Db_Table_Abstract {
 
         $select = $this->_db->select()
                 ->from($this->_name,array("$this->_name.*"))->from("session_info",array("session_info.session"))->from("degree_info",array("degree_info.degree"))
-                ->where("$this->_name.degree_id = degree_info.id");
+                ->where("$this->_name.degree_id = degree_info.id")
+				->group("$this->_name.department_type");
                 //->where("$this->_name.session_id = session_info.id");
         $result = $this->getAdapter()
                 ->fetchAll($select);
