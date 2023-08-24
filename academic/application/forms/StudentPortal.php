@@ -107,7 +107,8 @@ class Application_Form_StudentPortal extends Zend_Form {
                 ->setAttrib('required', 'required')->setRequired(true)
                 ->removeDecorator("htmlTag")
                 ->addMultiOptions(array(
-            '1' => 'Female',
+            '1' => 'Male',
+			'2' => 'Female',
             '2' => 'Transgender'));
         $this->addElement($gender);
 
@@ -242,7 +243,7 @@ class Application_Form_StudentPortal extends Zend_Form {
         $leaving_term = $this->createElement('select', 'leaving_sem')
                 ->removeDecorator('label')
                 ->setAttrib('class', array('form-control'))
-                ->setAttrib('required', 'required')
+                //->setAttrib('required', 'required')
                 ->removeDecorator("htmlTag")
                 ->addMultiOptions(array('' => 'Select'))
                 ->addMultiOptions($data);

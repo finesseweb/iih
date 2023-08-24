@@ -862,7 +862,7 @@ class StudentPortalController extends Zend_Controller_Action {
         $this->view->action_name = 'holiday';
         $this->view->sub_title_name = 'Student-Holiday';
         $holidayList = new Application_Model_DmiHoliday();
-        $all_holiday = $holidayList->getHolidayList($this->holidayCategory[0]);
+        $all_holiday = $holidayList->getHolidayListAll();
 
         $this->view->result = $all_holiday;
     }

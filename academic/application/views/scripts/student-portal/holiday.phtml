@@ -55,19 +55,19 @@
                              <?php $i = 0;
                                     $j=1;
                     while ($i < count($result)) { ?>
-                           <?php  $date = $result[$i]['start'];
+                           <?php  $date = $result[$i]['from_date'];
                             $cd1='';
                            ?>
                             <tr>
                                 <td><?=$j++;?></td>
-                                <td><?= $result[$i]['title']; ?></td>
-                                <?php   while (strtotime($date) <= strtotime($result[$i]['end'])) {
+                                <td><?= $result[$i]['name']; ?></td>
+                                <?php   while (strtotime($date) <= strtotime($result[$i]['to_date'])) {
             $cd1.=date(" l,", strtotime($date));
             $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
         } ?>
                                 <td><?=$cd1;?></td>
-                                <?php $start = explode(" ",$result[$i]['start']); ?>
-                                <?php $end = explode(" ", $result[$i]['end']); ?>
+                                <?php $start = explode(" ",$result[$i]['from_date']); ?>
+                                <?php $end = explode(" ", $result[$i]['to_date']); ?>
                                 <td><?= $start[0]; ?></td>
                                 <td><?= $end[0]; ?></td>
                             </tr>

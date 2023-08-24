@@ -5684,9 +5684,35 @@ while ($line = fgetcsv($csvFile)) {
 	public function holidayAction() {
         $this->view->action_name = 'holiday';
         $this->view->sub_title_name = 'Student-Holiday';
+		$holiday_form = new Application_Form_Holiday();
         $holidayList = new Application_Model_DmiHoliday();
+		$this->view->form = $holiday_form;
         $all_holiday = $holidayList->getHolidayListAll($this->holidayCategory[0]);
 
         $this->view->result = $all_holiday;
+    }
+	
+	
+	
+	
+	public function getHolidayListAction() {
+        $this->view->action_name = 'holiday';
+        $this->view->sub_title_name = 'Student-Holiday';
+		$holiday_form = new Application_Form_Holiday();
+        $holidayList = new Application_Model_DmiHoliday();
+		$this->view->form = $holiday_form;
+		
+		 $this->_helper->layout->disableLayout();
+        if ($this->_request->isPost() && $this->getRequest()->isXmlHttpRequest()) {
+           $alumini_model = new Application_Model_Contribution();
+           
+            $year = $this->_getParam("pd");
+            
+		
+        $all_holiday = $holidayList->getholidaylistyear($year);
+        
+        $this->view->result = $all_holiday;
+		
+		}
     }
 }

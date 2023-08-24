@@ -88,32 +88,32 @@ function can_process()
 		} 
 	}
 	
-	$fiscal_year = get_fiscalyear($_POST['fisc_year']);
-    $financial_year_start_month = $fiscal_year['1'];
-    $financial_year_end_month = $fiscal_year['2'];
+	//$fiscal_year = get_fiscalyear($_POST['fisc_year']);
+    //$financial_year_start_month = $fiscal_year['1'];
+    //$financial_year_end_month = $fiscal_year['2'];
 	
-	if(!(date2sql($_POST['from_date']) >= $financial_year_start_month))
-	{
-				display_error("Invalid From Date");
-				$_POST['from_date']=today();
-				set_focus('to_date');
-				return false;
-	}
+	//if(!(date2sql($_POST['from_date']) >= $financial_year_start_month))
+	//{
+	//			display_error("Invalid From Date");
+	//			$_POST['from_date']=today();
+	//			set_focus('to_date');
+	//			return false;
+	//}
 	
-	if(!(date2sql($_POST['to_date']) <= $financial_year_end_month)){
+	//if(!(date2sql($_POST['to_date']) <= $financial_year_end_month)){
 	
-			display_error("Invalid To Date");	
-			$_POST['to_date']=today();
-			set_focus('to_date');
-	return false;
-	}
+	//		display_error("Invalid To Date");	
+	//		$_POST['to_date']=today();
+	//		set_focus('to_date');
+	//return false;
+	//}
 	
-	 if (date2sql($_POST['to_date']) < date2sql($_POST['from_date'])) {
-			display_error(_("Invalid To date."));
-			$_POST['to_date']=today();
-			set_focus('to_date');
-			return false;
-	} 
+	 //if (date2sql($_POST['to_date']) < date2sql($_POST['from_date'])) {
+	//		display_error(_("Invalid To date."));
+	//		$_POST['to_date']=today();
+	//		set_focus('to_date');
+	//		return false;
+	//} 
 		
 	
 		
@@ -136,7 +136,7 @@ if ($Mode=='ADD_ITEM'  && can_process())
 		
 	
 	
-	add_holiday($_POST['fisc_year'],$_POST['name'],$_POST['descpt'],date2sql($_POST['from_date']),date2sql($_POST['to_date']));
+	add_holiday($_POST['cal_yearc'],$_POST['name'],$_POST['descpt'],date2sql($_POST['from_date']),date2sql($_POST['to_date']));
 	display_notification(_('Holiday has been added'));
 	$Mode = 'RESET';
 	}
@@ -148,7 +148,7 @@ if ($Mode=='ADD_ITEM'  && can_process())
 if ($Mode=='UPDATE_ITEM' && can_process() ) 
 {
 	//display_error("sdff");die;
-	update_holiday($selected_id,$_POST['fisc_year'],$_POST['name'],$_POST['descpt'],date2sql($_POST['from_date']),date2sql($_POST['to_date']));
+	update_holiday($selected_id,$_POST['cal_yearc'],$_POST['name'],$_POST['descpt'],date2sql($_POST['from_date']),date2sql($_POST['to_date']));
 	$Mode = 'RESET';
 	display_notification(_('Holiday has been updated'));
 } 
@@ -176,7 +176,7 @@ $result = get_holidays(check_value('show_inactive'));
 //display_error($result);die;
 start_form();
 start_table(TABLESTYLE);
-$th = array(_("Fiscal Year"),_("Name"),_("Description"),_("From Date"),_("To Date"),'','',);
+$th = array(_("Year"),_("Name"),_("Description"),_("From Date"),_("To Date"),'','',);
 inactive_control_column($th);
 table_header($th);
 
@@ -189,7 +189,7 @@ while($myrow = db_fetch($result))
 {
 	
 	alt_table_row_color($k);	
-	label_cell(sql2date($myrow["f_styear"]).'-'.sql2date($myrow["f_endyear"]));
+	label_cell($myrow["cal_yearc"]);
 	label_cell($myrow["name"]);
 	label_cell($myrow["descpt"]);
 	label_cell(sql2date($myrow["from_date"]));
@@ -226,7 +226,8 @@ if ($selected_id != -1)
 		hidden('selected_id', $selected_id);
 		
 }
-kv_fiscalyears_list_cells(_("Fiscal Year:"), 'fisc_year', null, true);
+calendar_list_row(_("Calendar Year:"), 'cal_yearc',$_POST['cal_yearc'], false, true);
+//kv_fiscalyears_list_cells(_("Fiscal Year:"), 'fisc_year', null, true);
 text_row_ex(_("Name :*"), 'name', 30,null,null,null,null,null,true);
 //text_row_ex(_("Name :*"), 'leave_type', 30,null,null,null,null,null,true);
 textarea_row(_("Description:"), 'descpt',null, 27,4);

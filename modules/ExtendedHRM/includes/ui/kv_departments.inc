@@ -1500,15 +1500,13 @@ function search_list_cell($label, $name, $selected_id=null, $submit_on_change=fa
 //-------------------------------------Holiday Master-----------------------------------/
  function add_holiday($fisc_year, $name,$descpt,$from_date,$to_date){
 
-	$sql = "INSERT INTO ".TB_PREF."kv_holiday_master(fisc_year,name,descpt,from_date,to_date) VALUES (".db_escape($fisc_year).",".db_escape($name).",".db_escape($descpt).",".db_escape($from_date).",".db_escape($to_date).")";
+	$sql = "INSERT INTO ".TB_PREF."kv_holiday_master(cal_yearc,name,descpt,from_date,to_date) VALUES (".db_escape($fisc_year).",".db_escape($name).",".db_escape($descpt).",".db_escape($from_date).",".db_escape($to_date).")";
 	//display_error($sql);die;
    	db_query($sql,"Holiday could not be added");
 }
  function get_holidays($show_inactive){
-	$sql="SELECT holiday.*,fiscal.begin AS f_styear,fiscal.end AS f_endyear FROM ".TB_PREF."kv_holiday_master AS holiday,".TB_PREF."fiscal_year AS fiscal WHERE  holiday.fisc_year=fiscal.id";
-	if (!$show_inactive)
-	 $sql .= " AND !holiday.inactive";
-	 $sql .= " ORDER BY holiday.holiday_id";
+	$sql="SELECT * FROM ".TB_PREF."kv_holiday_master AS holiday";
+	
 	return db_query($sql,"could not get Holidays");
 }
 

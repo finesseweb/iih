@@ -306,44 +306,43 @@ class IndexController extends Zend_Controller_Action {
             // die;
             //===================[COMMENTED ON 7-01-2021 FOR STUDENT LOGIN]=====================//
 
-//            if (!$auth_attempt) {
-//
-//
-//                $auth = Zend_Auth::getInstance();
-//                $authAdapter = new Zend_Auth_Adapter_DbTable($users->getAdapter(), 'participants_login');
-//
-//                $authAdapter->setIdentityColumn('participant_username')->setCredentialColumn('participant_pword');
-//                $authAdapter->setIdentity($data['admin_user_name'])->setCredential($data['password']);
-//                $authAdapter->getDbSelect()->where('participant_Active=0');
-//
-//
-//                $result = $auth->authenticate($authAdapter);
-//                //echo "<pre>"; print_r($result);echo "</pre>";exit;
-//                if ($result->isValid()) {
-//
-//                    $auth->clearIdentity();
-//                    $storage = new Zend_Session_Namespace("admin_login");
-//                    $storage->admin_login = $authAdapter->getResultRowObject();
-//                    $storage->unique_id = uniqid() . rand() . time(date("Y-m-d H:i:s"));
+            if (!$auth_attempt) {
 
-//                    setcookie('admin_login_status', '1', time() + (60 * 20), '/',$_SERVER['HTTP_HOST'],true,true,'lax');
 
-//                    // $adminroles = new Application_Model_Adminroles();
-//
-//                    $stored = $storage->admin_login;
-//
-//                    $this->_redirect('student-portal/student-dashboard'); //Redirected on Report page, Date - 15-Dec-2017
-//                } else {
-//                    $_SESSION['flash_message_error']= "Invalid username or password. Please try again.";
-//                }
-//            } else {
-//                $_SESSION['flash_message_error'] = "Invalid username or password. Please try again.";
-//              }
+               $auth = Zend_Auth::getInstance();
+               $authAdapter = new Zend_Auth_Adapter_DbTable($users->getAdapter(), 'participants_login');
 
-//             }
+                $authAdapter->setIdentityColumn('participant_username')->setCredentialColumn('participant_pword');
+                $authAdapter->setIdentity($data['admin_user_name'])->setCredential($data['password']);
+                $authAdapter->getDbSelect()->where('participant_Active=0');
+
+
+                $result = $auth->authenticate($authAdapter);
+                //echo "<pre>"; print_r($result);echo "</pre>";exit;
+                if ($result->isValid()) {
+
+                    $auth->clearIdentity();
+                    $storage = new Zend_Session_Namespace("admin_login");
+                    $storage->admin_login = $authAdapter->getResultRowObject();
+                    $storage->unique_id = uniqid() . rand() . time(date("Y-m-d H:i:s"));
+
+                   setcookie('admin_login_status', '1', time() + (60 * 20), '/',$_SERVER['HTTP_HOST'],true,true,'lax');
+
+                   // $adminroles = new Application_Model_Adminroles();
+
+                   $stored = $storage->admin_login;
+                    $this->_redirect('student-portal/student-dashboard'); //Redirected on Report page, Date - 15-Dec-2017
+                } else {
+                    $_SESSION['flash_message_error']= "Invalid username or password. Please try again.";
+                }
+           } else {
+               $_SESSION['flash_message_error'] = "Invalid username or password. Please try again.";
+             }
+
+            }
         }
 
-    }
+    //}
 
     public function changePasswordAction() {
         $this->view->sub_title_name = 'Change Password';
