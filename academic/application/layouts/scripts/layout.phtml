@@ -667,9 +667,9 @@ echo 'style="display:block"';
 <li <?php if ($this->sub_title_name == 'department_type') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_DEPARTMENT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
  <a href="<?php echo $this->mainconfig['host']; ?>plan/department-type" >Stream</a>
  </li>
- <li <?php if ($this->sub_title_name == 'teacher_dept') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_TCHRDEPT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
+ <!--<li <?php if ($this->sub_title_name == 'teacher_dept') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_TCHRDEPT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
  <a href="<?php echo $this->mainconfig['host']; ?>plan/teacher-dept" >Teacher Department</a>
- </li>
+ </li>-->
  
  <li <?php if ($this->sub_title_name == 'Academic') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_BATCH, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>master/academic" >Batch</a>
@@ -710,9 +710,9 @@ echo 'style="display:block"';
 <li <?php if ($this->sub_title_name == 'corecourselearning') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_CORE_COURSE, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>master/corecourselearning" target="_blank">Core Course Learning</a>
 </li>
-<li <?php if ($this->sub_title_name == 'AdmissionReport') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_AR_ADDONREPORT, $this->login_storage->role_set) ? "style ='display:none!important'" : ''; ?>>
+<!--<li <?php if ($this->sub_title_name == 'AdmissionReport') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_AR_ADDONREPORT, $this->login_storage->role_set) ? "style ='display:none!important'" : ''; ?>>
     <a href="<?php echo $this->mainconfig['host']; ?>entrance-report/value-added-courses" target="_blank"> Value Added Course</a>
-    </li>
+    </li>-->
  <?php if ($this->login_storage->role_id == 2) { ?>
  <!--<li <?php if ($this->sub_title_name == 'GE') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_GE, $this->login_storage->role_set) ? "style ='display:block !important'" : ''; ?>>
  <a href="<?php echo $this->mainconfig['host']; ?>master/general-electives" target="_blank">Electives Category</a>

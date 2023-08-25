@@ -11,14 +11,14 @@ class Application_Form_Academic extends Zend_Form {
 //        $Department_model = new Application_Model_Department();
 //        $data = $Department_model->getDropDownList();
 //        //print_r($data); die;
-//        $department_id = $this->createElement('select', 'department')
-//                ->removeDecorator('label')
-//                ->setAttrib('class', array('form-control', 'chosen-select'))
-//                ->setRequired(true)
-//                ->addMultiOptions(array('' => 'Select'))
-//                ->addMultiOptions($data)
-//                ->removeDecorator("htmlTag");
-//        $this->addElement($department_id);
+        $frequency = $this->createElement('select', 'frequency')
+                ->removeDecorator('label')
+               ->setAttrib('class', array('form-control', 'chosen-select'))
+               ->setRequired(true)
+                ->addMultiOptions(array('' => 'Select'))
+               ->addMultiOptions(array('yearly'=>'Yealy','semester'=>'Semester'))
+                ->removeDecorator("htmlTag");
+        $this->addElement($frequency);
         
         
         $Department_model = new Application_Model_DepartmentType();

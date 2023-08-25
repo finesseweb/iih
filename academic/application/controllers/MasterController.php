@@ -3143,7 +3143,8 @@ $Degree_model->update($data, array('id=?' => $cc_id));
                             'short_code' => $data['short_code'],
                             'department' => $data['department_type'],
                             'academic_year' => $data['academic_year'],
-                            'session' => $data['session']
+                            'session' => $data['session'],
+							'frequency' => $data['frequency']
                         );
                         if (!empty($data['csrftoken'])) {
                             if ($data['csrftoken'] === $token) {
@@ -3188,7 +3189,8 @@ $Degree_model->update($data, array('id=?' => $cc_id));
                             'short_code' => $data['short_code'],
                             'department' => $data['department_type'],
                             'academic_year' => $data['academic_year'],
-                            'session' => $data['session']
+                            'session' => $data['session'],
+							'frequency' => $data['frequency']
                         );
                         if (!empty($data['csrftoken'])) {
                             if ($data['csrftoken'] === $token) {
