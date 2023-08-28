@@ -56,7 +56,7 @@ if (empty($_SESSION['token'])) {
            $term = $this->createElement('select', 'cmn_terms')
                 ->removeDecorator('label')
                 ->setAttrib('class', array('form-control', 'chosen-select'))
-                ->setAttrib('required', 'required')->setRequired(true)
+               // ->setAttrib('required', 'required')->setRequired(true)
                 ->removeDecorator("htmlTag")
                 ->addMultiOptions(array('' => 'Select'))
                    ->addMultiOptions($data4);

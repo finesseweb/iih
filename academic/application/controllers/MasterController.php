@@ -2936,7 +2936,7 @@ $Degree_model->update($data, array('id=?' => $cc_id));
                             'ct_description' => $data['ct_description'],
                             'degree_id' => $data['degree_id'],
                             'status' => $data['status'],
-                            'course_category' => $data['course_category'],
+                           //'course_category' => $data['course_category'],
                         );
                         if (!empty($data['csrftoken'])) {
                             if ($data['csrftoken'] === $token) {
@@ -7467,7 +7467,23 @@ public function addoncourselearningAction() {
            
         }
     }
-    
+	
+     public function ajaxGetYearlyRecordAction() {
+        $Acad = new Application_Model_Academic();
+       
+        $this->_helper->layout->disableLayout();
+        if ($this->_request->isPost() && $this->getRequest()->isXmlHttpRequest()) {
+          
+            $degree_id = $this->_getParam("batch_id");
+           
+            $result = $Acad->getRecord($degree_id);
+            
+                echo $result['frequency'];
+                
+           
+           
+        } die();
+    }
     
     
      public function ajaxGetAddonRecordAction() {

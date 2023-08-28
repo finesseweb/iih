@@ -49,7 +49,7 @@ class Application_Form_Coursetype extends Zend_Form
         $this->addElement($degree_id);
 			
 		
-	 $degree_model = new Application_Model_Coursecategory();
+	/*  $degree_model = new Application_Model_Coursecategory();
         $data = $degree_model->getDropDownList();
          $degree_id = $this->createElement('select', 'course_category')
                 ->removeDecorator('label')
@@ -59,7 +59,7 @@ class Application_Form_Coursetype extends Zend_Form
                  ->addMultioptions(array(''=>'--select--'))
                 ->addMultioptions($data)
                 ->removeDecorator('htmlTag');
-        $this->addElement($degree_id);
+        $this->addElement($degree_id); */
         
         
         $status = $this->createElement('select', 'status')

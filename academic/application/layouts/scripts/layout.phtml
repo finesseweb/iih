@@ -662,10 +662,10 @@ echo 'style="display:block"';
 <a href="<?php echo $this->mainconfig['host']; ?>master/session" >Session </a>
  </li>
 <li <?php if ($this->sub_title_name == 'degree') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_COURSE_DEG, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
- <a href="<?php echo $this->mainconfig['host']; ?>master/degree" >Degree </a>
+ <a href="<?php echo $this->mainconfig['host']; ?>master/degree" >Programme </a>
  </li>
 <li <?php if ($this->sub_title_name == 'department_type') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_DEPARTMENT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
- <a href="<?php echo $this->mainconfig['host']; ?>plan/department-type" >Stream</a>
+ <a href="<?php echo $this->mainconfig['host']; ?>plan/department-type" >Course</a>
  </li>
  <!--<li <?php if ($this->sub_title_name == 'teacher_dept') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_TCHRDEPT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
  <a href="<?php echo $this->mainconfig['host']; ?>plan/teacher-dept" >Teacher Department</a>
@@ -687,7 +687,7 @@ echo 'style="display:block"';
 <a href="<?php echo $this->mainconfig['host']; ?>master/termmaster" >Semester</a>
 </li>
  <li <?php if ($this->sub_title_name == 'department') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_DEPARTMENT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
- <a href="<?php echo $this->mainconfig['host']; ?>plan/department" >Hon's Course</a>
+ <a href="<?php echo $this->mainconfig['host']; ?>plan/department" >Hon's Course/Paper</a>
  </li>
  <li <?php if ($this->sub_title_name == 'coursecategory') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_COURSE_CAT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
  <a href="<?php echo $this->mainconfig['host']; ?>master/coursecategory" >Course Category</a>
@@ -698,9 +698,9 @@ echo 'style="display:block"';
  <li <?php if ($this->sub_title_name == 'experientiallearningcomponents') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_E_LEARN_C, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>master/experientiallearningcomponents" target="_blank">Experiential Learning Components</a>
 </li>
- <li <?php if ($this->sub_title_name == 'Creditmaster') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_CREDIT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
+ <!--<li <?php if ($this->sub_title_name == 'Creditmaster') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_CREDIT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>master/creditmaster" target="_blank">Credit Definitions</a>
-</li>
+</li>-->
 <li <?php if ($this->sub_title_name == 'componentmaster') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_COMPONENT_MASTER, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>master/componentmaster" target="_blank">Component</a>
 </li>
@@ -730,9 +730,9 @@ echo 'style="display:block"';
 <li <?php if ($this->sub_title_name == 'experientiallearning') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_E_LEARN, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>master/experientiallearning" target="_blank">Experiential Course Learning</a>
 </li>
- <li <?php if ($this->sub_title_name == 'Reference Grade Master') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_REF_GRADE, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
+ <!--<li <?php if ($this->sub_title_name == 'Reference Grade Master') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_REF_GRADE, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>master/reference-grade" target="_blank">Reference Grade</a>
-</li>
+</li>-->
 <li>
 <!--<a><i class=""></i>Feedback<span class="fa fa-chevron-down"></span></a>-->
  <ul  class="nav child_menu" <?php if ($this->action_name == 'Feedback') echo 'style="display:none"'; ?>> 
@@ -840,7 +840,7 @@ echo 'style="display:block"';
 </ul>
 </li>  ---->
  </li>
-<li><a><i class=""></i>View<span class="fa fa-chevron-down"></span></a>
+<!--<li><a><i class=""></i>View<span class="fa fa-chevron-down"></span></a>
 <ul  class="nav child_menu" <?php if (($this->action_name == 'placement')) echo 'style="display:block"'; ?>>
 <li <?php if ($this->sub_title_name == 'Termmasterview') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_TERM_VIEW, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>master/termmasterview" target="_blank">Term View</a>
@@ -855,7 +855,7 @@ echo 'style="display:block"';
 <a href="<?php echo $this->mainconfig['host']; ?>master/experientiallearningdesignview" target="_blank">Experiential Learning Design View</a>
 </li>
 </ul>
-</li>
+</li>-->
 
 
 <!--<li><a><i class=""></i>Global Setting<span class="fa fa-chevron-down"></span></a>-->
