@@ -150,24 +150,24 @@ class FeeCategoryController extends Zend_Controller_Action {
                             if ($data['csrftoken'] === $token) {
 
                                 foreach ($_POST['category'] as $key => $feehead_name) {
-                                    if ($this->getRequest()->getPost('session') >= 7) {
-                                        $fee_data = array("fund_type" => $this->getRequest()->getPost('fund_type'),
-                                            "degree_id" => $this->getRequest()->getPost('degree_id'),
-                                            "session_id" => $this->getRequest()->getPost('session'),
-                                            "dept_id" => $this->getRequest()->getPost('dept_id'),
-                                            "category_name" => $feehead_name);
-                                    } else {
+                                    // if ($this->getRequest()->getPost('session') >= 7) {
+                                    $fee_data = array("fund_type" => $this->getRequest()->getPost('fund_type'),
+                                        "degree_id" => $this->getRequest()->getPost('degree_id'),
+                                        "session_id" => $this->getRequest()->getPost('session'),
+                                        "dept_id" => $this->getRequest()->getPost('dept_id'),
+                                        "category_name" => $feehead_name);
+                                    // } else {
 
-                                        $fee_data = array("fund_type" => $this->getRequest()->getPost('fund_type'),
-                                            "degree_id" => $this->getRequest()->getPost('degree_id'),
-                                            "session_id" => 0,
-                                            "dept_id" => 0,
-                                            "category_name" => $feehead_name);
-                                    }
+                                    //     $fee_data = array("fund_type" => $this->getRequest()->getPost('fund_type'),
+                                    //         "degree_id" => $this->getRequest()->getPost('degree_id'),
+                                    //         "session_id" => 0,
+                                    //         "dept_id" => 0,
+                                    //         "category_name" => $feehead_name);
+                                    // }
 
 
 
-                                    //print_r($fee_data);die;
+                                    // print_r($fee_data);die;
 
                                     $Category_model->insert($fee_data);
                                     unset($_SESSION["token"]);

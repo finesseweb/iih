@@ -1,0 +1,52 @@
+<table class="table table-striped table-bordered mb30 jambo_table bulk_action" id="datatable-responsive">
+    <thead>
+        <tr>
+            <th >S. No.</th>
+            <th>Teacher Name </th>
+            <th>Email Id </th>
+            <th>Department </th>
+            <th style="text-align:center">status</th>
+            <th class="no_print" style="text-align:center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $i = 1;
+        $pagination_tr = '';
+        if (count($this->paginator) != 0) {
+
+            foreach ($this->paginator as $results) {
+                // echo '<pre>'; print_r($results);
+                $emplyeeData = new Application_Model_HRMModel();
+
+                $data = $emplyeeData->getEmployeeData($results['empl_id']);
+                //echo '<pre>'; print_r($data);
+                ?>
+                <tr>
+                    <td><?php
+                        echo $i;
+                        $i++;
+                        ?>
+                    </td>
+                    <td><?= !empty($data['empl_firstname']) ? $data['empl_firstname'] : 'Inactive'; ?></td>
+                    <td><?= !empty($data['email']) ? $data['email'] : 'Inactive'; ?></td>
+                    <td><?php echo $results['department']; ?></td>
+                    <?php if ($results['status'] == 0) { ?>
+                        <td>Active</td>
+                    <?php } else { ?>
+                        <td class='text-danger'>Inactive</td>
+                    <?php } ?>
+                    <td><a href="<?php echo $this->mainconfig['host']; ?>plan/teacher-dept/type/edit/id/<?php echo $results['id']; ?>" class="edit" title="Edit">View / Edit</a>&nbsp;</td> 
+                </tr>            
+                <?php
+            }
+            $pagination_tr = $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
+        }
+        ?>
+    </tbody>
+</table>
+<?php echo $pagination_tr; ?>
+
+<script>
+    setDatatables();
+    </script>

@@ -1,0 +1,77 @@
+
+
+<script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+crossorigin="anonymous"></script>
+<style>
+    table{
+        margin:0;
+    }
+    .sub{
+        border:.01em solid #932e90;
+        text-align: center;
+
+    }
+    .logo{
+        display:none;
+    }
+
+
+
+</style>
+<div class="grade-data-container container text-center" style="margin-top:10px;">
+    <h1><?=$this->result[0]['stu_fname']?></h1>
+    <table class="table table-striped table-bordered mb30 jambo_table bulk_action" width="100%" cellspacing ="0" >
+        <thead>
+            <tr>
+                <th class="sub">
+                    S.No
+                </th>
+                <th class="sub">
+                    Semester
+                </th class="sub">
+                <th class="sub">
+                    Course
+                </th>
+                <th class="sub">
+                    CIA
+                </th>
+                <th class="sub">
+                    ESE(T)
+                </th>
+                <th class="sub">
+                    ESE(P)
+                </th>
+                <th class="sub">
+                    Total Marks
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php $i =0 ;foreach($this->result as $key => $value){ ?>
+                <tr>
+                    <td class="sub"><?=++$i;?></td>
+                    <td class="sub"><?=str_replace('t','Semester',$value['cmn_terms']);?></td>
+                    <td class="sub"><?=$value['course_code'];?></td>
+                    <?php 
+                    $grade_val = explode(',',$value['grade_value']);
+                    $number_val = explode(',',$value['number_value']);
+                    ?>
+                    <td class="sub"><?=$number_val[0].' - '.$grade_val[0];?></td>
+                    <td class="sub"><?=$number_val[1].' - '.$grade_val[1];?></td>
+                    <td class="sub"><?=$number_val[2].' - '.$grade_val[2];?></td>
+                    <td class="sub"><?=$value['obtained_marks'];?></td>
+                </tr>
+
+        <?php } ?>
+        </tbody>
+
+
+    </table>
+</div>
+</center>
+</body>
+
+</html>
+

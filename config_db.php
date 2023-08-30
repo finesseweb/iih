@@ -45,7 +45,7 @@ $db_connections = array (
     'host' => "localhost",
     'dbuser' => "root",
     'dbpassword' => "",
-    'dbname' => 'demoerp',
+    'dbname' => 'gh_nep_erp',
     'tbpref' => 'fa_',
   ),
     1 => 
@@ -63,7 +63,7 @@ $db_connections = array (
     'host' => "localhost",
     'dbuser' => "root",
     'dbpassword' => "",
-    'dbname' => "pwc",
+    'dbname' => "gh_nep",
     'tbpref' => 'fa_',
   ),
 );

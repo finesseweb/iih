@@ -1,0 +1,30 @@
+<div class="col-md-12">
+<?php //echo '<pre>'; print_r($this->paginator);exit; ?>
+    <div class="table-responsive" id="studentData"> 
+        <table class="table table-striped table-bordered mb30 jambo_table bulk_action" id="dataTable"  >
+            <thead>
+                <tr>
+                    <th>Category name</th>
+                    
+
+                </tr>
+            </thead>
+           
+            <tbody>
+                <?php foreach ($this->paginator as $key => $value) { ?>
+                   
+                <tr>					
+                    <td><?php echo $value['category_name']; ?></td>
+                    <input type="hidden" name="category_name[]" value="<?= $value['category_name'] ?>" />
+<!--                    <input type="hidden" name="fund_type[]" value="<?= $value['fund_type'] ?>" />-->
+                <tr>
+                <?php }?>
+
+            </tbody>
+            
+        </table>
+    </div>
+</div>
+<script>
+    setDataTables();
+</script>

@@ -1,0 +1,574 @@
+<style>
+    @media print {
+/*                    table td:nth-child(5)
+                     {
+                         display:none;
+                     }
+                     table th:nth-child(5)
+                     {
+                         display:none;
+                     }*/
+                      *{
+                        visibility:hidden;
+                     }
+                     table,th,td 
+                     {
+                         visibility:visible;                    
+                     } 
+                     .title1
+                     {
+                        visibility:visible; 
+                     }
+                }
+</style>
+<div class="right_col">
+<?php if ($this->type) { ?>
+<div class="padding-md">
+	<div class="row">
+		<div class="col-md-12 " >
+		<h3 class="page-title txt-color-blueDark" >
+			<div><i class="fa fa-eye"> Fee Heads</i></div>
+		</h3>
+			<div class="panel panel-default">
+				<form class="no-margin" id="formValidate1" action="<?php echo $this->form->getAction() ?>" method="post" data-validate="parsley" >
+					
+					<div class="panel-body">
+						  <div class="row">
+
+							<div class="col-sm-3 employee_class">
+                            <div class="form-group" >
+                            <label  class="control-label" >Fee Category<span class="asterisk">*</span></label>
+                            <?php echo $this->form->feecategory_id; ?>
+                            </div>
+							</div>
+						
+							<div class="col-sm-3 employee_class">
+                            <div class="form-group">
+                            <label class="control-label">Fee Heads Name<span class="asterisk">*</span></label>
+                            <?php echo $this->form->feehead_name; ?>
+                            </div>
+							</div>
+							</div>
+							
+					<!--	 <?php /* if(count($this->item_result)>0){
+							//		print_r($this->item_result);die;
+							$i=0;
+						   foreach($this->item_result as $val){ 
+						$i++; */
+					?>
+					<div class="row" id="" style="">
+					
+							<div class="col-sm-3">
+							<label>Fee Head Name<span class="asterisk">*</span></label>
+							<input type="text"  label="feehead_name_<?php // echo $i;?>"  class="form-control feehead_name" name="Fee[feehead_name][]" placeholder="" value="<?php echo $val['feehead_name'];?>"/> 
+							</div>				  
+													
+						<a href="#" class="removeclass btn btn-primary remove_class" style="padding:7px 15px;margin:24px 15px; ">-</a>
+						</div>   
+					<?php // } ?>
+					 <div class="col-sm-3"></div>    
+					<input type="button" value="+" id="AddButton" class="btn btn-primary adjust-size" style="padding:7px 15px;margin-left:9px;">
+					
+					<?php  // }  else {    ?>
+					 
+		<input type="hidden" name="count_val" id="count_val" value="1" class="count_val" />  
+		<div class="row" style="">
+	
+		<div class="col-sm-3"><label> Fee Head Name <span class="asterisk">*</span></label> <input type="text"  label="feehead_name_0"  class="form-control" name="Fee[feehead_name][]" style="" placeholder="Name" value="" /> 
+		</div>
+            <input type="button" value="+" id="AddButton" class="btn btn-primary adjust-size" style="padding:7px 15px;margin:24px 15px;"> 
+       	
+		
+	</div>
+	<?php // } ?>
+       <div id="fields">
+         <div class="padding-top"></div>
+        </div>   -->
+					</div>
+					<div>
+						<div class="panel-footer">									
+							<div class="row">
+								<div class="col-sm-7 col-sm-offset-5">
+									<?php if ($this->type == 'add') { ?> 
+										<div style="float:left;margin-right:2px;">
+										<button class="btn btn-primary submit">Submit</button>
+										</div>
+										<div style="float:left;padding:0px 10px;">
+										<button type="reset" class="btn btn-danger btn-default">Reset</button>
+										</div>
+									<?php } else { ?>
+										<div style="float:left;">
+										<button class="btn btn-primary submit">Update</button>
+										</div>
+										<div style="float:left;">
+										<a class="btn btn-primary" href="<?php echo $this->mainconfig['host']; ?>fee-heads/index/">Back</a>
+										</div>
+										<?php }		?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div><!-- /panel -->
+		</div><!-- /.col-->				
+	</div><!-- /.row -->
+	
+</div><!-- /.padding-md -->	
+<?php } else { ?>
+  
+<?php if (count($this->messages))   { 
+    foreach ($this->messages as $message) {?>
+     <div class="alert alert-success ">
+<a type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
+<?php echo $this->escape($message); ?>
+</div>
+ <?php } } ?>
+ <!-- widget grid -->
+<div class="">
+	<div class="">
+		<div class="row">
+			
+			<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+		<h3 class="page-title txt-color-blueDark">
+			<i class="fa fa-bars">Participants Assignment</i>
+				
+		</h3>
+	</div>
+			
+		<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">	 
+			
+			
+		</div>
+		</div>
+		
+		<div class="x_panel">
+               
+                  
+                    
+                    
+                    
+                        <div class="panel panel-default">
+                <form class="no-margin" id="formValidate1" action="<?php echo $this->form->getAction() ?>" method="post" data-validate="parsley" enctype="multipart/form-data" >
+
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-sm-3 employee_class">
+                                        <div class="form-group">
+                                            <label class="control-label">Academic Year</label>
+                                            <?php echo $this->form->academic_year; ?>
+                                        </div>
+                                    </div>
+                                    <?php echo $this->form->csrftoken; ?>
+                                    <div class="col-sm-3 employee_class">
+                                        <div class="form-group">
+                                            <label class="control-label">Session </label>
+                                            <?php echo $this->form->session; ?>
+                                        </div>
+                                    </div>	
+
+                                    <div class="col-sm-3 employee_class">
+                                        <div class="form-group">
+                                            <label class="control-label">Semester<span class="asterisk">*</span></label>
+                                            <?php echo $this->form->cmn_terms; ?>
+                                        </div>
+                                    </div>	
+
+                                    <div class="col-sm-3 employee_class">
+                                        <div class="form-group">
+                                            <label class="control-label">Degree<span class="asterisk">*</span></label>
+                                            <?php echo $this->form->degree_id; ?>
+                                        </div>
+                                    </div>	
+
+
+
+                                </div>    
+                                <div class="row">
+                                    <div class="col-sm-3 employee_class">
+                                        <div class="form-group">
+                                            <label class="control-label">Course Category<span class="asterisk">*</span></label>
+                                            <?php echo $this->form->cc_id; ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 employee_class">
+                                        <div class="form-group">
+                                            <label class="control-label">Teacher's Department<span class="asterisk">*</span></label>
+                                            <select class="form-control" name ="teacher_dept" id = "teacher_dept" required="true">
+                                                <option value="">--select--</option>
+
+                                                <?php
+                                                $dailyAttendanceMaster = new Application_Model_DailyAttendanceModel();
+                                                $empl_id = $this->login_storage->empl_id;
+                                                $empl_dept = $dailyAttendanceMaster->getEmplDeptById($empl_id);
+                                                foreach ($empl_dept as $key => $value) {
+                                                    ?>
+                                                    <option value="<?= $value['id']; ?> " <?php
+                                                    if ($this->result[0]['teacher_dept'] == $value['id']) {
+                                                        echo 'selected';
+                                                    }
+                                                    ?>  ><?= $value['department'] ?> </option>
+    <?php } ?>
+
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3 employee_class">
+                                        <div class="form-group">
+                                            <label class="control-label">Course Group<span class="asterisk">*</span></label>
+    <?php echo $this->form->ge_id; ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3 employee_class">
+                                        <div class="form-group">
+                                            <label class="control-label">Hon's Course<span class="asterisk"></span></label>
+    <?php echo $this->form->department; ?>
+                                        </div>
+                                    </div>
+
+
+                                    <div id="course_ids">
+
+                                    </div>
+                                    <div id="section_list">
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <button type="button" id="getStudentsRecord" class="btn btn-primary" style="float: right" value="0" >Get Student List</button>
+
+                                </div>
+
+                    </div>
+                    
+                    
+                    
+                    
+            <div class="x_content">
+		
+		<div class="padding-md clearfix">
+            <div class="mainData" id="mainData">       
+			<table class="table table-striped table-bordered mb30 jambo_table bulk_action" id="dataTable">
+				<thead>
+					<tr>
+						<th style="text-align:center;">As. ID</th>	
+						<th style="text-align:center;">Participant ID</th>
+						<th style="text-align:center;">Name</th>
+						<th style="text-align:center;">Download</th>
+                        <th style="text-align:center;">Uploaded Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					        
+
+
+				</tbody>
+			</table>
+			 <?php echo $pagination_tr; ?>
+            </div>
+		</div><!-- /.padding-md -->
+	</div><!-- /panel -->
+	</div>
+	</div>
+</div><!-- /.padding-md -->		
+<?php } ?>
+</div>
+<script>	
+ 
+	$('#due_date').attr('autocomplete','off');
+    $(function () {
+        $('#due_date').datetimepicker();
+    });
+    //To filter Session
+    $('body').on('change', '#academic_year', function () {
+        $('#department').removeAttr('disabled');
+        var year_id = $('#academic_year').val();
+        if (year_id) {
+
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-Get-Session'; ?>',
+                data: {year_id: year_id}
+            }).done(function (data) {
+                $('#session').empty('');
+                $('#session').html(data);
+                $('#session').trigger("chosen:updated");
+            });
+        }
+    });
+    //End
+    $('body').on('change', '#course_id', function () {
+
+        let course_id = this.value;
+        let session = $('#session').val();
+        let term_id = $('#cmn_terms').val();
+        let ge_id = $('#ge_id').val();
+        //alert(course_id);
+
+        if (ge_id == 24 || ge_id == 27 || ge_id == 26) {
+            if (course_id != 14) {
+                $.ajax({
+                    type: "POST",
+                    url: '<?php echo $this->mainconfig['host'] . 'batch-attendance/ajax-get-section'; ?>',
+                    data: {course_id: course_id, session: session, term_id: term_id}
+                }).done(function (data) {
+                    $('#section_list').empty('');
+                    $('#section_list').html(data).trigger("chosen:updated");
+
+                });
+            }
+        }
+
+
+    });
+
+
+
+    $('body').on('change', '#cmn_terms,#session,#section,#degree_id', function () {
+        $('#grade_data').empty('');
+        $('#studentData').empty('');
+    });
+
+
+
+
+
+    $('body').on('change', '#cc_id', function () {
+        $('#grade_data').empty('');
+        $('#studentData').empty('');
+        let cc_id = $('#cc_id').val();
+        let degree_id = $('#degree_id').val();
+        let term_id = $('#cmn_terms').val();
+        let employee_id = '<?= !empty($this->login_storage->empl_id) ? $this->login_storage->empl_id : ''; ?>';
+        if (cc_id == 2) {
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'grade-allocation/ajax-get-course-group-with-empl-for-daily'; ?>',
+                data: {cc_id: cc_id, degree_id: degree_id, employee_id: employee_id}
+            }).done(function (data) {
+                $('#ge_id').empty('');
+                $('#ge_id').html(data).trigger("chosen:updated");
+            });
+        } else {
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'grade-allocation/ajax-get-course-group'; ?>',
+                data: {cc_id: cc_id, term_id: term_id}
+            }).done(function (data) {
+                $('#ge_id').empty('');
+                $('#ge_id').html(data).trigger("chosen:updated");
+            });
+        }
+        if (degree_id) {
+            //alert(degree_id);
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-dept-with-empl'; ?>',
+                data: {degree_id: degree_id, employee_id: employee_id}
+            }).done(function (data) {
+                $('#department').empty('');
+                $('#department').html(data).trigger("chosen:updated");
+                $('.load-box').css('display', 'none');
+            });
+        }
+    });
+
+
+//Disable some field on change course Category(1)
+    $('body').on('change', '#cc_id,#department', function () {
+        $('#grade_data').empty('');
+        $('#studentData').empty('');
+        let degree_id = $('#degree_id').val();
+        var cc_id = $('#cc_id').val();
+        var cc_id_InArray = ["1", "5", "7", "11", "16", "17", "18"];
+        //alert(degree_id);
+        if (degree_id == 1) {
+
+            if (jQuery.inArray(cc_id, cc_id_InArray) != '-1') {
+                //alert(cc_id);
+                $("#ge_id,#course_id").empty();
+                $("#department").removeAttr('disabled').trigger("chosen:updated");
+                $("#ge_id,#course_id").attr('disabled', 'disabled').trigger("chosen:updated");
+                $("#ge_id,#course_id").removeAttr('required').trigger("chosen:updated");
+
+
+            } else {
+                $("#department").empty();
+                $("#department").attr('disabled', 'disabled').trigger("chosen:updated");
+                $("#ge_id,#course_id").removeAttr('disabled').trigger("chosen:updated");
+                $("#ge_id,#course_id").attr('required', true).trigger("chosen:updated");
+
+            }
+            $("#course_id").removeAttr('disabled').trigger("chosen:updated");
+        } else {
+            $("#course_id").attr('disabled', 'disabled').trigger("chosen:updated");
+        }
+    });
+
+//End
+//to get course on basis of  ge id
+    $('body').on('change', '#ge_id', function () {
+        
+        $('#grade_data').empty('');
+        $('#studentData').empty('');
+        $('#course_ids').empty('');
+        $('.load-box').css('display', 'block');
+        var employee_id = '';
+        var department_id = '';
+        var department = '';
+        var ct_id = $('#cc_id').val();
+        var ge_id = $('#ge_id').val();
+        var term_id = $('#cmn_terms').val();
+        //alert('ge');
+        if (ge_id == 25) {
+            $("#department").removeAttr('disabled').trigger("chosen:updated");
+            $('.load-box').css('display', 'none');
+        } else {
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'grade-allocation/ajax-get-base-of-course'; ?>',
+                data: {Ct_id: ct_id, employee_id: employee_id, department_id: department_id, term_id: term_id, ge_id: ge_id, cc_dept: department}
+            }).done(function (data) {
+
+                $('#course_ids').html(data);
+                $(".chosen-select").chosen();
+                var exists = $('#course_ids option[value]').length;
+                //alert(exists);
+                $('.load-box').css('display', 'none');
+                if (exists > 1) {
+                    $("#department").empty();
+                    $("#department").attr('disabled', 'disabled').trigger("chosen:updated");
+                } else {
+                    $("#department").removeAttr('disabled').trigger("chosen:updated");
+                }
+            });
+        }
+    });
+//To get  course category and department on degree change
+
+    $('body').on('change', '#degree_id', function () {
+        $('#studentData').empty('');
+        var degree_id = $('#degree_id').val();
+        var employee_id = '<?= !empty($this->login_storage->empl_id) ? $this->login_storage->empl_id : ''; ?>';
+        $('.load-box').css('display', 'block');
+        $('#cc_id').empty();
+
+
+        $.ajax({
+            type: "POST",
+            url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-course-cat'; ?>',
+            data: {degree_id: degree_id}
+        }).done(function (data) {
+            // alert(data);
+            $('#cc_id').html(data).trigger("chosen:updated");
+            $('.load-box').css('display', 'none');
+
+        });
+        $.ajax({
+            type: "POST",
+            url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-dept-with-empl'; ?>',
+            data: {degree_id: degree_id, employee_id: employee_id}
+        }).done(function (data) {
+            $('#department').empty('');
+            $('#department').html(data);
+            $('.load-box').css('display', 'none');
+        });
+
+
+    });
+
+
+
+//Semester end Attendance Filter code : Date: 26 March 2020 :Kedar
+    var default_type = '<?= $this->type ?>';
+
+
+
+    //to get monthly attendace
+
+    $('body').on('click', '#getStudentsRecord', function () {
+        
+        var honors_id = $('#department').val();
+        var cc_id = $('#cc_id').val();
+        var ge_id = $('#ge_id').val();
+        var term_id = $('#cmn_terms').val();
+        var course_id = $('#course_id').val();
+        var session = $("#session").val();
+        var section = $("#section").val();
+        ;
+        //alert(tabId);
+        //alert(default_type);
+        if (term_id) {
+            $('.load-box').css('display', 'block');
+            $.ajax({
+                type: "POST",
+                url: "<?php echo $this->mainconfig['host'] . 'participant-assignment/ajax-get-assignment-view'; ?>",
+                data: {ge_id:ge_id, term_id: term_id, course_id: course_id, session_id: session, cc_id: cc_id, honors_id: honors_id, section: section}
+            }).done(function (data) {
+
+                $('.load-box').css('display', 'none');
+
+                $('#mainData').empty('');
+                $('#mainData').html(data);
+
+                setDatatables();
+            });
+            if (course_id) {
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $this->mainconfig['host'] . 'grade-allocation/ajax-get-course-code'; ?>",
+                    data: {course_id: course_id}
+                }).done(function (data) {
+                    if (data) {
+
+                        $("<div id='course_container'style='background-color: rgb(253, 245, 154); display: block;' class='col-md-3 text-center'><h2>" + data + "</h2></div>").insertAfter("#dataTable_length");
+                    } else {
+                        $("<div id='course_container'style=' display: none;' class='col-md-3 text-center'>");
+                    }
+                });
+            }
+        }
+    });
+//End
+
+
+//Department on teacher department validation
+    $('#teacher_dept').on('change', function () {
+
+        $('#department option[value]').show().trigger("chosen", "updated");
+        $('#department').val('').trigger("chosen", "updated");
+        let teacher_dept = $('#teacher_dept').val();
+
+        if (teacher_dept) {
+            $('#department option[value!=' + teacher_dept + ']').hide();
+        }
+    });
+
+    $('#department').on('change', function () {
+        $('.load-box').css('display', 'block');
+        let teacher_dept = this.value;
+        let session = $('#session').val();
+        let term_id = $('#cmn_terms').val();
+        //alert('x');
+        $.ajax({
+            type: "POST",
+            url: '<?php echo $this->mainconfig['host'] . 'batch-attendance/ajax-get-section'; ?>',
+            data: {teacher_dept: teacher_dept, session: session, term_id: term_id}
+        }).done(function (data) {
+            $('#section_list').empty('');
+            $('#section_list').html(data).trigger("chosen:updated");
+            $('.load-box').css('display', 'none');
+        });
+
+
+    });
+
+
+</script>
+
+

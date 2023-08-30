@@ -1,0 +1,712 @@
+<style>
+    .modal-dialog {
+        width:850px;
+        margin: 30px auto;
+    }
+    .select2{
+        width:300px !important;
+    }
+</style>
+<div class="right_col">
+    <div class="load-box">
+        <img src="<?php echo $this->mainconfig['publicpath']; ?>/images/loader.gif" width='200px'  class="loder_img1" />
+    </div>
+    <?php
+    if ($this->type == "getStudents") {
+
+        if (count($this->messages)) {
+
+            foreach ($this->messages as $message) {
+                ?>
+
+                <div class="alert alert-success ">
+
+                    <a type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
+
+                    <?php echo $this->escape($message); ?>
+
+                </div>
+
+                <?php
+            }
+        }
+        ?>
+
+        <!-- widget grid -->
+
+        <div class="">
+
+            <div class="">
+
+                <div class="row">
+
+
+
+                    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+
+                        <h3 class="page-title txt-color-blueDark">
+                            <i class="fa fa-bars"> Entrance Exam (Scrutiny Interface) </i>
+                        </h3>
+                    </div>
+
+
+
+                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+
+
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="x_panel">
+
+
+
+                    <div class="x_title">
+
+                        <h2 class="title1">Students  Records</h2>
+
+                        <ul class="nav navbar-right panel_toolbox">
+
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+
+                            </li>
+
+                            <li class="dropdown">
+
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+
+                            </li>
+
+                            <li><a class=""><i class="fa fa-close"></i></a>
+
+                            </li>
+
+                        </ul>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                    <div class="x_content">
+
+
+
+                        <div class="padding-md clearfix table-responsive">
+
+
+
+                            <table class="table table-striped table-bordered mb30 jambo_table bulk_action" id="datatable-responsive">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th style="text-align:center;" rowspan="2">S. No.</th>
+                                        <th style="text-align:center;" rowspan="2">Applicant Name</th>
+
+                                        <th style="text-align:center;" rowspan="2">Roll No</th>
+
+                                        <th style="text-align:center;" rowspan="2">Form Id</th>
+
+                                        <th style="text-align:center" rowspan="2">Course</th>
+
+                                        <th style="text-align:center" colspan="3">First Preference</th>
+                                        <th style="text-align:center" colspan="2">Second Preference</th>
+                                        <th style="text-align:center"rowspan="2">AddOn Courses</th>
+                                         <th style="text-align:center"rowspan="2">Value Added Course<br/>Sem I</th>
+                                         <th style="text-align:center"rowspan="2">Value Added Course<br/>Sem II</th>
+                                        <th style="text-align:center"rowspan="2">Save AddOn's</th>
+                                        <!--<th style="text-align:center"rowspan="2">Photo</th>-->
+                                        <th style="text-align:center"rowspan="2">Edit Form</th>
+                                        <th style="text-align:center"rowspan="2">Doc. Submitted</th>
+
+
+                                            <!--<th class="no_print" style="text-align:center">Edit | Delete</th>-->
+
+
+
+                                    </tr>
+                                    <tr>
+                                        <th>Core Course</th>
+                                        <th>Generic</th>
+                                        <th>Aecc</th>
+                                        <th>Core Course</th>
+                                        <th>Generic</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody style="text-align:center;">
+
+                                    <?php
+                                    $geinfo = new Application_Model_Ge();
+                                    $deptinfo = new Application_Model_Department();
+                                    $deptType = new Application_Model_DepartmentType();
+                                    $educdet = new Application_Model_ApplicantCourseDetailModel();
+                                    $addoncourse = new Application_Model_AddonCourseModel();
+                                    $addons = new Application_Model_AddonCourseAssignmentModel();
+                                    $valuecourse = new Application_Model_ValueAddedCourseModel();
+                                    $courseAllotment = new Application_Model_ValueCoursesAllotmentModel();
+                                    $i = 1;
+
+                                    $pagination_tr = '';
+
+                                    if (count($this->paginator) != 0) {
+
+
+
+                                        foreach ($this->paginator as $results) {
+
+                                            //echo '<pre>'; print_r($results);die;
+                                            ?>
+
+                                            <tr>
+
+                                                <td><?php
+                                echo $i;
+                                $i++;
+                                            ?>
+
+                                                </td>
+                                                <td><?php echo $results['applicant_name']; ?></td>
+                                                    <?php //$edu_details = $educdet->getApplicationCourseDetails($results['form_id']); ?>
+                                                <td><?= $results['roll_no']; ?></td>
+
+                                                <td><?php echo $results['form_id']; ?></td>
+
+                                                <td><?php echo $deptType->getRecord($results['course'])['department_type']; ?></td>
+                                                <td><?php if ($results['core_course1']) {
+                                        echo $deptinfo->getRecordbyAcademic($results['core_course1'])['dpt_name'];
+                                    } else {
+                                        echo '--';
+                                    } ?></td>
+
+                                                <td><?php if ($results['ge1']) {
+                                        echo $geinfo->getRecord($results['ge1'])['general_elective_name'];
+                                    } else echo '--'; ?></td>
+                                                <td><?= !empty($results['aecc1']) ? $results['aecc1'] : '--' ?></td>
+                                                <td><?php if ($results['core_course2']) {
+                                        echo $deptinfo->getRecordbyAcademic($results['core_course2'])['dpt_name'];
+                                    } else {
+                                        echo '--';
+                                    } ?></td>
+
+                                                <td><?php if ($results['ge2']) {
+                                                echo $geinfo->getRecord($results['ge2'])['general_elective_name'];
+                                            } else echo '--'; ?></td>
+                                                <td><select class="form-control selected_courses select2" name='selected_courses[]' id="select_<?= $results['form_id']; ?>" required="required"  multiple="multiple">
+
+                                                        <?php
+                                                        $studentAddon = $addons->getStudentRecords($results['form_id']);
+                                                        $courseDetails = $addoncourse->getRecords($this->acad);
+                                                        
+                                                       // echo "<pre>"; print_r($courseDetails);
+                                                        foreach ($courseDetails as $courseIndex => $Coursevalue) {
+                                                            $chk = 0;
+                                                            foreach ($studentAddon as $addonIndex => $addCourse) {
+                                                                
+                                                                
+                                                                if ($addCourse['addon_course_id'] == $Coursevalue['id']) {
+                                                                    ?>
+                                                                    <option value="<?= $Coursevalue['id']; ?>" selected ><?= $Coursevalue['name']; ?></option>
+
+
+                                                                    <?php $chk = 1;
+                                                                } //======[end if]=========//?>
+
+                                                                <?php
+                                                            }//==end inner foreach==//
+                                                            if ($chk == 0) {
+                                                                $seats = $addons->getStudentAddonUniqueFee($Coursevalue['id']);
+                                                                 // echo "<pre>"; print_r($Coursevalue); die();
+                                                                //if ($seats['total_seat_no'] < $Coursevalue['capacity']) {
+                                                                    ?>
+                                                                    <option value="<?= $Coursevalue['id']; ?>" ><?= $Coursevalue['name']; ?></option>
+                                                        <?php //}
+                                                    }
+                                                } //==end outer Foreach==//
+                                                ?>
+                                                    </select></td>
+                                                    <?php $valuesem1 = $valuecourse->getRecordbyterm('6','t1');?>
+                                                   <td> <select  class="form-control selected_courses select2" name='selected_course_sem1[]'  multiple="multiple" id="course_sem1_<?= $results['form_id']; ?>">
+                                                        <?php 
+                                                        $studentValue1 = $courseAllotment->getRecordbystudent($results['form_id'],'t1');
+                                                        foreach($valuesem1 as $key => $value) {
+                                                       
+                                                            $chk = 0;
+                                                            foreach ($studentValue1 as $addonIndex1 => $addCourse1) {
+                                                                 
+                                                                
+                                                                if ($addCourse1['value_course_id'] == $value['id']) {
+                                                                   // echo "hii<pre>".$addCourse1['value_course_id'];print_r($studentValue1);
+                                                                    ?>
+                                                                    <option value="<?= $value['id']; ?>" selected ><?= $value['course_name']; ?></option>
+
+
+                                                                    <?php $chk = 1;
+                                                                } //======[end if]=========//?>
+
+                                                                <?php
+                                                            }//==end inner foreach==//
+                                                            if ($chk == 0) {
+                                                                 // echo "<pre>"; print_r($Coursevalue); die();
+                                                                //if ($seats['total_seat_no'] < $Coursevalue['capacity']) {
+                                                                    ?>
+                                                                    <option value="<?= $value['id']; ?>" ><?= $value['course_name']; ?></option>
+                                                        <?php //}
+                                                    } } ?>
+                                                    </select></td>
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    <?php $valuesem1 = $valuecourse->getRecordbyterm('6','t2');?>
+                                                    <td><select class="form-control selected_courses select2" name='selected_course_sem2[]'  multiple="multiple" id="course_sem2_<?= $results['form_id']; ?>">
+                                                          <?php  
+                                                           $studentValue1 = $courseAllotment->getRecordbystudent($results['form_id'],'t2');
+                                                          foreach($valuesem1 as $key => $value) {
+                                                       
+                                                            $chk = 0;
+                                                            foreach ($studentValue1 as $addonIndex1 => $addCourse1) {
+                                                                 
+                                                                
+                                                                if ($addCourse1['value_course_id'] == $value['id']) {;
+                                                                    ?>
+                                                                    <option value="<?= $value['id']; ?>" selected ><?= $value['course_name']; ?></option>
+
+
+                                                                    <?php $chk = 1;
+                                                                } //======[end if]=========//?>
+
+                                                                <?php
+                                                            }//==end inner foreach==//
+                                                            if ($chk == 0) {
+                                                                 // echo "<pre>"; print_r($Coursevalue); die();
+                                                                //if ($seats['total_seat_no'] < $Coursevalue['capacity']) {
+                                                                    ?>
+                                                                    <option value="<?= $value['id']; ?>" ><?= $value['course_name']; ?></option>
+                                                        <?php //}
+                                                    } } ?>
+                                                    </select></td>
+                                                <td><input type="checkbox" style="height: 25px; width: 25px;" name="check[]"  id="check_<?= $results['form_id']; ?>"></td>
+                                            <!--<td><?= !empty($results['aecc2']) ? $results['aecc2'] : '--' ?></td>-->
+                                                <!--<td><img src = "/academic/<?= $results['photo']; ?>" width ="70em" alt ='NA'/></td>-->
+            <?php if ($results['scrutiny_status'] != 1) { ?>
+                                                    <td><a href="<?php echo $this->mainconfig['host']; ?>multi-step-form/index/type/step4/a_id/<?php echo md5($results['application_no']); ?>/role/admin/"target="_blank" class="edit" title="Edit"><span class="fa fa-edit fa-lg"></span></a></td>
+            <?php } else { ?>
+                                                    <td>
+                                                        <a href="<?php echo $this->mainconfig['host']; ?>multi-step-form/index/type/step4/a_id/<?php echo md5($results['application_no']); ?>/role/admin/"target="_blank" class="edit" title="Edit"><span class="fa fa-edit fa-lg"></span></a> <button type="#" class="btn btn-primary" >Scrutiny Completed.</button></td>
+                                                    </td> 
+                                            <?php } ?>
+
+                                                <td class="view_document">
+                                                    <input type="hidden" value="<?= $results['application_no']; ?>" id="app_number">
+                                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">View Docs.</button></td>
+                                            </tr>            
+
+                                            <?php
+                                        }
+
+                                        $pagination_tr = $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
+                                    }
+                                    ?>
+
+                                </tbody>
+
+                            </table>
+
+
+                        </div><!-- /.padding-md -->
+
+                    </div><!-- /panel -->
+
+                </div>
+
+            </div>
+
+        </div><!-- /.padding-md -->
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+
+                    <div class="modal-body" id="resultas">
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" id="" data-dismiss="modal" class="btn btn-default">Cancel</button>
+                        <button type="button" id="cnf_cert" class="btn btn-primary">Save/Update</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!---End Modal--->
+
+    </div>
+
+    <?php } else { ?>
+
+        <?php
+        if (count($this->messages)) {
+            foreach ($this->messages as $message) {  ?>
+            <div class="alert alert-success ">
+                <a type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
+            <?php echo $this->escape($message); ?>
+            </div>
+        <?php
+        }
+    }
+    ?>
+    <!-- widget grid -->
+    <div class="">
+        <div class="">
+            <div class="row">
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h3 class="page-title txt-color-blueDark">
+                        <i class="fa fa-bars">Entrance Exam [Scrutiny Interface]</i>
+
+                    </h3>
+                </div>
+
+            </div>
+
+            <div class="x_panel">
+
+                <div class="x_title">
+                    <div class="col-sm-3 employee_class">
+                        <div class="form-group disabled" >
+                            <label class="control-label">Academic Year<span class="asterisk">*</span></label>
+    <?php echo $this->form->academic_year_list; ?>
+                        </div>
+                    </div>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        </li>
+                        <li><a class=""><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="x_content">
+
+                    <div class="padding-md clearfix">
+                        <div class="table-responsive" id="ajaxData">
+                            <table class="table table-striped table-bordered mb30 jambo_table bulk_action" id="dataTable" >
+                                <caption> <b> <u> Under Graduate Department Wise Report</u></b></caption>
+                                <thead>
+                                    <tr>
+                                        <th>S.No.</th>
+                                        <th> Course Name</th>
+                                        <th> Batch Name</th>
+                                        <!--<th>Sanctioned Seats</th>-->
+                                        <th>Applied Students</th>  
+                                        <th>On-Board Applicants</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+    <?php
+    $i = 1;
+    $pagination_tr = '';
+    if (count($this->paginator) != 0) {
+        foreach ($this->paginator as $results) {
+            //echo '<pre>'; print_r($results);
+            ?>
+                                            <tr>
+                                                <td><?php
+            echo $i;
+
+            $i++;
+            ?>
+                                                </td>
+
+
+                                                <td><?php echo $results['department_type']; ?></td>
+                                                <td><?php echo $results['department']; ?></td>
+                                                <!--<td><?php echo $results['max_seat']; ?></td>-->
+                                                <td><?php echo $results['total_count']; ?></td>
+
+
+                                                <td style="text-align:center"><a class="report" href="<?php echo $this->mainconfig['host']; ?>entrance-report/scrutiny/type/getStudents/dept_id/<?php echo $results['academic_year_id']; ?>/acad/<?=$this->acad;?>" target="_blank" class="edit" title="Edit"><button type="button" class="btn btn-info">View Applicants</button></a></td>
+                                            </tr>            
+
+            <?php
+        }
+        $pagination_tr = $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
+    } else {
+        ?>
+                                        <tr>
+                                            <td colspan="5">
+                                                <h2 style="color:red">
+                                                    No Records Available.
+                                                </h2>
+                                            </td>
+                                        </tr>
+    <?php } ?>
+
+                                </tbody>
+                            </table>
+    <?php echo $pagination_tr; ?>
+                            <div class="x_panel">
+
+
+
+
+                                <div class="table-responsive" id="">
+                                    <table class="table table-striped table-bordered mb30 jambo_table bulk_action" id="dataTable" >
+                                        <caption><b> <u>Post Graduate Department Wise Report</u></b></caption>
+                                        <thead>
+                                            <tr>
+                                                <th>S.No.</th>
+                                                <th> Course Name</th>
+                                                <th>Sanctioned Seats</th>  
+                                                <th>Applied Students</th>   
+                                                <th class="no_print">On-Board Applicants</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                    <?php
+                                                    $i = 1;
+                                                    $pagination_tr = '';
+                                                    if (count($this->pgData) != 0) {
+                                                        foreach ($this->pgData as $results) {
+                                                            //echo '<pre>'; print_r($results);
+                                                            ?>
+                                                    <tr>
+                                                        <td><?php
+                                                            echo $i;
+
+                                                            $i++;
+                                                            ?>
+                                                        </td>
+
+
+                                                        <td><?php echo $results['department_type']; ?></td>
+                                                        <td><?php echo $results['max_seat']; ?></td>
+                                                        <td><?php echo $results['total_count']; ?></td>
+                                                        </td>
+
+
+                                                        <td style="text-align:center">
+
+
+                                                            <a class="btn btn-info" class="report"  href="<?php echo $this->mainconfig['host']; ?>entrance-report/scrutiny/type/getStudents/dept_id/<?php echo $results['academic_year_id']; ?>/acad/5" target="_blank">View Applicants </a>  
+                                                        </td>
+                                                    </tr>            
+
+                                                    <?php
+                                                }
+                                                $pagination_tr = $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
+                                            } else {
+                                                ?>
+                                                <tr>
+                                                    <td colspan="5">
+                                                        <h2 style="color:red">
+                                                            No Records Available.
+                                                        </h2>
+                                                    </td>
+                                                </tr>
+    <?php } ?>
+
+                                        </tbody>
+                                    </table>
+    <?php echo $pagination_tr; ?>
+                                </div>
+                            </div><!-- /.padding-md -->
+                        </div><!-- /panel -->
+                    </div>
+                </div>
+<?php } ?>
+        </div>
+        <script>
+           
+            $(document).ready(function () {
+                var addoncapacity = [];
+                var applied = []
+                var selectedaddon = [];
+                
+               var courseval = `<?=json_encode($courseDetails);?>`;
+                courseval = JSON.parse(courseval);
+                for(i in courseval){
+                addoncapacity[courseval[i]['id']] = courseval[i]['capacity'];
+                applied[courseval[i]['id']] = courseval[i]['total_applied'];
+                }
+                
+                $('.selected_courses').select2();
+                
+            $(".selected_courses").on("change", function(){
+                var singleid = $("option:selected", this).val();
+             console.log(applied);
+                if(!selectedaddon[singleid])
+                selectedaddon[singleid]  = 0;
+              
+                
+                selectedaddon[singleid] +=1; 
+                var totalapplied = parseInt(applied[singleid]) +  parseInt(selectedaddon[singleid]);
+                
+                if(totalapplied>addoncapacity[singleid] && singleid){
+                    alert("Seating Capacity Of '"+$("option:selected", this).text()+"' is already full.")
+                    selectedaddon[singleid] -=1
+                    $("option:selected", this).attr("selected",false)
+                }
+                
+            var msg = $("#msg");
+            var count = 0;
+    
+          for (var i = 0; i < this.options.length; i++)
+          {
+              
+            var option = this.options[i];
+        
+            option.selected ? count++ : null;
+        
+            if (count > 2)
+            {
+                option.selected = false;
+                option.disabled = true;
+                  $(this).select2();
+                alert("Please select only two options.");
+                count--;
+                
+            }else{
+                option.disabled = false;
+                  $(this).select2();
+            }
+          }
+                });
+                
+                
+                
+            $('input[type="checkbox"]').click(function () {
+                var checkbox = $(this);
+                var patt = /F-\d{4}-\d{1,}/i;
+
+                var str = $(this).attr('id');
+                var form_id = str.match(patt);
+                var selectId = 'select_' + form_id;
+                var selectId1 = 'course_sem1_' + form_id;
+                var selectId2 = 'course_sem2_' + form_id;
+                //alert(selectId);
+                var select = $('#' + selectId + '>option');
+                var select1 = $('#' + selectId1 + '>option');
+                var select2 = $('#' + selectId2 + '>option');
+                var course_id = [];
+                var course_id1 = [];
+                var course_id2 = [];
+                console.log(select);
+                if (checkbox.is(":checked")) {
+                    select.each(function () {
+                        if ($(this).prop("selected")) {
+                            course_id.push($(this).val());
+
+
+                        }
+                       
+                    });
+                      select1.each(function () {
+                        if ($(this).prop("selected")) {
+                            course_id1.push($(this).val());
+
+
+                        }});
+                         select2.each(function () {
+                        if ($(this).prop("selected")) {
+                            course_id2.push($(this).val());
+
+
+                        }});
+                    //alert(form_id[0]);
+                    if (course_id ) {
+                        $.ajax({
+                            type: "POST",
+                            url: '<?php echo $this->mainconfig['host'] . 'entrance-report/ajax-insert-addons2'; ?>',
+                            data: {form_id: form_id[0], course_id: course_id,course_id1,course_id2,acad_id: <?=$this->acad;?>}
+                        }).done(function (data) {
+                           courseval = JSON.parse(data);
+                           for(i in courseval['course_details']){
+                addoncapacity[courseval[i]['id']] = courseval[i]['capacity'];
+                applied[courseval[i]['id']] = courseval[i]['total_applied'];
+                }
+                        });
+                    }
+                }
+
+            });
+                
+                
+                
+                
+
+            });
+        
+
+
+            //Script for modal
+
+            $(".view_document").click(function () {
+                let application_no = $(this).closest("td").find("#app_number").val();
+                $.ajax({
+                    type: "POST",
+                    url: '<?php echo $this->mainconfig['host'] . 'entrance-report/ajax-get-applicant-info'; ?>',
+                    data: {application_no: application_no}
+                }).done(function (data) {
+                    //alert(data);
+                    $('#resultas').html(data);
+                });
+                //$("#resultas").append(application_no);      
+            });
+            $("#cnf_cert").click(function () {
+                let docArray = [];
+                let form_id = $('.documentTable').find("#form_id").html();
+                let app_id = $('.documentTable').find("#app_id").val();
+                let course_id = $('.documentTable').find("#course_id").val();
+                //alert(app_id);
+                $(".documentTable td input[type=checkbox]:checked").each(function () {
+                    let documents = $(this).val();
+                    docArray.push(documents);
+                });
+                //alert(docArray);
+                $.ajax({
+                    type: "POST",
+                    url: '<?php echo $this->mainconfig['host'] . 'entrance-report/ajax-upsert-documents'; ?>',
+                    data: {docArray: docArray, form_id: form_id, app_id: app_id, course_id: course_id}
+                }).done(function (data) {
+                    //alert(data);
+                    $('#alert_msg').text(data);
+                    //$('#msg').html(data);
+                });
+                //console.log(docArray);
+            });
+
+            //Added By Kedar : 08 Oct 2020
+            $('body').on('change', '#academic_year_list', function () {
+                let year_id = $('#academic_year_list').val();
+               
+                if (year_id) {
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: '<?php echo $this->mainconfig['host'] . 'entrance-report/ajax-get-scrutiny-applicants-by-year-id'; ?>',
+                        data: {year_id: year_id}
+                    }).done(function (data) {
+                        $('#ajaxData').empty('');
+                        $('#ajaxData').html(data);
+                        $('.load-box').css('display', 'none');
+                    });
+                }
+            });
+            //End : 08 Oct 2020
+
+        </script>

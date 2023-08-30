@@ -1,0 +1,55 @@
+<table class="table table-striped table-bordered mb30 jambo_table bulk_action" id="dataTable" >
+                                <caption> <b> <u> Student List></b></caption>
+                                <thead>
+                                    <tr>
+                                        <th>S.No.</th>
+                                        <th>Name</th>
+                                        <th>Form Id</th>
+                                        <th>Department</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $i = 1;
+                                    $pagination_tr = '';
+                                    if (count($this->paginator) != 0) {
+                                        foreach ($this->paginator as $results) {
+                                            //echo '<pre>'; print_r($results);
+                                            ?>
+                                            <tr>
+                                                <td><?php
+                                                    echo $i;
+
+                                                    $i++;
+                                                    ?>
+                                                </td>
+
+
+                                                <td><?php echo $results['applicant_name']; ?></td>
+                                                <td><?php echo $results['form_id']; ?></td>
+                                                <td><?php echo $results['department_type']; ?></td>
+
+
+
+                                            </tr>            
+
+                                            <?php
+                                        }
+                                        $pagination_tr = $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
+                                    } else {
+                                        ?>
+                                        <tr>
+                                            <td colspan="5">
+                                                <h2 style="color:red">
+                                                    No Records Available.
+                                                </h2>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+
+                                </tbody>
+                            </table>
+                            <?php echo $pagination_tr; ?>
+<script>
+    setDatatables();
+    </script>

@@ -1,0 +1,333 @@
+<style>
+
+    #refresh{
+        cursor:pointer;
+    }
+#search_cl>div{
+    padding:.1em;
+}
+.input-group {
+     margin-bottom: 0px; 
+}
+.input-group[class*=col-] {
+    float: none;
+   display:inline-table
+}
+/*span.total{*/
+/*    display:none;*/
+/*}*/
+</style>
+
+<div class="right_col bdoypayment">
+    <div class="load-box" style="z-index:998">
+        <img src="<?php echo $this->mainconfig['publicpath']; ?>/images/loader.gif" width='200px'  class="loder_img1" />
+    </div>
+      <?php  if($this->type == "add") { ?>
+     <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
+                    <h3 class="page-title txt-color-blueDark">
+                        <i class="fa fa-bars">Import Transactions</i>
+
+                    </h3>
+                </div>
+                 <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+                    <h3 class="page-title txt-color-blueDark">
+                        <a href="<?php echo $this->mainconfig['host']?>report/caste-category-report/" class="btn btn-primary pull-right">Back</a>
+
+                    </h3>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <form action="add"  method="post" enctype="multipart/form-data">
+                <div class="col-sm-3 employee_class">
+                    <div class="form-group">
+                 <label class="control-label">Import CSV File<span class="asterisk">*</span></label>
+                     <input type="file" name="file" />
+                     
+                    </div>
+                </div>
+              
+                    <div class="col-sm-3 employee_class">
+                        <div class="form-group">
+                            <input type="submit" name="submit" value="Import" class="btn btn-primary pull-right" style="margin-top:1.5em;z-index:999;">
+                           </div>
+                    </div>
+               
+                </form>
+                <div style="float:left;padding-left:10%;">
+                </div>
+            </div>
+        
+        </div>    
+
+
+    </div>
+    
+    <?php } else {?>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
+                    <h3 class="page-title txt-color-blueDark">
+                        <i class="fa fa-bars">Caste Category Report</i>
+
+                    </h3>
+                </div>
+                <!-- <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">-->
+                <!--    <h3 class="page-title txt-color-blueDark">-->
+                <!--        <a href="<?php echo $this->mainconfig['host']?>student/fees-updation/type/add" class="btn btn-primary pull-right">Add</a>-->
+
+                <!--    </h3>-->
+                <!--</div>-->
+            </div>
+            <div class="col-md-12">
+                     
+                <div class="col-sm-2 employee_class">
+                    <div class="form-group">
+                        <!--<label class="control-label">Academic Year<span class="asterisk">*</span></label>-->
+                        <?php echo $this->form->academic_year; ?>
+                    </div>
+                </div>
+                
+         
+                <div class="col-sm-2 employee_class">
+                    <div class="form-group">
+                        <!--<label class="control-label">Session<span class="asterisk">*</span></label>-->
+                        <?php echo $this->form->session; ?>
+                    </div>
+                </div>
+                  <div class="col-sm-2 employee_class">
+                    <div class="form-group">
+                    <select name="cmn_terms" id="cmn_terms" class="form-control chosen-select" >
+                        <option value="">Select Term</option>
+                        <option value="t1">Semester-I</option>
+                        <option value="t2">Semester-II</option>
+                        <option value="t3">Semester-III</option>
+                        <option value="t4">Semester-IV</option>
+                        <option value="t5">Semester-V</option>
+                        <option value="t6">Semester-VI</option>
+                    </select>
+                      
+                    </div>
+                </div>
+                <div class="col-sm-2 employee_class">
+                    <div class="form-group">
+                    <select name="country" id="country" class="form-control chosen-select"  >
+                        <option value="">Select Country</option>
+                    </select>
+                      
+                    </div>
+                </div>
+                <div class="col-sm-2 employee_class">
+                    <div class="form-group">
+                    <select name="state" id="state" class="form-control chosen-select" multiple >
+                        <option value="">Select state</option>
+                    </select>
+                      
+                    </div>
+                </div>
+                <div class="col-sm-2 employee_class">
+                    <div class="form-group">
+                    <select name="religion" id="religion" class="form-control chosen-select" multiple >
+                        <option value="">Select Religion</option>
+                    </select>
+                      
+                    </div>
+                </div>
+                <div class="col-sm-2 employee_class">
+                    <div class="form-group">
+                        <!--<label class="control-label">Session<span class="asterisk">*</span></label>-->
+                       <button id="getRecords" class="btn btn-primary">Get Records</button>
+                    </div>
+                </div>
+                <!--<div class="col-sm-3 employee_class exam_date" style="display:none;">-->
+                <!--    <div class="form-group">-->
+                <!--        <select name="batch_id" class="form-control" id="batch_id">-->
+                            
+                <!--        </select>-->
+                        <!--<label class="control-label">Semester<span class="asterisk">*</span></label>-->
+                        <?php ///echo $this->form->term_id; ?>
+                <!--    </div>-->
+                <!--</div>-->
+<!--                <div class="col-sm-3 employee_class">
+                    <div class="form-group">
+                        <label class="control-label">Batch<span class="asterisk">*</span></label>
+                        <?php //echo $this->form->academic_id; ?>
+                    </div>
+                </div>
+                <div class="col-sm-3 employee_class">
+                    <div class="form-group">
+                        <label class="control-label">Semester<span class="asterisk">*</span></label>
+                        <?php //echo $this->form->term_id; ?>
+                    </div>
+                </div>-->
+                 
+                      
+
+
+                
+
+                <div style="float:left;padding-left:10%;">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive" id="ajaxData"> 
+                    
+
+
+
+                </div>
+           
+            </div>
+
+        </div>    
+
+
+    </div>
+<?php } ?>
+
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" id="modal" style="display:none;" data-target="#myModal">Open Modal</button>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/puppeteer@18.2.1/lib/cjs/puppeteer/puppeteer.min.js"></script>-->
+<script>
+$(".nav-pills li").click(function(){
+    $(".nav-pills li").removeAttr("class");
+    $(this).attr("class","active");
+})
+
+//==direct import from atom
+
+
+
+// // api url
+// const api_url = 
+//       "http://localhost:3000/12-10-2022_12-10-2022";
+  
+// // Defining async function
+// async function getapi(url) {
+    
+//     // Storing response
+//     const response = await fetch(url);
+    
+//     // Storing data in form of JSON
+//     var data = await response.json();
+//     console.log(data);
+//     if (response) {
+//         hideloader();
+//     }
+//     show(data);
+// }
+
+
+
+
+
+
+
+
+//Author: Kedar: 22 Oct 2020 : To get record by filter crieteria
+
+    $('body').on('click', '#getRecords', function () {
+        //  var imported_files = $('#imported_files').val();
+         $('.load-box').css('display', 'block');
+         var session = $('#session').val();
+         var cmn_terms = $('#cmn_terms').val();
+         var country = $('#country').val();
+         var state = $('#state').val();
+         var religion = $('#religion').val();
+        if (session) {
+
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'report/ajax-get-caste-category-view'; ?>',
+                data: {session_id: session,cmn_terms,country,state,religion}
+            }).done(function (data) {
+                $('#ajaxData').empty('');
+                $('#ajaxData').html(data);
+                $('.load-box').css('display', 'none');
+            });
+        }
+      
+    });
+     
+    
+ 
+    
+   
+    //To filter Session
+    $('body').on('change', '#academic_year', function () {
+        var year_id = $('#academic_year').val();
+        if (year_id) {
+
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-Get-Session'; ?>',
+                data: {year_id: year_id}
+            }).done(function (data) {
+                $('#session').empty('');
+                $('#session').html(data);
+                $('#session').trigger("chosen:updated");
+            });
+        }
+    });
+    //Get Batch By Session
+    $('body').on('change', '#session', function () {
+        var year_id = $('#session').val();
+        //$('#batch_id').hide();
+        if (year_id) {
+
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'report/ajax-get-info'; ?>',
+                data: {session: year_id}
+            }).done(function (data) {
+                data = JSON.parse(data);
+                const state = data.state.map(function(name){
+                    return `<option>${name}</option>`;
+                })
+                 const country = data.country.map(function(name){
+                    return `<option>${name}</option>`;
+                })
+                 const religion = data.religion.map(function(name){
+                    return `<option>${name}</option>`;
+                })
+                
+                $("#country").html(country);
+                $("#state").html(state);
+                $("#religion").html(religion);
+                $('#country,#state,#religion').trigger("chosen:updated");
+            });
+            
+}
+    });
+
+
+
+</script>
+

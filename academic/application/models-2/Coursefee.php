@@ -1,0 +1,397 @@
+<?php
+
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+class Application_Model_Coursefee extends Zend_Db_Table_Abstract
+{
+    public $_name = 'course_fee';
+    protected $_id = 'id';
+  
+    //get details by record for edit
+	public function getRecord($id)
+    {       
+        $select=$this->_db->select()
+                      ->from($this->_name)
+                      ->where("$this->_name.$this->_id=?", $id)				   
+					  ->where("$this->_name.status !=?", 2);
+        $result=$this->getAdapter()
+                      ->fetchRow($select);       
+        return $result;
+    }
+	
+	public function getRecordByDepartment($id)
+    {       
+        $select=$this->_db->select()
+                      ->from($this->_name)
+                      ->where("$this->_name.department=?", $id)				   
+	              ->where("$this->_name.status !=?", 2);
+	              
+        $result=$this->getAdapter()
+                      ->fetchRow($select);       
+        return $result;
+    }
+		public function getRecordByDepartmentandSession($id,$session,$term,$type=3)
+    {       
+        $select=$this->_db->select()
+                      ->from($this->_name)
+                      ->where("$this->_name.department=?", $id)	
+                      ->where("$this->_name.session_id=?", $session)	
+                      ->where("$this->_name.cmn_terms like ?", $term)	
+                      ->where("$this->_name.exam_type=?", $type)
+	              ->where("$this->_name.status =?", 0);
+	          //  echo $select; die;  
+        $result=$this->getAdapter()
+                      ->fetchRow($select);       
+        return $result;
+    }
+    
+    public function getColByDepartment($id,$acad='',$term='',$session_id='')
+    {       
+        $select=$this->_db->select()
+                      ->from($this->_name)
+                 ->joinleft(array("acad"=>"academic_master"),"acad.department=$this->_name.department",array())
+                   ->joinleft(array("term"=>"term_master"),"term.cmn_terms=$this->_name.cmn_terms")
+                   ->where("term.term_id=?", $term)
+                    ->where("$this->_name.department=?", $id)
+                    ->where("acad.academic_year_id=?", $acad)
+                    //->where("$this->_name.session_id=?", $session_id)
+                    ->where("$this->_name.exam_type=?", 1)	
+		            ->where("$this->_name.status =?", 0);
+	//	echo "<pre>".$select;exit;
+        $result=$this->getAdapter()
+                      ->fetchRow($select);       
+        return $result;
+    }
+     public function getColByDepartment1($id,$acad='',$term='',$session_id='')
+    {       
+        $select=$this->_db->select()
+                      ->from($this->_name)
+                 ->joinleft(array("acad"=>"academic_master"),"acad.department=$this->_name.department",array())
+                   ->joinleft(array("term"=>"term_master"),"term.cmn_terms=$this->_name.cmn_terms")
+                   ->where("term.term_id=?", $term)
+                    ->where("$this->_name.department=?", $id)
+                    ->where("acad.academic_year_id=?", $acad)
+                    ->where("$this->_name.session_id=?", $session_id)
+                    ->where("$this->_name.exam_type=?", 1)	
+		            ->where("$this->_name.status =?", 0);
+	//	echo "<pre>".$select;exit;
+        $result=$this->getAdapter()
+                      ->fetchRow($select);       
+        return $result;
+    }
+     public function getNonColByDepartment($id,$acad,$term,$session_id)
+    {       
+        $select=$this->_db->select()
+                      ->from($this->_name)
+                  ->joinleft(array("acad"=>"academic_master"),"acad.department=$this->_name.department",array())
+                   ->joinleft(array("term"=>"term_master"),"term.cmn_terms=$this->_name.cmn_terms")
+                   ->where("term.term_id=?", $term)
+                   ->where("$this->_name.department=?", $id)
+                   ->where("$this->_name.session_id=?", $session_id)
+                   ->where("acad.academic_year_id=?", $acad)
+                 ->where("$this->_name.exam_type=?", 2)	
+		 ->where("$this->_name.status =?", 0);
+		
+		 
+        $result=$this->getAdapter()
+                      ->fetchRow($select);   
+       // echo $select; die();
+        return $result;
+    }
+    
+      public function getregByDepartment($id,$acad,$term)
+        {       
+            $select=$this->_db->select()
+                          ->from($this->_name)
+                      ->joinleft(array("acad"=>"academic_master"),"acad.department=$this->_name.department",array())
+                       ->joinleft(array("term"=>"term_master"),"term.cmn_terms=$this->_name.cmn_terms")
+                       ->where("term.term_id=?", $term)
+                       ->where("$this->_name.department=?", $id)
+                       ->where("acad.academic_year_id=?", $acad)
+                     ->where("$this->_name.exam_type=?", 3)	
+    		 ->where("$this->_name.status =?", 0);
+    		
+    		 
+            $result=$this->getAdapter()
+                          ->fetchRow($select);   
+           // echo $select; die();
+            return $result;
+        }
+    
+ public function getExamdatecolRecord($acad,$cmnterm) {
+        $select = $this->_db->select()
+            ->from($this->_name)
+            ->join(array("acad"=>"academic_master"),"acad.department=$this->_name.department",array())
+            ->where("$this->_name.status =?", 0)
+            ->where("$this->_name.exam_type =?", 1)
+            ->where("acad.academic_year_id =?", $acad)
+            ->where("$this->_name.cmn_terms =?" ,$cmnterm);
+        $result = $this->getAdapter()
+            ->fetchRow($select);
+        
+        //echo $select; die();
+        return $result;
+    }
+    
+    
+    public function getExamdateNoncolRecord($acad,$cmnterm) {
+        $select = $this->_db->select()
+            ->from($this->_name)
+            ->join(array("acad"=>"academic_master"),"acad.department=$this->_name.department",array())
+            ->where("$this->_name.status =?", 0)
+            ->where("$this->_name.exam_type =?", 2)
+            ->where("acad.academic_year_id =?", $acad)
+            ->where("$this->_name.cmn_terms =?" ,$cmnterm);
+        $result = $this->getAdapter()
+            ->fetchRow($select);
+        
+       // echo $select; die();
+        return $result;
+    }
+	//Get all records
+	public function getRecords()
+    {       
+        $select=$this->_db->select()
+            ->from($this->_name)
+            ->joinleft(array("term"=>"declared_terms"),"term.term_des=$this->_name.cmn_terms",array("term_name"))
+            ->joinleft(array("degree_info"),"degree_info.id=$this->_name.degree_id",array("degree"))
+            ->joinleft(array("department"),"department.id=$this->_name.department",array("department"))
+           ->joinleft(array("session_info"),"session_info.id=$this->_name.session_id",array("session"))
+            ->where("$this->_name.status !=?", 2)
+            ->order("$this->_name.$this->_id desc");
+            $result=$this->getAdapter()
+            ->fetchAll($select);       
+        return $result;
+    }
+    
+    
+    
+    public function getSemFeeRecords($session='',$sem='',$dept='',$type = "")
+    {       
+        $select=$this->_db->select()
+            ->from($this->_name);
+            $select->join(array("term"=>"declared_terms"),"term.term_des=$this->_name.cmn_terms",array("term_name"));
+            $select->join(array("degree_info"),"degree_info.id=$this->_name.degree_id",array("degree"));
+            $select->join(array("department"),"department.id=$this->_name.department",array("department"));
+           $select->join(array("session_info"),"session_info.id=$this->_name.session_id",array("session"));
+            //->where("$this->_name.status =?", 0)
+           $select->where("$this->_name.session_id =?", $session);
+           
+           $select->where("$this->_name.cmn_terms =?", $sem);
+           if(!empty($dept))
+           $select->where("$this->_name.department =?", $dept);
+           if(!empty($type))
+           $select->where("$this->_name.exam_type =?", $type);
+            $select->order("$this->_name.$this->_id desc");
+            $result=$this->getAdapter()
+            ->fetchAll($select); 
+           // echo $select;die;
+        return $result;
+    }
+    
+  public function getPreSemFeeRecords($session='',$sem='',$dept='',$academic_year='',$startdate='')
+    {       
+        $select=$this->_db->select()
+            ->from($this->_name);
+          
+           $select ->where("$this->_name.academic_year =?", $academic_year);
+           $select->where("$this->_name.session_id =?", $session);
+           $select->where("$this->_name.cmn_terms =?", $sem);
+           $select->where("$this->_name.department IN (?)", $dept);
+          $select->where("$this->_name.feeForm_start_date =?", $startdate);
+           $select->order("$this->_name.$this->_id desc");
+            $result=$this->getAdapter()
+            ->fetchAll($select); 
+          //  echo $select;die;
+        return $result;
+    }
+    
+    
+public function getSemRecord()
+    {       
+        $select=$this->_db->select()
+                      ->from($this->_name)
+                  ->joinleft(array("term"=>"term_master"),"term.cmn_terms=$this->_name.cmn_terms",array("term_description"))
+                    ->where("$this->_name.status =?", 0)
+                    ->where("$this->_name.exam_type =?", 1)
+                      ->group("$this->_name.cmn_terms");
+        $result=$this->getAdapter()
+                      ->fetchAll($select);       
+        return $result;
+    }
+    
+public function getNonSemRecord()
+    {       
+        $select=$this->_db->select()
+                      ->from($this->_name)
+                  ->joinleft(array("term"=>"term_master"),"term.cmn_terms=$this->_name.cmn_terms",array("term_description"))
+                    ->where("$this->_name.status =?", 0)
+                    ->where("$this->_name.exam_type =?", 2)
+                      ->group("$this->_name.cmn_terms");
+        $result=$this->getAdapter()
+                      ->fetchAll($select);       
+        return $result;
+    }
+    
+    public function getRegRecord()
+    {       
+        $select=$this->_db->select()
+                      ->from($this->_name)
+                  ->joinleft(array("term"=>"term_master"),"term.cmn_terms=$this->_name.cmn_terms",array("term_description"))
+                    ->where("$this->_name.status =?", 0)
+                    ->where("$this->_name.exam_type =?", 3)
+                      ->group("$this->_name.cmn_terms");
+        $result=$this->getAdapter()
+                      ->fetchAll($select);       
+        return $result;
+    }
+    
+public function isRecordExists($batch, $term, $paper)
+    {       
+        $select=$this->_db->select()
+                      ->from($this->_name)                      				   
+					  ->where("$this->_name.status !=?", 2)
+					  ->where("$this->_name.batch =?", $batch)
+					  ->where("$this->_name.term =?", $term)
+					  ->where("$this->_name.paper =?", $paper);
+        $result=$this->getAdapter()
+                      ->fetchAll($select);       
+        return count($result);
+    }
+    
+	public function getFee($term, $batch, $paper)
+    {       
+        $select=$this->_db->select()
+                      ->from($this->_name,array('fee'))                      				   
+					  ->where("$this->_name.status !=?", 2)
+					  ->where("$this->_name.batch =?", $batch)
+					  ->where("$this->_name.term =?", $term)
+					  ->where("$this->_name.paper =?", $paper);
+        $result=$this->getAdapter()
+                      ->fetchRow($select);       
+        return $result['fee'];
+    }
+    
+    
+    
+    public function getEndFee($academic,$sem='',$session='')
+    {       
+        $select=$this->_db->select()
+                      ->from($this->_name,array('examFee'))  
+                      ->joinleft(array("acad"=>"academic_master"),"acad.department=$this->_name.department",array())
+                     ->where("$this->_name.cmn_terms =?", $sem)
+                     ->where("$this->_name.session_id =?", $session)
+                      ->where("$this->_name.exam_type =?", 1)
+		        ->where("$this->_name.status =?", 0)
+		      ->where("acad.academic_year_id in (?)", $academic);
+		   // echo "<pre>".$select;exit;
+        $result=$this->getAdapter()
+                      ->fetchRow($select);       
+        return $result['examFee'];
+    }
+    
+    
+        public function getEndFeewithexamform($academic,$sem='',$session='')
+    {       
+        $select=$this->_db->select()
+                      ->from($this->_name,array('examFee'))  
+                      ->joinleft(array("acad"=>"academic_master"),"acad.department=$this->_name.department",array())
+                     ->where("$this->_name.cmn_terms =?", $sem)
+                     ->where("$this->_name.session_id =?", $session)
+                      ->where("$this->_name.exam_type =?", 1)
+		        ->where("$this->_name.status =?", 0)
+		      ->where("acad.academic_year_id in (?)", $academic);
+		   // echo "<pre>".$select;exit;
+        $result=$this->getAdapter()
+                      ->fetchRow($select);       
+        return $result['examFee'];
+    }
+    
+    
+     public function getNonEndFee($academic,$sem='',$session='')
+    {       
+        $select=$this->_db->select()
+                      ->from($this->_name,array('examFee'))  
+                      ->join(array("acad"=>"academic_master"),"acad.department=$this->_name.department",array())
+                     ->where("$this->_name.cmn_terms =?", $sem)
+                     ->where("$this->_name.session_id =?", $session)
+                     ->where("$this->_name.exam_type =?", 2)
+                     ->where("$this->_name.status =?", 0)
+		      ->where("acad.academic_year_id in (?)", $academic);
+		  //  echo "<prE>".$select;exit;
+        $result=$this->getAdapter()
+                      ->fetchRow($select);       
+        return $result['examFee'];
+    }
+    
+    
+     public function getEnddate($sem,$academic,$session=0)
+    {       
+        $select=$this->_db->select()
+                      ->from($this->_name,array('feeForm_start_date','feeForm_end_date','feeForm_extended_date','cmn_terms'))  
+                      ->joinleft(array("acad"=>"academic_master"),"acad.department=$this->_name.department")
+                      ->where("$this->_name.cmn_terms =?", $sem)
+                       ->where("$this->_name.exam_type =?", 1)
+                       ->where("$this->_name.session_id =?", $session)
+                       ->where("$this->_name.status =?", 0)
+                     ->where("acad.academic_year_id =?", $academic);
+		    
+        $result=$this->getAdapter()
+                      ->fetchRow($select); 
+   //  echo $select;die();
+        return $result;
+    }
+    
+      public function getNonColEnddate($sem,$academic)
+    {       
+        $select=$this->_db->select()
+                      ->from($this->_name,array('feeForm_start_date','feeForm_end_date','feeForm_extended_date'))  
+                      ->joinleft(array("acad"=>"academic_master"),"acad.department=$this->_name.department and acad.session = $this->_name.session_id")
+                      ->where("$this->_name.cmn_terms =?", $sem)
+                      ->where("$this->_name.exam_type =?", 2)
+                      ->where("$this->_name.status =?", 0)
+                     ->where("acad.academic_year_id =?", $academic);
+		    
+        $result=$this->getAdapter()
+                      ->fetchRow($select); 
+       // echo $select;die();
+        return $result;
+    }
+    
+          public function getregEnddate($sem,$academic)
+    {       
+        $select=$this->_db->select()
+                      ->from($this->_name,array('feeForm_start_date','feeForm_end_date','feeForm_extended_date'))  
+                      ->joinleft(array("acad"=>"academic_master"),"acad.department=$this->_name.department and acad.session = $this->_name.session_id")
+                      ->where("$this->_name.cmn_terms =?", $sem)
+                      ->where("$this->_name.exam_type =?", 3)
+                      ->where("$this->_name.status =?", 0)
+                     ->where("acad.academic_year_id =?", $academic);
+		    
+        $result=$this->getAdapter()
+                      ->fetchRow($select); 
+       // echo $select;die();
+        return $result;
+    }
+     public function getNonEnddate($sem)
+    {       
+        $select=$this->_db->select()
+                      ->from($this->_name,array('feeForm_start_date','feeForm_end_date','feeForm_extended_date'))  
+                      ->where("$this->_name.cmn_terms =?", $sem)
+                      ->where("$this->_name.exam_type =?", 2);
+                     
+		    
+        $result=$this->getAdapter()
+                      ->fetchRow($select); 
+        ///echo $select;die();
+        return $result;
+    }
+    
+    
+    
+    
+}

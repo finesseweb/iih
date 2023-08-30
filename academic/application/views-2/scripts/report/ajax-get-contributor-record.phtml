@@ -1,0 +1,88 @@
+<table class="table table-striped table-bordered mb30 jambo_table bulk_action dataTable" id="datatable-responsive" >
+                            <thead>
+                                <tr>
+
+                                    <th class="no-sort">S.No.</th>
+
+                                    <th> Name</th>
+                                    <th>Email ID</th>
+                                    <th>Mobile No </th>
+                                    <th>Payment Mode</th>
+                                    <th> Amount</th>
+                                    <th>Payment Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                  
+                                $i = 1;
+                                $pagination_tr = '';
+                                if (count($this->paginator) != 0) {
+                                  
+                                    foreach ($this->paginator as $results) {
+                                         // echo '<pre>'; print_r($results);exit;
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $i;
+
+                                        $i++;
+                                        ?>
+                                            </td>						
+
+                                            <td><?php echo $results['name']; ?></td>
+                                            <td><?php echo $results['email_id']; ?></td>
+                                            <td><?php echo $results['mobile']; ?></td>
+                                            <td><?php echo $results['pay_mode']; ?></td>
+                                            <td><?php echo $results['contri_amt']; ?></td>
+                                            <td><?php if($results['status']=='1'){ echo 'Done'; } else { echo "Pending" ; } ?> </td>
+                                            <td><a href="<?=$this->mainconfig['host']?>report/contributor-list/type/edit/id/<?=$results['id']?>" >View/Edit</a></td>
+                                        </tr>            
+
+                                    <?php
+                                    }
+                                    $pagination_tr = $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
+                                }else{?>
+                                                <tr>
+                                                    <td colspan="6">
+                                                        <h2 style="color:red">
+                                                            No Records Available.
+                                                </h2>
+                                            </td>
+                                        </tr>
+                                <?php } ?>
+
+                            </tbody>
+                        </table>
+<script>
+   
+    setDatatables();
+    
+   
+    
+    $(".updatesemrecord").click(function() {
+    let mmp_txn = $(this).closest("td").find("#mmp_txn").val();
+    let stu_fid=$(this).closest("td").find('#stu_fid').val();
+    let mer_txn=$(this).closest("td").find('#mer_txn').val();
+    let bank_name=$(this).closest("td").find('#bank_name').val();
+    let bank_txn=$(this).closest("td").find('#bank_txn').val();
+    let date_txn=$(this).closest("td").find('#date_txn').val();
+    let sem=$(this).closest("td").find('#sem').val();
+    let atom_amount=$(this).closest("td").find('#atom_amount').val();
+    let pay=$(this).closest("td").find('#exa_id').val();
+    let exam_date=$('#exam_date').val();
+    
+    //alert(sem);
+    
+    $.ajax({
+        type: "POST",
+        url: '<?php echo $this->mainconfig['host'] . 'report/ajax-update-non-endexam-fees-status'; ?>',
+        data: {mmp_txn:mmp_txn,stu_fid:stu_fid,mer_txn:mer_txn,bank_name:bank_name,bank_txn:bank_txn,date_txn:date_txn,sem:sem,atom_amount:atom_amount,pay:pay,exam_date:exam_date}
+    }).done(function (data) {
+       alert(data);
+    }); 
+    });
+    
+    
+    
+</script>

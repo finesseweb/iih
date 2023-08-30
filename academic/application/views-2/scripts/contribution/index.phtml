@@ -1,0 +1,438 @@
+<style>
+   
+    bannertext h1 {
+    text-transform: uppercase;
+    color: #fff;
+     font-family: Raleway;
+        font-size:4em;
+    margin-top: 55px;
+}
+ .navbar{
+        padding-top:20px;
+    }
+.bannertext p {
+    margin-top:1em !important;
+}
+ .footer_social_browser_contact_area{
+           position:fixed;
+           width:100%;
+           bottom:0;
+       }
+       .tabsdiv{
+           margin-top:4rem !important;
+       }
+     @media screen and (min-width: 1300px) {
+.tabs02 {
+    margin-top: -5rem !important;
+    
+}
+}
+.alumin{
+    border: 1px solid;
+  
+}
+.required{
+    color: red;
+}
+#mobile > p{
+    line-height:.3em !important;
+}
+/*.Programmestabs>li a{*/
+/*    box-shadow:1px 1px 4px #000;*/
+/*}*/
+
+
+</style>
+
+<section class="wellcome_slides_area clearfix" id="home" >
+        <div id="demo" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active" style="background-color: #000">
+                    
+                    <img src="<?php echo $this->mainconfig['publicpath']; ?>img/college1.jpg" alt="MIT WPU Banner" class="w-100 d-none d-md-block">
+                    <img src="<?php echo $this->mainconfig['publicpath']; ?>img/college1.jpg" alt="MIT WPU Banner" class="w-100  d-block d-md-none">
+                    <div class="d-none d-md-block">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bannertextnew d-md-none">
+            <h3 class="text-center text-uppercase text-white"  style="margin-top:45px!important;"> Contribution</h3>
+           
+        </div>
+        
+        <div class="bottom-curve-design"></div> 
+        <div class="banner-form" id="contact-form">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        
+                        <div class="bannertext d-none d-lg-block"  >
+                            <h1 style="font-family: Raleway;
+        font-size:3em;text-align: center"> Contribution</h1>
+<!--                            <p style="font-family: Raleway;
+        font-size:4em;"><a href="<?php echo $this->mainconfig['host']; ?>entrance-exam-form/login/" class="btn btn-primary" style="font-size: 20px; font-family: Raleway;text-decoration:none;">Sign In</a></p>
+                            <p><a href="#" id="applybtn" target="_blank">Click here</a> to apply now</p>-->
+                            
+                            <!--<h5 class="text-white">Accepting applications for a few courses only.</h5>-->
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="Programmesection d-block d-md-none">
+        <div class="container pt-3 pb-2 px-0">
+            <div class="tab-content">
+                <div class="tab-pane container active wow fadeInUp animated" data-wow-duration="1.5s" id="ug1_m">
+                     <form method="post" action="" enctype="multipart/form-data">
+                    <div class="row">
+                     
+                                <div class=" col-lg-3 ">
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input type="text" name="name" id="name" class="form-control alumin" >
+                                </div>
+                                </div>
+                               
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Mobile No  ( Whatsapp Number Please)</label>
+                                        <input type="text" name="mobile" id="mobile" class="form-control alumin" >
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Email-Id</label>
+                                        <input type="email" name="email_id" id="email_id" class="form-control alumin" >
+                                </div>
+                                </div>
+                           
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <input type="text" name="city" id="city" class="form-control alumin" >
+                                </div>
+                                </div>
+                                   <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>State</label>
+                                        <input type="text" name="state" id="state" class="form-control alumin" >
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Pin Code / Zip</label>
+                                        <input type="text" name="pincode" id="pincode" class="form-control alumin" >
+                                </div>
+                                </div>
+                                   <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Country</label>
+                                        <input type="text" name="country" id="country" class="form-control alumin" >
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Contribution Amount</label>
+                                        <input type="text" name="contri_amt" id="contri_amt" class="form-control alumin" >
+                                </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Payment Mode</label>
+                                        <select name="pay_mode" id="mpay_mode" class="form-control alumin">
+                                            <option value="">Select</option>
+                                            <option value="Online">Online</option>
+                                            <option value="NEFT">NEFT</option>
+                                            <option value="RTGS">RTGS</option>
+                                        </select>
+                                        
+                                </div>
+                                </div>
+                                   <div class="col-md-3" id="pancard" style="display:none">
+                                    <div class="form-group">
+                                        <label> Pan Card (Allow Only .jpg/.png/.pdf)</label>
+                                        <input type="file" name="pan_card" id="pan_card" class="form-control alumin" style="height:50px;" >
+                                </div>
+                                </div>
+                                   <div class="col-md-3" id="adhardoc" style="display:none">
+                                    <div class="form-group">
+                                        <label> Adhar Card (Allow Only .jpg/.png/.pdf)</label>
+                                        <input type="file" name="adhar_doc" id="adhar_doc" class="form-control alumin" style="height:50px;" >
+                                </div>
+                                </div>
+                           <div class="row" >
+                                   <div class="col-md-3" id="payement" style="display:none">
+                                    <div class="form-group">
+                                        <label>Bank Name</label>
+                                        <input type="text" name="bank_name" id="bank_name" class="form-control alumin" >
+                                </div>
+                                </div>
+                                   <div class="col-md-3" id="payement1" style="display:none">
+                                    <div class="form-group">
+                                        <label>Transaction ID</label>
+                                        <input type="text" name="mmp_txn" id="transaction_id" class="form-control alumin">
+                                </div>
+                                </div>
+                                  <div class="col-md-3" id="payement2" style="display:none">
+                                    <div class="form-group">
+                                        <label>UTR No.</label>
+                                        <input type="text" name="bank_txn" id="utr_no" class="form-control alumin">
+                                </div>
+                                </div>
+                                  <div class="col-md-3" id="payement3" style="display:none">
+                                    <div class="form-group">
+                                        <label>Transaction Date</label>
+                                        <input type="date" name="date" id="adhar_doc" class="form-control alumin" >
+                                </div>
+                                </div>
+                                  <div class="col-md-3" id="payement4" style="display:none">
+                                    <div class="form-group">
+                                        <label> Document</label>
+                                        <input type="file" name="document" id="document" class="form-control alumin" style="height:50px;" >
+                                </div>
+                                </div>
+                                </div>        
+                    </div>
+                    <div class="row"><input type="submit" name="" value="submit" class="btn btn-info"></div>
+                              </form>
+                </div>
+                 <div class="description" style="margin-top: 25px;">
+                              <div class="row">                                   
+                              <div class=" col-md-6" id="mobile"> 
+                             <u><p> <strong>Account Details For NEFT/RTGS</strong></p></u>
+                              <p>Account Name:  Patna Women's College (Alumni Fund)</p>
+                              <p>Account No  :  85970100002308</p>
+                              <p>Bank Name   :  Bank of Baroda</p>
+                              <p>Bank Branch :  Patna Women's College</p>
+                              <p>IFSC Code   :  BARB0VJPAWC</p>
+                              <p>MICR Code   :  800012048</p>
+                              </div>
+                          <div class=" col-md-6" >
+                                                                     
+                              
+                              <p><strong>Note: Kindly upload the copy of PAN & Aadhar No. if payment is <br> Rs. 10,000/- and above. If the payment is done through RTGS/NEFT it is mandatory to fill the Contribution Form.</strong></p>
+                          </div>
+                               </div>
+                          </div>
+               
+            </div>
+        </div>
+    </section>
+    <section class="d-none d-md-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 tabs02" style="margin-top:rem;">
+                    <div class="tabsdiv" >
+ 
+                      <div class="tab-content con_div wow fadeInUp animated" data-wow-duration="1.5s" id="con_div_ug">
+                               <div class="text-center title">
+                                   <h3>Contribution Form</h3>
+                                </div>
+                          <div class="col-md-12 col-lg-12 col-sm-12">
+                             
+                              <form method="post" action="" enctype="multipart/form-data">  
+                              <div class="row">
+                                <div class=" col-lg-3 ">
+                                    <div class="form-group">
+                                        <label>Name <span class="required">*</span></label>
+                                        <input type="text" name="name" id="name" class="form-control alumin" required="required" >
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Mobile No  ( Whatsapp Number Please) <span class="required">*</span></label>
+                                        <input type="text" name="mobile" id="mobile" class="form-control alumin" required="required">
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Email-Id <span class="required">*</span></label>
+                                        <input type="email" name="email_id" id="email_id" class="form-control alumin" required="required" >
+                                </div>
+                                </div>
+                          
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <input type="text" name="city" id="city" class="form-control alumin" >
+                                </div>
+                                </div>
+                                   <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>State</label>
+                                        <input type="text" name="state" id="state" class="form-control alumin" >
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Pin Code / Zip</label>
+                                        <input type="text" name="pincode" id="pincode" class="form-control alumin" >
+                                </div>
+                                </div>
+                                   <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Country</label>
+                                        <input type="text" name="country" id="country" class="form-control alumin" >
+                                </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Contribution Amount</label>
+                                        <input type="number" name="contri_amt" id="contri_amt" class="form-control alumin" >
+                                </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Payment Mode</label>
+                                        <select name="pay_mode" id="pay_mode" class="form-control alumin">
+                                            <option value="">Select</option>
+                                            <option value="Online">Online</option>
+                                            <option value="NEFT">NEFT</option>
+                                            <option value="RTGS">RTGS</option>
+                                        </select>
+                                        
+                                </div>
+                                </div>
+                                  <div class="col-md-3" id="pancard" style="display:none">
+                                    <div class="form-group">
+                                        <label> Pan Card (Allow Only .jpg/.png/.pdf)</label>
+                                        <input type="file" name="pan_card" id="pan_card" class="form-control alumin" style="height:50px;" >
+                                </div>
+                                </div>
+                                   <div class="col-md-3" id="adhardoc" style="display:none">
+                                    <div class="form-group">
+                                        <label> Adhar Card (Allow Only .jpg/.png/.pdf)</label>
+                                        <input type="file" name="adhar_doc" id="adhar_doc" class="form-control alumin" style="height:50px;" >
+                                </div>
+                                </div>
+                              </div>
+                                 <div class="row">
+                                   <div class="col-md-3" id="payment" style="display:none">
+                                    <div class="form-group">
+                                        <label>Bank Name</label>
+                                        <input type="text" name="bank_name" id="bank_name" class="form-control alumin" >
+                                </div>
+                                </div>
+                                   <div class="col-md-3" id="payment1" style="display:none">
+                                    <div class="form-group">
+                                        <label>Transaction ID</label>
+                                        <input type="text" name="mmp_txn" id="transaction_id" class="form-control alumin">
+                                </div>
+                                </div>
+                                  <div class="col-md-3" id="payment2" style="display:none">
+                                    <div class="form-group">
+                                        <label>UTR No.</label>
+                                        <input type="text" name="bank_txn" id="utr_no" class="form-control alumin">
+                                </div>
+                                </div>
+                                  <div class="col-md-3" id="payment3" style="display:none">
+                                    <div class="form-group">
+                                        <label>Transaction Date</label>
+                                        <input type="date" name="date" id="adhar_doc" class="form-control alumin" >
+                                </div>
+                                </div>
+                                  <div class="col-md-3" id="payment4" style="display:none">
+                                    <div class="form-group">
+                                        <label> Document (Allow Only .jpg/.png/.pdf)</label>
+                                        <input type="file" name="document" id="document" class="form-control alumin" style="height:50px;" >
+                                </div>
+                                </div>
+                                </div>
+                              <div class="row"><input type="submit" value="submit"  class="btn btn-info"></div>
+                              </form>
+                          </div>
+                        <div class="description" style="margin-top: 25px;">
+                              <div class="row">                                   
+                              <div class=" col-md-6" > 
+                             <u><p> <strong>Account Details For NEFT/RTGS</strong></p></u>
+                             <p>Account Name:   Patna Women's College (Alumni Fund)</p>
+                              <p>Account No  :  85970100002308</p>
+                              <p>Bank Name   :  Bank of Baroda</p>
+                              <p>Bank Branch :  Patna Women's College</p>
+                              <p>IFSC Code   :  BARB0VJPAWC</p>
+                              <p>MICR Code   :  800012048</p>
+                          
+                               </div>
+                               <div class="col-md-6" > 
+                              <p><strong>Note: Kindly upload the copy of PAN & Aadhar No. if payment is <br> Rs. 10,000/- and above. If the payment is done through RTGS/NEFT it is mandatory to fill the Contribution Form.</strong></p>
+                          </div>
+                          </div>
+                        
+                          </div>
+                       
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+   
+        
+    $("#pay_mode").change(function() {
+    var pay=$("#pay_mode").val();
+    
+   // alert(pay);
+    if(pay=='NEFT' || pay=='RTGS') {
+        $("#payment").css("display", "block");
+        $("#payment1").css("display", "block");
+        $("#payment2").css("display", "block");
+        $("#payment3").css("display", "block");
+        $("#payment4").css("display", "block");
+        }
+        else {
+        $('#payment').css('display','none');
+        $('#payment1').css('display','none');
+        $('#payment2').css('display','none');
+        $('#payment3').css('display','none');
+        $('#payment4').css('display','none'); 
+        }
+    });  
+     $('body').on('keyup change drop paste',"#mpay_mode",function() {
+    var pay=$("#mpay_mode").val();
+    
+   
+    if(pay=='NEFT' || pay=='RTGS') {
+       
+        
+        $("#payement").show();
+        $("#payement1").show();
+        $("#payement2").show();
+        $("#payement3").show();
+        $("#payement4").show();
+        }
+        else {
+ 
+        
+         $('#payement').hide();
+        $('#payement1').hide();
+        $('#payement2').hide();
+        $('#payement3').hide();
+        $('#payement4').hide(); 
+        }
+    }); 
+     
+    $(document).on("focusout","#contri_amt",function() {
+       var conamt=   $("#contri_amt").val();
+      
+         if(Number(conamt)>=Number('10000')){
+            $("#pancard").css("display", "block");
+            $("#adhardoc").css("display", "block");
+            $("#pan_card").prop("required", "true");
+            $("#adhar_doc").prop("required", "true");
+          //  alert(conamt);
+       }
+       else {
+            $("#pancard").css("display", "none");
+            $("#adhardoc").css("display", "none");
+            $("#pan_card").removeAttr("required", "required");
+            $("#adhar_doc").removeAttr("required", "required");
+       }
+     });
+        
+    </script>

@@ -1,0 +1,308 @@
+<style>
+     .active {
+        background: #9b3e87 !important;
+    }
+    
+    .open{
+        background:#8CD53E !important;
+    }
+.box {
+   background: #1b7d9f;
+   border-radius: 4px;
+   padding-bottom: 100%;
+   color:#eee;
+   height: 160px;
+}
+ body {
+        background-color: #BFCABA;
+    }
+    .hiddenStepInfo {
+        display: none;
+    }
+
+    .activeStepInfo {
+        display: block !important;
+    }
+
+    .underline {
+        text-decoration: underline;
+    }
+
+    .step {
+        margin-top: 27px;
+    }
+
+    .progress {
+        position: relative;
+        height: 35px !important;
+    }
+    .progress-bar{
+        background-color: #932e90 !important;
+    }
+    .progress > .progress-type {
+        position: absolute;
+        left: 0px;
+        font-weight: 800;
+        padding: 3px 30px 2px 10px;
+        color: rgb(255, 255, 255);
+        background-color: rgba(25, 25, 25, 0.2);
+    }
+
+    .progress > .progress-completed {
+        position: absolute;
+        right: 0px;
+        font-weight: 800;
+        padding: 5px 15px 4px;
+    }
+
+    .step {
+        text-align: center;
+    }
+    .inactive{
+        border-left: 6px solid #FF0000 !important;
+        border-right: 6px solid #FF0000 !important;
+        border-top: 3px solid #FF0000 !important;
+        border-bottom: 3px solid #FF0000 !important;
+    }
+    .step .col-md-2  {
+        height: 150px;
+        width: 200px;
+        background-color: #fff;
+
+        margin-left: 2em;
+    }
+    .Completed {
+
+        border-left: 6px solid #34b938 !important;
+        border-right: 6px solid #34b938 !important;
+        border-top: 3px solid #34b938 !important;
+        border-bottom: 3px solid #34b938 !important;
+    }
+    
+    .step .col-md-2:last-child {
+        border: 1px solid #C0C0C0;
+    }
+
+    .step .col-md-2:first-child {
+        border-radius: 5px 0 0 5px;
+    }
+
+    .step .col-md-2:last-child {
+        border-radius: 0 5px 5px 0;
+    }
+
+    .step .col-md-2:hover {
+        color: #428BCA;
+        cursor: pointer;
+    }
+
+
+    .step .fa {
+        padding-top: 15px;
+        font-size: 40px;
+    }
+    .footer{
+        font-size: 20px;
+        margin-top: 27px;   
+    }
+    ol{
+        color: solid black;
+    }
+    .clearfix{
+    bottom: 0px;
+    position: fixed;
+    width: 100%;
+}
+.box>span{
+    margin-bottom:1.2em
+}
+.box>h6{
+    font-family:raleway;
+}
+</style>
+<?php //echo '<pre>'; print_r($this->payData); exit; ?>
+<div class="instruction" style="margin-top:12%">
+    <div class="multistepformArea">
+        <form class="regForm" id="formValidate1" action="" method="post" data-validate="parsley" >
+<div class="container followbox">
+    <div class="row">
+    <div class="col-md-9"> <h3 style="margin-left: 35%;font-family:raleway;">Steps to Follow</h3> </div>
+    
+     <div class=" col-md-3"> <a style="margin-left: 35%;" href="<?php echo $this->mainconfig['host']; ?>multi-step-form/logout"<button type="button" id="getDailyAttendance" class="btn btn-success"  value="0" >Log Out</button></a>              
+   </div>
+    </div>
+        <div class="row" style="margin-top:30px;">
+    <div class="col-lg-2 col-md-3 col-xs-6 ">
+        <div class="box text-center active">
+                <span class="fa fa-user" style="font-size:35px;margin-top: 40px; "></span>
+                <h6>Register Yourself</h6>
+        </div>
+    </div>
+            <div class="col-lg-2 col-md-3 col-xs-6 " >
+       <a  href="<?= $this->baseUrl("multi-step-form/index/type/step1/a_id/{$this->a_id}"); ?>" id ="course" > 
+           <div class="box text-center" id="courseOk">
+            <span class="fa fa-cube" style="font-size:35px;margin-top: 40px;"></span>
+                <h6>Course Selection</h6>
+           </div></a>
+    </div>
+    <div class="col-lg-2 col-md-3 col-xs-6 ">
+        <a  href="<?= $this->baseUrl("multi-step-form/index/type/step2/a_id/{$this->a_id}"); ?>" id="personal">
+        <div class="box text-center" id="personalOk">
+            <span class="fa  fa-qrcode" style="font-size:35px;margin-top: 40px;"></span>
+                <h6>Personal Details </h6>
+            
+        </div></a>
+    </div>
+    <div class="col-lg-2 col-md-3 col-xs-6 ">
+        <a  href="<?= $this->baseUrl("multi-step-form/index/type/step3/a_id/{$this->a_id}"); ?> " id="edu">
+        <div class="box text-center" id="eduOk">
+             <span class="fa fa-graduation-cap" style="font-size:35px;margin-top: 40px;"></span>
+                <h6>Educational Details</h6>
+            
+        </div></a>
+    </div>
+    <div class="col-lg-2 col-md-3 col-xs-6 ">
+        <a href="<?= $this->baseUrl("multi-step-form/index/type/step4/a_id/{$this->a_id}"); ?>" id="formpreview" >
+          <div class="box" id="formPreviewOk">
+            <span class="fa  fa-eye" style="font-size:35px;margin-top: 40px;"></span>
+                <h6>Preview & Pay</h6>
+            
+        </div>
+        </a>
+    </div>
+    <div class="col-lg-2 col-md-3 col-xs-6 " id="paymentOk">
+     <?php
+         if (!empty($this->payData)) {
+            foreach ($this->payData as $pay){
+            
+            ?> <div class="box">
+            <span class="fa  fa-credit-card" style="font-size:35px;margin-top: 40px;"></span>
+                <h6>Payment</h6>
+                <?php 
+                if ($pay['payment_status'] == 1) { $payStack=1;}else{ $payStack=0; } }
+            if ($payStack == 1) { echo 'Status: Paid';
+            } else { echo 'Status: Not Paid';
+                ?>
+        </div>
+        <?php } } else { ?>
+        <div class="box">
+             <span class="fa  fa-credit-card" style="font-size:35px;margin-top: 40px;"></span>
+          <h6>Payment</h6>
+            <?php  echo '<b>Status: Pending </b>';?>
+        </div>
+        <?PHP } ?>
+    </div>
+
+</div>
+<div class="col-md-12" style="margin-top:2em;padding-left:0px">
+    <pre class="text-left" style="color:#ff471a;font-family:raleway;color:#000;width:100%;font-size:1.2em">
+        For any technical assistance, please send an email to support@finessewebtech.com mentioning 
+        
+        your name
+        email id
+        form registration number
+        along with a short description of the problem you are facing.  
+    </pre>
+</div>
+ 
+     </div>
+    </div>
+</div>
+  <script src="<?php echo $this->mainconfig['publicpath']; ?>css/entrance/js/jquery-2.2.4.min.js"></script>
+  
+<script>
+    
+    $(document).ready(function () {
+       
+        var a_id = '<?php echo isset($this->a_id) ? $this->a_id : ''; ?>';
+        $.ajax({
+            type: "POST",
+            url: '<?php echo $this->mainconfig['host'] . 'multi-step-form/check-form-step'; ?>',
+            data: {a_id: a_id}
+        }).done(function (data) {
+          // alert(data);
+            if (data == 6) {  //Payment done
+                $("#courseOk").addClass("Completed");
+                $("#eduOk").addClass("Completed");
+                $("#personalOk").addClass("Completed");
+                $("#formPreviewOk").addClass("Completed");
+                $("#paymentOk").addClass("Completed");
+                resetActive(event, 100, 'step-5');
+
+                //$("#formpreview").click(function() { return false; });
+                //$('#formpreview').unbind('click');
+
+                return false;
+            }
+            if (data == 5) {  //Form is filled
+                $("#courseOk").addClass("Completed");
+                $("#eduOk").addClass("Completed");
+                $("#personalOk").addClass("Completed");
+                $("#formPreviewOk").addClass("Completed");
+                $("#paymentOk").addClass("active");
+                resetActive(event, 80, 'step-5');
+
+                return false;
+            }
+            if (data == 4) {   //All details filled but form is not submitted
+                $("#courseOk").addClass("active");
+                $("#eduOk").addClass("active");
+                $("#personalOk").addClass("active");
+                $("#formPreviewOk").addClass("open");
+                resetActive(event, 80, 'step-4');
+
+                return false;
+            }
+            if (data == 2) {
+                $("#courseOk").addClass("active");
+                $("#personalOk").addClass("active");
+                $("#eduOk").addClass("open");
+                $("#formpreview").removeAttr("href");
+                resetActive(event, 40, 'step-2');
+                return false;
+            }
+
+            if (data == 1) {
+                $("#courseOk").addClass("active");
+                $("#personalOk").addClass("open");
+                $("#edu").removeAttr("href");
+                $("#formpreview").removeAttr("href");
+
+                resetActive(event, 20, 'step-1');
+                return false;
+            }
+                data = data.trim();
+            if (data=="false") {
+                
+                $("#courseOk").addClass("open");
+                $("#edu").removeAttr("href");
+                $("#formpreview").removeAttr("href");
+                $("#personal").removeAttr("href");
+                return false;
+            }
+           
+
+        });
+    });
+    function resetActive(event, percent, step) {
+        $(".progress-bar").css("width", percent + "%").attr("aria-valuenow", percent);
+        $(".progress-completed").text(percent + "%");
+
+        $("div").each(function () {
+            if ($(this).hasClass("activestep")) {
+                $(this).removeClass("activestep");
+            }
+        });
+
+        if (event.target.className == "col-md-2") {
+            $(event.target).addClass("activestep");
+        } else {
+            $(event.target.parentNode).addClass("activestep");
+        }
+
+        hideSteps();
+        showCurrentStepInfo(step);
+    }
+
+
+</script>

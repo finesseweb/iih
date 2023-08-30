@@ -1,0 +1,138 @@
+<?php 
+//echo "<pre>";print_r( $this->academicresult);die;
+?>
+<style type="text/css">
+    .dd_faculty_list{
+        padding-top: 10px;
+        font-weight: bold;
+    }
+    .select2-container{
+	z-index: 999;
+}
+
+span.select2-container{
+  width: 20em !important;  
+}
+</style>    
+<div style="overflow-x:scroll">
+<div class="padding-md clearfix">
+			<table class="table table-striped table-bordered mb30 jambo_table bulk_action" id="dataTable">
+			
+			
+				<thead >
+					<tr >
+					                        <th style="width:10%;">SNo. </th>
+                                            <th style="width:10%;">Student Name </th>
+                                            <th style="text-align:center;width:14%;">Form ID </th>
+                                            <th style="text-align:center;width:14%;">Action</th>
+					</tr>
+				</thead>
+                                <tbody>
+                                <?php if(!empty($this->paginator)){
+                                   // echo "<pre>";print_r($this->paginator['data']);exit;
+                                $i = 1;
+                                $disable_co_faculty = false;
+                                $isfaculty = false;
+                                $_SESSION['itemresult'] = $this->items;
+                                $_SESSION['grades'] = $this->grades;
+                                foreach($this->paginator as $key=> $result){ 
+                                  if($key <= 3 && !empty($this->grades))
+                                  continue;   
+                               else  if($key < 1 )
+                                 continue;
+                                 
+                                  
+                              
+                            ?>
+                            <tr>
+                            <td><?php echo $result[0];?></td>
+                            <td><?php echo $result[1];?></td>
+                            <td><?php echo $result[2];?></td>
+                           <td>
+                                 <a class="btn btn-primary pdf"  target="_blank" href="<?php echo $this->mainconfig['host'];?>student/addoncertificate/id/<?php echo $key; ?>/dept/<?=$this->dept;?>">Download </a> 
+                           </td>
+                    </tr>
+									   
+									  
+                    <?php
+                        $isfaculty = FALSE;
+                        $disable_co_faculty = false;
+                        $i++; 
+                    }
+
+                   }
+ ?>
+								
+				</tbody>
+			</table>
+			 <?php //echo $pagination_tr; ?>
+		</div><!-- /.padding-md -->
+</div>	
+		
+<script>
+$(document).ready(function(){
+   // setDatatables();
+    
+    
+});
+$('#formValidate1').submit(function() {
+      $('select').attr('disabled',false);
+});
+
+
+
+function select_department(value,num){
+	var department_name = value;
+	$.ajax({ 
+			type: "POST",
+			url:'<?php echo $this->mainconfig['host'].'master/ajax-get-department-name';?>',
+			data: {department_name:department_name}
+			
+		}).done(function( data ) {
+			
+				
+			$('#employee_name'+num+'').empty('');
+			$('#employee_name'+num+'').append(data);
+			
+		
+			
+		 });
+}
+
+    $('.faculty_list_dd').change(function(){
+        //saving the default value        
+        var si_no = $(this).data('si-no');
+        var batch_id = $('#academic_year_id').val();
+        var term_id = $('#term_id'+si_no).val();
+        var course_id = $('#course_id'+si_no).val();
+        var faculty_id = $('#default-emp'+si_no).val();
+        $.ajax({ 
+                type: "POST",
+                url:'<?php echo $this->mainconfig['host'].'master/ajax-is-grade-allocated';?>',
+                data: {batch_id:batch_id,term_id: term_id, course_id: course_id, faculty_id: faculty_id}
+
+        }).done(function( data ) {
+                if(data == 1){
+                    $('#employee_name'+si_no).val(faculty_id);
+                    alert("Grade is already generated. First, delete the grade before editing it.")
+                }
+                    
+         });
+    });
+    $(document).ready(function(){
+    /*
+        $("select.vf-list, select.f-list").change(function(){
+            //var el = $(e+" option:selected");
+            var op_list = $( this ).find("option:selected");
+            var str = "";
+            $( op_list ).each(function() {                
+               str += $( this ).text() + "<br/>";
+            });
+            $( this ).next('div').html( str );
+            //var selectedCountry = $(".vf-list option:selected").val();
+            //alert("You have selected the country - " + selectedCountry);
+        });
+        */
+        $('select.vf-list, select.f-list').select2();
+    });
+</script>

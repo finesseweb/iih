@@ -790,6 +790,7 @@ protected function authonticate() {
                             'name' => $data['name'],
                             'status' => $data['status']
                         );
+                        // print_r($insertData); exit;
                         if (!empty($_POST['csrftoken'])) {
                             if ($_POST['csrftoken'] === $token) {
                                 $section_model->insert($insertData);
