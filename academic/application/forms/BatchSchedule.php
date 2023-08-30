@@ -41,8 +41,10 @@ class Application_Form_BatchSchedule extends Zend_Form
 						   ->removeDecorator("htmlTag");
 		$this->addElement($department_id);*/
         $FeeCategory_model = new Application_Model_ScholarStructure();
-        $data1 = $FeeCategory_model->getDropDownListOfTerms();
-        $term_id = $this->createElement('select', 'term_id')
+        // $data1 = $FeeCategory_model->getDropDownListOfTerms();
+        $data1 = $FeeCategory_model->getDropDownList();
+        // print_r($data1); exit;
+        $Term_id = $this->createElement('select', 'Term_id')
                 ->removeDecorator('label')
                 ->setAttrib('class', array('form-control', 'chosen-select'))
                 ->setAttrib('required', 'required')
@@ -51,7 +53,7 @@ class Application_Form_BatchSchedule extends Zend_Form
                 ->addMultiOptions(array('' => 'Select'))
                // ->addMultiOptions($data1)
                 ->setRegisterInArrayValidator(false);
-        $this->addElement($term_id);	
+        $this->addElement($Term_id);    
         
         
         $section = $this->createElement('select', 'section')

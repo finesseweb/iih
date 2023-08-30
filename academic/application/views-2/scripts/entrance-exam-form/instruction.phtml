@@ -1,0 +1,159 @@
+<style>
+    .active {
+        background: #9b3e87 !important;
+    }
+.box {
+   background: #1b7d9f;
+   border-radius: 4px;
+   padding-bottom: 100%;
+   color:#eee;
+   height: 160px;
+}
+
+.col-lg-2, .col-md-3, .col-xs-6{
+    margin-top: 30px !important;
+}
+    body {
+        background-color: #979797;
+    }
+    .multistepformArea{
+    padding-top: 1px;
+    background-color: #979797;
+	
+    min-width: 300px;
+	margin: 50px auto;
+	position: relative;
+}
+/*form styles*/
+.regForm {
+    width: 90%;
+    min-width: 300px;
+	margin: 50px auto;
+	position: relative;
+}
+#formValidate1 fieldset {
+	background: white;
+	border: 0 none;
+	border-radius: 3px;
+	box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+	box-sizing: border-box;
+	position: relative;
+}
+.table-bordered td, th {
+    padding: 8px;
+}
+.clearfix{
+    bottom: 0px;
+    position: fixed;
+    width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+ .col-lg-2, .col-md-3, .col-xs-6{
+    width: 50%;
+}  
+object{
+    display: none;
+}
+}
+
+</style>
+
+<script type="text/javascript" src="wz_jsgraphics.js"></script>
+
+<div class="instruction">
+    <div class="multistepformArea">
+        <form class="regForm" id="formValidate1" action="" method="post" data-validate="parsley" >
+<div class="container followbox">
+     <h3>Step to Follow</h3>
+                    
+<div class="row">
+    <div class="col-lg-2 col-md-3 col-xs-6 ">
+        <div class="box text-center active">
+             <span class="fa fa-user" style="font-size:35px;margin-top: 40px;"></span>
+                <h6>Register Yourself</h6>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-3 col-xs-6 ">
+        <div class="box text-center">
+            <span class="fa fa-cube" style="font-size:35px;margin-top: 40px;"></span>
+                <h6>Form Fill up</h6>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-3 col-xs-6 ">
+        <div class="box text-center">
+            <span class="fa  fa-graduation-cap" style="font-size:35px;margin-top: 40px;"></span>
+                <h6>Educational Details</h6>
+            
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-3 col-xs-6 ">
+        <div class="box text-center">
+             <span class="fa  fa-qrcode" style="font-size:35px;margin-top: 40px;"></span>
+                <h6>Personal Details</h6>
+            
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-3 col-xs-6 ">
+        <div class="box">
+            <span class="fa  fa-eye" style="font-size:35px;margin-top: 40px;"></span>
+                <h6>Form Preview</h6>
+            
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-3 col-xs-6 ">
+        <div class="box">
+            <span class="fa  fa-credit-card" style="font-size:35px;margin-top: 40px;"></span>
+                <h6>Payment</h6>
+        </div>
+    </div>
+
+</div>
+ <div class="row">
+     <div class="col-sm-12" style="margin-top:25px; margin-bottom: 20px;">   <h4>Instruction</h4></div>
+<div class="col-sm-6">
+    <object width="100%" height="500px" data="<?php echo $this->mainconfig['publicpath']; ?>pdfupload/PWCN-51-OFFLINE-APPLICATION.pdf" type='application/pdf'></object>
+
+ </div>
+     <div class="col-sm-6">
+    <p style="text-align:left">Dear Applicant,</p>
+    <p style="text-align:left">Please read the following notice and instructions and tick on box at the bottom of this page to indicate your agreement to follow the same and to go to the next stage. </p>
+                    
+
+<div class="col-sm-12" style="margin-top:15px;">
+ <div class="col-sm-12 employee_class">
+      <div class="form-group">
+        <h5 style="color:#d71212; text-align: left">   
+        <input type='Checkbox' name='instruction' id="instruction" class='instruction custom-control-label' value='EVS' style="width:25px; height:25px" />
+        I have read the above instructions and agree to follow them.</h5>
+  
+                        </div>
+                        <div class="col-sm-6 col-sm-offset-5 employee_class">
+                            <div class="form-group">
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                               <a href="<?php echo $this->mainconfig['host']; ?>entrance-exam-form/registeration/?sub=<?=$this->course?>&deg=<?=$this->degree?>&department=<?=$this->department?>"> <button type="button" id="continue" class="btn btn-primary">Continue</button></a>
+                            </div>
+                        </div>
+                     
+
+                    </fieldset> 
+                    &nbsp;<br>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+     </div>
+    </div>
+</div>
+<script>
+    $('#continue').hide();
+    $('#instruction').click(function(){
+        if (this.checked) {
+            $('#continue').show();
+        }else{
+            $('#continue').hide();
+        }
+    });
+</script>

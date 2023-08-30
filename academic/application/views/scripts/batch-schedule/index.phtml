@@ -1021,6 +1021,7 @@ var dayName = days[d.getDay()];
             section: $("#section").val(),
         department: $("#department").val()}
         }).done(function (data) {
+            console.log(data);
             $(".sub").hide();
             $('.loder_img1').attr('style','display:none;');
             $('#grade_data>img').remove();

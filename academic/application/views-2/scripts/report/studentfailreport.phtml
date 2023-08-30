@@ -1,0 +1,194 @@
+<div class="padding-md right_col">
+    <div class="load-box">
+        <img src="<?php echo $this->mainconfig['publicpath']; ?>/images/loader.gif" width='200px'  class="loder_img1" />
+    </div>   
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="page-title txt-color-blueDark" >
+                <div><i class="fa fa-eye">Fail Report</i>
+
+                </div>
+            </h3>
+            <div class="panel panel-default">
+                <form class="no-margin" id="formValidate1" action="<?php echo $this->form->getAction() ?>" method="post" data-validate="parsley" >
+
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-sm-3 employee_class">
+                                <div class="form-group">
+                                    <!--<label class="control-label">Academic Year<span class="asterisk">*</span></label>-->
+                                    <?php echo $this->form->academic_year; ?>
+                                </div>
+                            </div> 
+                            <div class="col-sm-3 employee_class">
+                                <div class="form-group">
+                                    <!--<label class="control-label">Batch<span class="asterisk">*</span></label>-->
+                                    <?php echo $this->form->session; ?>
+                                </div>
+                            </div>
+                             <div class="col-sm-3 employee_class">
+                                <div class="form-group">
+                                    <!--<label class="control-label">Batch<span class="asterisk">*</span></label>-->
+                                    <?php echo $this->form->department; ?>
+                                </div>
+                            </div>
+                            
+                              <div class="col-sm-3 employee_class">
+                                <div class="form-group">
+                                    <!--<label class="control-label">Batch<span class="asterisk">*</span></label>-->
+                                    <?php echo $this->form->cmn_terms; ?>
+                                </div>
+                            </div>
+                             <div class="col-sm-3 employee_class">
+                                <div class="form-group">
+                                    <!--<label class="control-label">Batch<span class="asterisk">*</span></label>-->
+                                    <input type="number" class="form-control" id ="fail-no" name="fail_no" value="1"/>
+                                </div>
+                            </div>
+                            <button type="button" id="getRecords" class="btn btn-primary" style="float: right" value="0" >Get Records</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">&nbsp;</label>
+                                    <input type="text" id="batch" class="form-control" style="background-color:#fdf59a;"  readonly />
+                                </div>
+                            </div>
+                        </div>
+                        <div id="getstudent" class="col-sm-12">
+                        </div>
+                    </div>
+
+
+                </form>
+            </div><!-- /panel -->
+        </div><!-- /.col-->				
+    </div><!-- /.row -->
+
+</div><!-- /.padding-md -->	
+
+
+<script>
+    jQuery(document).ready(function () {
+        $('#batch').hide();
+$('#cmn_terms').select2();
+    });
+    $('body').on('click', '#getRecords', function () {
+        if ($('#cmn_terms').val() && $('#department').val() && $('#session').val()) {
+            $('.load-box').css('display', 'block');
+            getstudentDetails();
+        } else {
+            alert('PLease select required field.')
+        }
+    
+    });
+
+    function getstudentDetails() {
+
+        $url = '<?php echo $this->mainconfig['host']; ?>report/get-student-fail-report';
+        $.post($url,
+                {
+                    'session': $('#session').val(),
+                    'department': $('#department').val(),
+                    'cmn_terms': $('#cmn_terms').val(),
+                    'fail_no': $('#fail-no').val()
+                })
+                .done(function (data) {
+
+                    //$('#payslipData').html('');
+                    $('#getstudent').html(data);
+                    $('.load-box').hide();
+                });
+
+    }
+
+    // $("#academic_year_id").change(function () {
+    //     var academic_year_id = $("#academic_year_id").val();
+
+    //     if (academic_year_id != '') {
+    //         $('.load-box').css('display', 'block');
+    //         $.ajax({
+    //             type: "POST",
+    //             url: "<?php echo $this->mainconfig['host'] . 'report/ajax-get-student-names'; ?>",
+    //             data: {academic_year_id: academic_year_id}
+    //         }).done(function (data) {
+    //             //alert(data);	
+    //             $("#stu_id").html(data);
+    //             $('.load-box').css('display', 'none');
+    //         });
+    //     }
+    // });
+
+ $('body').on('change', '#academic_year_id', function () {
+        var academic_id = $('#academic_year_id').val();
+        var year_id = $('#year_id').val();
+        if (academic_id) {
+            $('.load-box').css('display', 'block');
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-term-year-batch'; ?>',
+                data: {batch_id: academic_id, year_id: year_id}
+            }).done(function (data) {
+
+                $('#term_id').html(data);
+                $('.load-box').css('display', 'none');
+
+            });
+        }
+
+    });
+
+    $('body').on('change', '#academic_year_id', function () {
+        var academic_id = $('#academic_year_id').val();
+        if (academic_id) {
+            $('#batch').show();
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-batch-code'; ?>',
+                data: {academic_id: academic_id}
+            }).done(function (data) {
+                var result = $.parseJSON(data);
+                if ((data != '')) {
+                    $('#batch').val(result['short_code']);
+                }
+            });
+        }
+
+    });
+//To filter Session
+    $('body').on('change', '#academic_year', function () {
+        var year_id = $('#academic_year').val();
+        if (year_id) {
+
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-Get-Session'; ?>',
+                data: {year_id: year_id}
+            }).done(function (data) {
+                $('#session').empty('');
+                $('#session').html(data);
+                $('#session').trigger("chosen:updated");
+            });
+        }
+    });
+    //Get Batch By Session
+    $('body').on('change', '#session', function () {
+        var year_id = $('#session').val();
+        if (year_id) {
+
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-batch'; ?>',
+                data: {session: year_id}
+            }).done(function (data) {
+                $('#academic_year_id').empty('');
+                $('#academic_year_id').html(data);
+                $('#academic_year_id').trigger("chosen:updated");
+            });
+        }
+    });
+
+
+
+</script>

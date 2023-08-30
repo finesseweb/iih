@@ -1,0 +1,219 @@
+<div class="right_col">
+
+
+    <div class="padding-md ">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <h3 class="page-title txt-color-blueDark" >
+
+                    <div><i class="fa fa-eye">Bulk Add Fee Category</i></div>
+
+                </h3>
+
+                <div class="panel panel-default">
+
+                    <form class="no-margin" id="formValidate1" action="<?php echo $this->form->getAction() ?>" method="post" data-validate="parsley" >
+
+
+
+                        <div class="panel-body">
+
+
+
+                            <div class="row ">
+
+                                <div class="col-sm-3">	
+
+                                    <div class="form-group">
+
+                                        <label class="control-label"> Academic Year<span class="asterisk">*</span> </label>
+
+                                        <?php echo $this->form->academic_year; ?>
+
+                                    </div>	
+                                </div>
+                                <div class="col-sm-3">	
+
+                                    <div class="form-group">
+
+                                        <label class="control-label"> Session<span class="asterisk">*</span> </label>
+
+                                        <?php echo $this->form->session; ?>
+
+                                    </div>	
+                                </div>
+
+
+                                <div class="col-sm-3">	
+
+                                    <div class="form-group">
+
+                                        <label class="control-label"> Degree<span class="asterisk">*</span> </label>
+
+                                        <?php echo $this->form->degree_id; ?>
+
+                                    </div>										
+
+                                </div>
+                                <?php echo $this->form->csrftoken; ?> 
+                                
+                                
+
+                                
+                                <div class="row">
+                                    <div class="col-sm-3">	
+
+                                        <div class="form-group">
+
+                                            <label class="control-label">Department Type<span class="asterisk">*</span> </label>
+
+                                            <?php echo $this->form->dept_id; ?>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-3">	
+
+                                        <div class="form-group">
+
+                                            <label class="control-label">Account Name<span class="asterisk">*</span> </label>
+
+                                            <?php echo $this->form->fund_type; ?>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="fee_category_list" id="fee_category_list">
+                                        
+                                    </div>
+                                    <div class="col-sm-3">	
+
+                                    <div class="form-group">
+
+                                        <label class="control-label" style="color: red" >Migration Academic Year<span class="asterisk">*</span> </label>
+
+                                        <?php echo $this->form->mig_academic_year; ?>
+
+                                    </div>	
+                                </div>	
+                                     <div class="col-sm-3">	
+
+                                    <div class="form-group">
+
+                                        <label class="control-label" style="color: red">Migration Session<span class="asterisk">*</span> </label>
+
+                                        <?php echo $this->form->mig_session; ?>
+
+                                    </div>
+                                </div>
+                               									
+
+                                </div>
+                                <div class="row">
+
+
+                                    <div class="panel-footer">									
+
+                                        <div class="row">
+
+                                            <div class="col-sm-7 col-sm-offset-5">
+
+                                               
+
+                                                    <div style="float:left;margin-right:2px;">
+
+                                                        <button class="btn btn-primary submit">Migrate</button>
+
+                                                    </div>
+                                                  
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                </form>
+
+                            </div><!-- /panel -->
+
+                        </div><!-- /.col-->				
+
+                </div><!-- /.row -->
+    <script>
+        //To filter Session
+        $('body').on('change', '#academic_year', function () {
+            var year_id = $('#academic_year').val();
+            if (year_id) {
+
+            $.ajax({
+            type: "POST",
+            url: '<?php echo $this->mainconfig['host'] . 'master/ajax-Get-Session'; ?>',
+            data: {year_id: year_id}
+            }).done(function (data) {
+                $('#session').empty('');
+                $('#session').html(data).trigger("chosen:updated");
+            });
+        }
+        });
+        $('body').on('change', '#mig_academic_year', function () {
+            var year_id = $('#mig_academic_year').val();
+            if (year_id) {
+
+            $.ajax({
+            type: "POST",
+            url: '<?php echo $this->mainconfig['host'] . 'master/ajax-Get-Session'; ?>',
+            data: {year_id: year_id}
+            }).done(function (data) {
+                $('#mig_session').empty('');
+                $('#mig_session').html(data).trigger("chosen:updated");
+            });
+        }
+        });
+    //End
+    $('body').on('change', '#degree_id', function () {
+
+       $('.load-box').css('display','block');
+        var degree = $(this).val();
+
+        if (degree) {
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'plan/ajax-get-stream-by-degree'; ?>',
+                data: {degree: degree}
+            }).done(function (data) {
+                $('#dept_id').empty();
+                $('#dept_id').html(data).trigger("chosen:updated");
+                $('.load-box').css('display','none');
+            });
+        }
+
+    });
+    $('body').on('change', '#dept_id', function () {
+
+       $('.load-box').css('display','block');
+        var dept_id = $(this).val();
+        var session = $('#session').val();
+
+        if (dept_id) {
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'fee-category/ajax-get-fee-category'; ?>',
+                data: {dept_id: dept_id,session:session}
+            }).done(function (data) {
+                $('#fee_category_list').empty();
+                $('#fee_category_list').html(data);
+                $('.load-box').css('display','none');
+            });
+        }
+
+    });
+        </script>

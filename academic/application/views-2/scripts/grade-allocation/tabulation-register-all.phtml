@@ -1,0 +1,373 @@
+<style>
+
+    #batch{
+        display:none;
+   }/*  @media print {*/
+/*table {page-break-before: always; */
+/*               font-size: 100px;}*/
+/*        tr{page-break-inside: avoid; */
+/*           page-break-after: auto;}*/
+/*    }*/
+footer {
+  font-size: 9px;
+  color: #f00;
+  text-align: center;
+}
+
+@page {
+  size: A3;
+  margin: 11mm 17mm 17mm 17mm;
+}
+
+@media print {
+  footer {
+    position: fixed;
+    bottom: 0;
+  }
+
+  .content-block, p {
+    page-break-inside: avoid;
+  }
+
+  html, body {
+    width: 210mm;
+    height: 297mm;
+  }
+  
+   table { page-break-inside:auto }
+    tr    { page-break-inside:avoid; page-break-after:auto }
+    thead { display:table-header-group }
+    tfoot { display:table-footer-group }
+    
+
+  thead {page-break-after: always;}
+  
+  table {
+    border-right:1px solid #000 !important;
+}
+th, td {
+    border:solid #000 !important;
+    border-width:0 1px 1px 0 !important;
+}
+.table-page {  page-break-after: always; }
+}
+</style>
+<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+<div class="right_col">
+    <div class="load-box">
+        <img src="<?php echo $this->mainconfig['publicpath']; ?>/images/loader.gif" width='200px'  class="loder_img1" />
+    </div>   
+    <div class="padding-md ">
+        <div class="row">
+            <?php
+            if (count($this->messages)) {
+                foreach ($this->messages as $message) {
+                    ?>
+                    <div class="alert <?php echo $_SESSION['message_class']; ?> ">
+                        <a type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
+                        <strong>  <?php echo $this->escape($message); ?></strong>
+                    </div>
+                <?php }
+            }
+            ?>
+            <div class="col-md-12">
+                <h3 class="page-title txt-color-blueDark" >
+                    <div><i class="fa fa-eye">Accumulative Tabulation Register</i></div>
+                </h3>
+                <div class="panel panel-default">
+
+                    <div class="panel-body">
+                        <div class="row">
+                           <div class="pull-right col-xs-2 col-sm-2 col-md-2 col-lg-3">
+                        <div class="input-group">
+                            <select name="prev" id="prev" class="form-control chosen-select">
+                                <option value="">select archived dates</option>
+                            </select>
+                            <span class="input-group-addon" style="padding:0"><input type="checkbox" id="archive" value="0"   data-toggle="toggle" data-size="sm"></span>
+                        </div>
+                    </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 employee_class">
+                                <div class="form-group">
+                                  <!--<label class="control-label">Batch<span class="asterisk">*</span></label>-->
+                                    <?php echo $this->form->academic_year_id; ?>
+                                </div>
+                            </div>
+                            <?php /* <div class="col-sm-3 employee_class">
+                              <div class="form-group">
+                              <label class="control-label">Year<span class="asterisk">*</span></label>
+                              <?php echo $this->form->year; ?>
+                              </div>
+                              </div> */ ?>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <input type="text" id="batch" class="form-control" style="background-color:#fdf59a;"  readonly /></div>
+                            </div>
+                        </div>
+                        <div class="row">  
+                            <div class="col-sm-12">
+                           <input type="button" value="copy table" onclick="selectElementContents( document.getElementById('dataTable') );">
+                            <button class="btn btn-primary pull-right grade_count" data-toggle="modal" data-target="#myModal" >Grade Count</button>    
+                           <button class="btn btn-primary pull-right" onclick="myApp.printTable()" ><i class="glyphicon glyphicon-print"></i></button>
+                           </div>  <!--- myApp.printTable()-->
+                            <div class="col-sm-12">
+                            <div id="course_grade_details"></div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="panel-footer">									
+
+                    </div>
+                </div><!-- /panel -->
+                <!-- Modal -->
+                
+            </div><!-- /.col-->				
+        </div><!-- /.row -->
+
+    </div><!-- /.padding-md -->
+    <script>
+
+                                                    function ConfirmPublish()
+                                                    {
+                                                        var x = confirm("Are you sure you want to Publish?");
+                                                        if (x) {
+                                                            $('.load-box').css('display', 'block');
+                                                            return true;
+                                                        } else
+                                                            return false;
+                                                    }
+                                                    $('body').on('change', "#archive", function () {
+                                                        var value = $(this).parent().attr("class");
+                                                        if (value.includes("off")) {
+                                                            $(this).removeAttr("checked");
+                                                            $(this).val("0");
+                                                        } else
+                                                        {
+                                                            $(this).attr("checked", "checked");
+                                                            $(this).val("1");
+                                                        }
+                                                    });
+
+                                                    $('body').on('change', '#academic_year_id', function () {
+                                                        var academic_id = $('#academic_year_id').val();
+                                                        var archive = $('#archive').val();
+                                                          $('#prev').html("<option value=''>select archived date</option>");
+                                                            $('#prev').trigger("chosen:updated");
+                                                              var value = $('#archive').parent().attr("class","toggle btn btn-light off btn-sm");
+                                                              $('#archive').val("0");
+                                                              $('#archive').removeAttr("checked");
+                                                        if (academic_id) {
+                                                            $('#batch').show();
+                                                            $.ajax({
+                                                                type: "POST",
+                                                                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-batch-code'; ?>',
+                                                                data: {academic_id: academic_id}
+                                                            }).done(function (data) {
+                                                                var result = $.parseJSON(data);
+                                                                if ((data != '')) {
+                                                                    $('#batch').val(result['short_code']);
+                                                                } else {
+                                                                    $('#batch').hide();
+                                                                }
+
+                                                            });
+
+
+                                                            $('.load-box').css('display', 'block');
+                                                            if (academic_id) {
+                                                                $.ajax({
+                                                                    type: "POST",
+                                                                    url: '<?php echo $this->mainconfig['host'] . 'grade-allocation/ajax-get-grade-details-tr-all'; ?>',
+                                                                    data: {academic_year_id: academic_id, archive: archive, prev: $('#prev').val()}
+                                                                }).done(function (data) {
+
+                                                                    $('#course_grade_details').empty();
+                                                                    $('.load-box').css('display', 'none');
+                                                                    $('#course_grade_details').html(data);
+                                                                    $('#course_grade_details').trigger("chosen:updated");
+                                                                });
+
+                                                            }
+                                                        }
+                                                    });
+
+
+                                             $('body').on('change', '#prev', function () {
+                                                        var academic_id = $('#academic_year_id').val();
+                                                       var archive = $('#archive').val();
+                                                        if (academic_id) {
+                                                            $('#batch').show();
+                                                            $.ajax({
+                                                                type: "POST",
+                                                                url: '<?php echo $this->mainconfig['host'] . 'master/ajax-get-batch-code'; ?>',
+                                                                data: {academic_id: academic_id}
+                                                            }).done(function (data) {
+                                                                var result = $.parseJSON(data);
+                                                                if ((data != '')) {
+                                                                    $('#batch').val(result['short_code']);
+                                                                } else {
+                                                                    $('#batch').hide();
+                                                                }
+
+                                                            });
+
+
+                                                            $('.load-box').css('display', 'block');
+                                                            if (academic_id) {
+                                                                $.ajax({
+                                                                    type: "POST",
+                                                                    url: '<?php echo $this->mainconfig['host'] . 'grade-allocation/ajax-get-grade-details-tr-all'; ?>',
+                                                                    data: {academic_year_id: academic_id, archive: archive, prev: $('#prev').val()}
+                                                                }).done(function (data) {
+
+                                                                    $('#course_grade_details').empty();
+                                                                    $('.load-box').css('display', 'none');
+                                                                    $('#course_grade_details').html(data);
+                                                                    $('#course_grade_details').trigger("chosen:updated");
+                                                                });
+
+                                                            }
+                                                        }
+                                                    });
+                                                    
+                                                    
+                                                    function Export() {
+                                                        var name = $('#academic_year_id>option:selected').text();
+                                                        $("#dataTable").table2excel({
+                                                            filename: name + ".xls"
+                                                        });
+                                                    }
+                                                    
+         var myApp = new function () {
+        this.printTable = function () {
+              $('#header').remove();
+            $('#footer').remove();
+            var tab = document.getElementById('dataTable');
+         var department  =  $('#dept_name').val();
+         var d_id  =  $('#d_id').val();
+         console.log(d_id);
+         var session  =  $('#session_name').val();
+          var exam_month  =  $('#exam_month').val();
+         var result_date  =  $('#result_date').val();
+         var batchcode  =  $('#batchcode').val();
+         
+         var principal = "https://pwcadmissions.in/academic/public/images/principal.png";
+        var controller = "https://pwcadmissions.in/academic/public/images/controler.jpg";
+        var blank = "https://pwcadmissions.in/academic/public/images/blank.png"
+         var qual = $("#qual").val();
+           var colspan = 9;
+           var lastsem =$('#semstername').val();
+            $('#dataTable>thead>tr:nth-child(1) th').each(function(e){
+              var  span = $(this).attr('colspan');
+                colspan+=isNaN(span)?0:parseInt(span);
+            });
+           var leftspan = colspan - parseInt(colspan/4)*4 
+            // $('#dataTable>thead').prepend(`<tr id="header"><th colspan="${colspan}"></th></tr>`);
+             $('#dataTable').prepend(`<thead><tr id="header"><th colspan="${colspan}"></th></tr></thead>`);
+             $("#header>th").append("<span style='font-size:2.5em'><b>PATNA WOMEN'S COLLEGE</b></span><br/>");
+                  $("#header>th").append("<span style='font-size:2em'>AUTONOMOUS</span><br/>");
+                  $("#header>th").append("<span style='font-size:2em'>PATNA UNIVERSITY</span><br/>");
+                  $("#header>th").append("<span style='font-size:2em'>Tabulation Register</span><br/>");
+                  $("#header>th").append(`<span style='font-size:2em'>${batchcode}</span><br/>`);
+                  if(d_id!=8){
+                    $("#header>th").append(`<span style='font-size:2em'>${department}</span><br/>`);
+                  }
+                    $("#header>th").append(`<span style='font-size:2em'>${lastsem}(SESSION-${session}) Examination held in month of ${exam_month}</span><br/>`);
+                    $("#header>th").append(`<span style='font-size:2em'>Date of Result : ${result_date}</span><br/>`);
+                  var content = document.getElementById("dataTable");
+            
+            //$('#dataTable').prepend(`<thead><tr id="header"><th colspan="${colspan}"></th></tr></thead>`);        
+          //  $('#dataTable').append(`<tfoot><tr id="footer"><th colspan="${parseInt(colspan/4)}">${qual}</th><th colspan="${parseInt(colspan/4)}"><img src="${blank}" style='height:100px;' colspan="${parseInt(colspan/4)}" alt="controler" /></th><th colspan="${parseInt(colspan/4)}"><img src="${blank}" style='height:100px;' colspan="${parseInt(colspan/4)}" alt="controler" /></th><th colspan="${parseInt(colspan/4)}"><img src="${blank}" style='height:100px;' colspan="${parseInt(colspan/4)}" alt="controler" /></th></tr></tfoot>`);
+
+             var win = window.open('', '', 'height=500,width=700');
+            win.document.write('<html>');
+            win.document.write('<style> .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{font-size:1em !important; margin:0;padding:0 !important;text-align:center !important;vertical-align:middle !important;}');
+            win.document.write('.table{width:100%}</style>');
+            win.document.write('<body style="width:100%;">');
+            win.document.write(tab.outerHTML);
+            win.document.write('</body>');
+            win.document.write('</html>');
+            win.document.close();
+            
+			
+            
+          
+            win.print();
+            
+            $('#header').remove();
+            $('#footer').remove();
+            
+            
+            
+        }
+    }
+              $('body').on('change', "#archive", function () {
+        var value = $(this).parent().attr("class");
+        var valarch = $(this).val();
+        console.log(valarch);
+        $('#prev').empty();
+        if (value.includes("off")) {
+            $(this).removeAttr("checked");
+            $(this).val("0");
+            $('#course_grade_details').empty();
+          
+        } else
+        {
+           
+            $(this).attr("checked", "checked");
+            $(this).val("1");
+            var academic_id = $('#academic_year_id').val();
+            if (academic_id) {
+                $('.load-box').css('display', 'block');
+                $.ajax({
+                    type: "POST",
+                    url: '<?php echo $this->mainconfig['host'] . 'grade-allocation/ajax-get-prev-date1'; ?>',
+                    data: {academic_year_id: academic_id,  archive: $('#archive').val(),prev:$('#prev').val()}
+                }).done(function (data) {
+                    $('#prev').empty();
+                    $('.load-box').css('display', 'none');
+                    $('#prev').html(data);
+                    $('#prev_chosen').removeAttr("style");
+                    $('#prev').trigger("chosen:updated");
+                });
+            }
+            
+        }
+    });         
+
+function selectElementContents(el) {
+	var body = document.body, range, sel;
+	if (document.createRange && window.getSelection) {
+		range = document.createRange();
+		sel = window.getSelection();
+		sel.removeAllRanges();
+		try {
+			range.selectNodeContents(el);
+			sel.addRange(range);
+		} catch (e) {
+			range.selectNode(el);
+			sel.addRange(range);
+		}
+	} else if (body.createTextRange) {
+		range = body.createTextRange();
+		range.moveToElementText(el);
+		range.select();
+		
+		
+	}
+	document.execCommand("copy");
+}
+
+
+
+    </script>

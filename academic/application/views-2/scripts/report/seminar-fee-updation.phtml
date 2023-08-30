@@ -1,0 +1,367 @@
+
+<div class="right_col">
+ <?php   if($this->type=='view') {?> 
+    <div class="panel panel-default " >
+            <table class="table table-striped table-bordered mb30 jambo_table bulk_action dataTable" id="datatable-responsive" >
+                            <thead>
+                                <tr>
+
+                                    <th class="no-sort">S.No.</th>
+
+                                    <th> Name</th>
+                                    <th>Email Id</th>
+                                    <th>Phone</th>
+                                    <th>Paid Amount</th>
+                                    <th class="no_print">Delete Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $i = 1;
+                                    if(!empty($this->pay_info)){
+                                   
+                                       $results = $this->pay_info;
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $i;
+
+                                        $i++;
+                                        ?>
+                                            </td>						
+
+                                            <td><?php echo $results['name']; ?></td>
+                                            <td><?php echo $results['email']; ?></td>
+                                            <td><?php echo $results['number']; ?></td>
+                                            <td><?php echo $results['reg_amt']; ?></td>
+                                            <td style="text-align:center">
+                                                <button type="button" id="deleteBtn" class="btn btn-primary deleteBtn" value="<?= $results['id']; ?>" >Delete</button>
+                                                
+                                            </td>
+                                            
+                                        </tr>            
+
+                                    <?php
+                                    
+                                   
+                                    
+                                    }else{ ?>
+                            <td colspan="7" style="color:red">Record not found! Kindly pay for this semester.</td>
+                                   <?php } ?>
+                                               
+
+                            </tbody>
+                        </table>
+</div>
+    
+    <br>
+    <br>
+ 
+<div class="panel panel-default " >
+    <div class="row">
+        <form class="" id="formValidate1" action="<?php echo $this->mainconfig['host']; ?>report/seminar-fee-updation/type/save/" method="post" data-validate="parsley" enctype="multipart/form-data" >
+            <input type="hidden" name="id" value="<?=$this->stud_info['id'];?>" />
+       <div class=" col-lg-3 ">
+                                    <div class="form-group">
+                                        <label>Name of the Paper Presenter </label>
+                                        <input type="text" name="name" id="name" required="required" readonly="readonly"  class="form-control alumin" >
+                                </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group" >
+                                        <label>Email id </label>
+                                        <input type="text" name="email" id="email" class="form-control alumin" readonly="readonly" required="required" >
+                                </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Mobile Number (WhatsApp Activated)</label>
+                                        <input type="text" name="number" id="number" class="form-control alumin" readonly="readonly" required="required" >
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Designation</label>
+                                        <select name="designation" id="designation" class="form-control alumin" readonly="readonly" required="required">
+                                            <option value="">Select</option>
+                                            <option value="Faculty Member">Faculty Member</option>
+                                            <option value="PG Student">PG Student</option>
+                                            <option value="Research Scholar">Research Scholar</option>
+                                            <option value="Other Professional">Other Professional</option>
+                                        </select>
+                                        
+                                </div>
+                                </div>
+    
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Title of the Paper</label>
+                                        <input type="text" name="title" id="title" class="form-control alumin" readonly="readonly" required="required" >
+                                </div>
+                                </div>
+                                   <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Choose Sub-Theme of the Paper</label>
+                                          <select name="theme" id="theme" class="form-control alumin" readonly="readonly" required="required">
+                                            <option value="">Select</option>
+                                            <option value="Trends of Urbanization in the world">Trends of Urbanization in the world</option>
+                                            <option value="Trends of Urbanization in post-independent India">Trends of Urbanization in post-independent India</option>
+                                            <option value="Urban Systems">Urban Systems</option>
+                                            <option value="Ecology of cities and towns">Ecology of cities and towns</option>
+                                            <option value="Urban environmental issues">Urban environmental issues</option>
+                                            <option value="Urban societies">Urban societies</option>
+                                            <option value="Amenities and Services">Amenities and Services</option>
+                                            <option value="Changing landscape and land use of urban centres">Changing landscape and land use of urban centres</option>
+                                            <option value="Urban economy">Urban economy</option>
+                                            <option value="Urbanization and gender issues">Urbanization and gender issues</option>
+                                            <option value="Smart City- Concept, Development and Challenges">Smart City- Concept, Development and Challenges</option>
+                                            <option value="Urban Problems and Slum improvement">Urban Problems and Slum improvement</option>
+                                            <option value="Urban Planning">Urban Planning</option>
+                                            <option value="Towards Sustainable Development">Towards Sustainable Development</option>
+                                            <option value="Sustainable Development Goals">Sustainable Development Goals</option>
+                                            <option value="Women Work-force">Women Work-force</option>
+                                            <option value="Urban Governance">Urban Governance</option>
+                                            <option value="Any other relevant topic/issue">Any other relevant topic/issue</option>
+                                        </select>
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Institutional Affiliation/Organization</label>
+                                        <input type="text" name="instituition" id="instituition" required="required" readonly="readonly" class="form-control alumin" >
+                                </div>
+                                </div>
+                                   <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>State</label>
+                                        <input type="text" name="state" id="state" readonly="readonly" class="form-control alumin" >
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Nationality</label><br>
+                                        <select name="nationality" id="nationality" class="form-control alumin" readonly="readonly" required="required">
+                                            <option value="">Select</option>
+                                            <option value="Indian">Indian</option>
+                                            <option value="Foreign National">Foreign National</option>
+                                        </select>
+                                </div>
+                                </div>
+
+         <div class="col-sm-3 employee_class">
+            <div class="form-group" >
+                <label  class="control-label" >Pay Mode </label>
+                <select name="pay_mode" id="pay_mode" class="form-control"  required="required" >
+
+                    <option   value=""> Select</option>
+                    <option  value="NEFT"> NEFT</option>
+                    <option  value="RTGS"> RTGS</option>
+                    <option  value="ONLINE"> ONLINE</option>
+                    <option  value="CASH"> CASH</option>
+                </select>
+
+          </div>
+        </div>
+
+        
+
+        <div class="col-sm-3 employee_class">
+            <div class="form-group" >
+                <label  class="control-label" >Bank Name </label>
+                <?php //echo $this->form->stu_id; ?>
+                <input type="text" name="bank_txn" id="bank_txn"  required="required"   class="form-control" value="">
+            </div>
+        </div>
+        <div class="col-sm-3 employee_class">
+            <div class="form-group" >
+                <label  class="control-label" >Txn Id </label>
+                <?php //echo $this->form->stu_id; ?>
+                <input type="text" name="mmp_txn" id="mmp_txn" required="required" class="form-control" value="">
+            </div>
+        </div>
+            <div class="col-sm-3 employee_class">
+            <div class="form-group" >
+                <label  class="control-label" >UTR No. </label>
+                <?php //echo $this->form->stu_id; ?>
+                <input type="text" name="bank_txn" id="bank_txn" required="required" class="form-control" value="">
+            </div>
+        </div>
+        <div class="col-sm-3 employee_class">
+            <div class="form-group" >
+                <label  class="control-label" >Product Id </label>
+                <?php //echo $this->form->stu_id; ?>
+                <input type="text" name="prod_name" id="prod_name" required="required" class="form-control" value="">
+            </div>
+        </div>
+        
+
+        
+
+        <div class="col-sm-3 employee_class">
+            <div class="form-group" >
+                <label  class="control-label" >Txn Date </label>
+                <?php //echo $this->form->stu_id; ?>
+                <input type="text" name="submit_date" id="submit_date" required="required" class="form-control" value="">
+            </div>
+        </div>
+
+        <div class="col-sm-2 employee_class">
+            <div class="form-group" >
+                <div class="form-group"  style="padding-top:2em; float: right" >
+                <input type="submit" name="" value="Submit/Verify" class="btn btn-primary">
+
+            </div>
+
+        </div>
+
+        </div>
+         </form>
+    </div>
+    
+</div>
+   
+                    
+            
+          
+<?php 
+
+    
+
+ } else {    ?>
+            
+     
+
+ <div class="examid">
+      
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <strong class="page-title txt-color-blueDark">
+                       
+            <?php if (count($this->messages)) {
+                foreach ($this->messages as $message) {
+                    ?>
+                    <div class="alert alert-success ">
+                        <a type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
+                    <?php echo $this->escape($message); ?>
+                    </div>
+                <?php }
+            } ?>
+                    </strong>
+                </div>
+
+                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">   
+                </div>
+            </div>
+
+            <div class="x_panel">
+                <div class="x_title">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <h2 class="title1">Seminar Fee Collection </h2></div>
+                       
+                    <div class="clearfix"></div>
+                </div>
+                     </div>
+               
+                <div class="x_content">
+
+                    <div class="padding-md clearfix">
+                       
+                        <div class="table-responsive" id="studentData"> 
+<div class="panel panel-default">
+                        <form class="no-margin" id="formValidate1" action="<?php echo $this->mainconfig['host']; ?>report/seminar-fee-updation/type/view/" method="post" data-validate="parsley" enctype="multipart/form-data" >
+
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <div class="col-sm-3 employee_class">
+                                        <div class="form-group" >
+                                            <label  class="control-label" >Email ID. <span class="asterisk">*</span></label>
+                                            <input type="email" name="email" id="email" placeholder="xyz@gmail.com" class="form-control" required="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 employee_class">
+                                        <div class="form-group" >
+
+
+                                            <label  class="control-label" >Mobile No. <span class="asterisk">*</span></label>
+                                            <input type="number" name="mobile" id="mobile" placeholder="91XXXXXX" class="form-control" required="required">
+                                       
+
+                                      </div>
+                                    </div>
+                                    
+                                    <div class="col-sm-3 col-sm-offset-1 employee_class">
+                                        <label></label>
+                                        <div class="form-group" >
+                                            <input type="submit" class="btn btn-primary" name="submit" value="Search">
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                                                       </form>
+   
+                                    
+
+
+                                </div>
+                            </div>
+
+                            </div>
+   
+                    </div><!-- /.padding-md -->
+                </div><!-- /panel -->
+            </div>
+        </div>
+    </div><!-- /.padding-md -->   
+     </div>
+
+
+
+
+
+     
+     <?php
+ }
+
+    ?>
+      
+    </div>
+
+ 
+<script>
+var inputvalue = `<?php echo json_encode($this->stud_info);?>`;
+    if(inputvalue){
+        var arrayinput = JSON.parse(inputvalue);
+       var  pay = arrayinput['pay_mode'];
+        console.log(arrayinput);
+        
+        $(".form-control").each(function(){
+            var id = $(this).attr("id");
+            
+            $('[name="'+id+'"]').val(arrayinput[id]);
+             $('[name="pay_mode"]').val(arrayinput['pay_mode']);
+        });
+       
+    }
+$(".deleteBtn").click(function() {
+    let deleteId = $(this).val();
+    //alert(deleteId);
+    if(deleteId){
+        $.ajax({
+            type: "POST",
+            url: '<?php echo $this->mainconfig['host'] . 'student/ajax-delete-sem-fee-data'; ?>',
+            data: {delete_id:deleteId}
+        }).done(function (data) {
+            if(data){
+                alert('Record is deleted');
+                window.location.reload();
+            }
+        });
+    }
+});
+    $('#submit_date').datepicker('dd/mm/YYYY');
+setDatatables();
+</script>

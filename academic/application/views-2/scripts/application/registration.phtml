@@ -1,0 +1,983 @@
+<style>
+
+
+
+
+.page-header {margin:0;}
+
+.profile-head { width:100%;background-color: #932e90;float: left;padding: 15px 5px;border-radius: 30px;}
+.profile-head img { height:180px; width:180px; margin:0 auto; border:5px solid #fff; border-radius:5px;}
+.profile-head h5 {width: 100%;padding:5px 5px 0px 5px;text-align:justify;font-weight: bold;color: #fff;font-size: 25px;text-transform:capitalize;
+margin-bottom: 0;}
+.profile-head p {width: 100%;text-align: justify;padding:0px 5px 5px 5px;color: #fff;font-size:17px;text-transform:capitalize;margin:0;}
+.profile-head a {width: 100%;text-align: center;padding: 10px 5px;color: #fff;font-size: 15px;text-transform: capitalize;}
+
+.profile-head ul { list-style:none;padding: 0;}
+.profile-head ul li { display:block; color:#ffffff;padding:5px;font-weight: 400;font-size: 15px;}
+.profile-head ul li:hover span { color:rgb(0, 4, 51);}
+.profile-head ul li span { color:#ffffff;padding-right: 10px;}
+.profile-head ul li a { color:#ffffff;}
+.profile-head h6 {width: 100%;text-align: center;font-weight: 100;color: #fff;font-size: 15px;text-transform: uppercase;margin-bottom: 0;}
+
+
+.nav-tabs {margin: 0;padding: 0;border: 0;}
+.nav-tabs > li > a {background: #DADADA;border-radius: 0;
+    box-shadow: inset 0 -8px 7px -9px rgba(0,0,0,.4),-2px -2px 5px -2px rgba(0,0,0,.4);}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover {background: #F5F5F5;
+    box-shadow: inset 0 0 0 0 rgba(0,0,0,.4),-2px -3px 5px -2px rgba(0,0,0,.4);}
+.tab-pane {background: #ffffff;box-shadow: 0 0 4px rgba(0,0,0,.4);border-radius: 0;text-align: center;padding: 10px;}
+.tab-content>.active {/*margin-top:50px; width:100% !important;*/} 
+
+/* edit profile css*/
+
+.hve-pro {    background-color:rgb(255, 102, 0);padding: 5px; width:100%; height:auto;float:left;}
+.hve-pro p {float: left;color:#fff;font-size: 15px;text-transform: capitalize;padding: 5px 20px;font-family: 'Noto Sans', sans-serif;}
+h2.register { padding:10px 25px; text-transform:capitalize;font-size: 25px;color: rgb(255, 102, 0);}
+.fom-main { overflow:hidden;}
+
+legend {font-family: 'Bitter', serif;color:#ff3200;border-bottom:0px solid;}
+.main_form {background-color: #;}
+label.control-label {font-family: 'Noto Sans', sans-serif;font-weight: 100; margin-bottom:5px !important; 
+text-align:left !important; text-transform:uppercase; color:#798288;}
+.submit-button {color: #fff;background-color:rgb(255, 102, 0);width:190px;border: 0px solid;border-radius: 0px; transition:all ease 0.3s;margin: 5px;
+float:left;}
+.submit-button:hover, .submit-button:focus {color: #fff;background-color:rgb(0, 4, 51);}
+.edit-button {color: #fff;background-color:rgb(255, 102, 0);width:190px;border: 0px solid;border-radius: 0px; transition:all ease 0.3s;margin: 5px;
+float:left;}
+.edit-button:hover, .submit-button:focus {color: #fff;background-color:rgb(0, 4, 51);}
+.hint_icon {color:#ff3200;}
+.form-control:focus {border-color: #ff3200;}
+select.selectpicker { color:#99999c;}
+select.selectpicker option { color:#000 !important;}
+select.selectpicker option:first-child { color:#99999c;}
+.input-group { width:100%;}
+.uplod-picture {width: 100%; background-color:#;color: #fff; padding:20px 10px;margin-bottom:10px;}
+.uplod-file {position: relative;overflow: hidden;color: #fff;background-color: rgb(0, 4, 51);border: 0px solid #a02e09;border-radius: 0px;
+ transition:all ease 0.3s;margin: 5px;}
+.uplod-file input[type=file] {position: absolute;top: 0;right: 0;min-width: 100%;min-height: 100%;font-size: 100px;text-align: right;
+filter: alpha(opacity=0);opacity: 0;outline: none;background: white;cursor: inherit;display: block;}
+/*.uplod-file:hover, .uplod-file:focus {color: #fff;background-color:rgb(255, 102, 0);}*/
+h4.pro-title { font-size:24px; color:rgba(0, 4, 51, 0.96); text-transform:capitalize; text-align:justify;padding: 10px 15px;font-family: 'Bitter', serif;}
+.bio-table { width:75%;border:0px solid;}
+.bio-table td {text-transform: capitalize;text-align: left;font-size: 15px;}
+.bio-table>tbody>tr>td { border:0px solid;text-transform: capitalize;color: rgb(0, 4, 51); font-size:15px;}
+.responsiv-table { border:0px solid;}
+.nav-menu li a {margin: 5px 5px 5px 5px;position: relative;display: block;padding: 10px 50px;border: 0px solid !important;box-shadow: none !important;
+background-color: rgb(0, 4, 51) !important;color: #fff !important;    white-space: nowrap;}
+.nav-menu li.active a {background-color: rgb(255, 102, 0) !important;}
+.stick{position:fixed !important;top:0;z-index:999 !important;width:100%;background:#ffffff !important;height:auto; transition:all ease 0.8s;
+-webkit-box-shadow: 0px 2px 7px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 2px 7px 0px rgba(0,0,0,0.75);
+box-shadow: 0px 2px 7px 0px rgba(0,0,0,0.75);}
+.stick a { line-height:20px !important;}
+.stick img { margin:0 !important;}
+
+
+
+@media all and (max-width:768px){
+
+.navbar-inverse .drop_menu {display: block;visibility: visible;width: 110px;height:1000px;padding:0px 20px;position: absolute;right:-100px;
+transition:all ease 0.5s;border-top: 0px solid;cursor: pointer;}
+.navbar-brand {padding: 0;margin-left: 10px !important;}
+a.menu { display:block !important;margin: 9px 2px;float: right;color: rgba(255, 102, 0, 0.98); border:0px solid; background:none; font-size:30px;width:27px;position: relative;
+cursor:pointer;}
+a.menu:hover, a.menu:focus { color:rgb(0, 4, 51);}
+
+.drop_menu1 { display: block;visibility: visible;width:250px;height:1000px;padding:5px 30px;position: absolute;right:0 !important;
+background-color:#ffffff !important; transition:all ease 0.5s;border-top: 0px solid;cursor: pointer;}
+
+}
+
+@media all and (max-width:430px){
+.profile-head ul li {font-size: 12px !important;}
+.nav-menu li { width:50%;}
+.bio-table>tbody>tr>td {font-size: 13px;}
+
+}
+
+/***
+Bootstrap Line Tabs by @keenthemes
+A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
+Licensed under MIT
+***/
+
+/* Tabs panel */
+.tabbable-panel {
+ /* border:1px solid #eee;*/
+  padding: 10px;
+}
+
+/* Default mode */
+.tabbable-line > .nav-tabs {
+  border: none;
+  margin: 0px;
+}
+.tabbable-line > .nav-tabs > li {
+  margin-right: 2px;
+}
+.tabbable-line > .nav-tabs > li > a {
+  border: 0;
+  margin-right: 0;
+  color: #737373;
+}
+.tabbable-line > .nav-tabs > li > a > i {
+  color: #a6a6a6;
+}
+.tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
+  border-bottom: 4px solid #fbcdcf;
+}
+.tabbable-line > .nav-tabs > li.open > a, .tabbable-line > .nav-tabs > li:hover > a {
+  border: 0;
+  background: none !important;
+  color: #333333;
+}
+.tabbable-line > .nav-tabs > li.open > a > i, .tabbable-line > .nav-tabs > li:hover > a > i {
+  color: #a6a6a6;
+}
+.tabbable-line > .nav-tabs > li.open .dropdown-menu, .tabbable-line > .nav-tabs > li:hover .dropdown-menu {
+  margin-top: 0px;
+}
+.tabbable-line > .nav-tabs > li.active {
+  border-bottom: 4px solid #f3565d;
+  position: relative;
+}
+.tabbable-line > .nav-tabs > li.active > a {
+  border: 0 !important;
+  color: #333333;
+}
+.tabbable-line > .nav-tabs > li.active > a > i {
+  color: #404040;
+}
+.tabbable-line > .tab-content {
+  margin-top: -3px;
+  background-color: #fff;
+  border: 0;
+  border-top: 1px solid #eee;
+  padding: 15px 0;
+}
+.portlet .tabbable-line > .tab-content {
+  padding-bottom: 0;
+}
+
+/* Below tabs mode */
+
+.tabbable-line.tabs-below > .nav-tabs > li {
+  border-top: 4px solid transparent;
+}
+.tabbable-line.tabs-below > .nav-tabs > li > a {
+  margin-top: 0;
+}
+.tabbable-line.tabs-below > .nav-tabs > li:hover {
+  border-bottom: 0;
+  border-top: 4px solid #fbcdcf;
+}
+.tabbable-line.tabs-below > .nav-tabs > li.active {
+  margin-bottom: -2px;
+  border-bottom: 0;
+  border-top: 4px solid #f3565d;
+}
+.tabbable-line.tabs-below > .tab-content {
+  margin-top: -10px;
+  border-top: 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+.menu_title {
+    padding: 15px 10px;
+    border-bottom: 1px solid #eee;
+    margin: 0 5px;
+}
+.record{
+    display:none;
+}
+.container{
+    width:auto !important;
+}
+.input-group-addon {
+     padding: 0px !important; 
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    color: #555;
+    text-align: center;
+     background-color: #fff !important; 
+     border: none !important; 
+    border-radius: 4px;
+}
+
+.right_col{
+    position:relative;
+   
+    box-shadow: 2px 2px 10px #000;
+}
+blink, .blink {
+    -webkit-animation: blink 1.4s step-end infinite;
+    -moz-animation: blink 1.4s step-end infinite;
+    -o-animation: blink 1.4s step-end infinite;
+    animation: blink 1.4s step-end infinite;
+}
+@-webkit-keyframes blink { 67% { opacity: 0 }}
+@-moz-keyframes blink {  67% { opacity: 0 }}
+@-o-keyframes blink {  67% { opacity: 0 }}
+@keyframes blink {  67% { opacity: 0 }}
+</style>
+
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.6.3/font-awesome.min.css" 
+integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJtE" crossorigin="anonymous">
+<?php if ($this->type=='add') { ?>
+<div class="right_col" style="background:#fff;">
+    <form class="no-margin" id="formValidate1" action="<?php echo $this->form->getAction() ?>save" method="post" data-validate="parsley"  enctype="multipart/form-data">
+
+  <input type="hidden" name="session_id" id="session_id" value="<?=$this->s_id?>">
+    <input type="hidden" name="academic_id" id="academic_id" value="<?=$this->acd_id?>">
+    <input type="hidden" name="f_id" id="f_id" value="<?=$this->fid?>">
+    <input type="hidden" name="st_id" id="st_id" value="<?=$this->st_id?>">
+    <input type="hidden" name="non_data" id="non_data" value="1">
+     <input type="hidden" name="semester" id="semester" value="<?=$this->term_details['term_id']?>">
+    <input type="hidden" name="exam_month_id" id="exam_month" value="<?php echo $this->exam_month_id; ?>">
+     <input type="hidden" name="stu_dob" id="stu_dob" value="<?php echo $this->stu_dob; ?>">
+      <input type="hidden" name="registration_no" id="registration_no" value="<?php echo $this->registration_no; ?>">
+       <input type="hidden" name="exam_roll" id="exam_roll" value="<?php echo $this->exam_roll; ?>">
+        <input type="hidden" name="father_fname" id="father_fname" value="<?php echo $this->father_fname; ?>">
+         <input type="hidden" name="college" id="college" value="<?php echo $this->college ; ?>">
+          <input type="hidden" name="year" id="year" value="<?php echo $this->year; ?>">
+       <input type="hidden" name="stu_name" id="stu_name" value="<?php echo $this->stu_name; ?>">
+                 <input type="hidden" name="cc_paper_name" id="cc_paper_name" value="<?php echo $this->year; ?>">
+       <input type="hidden" name="ge_paper_name" id="ge_paper_name" value="<?php echo $this->stu_name; ?>">
+       <input type="hidden" name="roll_no" id="roll_no" >
+                 <input type="hidden" name="aecc_paper_name" id="aecc_paper_name" value="<?php echo $this->year; ?>">
+     
+         
+    <div class="load-box">
+        <img src="<?php echo $this->mainconfig['publicpath']; ?>/images/loader.gif" width='200px'  class="loder_img1" />
+    </div>  
+<div class="container" style="margin-top: 30px;">
+    <div class="profile-head">
+        <!--col-md-4 col-sm-4 col-xs-12 close-->
+        
+        <div class="col-md- col-sm-4 col-xs-12 text-center" style="margin-top:3em">
+            <img src="<?php echo $this->mainconfig['host']; ?>images/img.png" alt="..."> 
+            
+        </div>   
+           
+        <!--col-md-4 col-sm-4 col-xs-12 close-->
+
+        <div class="col-md-4 col-sm-4 col-xs-12" style="margin-top:2em;">
+            <div class="record"><h5 style="text-align: center;font-size:1.6em">PATNA WOMEN'S COLLEGE </h5>
+                                   <h5 style="text-align: center; font-size:1.5em">Autonomous  </h5>
+                                   <h5 style="text-align: center; font-size:1.4em">PATNA UNIVERSITY </h5>
+            <h5 style="text-align: center; font-size:1.4em"><span class="department">Department</span> (<span class="session"></span>)</h5>
+           </div>
+            <div class="no-record">
+                <p>No Record Found..</p>
+                </div>
+            
+        </div>
+     
+        <div class="col-md- col-sm-4 col-xs-12" style="margin-top:3em; text-center">
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" class="img-responsive photo"/>
+            <h5 class="stu_id" style="font-size:1.2em;text-align:center;"></h5>
+        </div>
+    </div>
+    <!--profile-head close-->
+</div>
+<!--container close-->
+
+
+<br/>
+<br/>
+
+<div class="container">
+    <div class="col-md-12 text-center">
+    <h5 style="font-size:1.5em"> REGISTRATION FORM DETAILS </h5>
+    </div>
+    <div class="col-md-12 text-center">
+    <blink class="text-danger" style="font-weight:bold;">NOTICE :- if any discrepancy contact the concerned office immediately </blink>
+    </div>
+    <div class="col-sm-12">
+        <div data-spy="scroll" class="tabbable-panel">
+            <div class="tabbable-line">
+                <!--<ul class="nav nav-tabs ">-->
+                <!--    <li class="active">-->
+                <!--        <a href="#tab_default_1" data-toggle="tab">Personal Info </a>-->
+                <!--    </li>-->
+                    <!--<li>-->
+                    <!--    <a href="#tab_default_2" data-toggle="tab">Education</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--    <a href="#tab_default_3" data-toggle="tab">Course Details</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--    <a href="#tab_default_4" data-toggle="tab">Contact Details</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--    <a href="#tab_default_5" data-toggle="tab">Address Details</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_default_1">
+                        <div class="well well-sm">
+                            <h4>PERSONAL DATA</h4>
+                        </div>
+                    <table class="table bio-table">
+                        <tbody>
+                            <tr>      
+                                <td>Applicant Name</td>
+                                <td >: <span class="stu_fname"></span></td> 
+                            </tr>
+                       
+                         
+                            <tr>
+                                <td>Father's Name</td>
+                                <td>: <span class="father_fname"></span> </td>
+                            </tr>
+                            <tr>
+                                <td>Mother's Name</td>
+                                <td>: <span class="mother_fname"></span> </td> 
+                            </tr>
+                               <tr>
+                                <td>Class Roll</td>
+                                <td>: <span class="roll_no"></span> </td>
+                            </tr>   
+                             <tr>
+                                <td>Board / University (Last Exam)</td>
+                                <td>: <span class="university"></span> </td>
+                            </tr>
+                            <tr>
+                                <td><div class="form-group">
+                        <label for="applicant_name">Email<span class="asterisk">*</span></label>
+                        <p >  <input type="email" name="email" id="email" value="" class="form-control" required="true"></p>
+                    </div></td>
+                                <td><div class="form-group">
+                        <label for="applicant_no">Mobile No.<span class="asterisk">*</span></label>
+                        <p ><input type="number" name="phone" id="phone" value="" class="form-control" required="true"> </p>
+                    </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>           
+         
+                                    
+                <div class="tab-pane" id="tab_default_2">
+                    <div class="well well-sm">
+                        <h4>EDUCATIONAL BACKGROUND</h4>
+                    </div>
+                    <p align="right">
+                        <button type="button" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-edit"></span> Edit</button>
+                    </p>
+                    <table class="table bio-table">
+                        <tbody>
+                            <tr>
+                                <td>Elementary School</td>
+                                <td>: </td>
+                                <td>Year Graduated</td>
+                                <td>: </td> 
+                            </tr>
+                            <tr>
+                                <td>High School</td>
+                                <td>: </td>
+                                <td>Year Graduated</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Under Graduate</td>
+                                <td>: </td>
+                                <td>Year Graduated</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Post Graduate</td>
+                                <td>: </td>
+                                <td>Year Graduated</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Master of Philosophy (MPhil)</td>
+                                <td>: </td>
+                                <td>Year Graduated </td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Doctor of Philosophy (PhD)</td>
+                                <td>: </td>
+                                <td>Year Graduated</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Bachelor of Engineering (B.Eng)<br/>Bachelor of Technology (B.Tech)</td>
+                                <td>: </td>
+                                <td>Year Graduated</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Master of Engineering (M.Eng)<br/>Master of Technology (M.Tech)</td>
+                                <td>: </td>
+                                <td>Year Graduated</td>
+                                <td>: </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="tab-pane" id="tab_default_3">
+                    <div class="well well-sm">
+                        <h4>EMPLOYMENT RECORD</h4>
+                    </div>
+                    <p align="right">
+                        <button type="button" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-edit"></span> Edit</button>
+                    </p>
+                    <table class="table bio-table">
+                        <tbody>
+                            <tr>      
+                                <td>Date</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Position</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Principle Activites</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Employer</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Type of Activites</td>
+                                <td>: </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <br/>
+                    
+                    <table class="table bio-table">
+                        <tbody>
+                            <tr>
+                                <td>Date</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Position</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Principle Activites</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Employer</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Type of Activites</td>
+                                <td>: </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <br/>
+                    
+                    <table class="table bio-table">
+                        <tbody>
+                            <tr>      
+                                <td>Date</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Position</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Principle Activites</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Employer</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Type of Activites</td>
+                                <td>: </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="tab-pane" id="tab_default_4">
+                    <div class="well well-sm">
+                        <h4>OFFICIAL AND PERSONAL CONTACTS</h4>
+                    </div>
+                    <p align="right">
+                        <button type="button" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-edit"></span> Edit</button>
+                    </p>
+                    <table class="table bio-table">
+                        <tbody>
+                            <tr>
+                                <td>Office Telephone Number</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Office Mobile Phone</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Official Email Address</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Personal Mobile Phone</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Personal Email Address </td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Home Phone</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Facebook Account</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Twitter Account</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>Skype Account</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>LinkedIn Account</td>
+                                <td>: </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="tab-pane" id="tab_default_5">
+                    <div class="well well-sm">
+                        <h4>ADDRESS DETAILS</h4>
+                    </div>
+                    <p align="right">
+                        <button type="button" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-edit"></span> Edit</button>
+                    </p>
+                    <table class="table bio-table">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Present Residential Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>   Line 1</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>   Line 2</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>   City</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>   State</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>   Country</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>   Pin code</td>
+                                <td>: </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <br/>
+
+                    <table class="table bio-table">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Permanent Residential Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>   Plot No / Door No / Part No / Block No</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>   Street Name</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>   City</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>   State</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>   Country</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td>   Pin code</td>
+                                <td>: </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12" style="margin-top:1em;margin-bottom:2em; text-align:center;">
+                                    <input type="submit" class="btn btn-primary submit" name="submit" value="I Agree">
+                                </div>
+</div>
+
+
+
+
+
+                
+    </form>
+</div>
+</div>
+<?php } elseif($this->type=='otpverify') {  ?>
+<div class="examid">
+      
+        <div class="">
+            <div class="row">
+
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+                    <h3 class="page-title txt-color-blueDark">
+                        <i class="fa fa-bars">Non-collegiate Student Examination Form</i>
+<?=$this->mssg;?>
+                    </h3>
+                </div>
+
+                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">   
+                </div>
+            </div>
+
+            <div class="x_panel">
+  <div class="load-box">
+             <img src="<?php echo $this->mainconfig['publicpath']; ?>/images/loader.gif" width='200px'  class="loder_img1" />
+        </div>
+                <div class="x_title">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <h2 class="title1">Registration Form</h2></div>
+                        
+                      
+                    <div class="clearfix"></div>
+                </div>
+                     </div>
+               
+                <div class="x_content">
+
+                    <div class="padding-md clearfix">
+                        
+                        <div class="table-responsive" id="studentData"> 
+
+
+<!--///////   raushan  -->
+<div class="panel panel-default">
+                        <form class="no-margin" id="formValidate1" action="<?php echo $this->form->getAction() ?>" method="post" data-validate="parsley" enctype="multipart/form-data" >
+
+                            <div class="panel-body">
+                                <div class="row">
+                                       
+                                    <div class="col-sm-4 employee_class">
+                                        <label  class="control-label" >Admission Form No . <span class="asterisk">*</span></label>
+                                        <div class="input-group" >
+                                             <input type="text" name="stu_id" id="stu_id" value="" placeholder="F-XXXX-XXXX" class="form-control" required="true">
+                                            <span class="input-group-addon"><input type="submit" name="search" class="btn btn-info" value="Submit"></span>
+                                        </div>
+                                    
+                                    
+<!--                                     <div class="col-sm-4 employee_class">
+                                        <div class="form-group" >
+                                            <label  class="control-label" >Enter Your OTP . <span class="asterisk">*</span></label>
+                                             <input type="number" name="otp" id="otp" value="" placeholder="Enter Your OTP" class="form-control" required="true">
+                                            <?php //echo $this->form->otp; ?>
+                                        </div>
+                                    </div>-->
+                                     
+                                            <?php //echo $this->form->stu_id; ?>
+                                            <input type="hidden" name="semester" class="form-control" required="required" value="t1">
+                                                
+                                  
+                                    
+                                    
+                                            
+                                    
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="col-sm-12"> 
+                                        <p style="font-size:12px ; font-weight:bold;" class="text-danger"> <a class="btn btn-red text-red" target="_blank" href="https://shikshaerp.com/complaince/issue" style="overflow:hidden; font-size:12px;">
+					     	<u><strong>* Click here for any Technical Issues </strong></u></a></p>
+                                         </div>
+
+                                </div>
+                            </div>
+                        </form>
+
+                    </div></div>
+   
+                    </div><!-- /.padding-md -->
+                </div><!-- /panel -->
+            </div>
+        </div>
+    </div>
+    
+<?php } else { 
+    
+    die();
+    ?>
+
+    
+   
+    <div class="">
+    <!-- widget grid -->
+    <div class="row">    
+            <div class="col-sm-12">
+
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+                    <h3 class="page-title txt-color-blueDark">
+                        <i class="fa fa-bars">  Non-Collegiate Examination Form</i>
+<?=$this->mssg;?>
+                    </h3>
+                </div>
+
+                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">   
+                </div>
+            </div>
+
+            <div class="x_panel col-sm-12 masterbox examid">
+  <div class="load-box">
+             <img src="<?php echo $this->mainconfig['publicpath']; ?>/images/loader.gif" width='200px'  class="loder_img1" />
+        </div>
+                <div class="x_title">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <h2 class="title1">Exam Form Using Registration ID</h2></div>
+                        
+                      
+                    <div class="clearfix"></div>
+                </div>
+                     </div>
+               
+                <div class="x_content">
+
+                    <div class="padding-md clearfix">
+                        
+                        <div class="table-responsive" id="studentData"> 
+
+
+<!--///////   raushan  -->
+<div class="panel panel-default">
+                        <form class="no-margin" id="formValidate1" action="<?php echo $this->form->getAction() ?>" method="post" data-validate="parsley" enctype="multipart/form-data" >
+
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <div class="col-sm-4 employee_class">
+                                        <div class="form-group" >
+                                            <label  class="control-label" >Admission Form No . <span class="asterisk">*</span></label>
+                                            <?php //echo $this->form->stu_id; ?>
+                                            <input type="text" name="stu_id" id="stu_id" value="" placeholder="F-XXXX-XXXX" class="form-control" required="true">
+                                        </div>
+                                    </div>
+                                    
+                                     <div class="col-sm-4 employee_class">
+                                        <div class="form-group" >
+                                            <label  class="control-label" >Mobile Number . <span class="asterisk">*</span></label>
+                                            <?php //echo $this->form->phone; ?>
+                                            <input type="number" name="phone" id="phone" value="" placeholder="For OTP Enter Valid phone No" class="form-control" required="true">
+                                        </div>
+                                    </div>
+                                      <div class="col-sm-4 employee_class">
+                                        <div class="form-group" >
+                                            <label  class="control-label" >Email Id . <span class="asterisk">*</span></label>
+                                            <input type="email" name="email" id="email" value="" placeholder="For OTP Provide your vlaid email id" class="form-control" required="true">
+                                        </div>
+                                      </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6 employee_class">
+                                        
+                                        <div class="col-sm-3">
+                                        <div class="form-group" >
+                                            <input type="submit" name="search" class="btn btn-info" value="Send Otp">
+                                    </div>
+                                        </div>
+                                        <div class="clo-sm-3">
+                                        <div class="form-group" >
+                                            <a href="<?php echo $this->mainconfig['host']; ?>application/noncollegiate/type/otpverify" class="btn btn-primary"> I Already have the Otp</a>
+                                        </div>  
+                                    </div>
+
+
+
+                                </div>
+                                     <div class="col-sm-3">
+                                         <p style="font-size:12px ">For any query please send email on : support@finessewebtech.com with details infromation:</p>
+                                    </div>
+                            </div>
+                                
+                                  <!--<div class="col-sm-12">
+                                    <h4 style="color:#000FFF; font-weight: 800">
+                                       Notice:  "After the announcement of End Semester Examination schedule, College Office will provide the Admit Card for the students of Semester-II and IV. The examination schedule will be announced after the lockdown."
+                                    </h4>
+                                </div>-->
+                        </form>
+
+                    </div></div>
+   
+                    </div><!-- /.padding-md -->
+                </div><!-- /panel -->
+            </div>
+       
+    </div><!-- /.padding-md -->   
+    </div>
+
+<?php } ?>
+<script>
+$('document').ready(function(){
+      var stu_id = "<?=$this->fid?>";
+          
+        if (stu_id) {
+$('.load-box').css('display', 'block');
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'application/ajax-get-admission-card'; ?>',
+                data: {stu_id: stu_id}
+            }).done(function (data) {
+               console.log(data);
+                if(data==='false') {
+                    alert('No data Found'); 
+                   $("tr>td:nth-child(2)>span").empty();
+                   $(".form-group>p").empty();
+                   $("img").attr("src","https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png")
+                   $(".applicant_name").text("No Record.");
+                   $(".record").hide();
+                   $(".no-record").show();
+                   $('.load-box').css('display', 'none');
+                }
+                var data = JSON.parse(data);
+                var session = data['session'].split("-");
+                if(data['country']==1){
+                    data['country'] = "India";
+                }
+                else
+                {
+                    data['country'] = data['oth_country'];
+                }
+                if(data['degree_id']>1){
+                    $(".hide_c").hide();
+                }
+                else
+                $(".hide_c").show();
+                $(".record").show();
+                   $(".no-record").hide();
+                $(".photo").attr("src","../../../"+data['filename']);
+                 $("#cc_paper_name").val(data['department']);
+                  $("#ge_paper_name").val(data['ge1']);
+                   $("#aecc_paper_name").val(data['aecc1']);
+                    $("#roll_no").val(data['roll_no']);
+                if(!data){
+                    alert("no record found");
+                }
+                for(i in data){
+                  $("."+i).empty();
+                  $("."+i).text(data[i]);
+                }
+                 $('.load-box').css('display', 'none');
+            });
+        }
+    
+});
+ //Get Batch By Session
+    $('body').on('click', 'button', function () {
+        var stu_id = $('#Form_id').val();
+          
+        if (stu_id) {
+$('.load-box').css('display', 'block');
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'entrance-report/ajax-get-admission-card'; ?>',
+                data: {stu_id: stu_id}
+            }).done(function (data) {
+               
+                if(data==='false') {
+                    alert('No data Found'); 
+                   $("tr>td:nth-child(2)>span").empty();
+                   $(".form-group>p").empty();
+                   $("img").attr("src","https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png")
+                   $(".applicant_name").text("No Record.");
+                   $(".record").hide();
+                   $(".no-record").show();
+                   $('.load-box').css('display', 'none');
+                }
+                var data = JSON.parse(data);
+                var session = data['session'].split("-");
+                if(data['country']==1){
+                    data['country'] = "India";
+                }
+                else
+                {
+                    data['country'] = data['oth_country'];
+                }
+                if(data['degree_id']>1){
+                    $(".hide_c").hide();
+                }
+                else
+                $(".hide_c").show();
+                $('.duration').empty();
+                $('.duration').text(`${parseInt(session[1])-parseInt(session[0])} years`);
+                $(".record").show();
+                   $(".no-record").hide();
+                $(".photo").attr("src","../"+data['photo']);
+                var appname = data['applicant_name'];
+                
+                var appname = appname.split(/(\s+)/);
+                $(".app_fname").empty();
+                $(".app_lname").empty();
+                $(".app_fname").text(`: ${appname[0]}`);
+                $(".app_lname").text(`: ${appname[appname.length - 1]}`);
+                if(!data){
+                    alert("no record found");
+                }
+                for(i in data){
+                  $("."+i).empty();
+                  $("."+i).text(data[i]);
+                }
+                 $('.load-box').css('display', 'none');
+            });
+        }
+    });
+    //End
+</script>
+  

@@ -1,0 +1,199 @@
+<?php if(!empty($this->paginator)){ 
+    
+ // echo '<pre>'; print_r($this->paginator);exit;
+?>
+   
+
+                                                 
+                                                 
+  
+<style>
+    @page {
+    background: url('https://pwcadmissions.in/academic/public/images/Certificate_watermark/passout.jpg') no-repeat 0 0;
+    background-image-resize: 6;
+    }
+
+@font-face {
+  font-family: charcoal;
+  src: url(../../../fonts/lci.ttf);
+}
+ h4 {
+    font-family:charcoal;
+        font-weight:bolder;
+        font-size:1.5em;
+ }
+  button,fieldset{
+      position:fixed !important;
+      display:none !important;
+  }
+   p{
+        font-size: 18px;
+        line-height: 2em;
+        text-align: justify;
+    }
+   b{
+        font-size: 15px;
+    }
+    .pull-right{
+        text-align: right;
+        
+    }
+    #applicationFormPreview{
+        padding:3em;
+        border:3px inset #000;
+        width:100%;
+    }
+
+</style>
+<div class="right_col">
+    <?php //echo '<pre>'; print_r($this->duplicate);exit; ?>
+<div class="appForm" id="applicationFormPreview">
+<div class="" id="">
+       <div style="float:right;padding-bottom: 3em;" id="divbutton">
+            <button type="button" id="printAppForm2"  class="btn btn-primary" onclick="window.print()"></button>
+        </div>
+ 
+        <div class="row" id="section-to-print">
+            <div class="col-xs-12" >
+                      
+                      <?php if(!empty($this->duplicate)){ ?>
+                        <p style="font-family: serif;">  <?= !empty($this->duplicate)?'Duplicate':'Duplicate' ?><br>
+                        Sl.No.: <?= !empty($this->paginator['pass_out_no'])?$this->paginator['pass_out_no']:'#123#' ?></p>
+                        
+                      <?php }else{ ?>
+                        <p style="font-family: serif;"> Sl.No.: <?= !empty($this->paginator['pass_out_no'])?$this->paginator['pass_out_no']:'#123#' ?></p>
+                      <?php }?>
+            </div>
+            <div class="col-xs-12" style="margin-top: -7.5em;margin-left:30em; text-align: center;font-family: serif;">
+                <p>Ex. Roll.: <?= !empty($this->paginator['exam_roll'])?$this->paginator['exam_roll']:'N/A' ?> <br>Reg. No.: <?= !empty($this->paginator['reg_no'])?$this->paginator['reg_no']:'N/A' ?> </p>
+            </div>
+              <table class="tablestyle1" width="100%" cellspacing ="0" >
+                    <tr>
+                        <td style="vertical-align:bottom;padding-right:2em">
+                    
+                    <img src="<?php echo $this->mainconfig['publicpath']; ?>img/logo.png" style="margin-top:1.5em" width="80" >               
+                </td>
+                        <td style="text-align: center;">               
+            <div class="col-xs-12" >
+                 <div class = 'sub' style="text-align: center;font-family: canterbury; font-size: 48; margin-left:2em">
+                     Patna Women’s College 
+                 </div>
+                 <div class = 'sub' style="text-align: center;font-family: canterbury; font-size: 30 ">
+                     (Autonomous)
+                 </div>
+                <div class = 'sub' style="text-align: center;font-family: timesnewroman;font-size: 1.5em;  ">
+                       <b>Patna University</b>              
+                </div>
+                <br>
+               
+            </div>
+            </td>
+            <td style="vertical-align:bottom;">
+                <img  src="<?= $this->mainconfig['imagesurl'] . "Patna_University.png"; ?>" width="120"  >
+            </td>
+            </tr>
+            </table>
+            <div class="col-xs-12" style="margin-top:50px">
+                <?php //echo '<pre>'; print_r($this->mainconfig['publicpath']); exit;?>
+                <h2 style="text-align: center; font-size: 1.9em;" > <u style="font-family: PalatinoLinotype;">
+                     PROVISIONAL CERTIFICATE
+                       
+                    </u> </h2> 
+                <p style="font-family: lucida;">
+                This is to certify that <b><?php echo $this->paginator['stu_fname'];?></b> passed the<b> 
+                        
+                    <?php 
+                    $deptStack= array('30','31','32','33','35','39');
+                    if (in_array($this->paginator['dept_id'], $deptStack, TRUE) ||  $this->paginator['dept_id'] == 15){ ?>
+                        <?= !empty($this->paginator['batch']) ?$this->paginator['batch']:'N/A' ;?>
+                    <?php } else if($this->paginator['dept_id'] == 14){ ?>
+                    <?php if(!empty($this->paginator['batch'])) echo $this->paginator['batch'] ?></b> in <b>ACCOUNTING</b>
+                    <?php } else {  ?>
+                      <?= !empty($this->paginator['batch']) ?$this->paginator['batch']:'N/A' ;?></b> in <b><?= !empty($this->paginator['dept_name']) ?trim($this->paginator['dept_name']):'N/A' ;?>
+                    <?php }?>
+                    
+                </b> Examination of the <b>PATNA WOMEN’S COLLEGE, PATNA UNIVERSITY</b> held in the month of  <b><?php echo strtoupper(date("F",strtotime($this->paginator['exam_month']))).' '. date("Y",strtotime($this->paginator['exam_month'])); ?></b> 
+                                    <?php 
+                              // echo "<pre>";   print_r($this->paginator['grade_value']); die();
+                               
+               if(in_array('F',$this->paginator['grade_value']) || in_array('NA',$this->paginator['grade_value']) || in_array('Ab',$this->paginator['grade_value']) || in_array('D',$this->paginator['grade_value']))
+                          {
+                              echo "Pending";
+                          } else {
+                        $Actualcgpa= $this->paginator['cgpa'];
+                         
+                        
+                        $percent = 0;
+                        $ref_grade_item = new Application_Model_ReferenceGradeMasterItems();
+                        
+                        // if(!empty($this->paginator['degree'])){
+                            
+                        //     if($this->paginator['degree']==3)
+                        //       $percent = number_format(($Actualcgpa * 9.25), 2);
+                            
+                        //     else if($this->paginator['degree']>1)
+                        //     $percent = number_format($Actualcgpa*9.5,2);
+                            
+                        //     else 
+                        //     $percent = number_format($Actualcgpa*9,2); 
+                        // $letter_grade = $ref_grade_item->getRecordByNumGrade1($percent,$this->paginator['degree'],$this->paginator['session_id']);
+                        
+                        // }
+                        
+                           if(!empty($this->paginator['degree'])){
+                            
+                             if($this->paginator['session_id']<7){ // #303
+                    $percent = number_format(($Actualcgpa * 9), 2);
+                   }
+                   else
+                   $percent = number_format(($Actualcgpa * 9.5), 2);
+                    if ($this->paginator['degree'] == 3)
+                        $percent = number_format(($Actualcgpa * 9.25), 2);
+                    else if ($this->paginator['degree'] > 1) {
+                        $percent = number_format(($Actualcgpa * 9.5), 2);
+                    } 
+                        $letter_grade = $ref_grade_item->getRecordByNumGrade1($percent,$this->paginator['degree'],$this->paginator['session_id']);
+                        
+                        
+                          }
+                          }
+                      ?>
+
+                            and she secured <b>&nbsp;'<?php echo $letter_grade['letter_grade']  ;?>' </b> Grade with CGPA&nbsp;<b><?php echo number_format($Actualcgpa,2); ?>.</b>
+            </p>
+            </div>
+            <table class="tablestyle1" width="100%" cellspacing ="0" style="margin-top:30px">
+                    <tr>
+                        <td>
+            <div class="col-xs-12" >
+                
+                   <p style="font-family: lucida;"> Date 
+                        <?php //$dateFormat=explode('/',$this->paginator['publish_date']);
+                            //echo $dateFormat['0'].'.'.$dateFormat['1'].'.'.$dateFormat['2'];
+                            echo date('d.m.Y');
+                        ?>
+                    </p> 
+                    
+                  
+            </div>
+            </td>
+            <td style="text-align: right;"><div style="text-align: right;font-family: lucida;">
+            <b>Dy. Registrar</b>
+                      </div>
+                      </td>
+                      </tr>
+                      </table>
+            <?php ///die;?>
+            <div style="margin-top:370px"></div>
+
+</div>
+</div>
+<?php }else{ ?>   
+
+<div class="right_col">
+    <label id="alert_msg" style="color:red; ">
+       Result not found.....!Oop's:) 
+    </label> 
+    
+</div>
+<?php  } ?>                                         

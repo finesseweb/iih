@@ -1,0 +1,130 @@
+<style>
+body {
+         font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        background-image:url("https://pwcadmissions.in/demopwc/academic/public/img/college1.jpg");
+        background-size:cover;
+            overflow:hidden;
+    }
+    .multistepformArea{
+    padding-top: 1px;
+    background-color: white;
+	width: 60%;
+    min-width: 300px;
+	margin: 50px auto;
+	position: relative;
+	
+}
+/*form styles*/
+.regForm {
+    width: 95%;
+    min-width: 300px;
+	margin: 50px auto;
+	position: relative;
+}
+#formValidate1 fieldset {
+
+	border: 0 none;
+	border-radius: 3px;
+	box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+	box-sizing: border-box;
+	position: relative;
+	 z-index: 999;
+}
+.footer_social_browser_contact_area{
+    position:absolute;
+    bottom:0;
+    width:100%;
+}
+.instruction{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    
+}
+.multistepformArea{
+    background-color:#0000;
+    opacity:1;
+    width:100%;
+    color:black;
+    font-style:Raleway;
+    
+}
+#overlay{
+    width:100%;
+    background:#000;
+    opacity:.4;
+    min-height:70em;
+
+    
+}
+.overlayid{
+    position:absolute;
+    margin-top:50px;
+    width:100%;
+    height:100%;
+    background-color:#fff;
+    opacity:.9;
+   border-radius: 100px 40px;
+    
+}
+.employee_class{
+    font-size:1.2em;
+}
+h3,h2,h1,h5,p,b{
+    
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    color : #000;
+}
+.navbar {
+    padding: 0;
+    margin-top: 20px !important;
+}
+</style>
+<div id="overlay"></div>
+<div class="instruction">
+    <div class="overlayid"></div>
+    <div class="multistepformArea">
+        <form class="regForm" id="formValidate1" action="" method="post" data-validate="parsley" >
+
+            <div class="row">
+                <div class="col-sm-12"><h3 class="text-success text-center" style="margin-bottom:30px;">Registration Successful !</h3>
+                    <fieldset>
+                       <?php //echo '<pre>'; print_r($this->paginator); ?>
+
+                        <h5>&nbsp;Dear Applicant <?= ucfirst($this->paginator['applicant_name'])?> ,</h5>
+                        <div class="col-sm-12 employee_class" style="margin-top:20px;">
+                          
+                                <!--<h5> Please note down the <b><u>"Registration Number"</u></b> and <b><u>"Password"</u></b> for further <b><u>Application Form(2022)</u></b> process. </h5>-->
+                                <!--<h5>Registration Number : <b > <i> <u>"<?= $this->paginator['application_no'] ?>" </u> </i></b></h5>-->
+                                <!--<h5>Password : <b > <i><u> "<?= $this->paginator['password'] ?>" </u></i> </b></h5><br>-->
+                                <p> Please check the email provided by you to obtain your registration number and password. The email also contains a link, and please click on it to proceed with the application process. </p>
+
+                        </div>
+                       
+                      
+                         <div class="col-sm-12 employee_class" >
+                            <b style="color:#ff471a">Please check your spam folder if the email does not reach the inbox.</b>
+                        </div>
+                          
+                        </div>
+                     
+            </div>
+                    </fieldset> 
+                    &nbsp;<br>
+                    <br>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    /*$('#continue').hide();
+    $('#instruction').click(function(){
+        if (this.checked) {
+            $('#continue').show();
+        }else{
+            $('#continue').hide();
+        }
+    });*/
+</script>

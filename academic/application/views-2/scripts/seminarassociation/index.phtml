@@ -1,0 +1,529 @@
+<style>
+   
+    bannertext h1 {
+    text-transform: uppercase;
+    color: #fff;
+     font-family: Raleway;
+        font-size:4em;
+    margin-top: 55px;
+}
+ .navbar{
+        padding-top:20px;
+    }
+.bannertext p {
+    margin-top:1em !important;
+}
+ .footer_social_browser_contact_area{
+           position:fixed;
+           width:100%;
+           bottom:0;
+       }
+       .tabsdiv{
+           margin-top:4rem !important;
+       }
+     @media screen and (min-width: 1300px) {
+.tabs02 {
+    margin-top: -5rem !important;
+    
+}
+}
+.alumin{
+    border: 1px solid;
+  
+}
+#mobile > p{
+    line-height:.3em !important;
+}
+.required{
+    color: red;
+}
+
+.tab-content.con_div {
+    min-height: 0;
+}
+/*.Programmestabs>li a{*/
+/*    box-shadow:1px 1px 4px #000;*/
+/*}*/
+/*input[required="required"]::after {*/
+/*    content: "*";*/
+/*    color: red;*/
+/*}*/
+
+</style>
+ 
+<section class="wellcome_slides_area clearfix" id="home" >
+        <div id="demo" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active" style="background-color: #000">
+                    
+                    <img src="<?php echo $this->mainconfig['publicpath']; ?>img/college1.jpg" alt="MIT WPU Banner" class="w-100 d-none d-md-block">
+                    <img src="<?php echo $this->mainconfig['publicpath']; ?>img/college1.jpg" alt="MIT WPU Banner" class="w-100  d-block d-md-none">
+                    <div class="d-none d-md-block">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bannertextnew d-md-none">
+            <h3 class="text-center text-uppercase text-white" style="margin-top:45px!important;"> Seminar Association</h3>
+           
+        </div>
+        
+        <div class="bottom-curve-design"></div> 
+        <div class="banner-form" id="contact-form">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        
+                        <div class="bannertext d-none d-lg-block"  >
+                            <h1 style="font-family: Raleway;
+        font-size:3em;text-align: center"> Seminar Association</h1>
+<!--                            <p style="font-family: Raleway;
+        font-size:4em;"><a href="<?php echo $this->mainconfig['host']; ?>entrance-exam-form/login/" class="btn btn-primary" style="font-size: 20px; font-family: Raleway;text-decoration:none;">Sign In</a></p>
+                            <p><a href="#" id="applybtn" target="_blank">Click here</a> to apply now</p>-->
+                            
+                            <!--<h5 class="text-white">Accepting applications for a few courses only.</h5>-->
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="Programmesection d-block d-md-none">
+        <div class="container pt-3 pb-2 px-0">
+            <div class="tab-content">
+                <div class="tab-pane container active wow fadeInUp animated" data-wow-duration="1.5s" id="ug1_m">
+                     <form method="post" action="" enctype="multipart/form-data">
+                    <div class="row">
+                     
+                                <div class=" col-lg-3 ">
+                                    <div class="form-group">
+                                        <label>Name of the Paper Presenter </label>
+                                        <input type="text" name="name" id="name" required="required" class="form-control alumin" >
+                                </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group" >
+                                        <label>Email id </label>
+                                        <input type="text" name="email" id="email" class="form-control alumin" required="required" >
+                                </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Mobile Number (WhatsApp Activated)</label>
+                                        <input type="text" name="number" id="number" class="form-control alumin" required="required" >
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Designation</label>
+                                        <select name="designation" id="designation" class="form-control alumin" required="required">
+                                            <option value="">Select</option>
+                                            <option value="Faculty Member">Faculty Member</option>
+                                            <option value="PG Student">PG Student</option>
+                                            <option value="Research Scholar">Research Scholar</option>
+                                            <option value="Other Professional">Other Professional</option>
+                                        </select>
+                                        
+                                </div>
+                                </div>
+    
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Title of the Paper</label>
+                                        <input type="text" name="title" id="title" class="form-control alumin" required="required" >
+                                </div>
+                                </div>
+                                   <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Choose Sub-Theme of the Paper</label>
+                                          <select name="theme" id="theme" class="form-control alumin" required="required">
+                                            <option value="">Select</option>
+                                            <option value="Trends of Urbanization in the world">Trends of Urbanization in the world</option>
+                                            <option value="Trends of Urbanization in post-independent India">Trends of Urbanization in post-independent India</option>
+                                            <option value="Urban Systems">Urban Systems</option>
+                                            <option value="Ecology of cities and towns">Ecology of cities and towns</option>
+                                            <option value="Urban environmental issues">Urban environmental issues</option>
+                                            <option value="Urban societies">Urban societies</option>
+                                            <option value="Amenities and Services">Amenities and Services</option>
+                                            <option value="Changing landscape and land use of urban centres">Changing landscape and land use of urban centres</option>
+                                            <option value="Urban economy">Urban economy</option>
+                                            <option value="Urbanization and gender issues">Urbanization and gender issues</option>
+                                            <option value="Smart City- Concept, Development and Challenges">Smart City- Concept, Development and Challenges</option>
+                                            <option value="Urban Problems and Slum improvement">Urban Problems and Slum improvement</option>
+                                            <option value="Urban Planning">Urban Planning</option>
+                                            <option value="Towards Sustainable Development">Towards Sustainable Development</option>
+                                            <option value="Sustainable Development Goals">Sustainable Development Goals</option>
+                                            <option value="Women Work-force">Women Work-force</option>
+                                            <option value="Urban Governance">Urban Governance</option>
+                                            <option value="Any other relevant topic/issue">Any other relevant topic/issue</option>
+                                        </select>
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Institutional Affiliation/Organization</label>
+                                        <input type="text" name="instituition" id="instituition" required="required" class="form-control alumin" >
+                                </div>
+                                </div>
+                                   <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>State</label>
+                                        <input type="text" name="state" id="state" class="form-control alumin" >
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Nationality</label><br>
+                                        <select name="nationality" id="nationality" class="form-control alumin" required="required">
+                                            <option value="">Select</option>
+                                            <option value="Indian">Indian</option>
+                                            <option value="Foreign National">Foreign National</option>
+                                        </select>
+                                </div>
+                                </div>
+                                   
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Payment Mode</label>
+                                        <select name="pay_mode" id="mpay_mode" class="form-control alumin">
+                                            <option value="">Select</option>
+                                            <option value="Online">Online</option>
+                                            <option value="NEFT">NEFT</option>
+                                            <option value="RTGS">RTGS</option>
+                                        </select>
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Life Membership Registration Amount</label>
+                                        <input type="text" name="reg_amt" id="reg_amt" class="form-control alumin" value="500" readonly="readonly">
+                                </div>
+                                </div>
+                                
+                                
+                                </div>
+                           <div class="row" >
+                          <div class="col-md-3" id="payement5" style="display:none">
+                                    <div class="form-group">
+                                        <label>Bank Name</label>
+                                        <input type="text" name="bank_name" id="bank_name" class="form-control alumin" >
+                                </div>
+                                </div>
+                                <div class="col-md-3" id="payement6" style="display:none">
+                                <div class="form-group">
+                                <label>Transaction ID</label>
+                                <input type="text" name="mmp_txn" id="transaction_id" class="form-control alumin">
+                                </div>
+                                </div>
+                                <div class="col-md-3" id="payement7" style="display:none">
+                                <div class="form-group">
+                                        <label>UTR No.</label>
+                                        <input type="text" name="bank_txn" id="utr_no" class="form-control alumin">
+                                </div>
+                                </div>
+                                <div class="col-md-3" id="payement8" style="display:none">
+                                <div class="form-group">
+                                    <label>Transaction Date</label>
+                                    <input type="date" name="date" id="adhar_doc" class="form-control alumin" >
+                                </div>
+                                </div>
+                                <div class="col-md-3" id="payement9" style="display:none">
+                                <div class="form-group">
+                                <label> Document</label>
+                                <input type="file" name="document" id="document" class="form-control alumin" style="height:50px;" >
+                                </div>
+                                </div>
+                                </div>        
+                    
+                    <div class="row"><input type="submit" name="" value="submit" class="btn btn-info"></div>
+                    </div>
+                              </form>
+                </div>
+                   <div class="description" style="margin-top: 25px;">
+                              <div class="row">                                        
+                               <div class="col-md-6 col-xs-12" id="mobile">
+                             <u><p> <strong>Account Details For NEFT/RTGS</strong></p></u>
+                              <p>Account Name:  Principal PWC</p>
+                              <p>Account No  :  85970200000018</p>
+                              <p>Bank Name   :  Bank of Baroda</p>
+                              <p>Bank Branch :  Patna Women's College</p>
+                              <p>IFSC Code   :  BARB0VJPAWC</p>
+                              <p>MICR Code   :  800012048</p>
+                                  </div>
+                                  
+                                  <div class="col-md-6 col-xs-12">
+                                      <p><strong>Note: If the payment is done through RTGS/NEFT it is mandatory to fill the Seminar Association Form.</strong></p>  
+                                      
+                                  </div>
+                          </div>
+                          </div>
+               
+            </div>
+        </div>
+    </section>
+    <section class="d-none d-md-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 tabs02" style="margin-top:rem;">
+                    <div class="tabsdiv" >
+ 
+                      <div class="tab-content con_div wow fadeInUp animated" data-wow-duration="1.5s" id="con_div_ug">
+                               <div class="text-center title">
+                                    <h3>Seminar Association Life Membership Form</h3>
+                                </div>
+                          <div class="col-md-12 col-lg-12 col-sm-12">
+                             
+                              <form method="post" action="" enctype="multipart/form-data">  
+                              <div class="row">
+                                 <div class=" col-lg-3 ">
+                                    <div class="form-group">
+                                        <label>Name of the Paper Presenter </label>
+                                        <input type="text" name="name" id="name" required="required" class="form-control alumin" >
+                                </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group" >
+                                        <label>Email id </label>
+                                        <input type="text" name="email" id="email" class="form-control alumin" required="required" >
+                                </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Mobile Number (WhatsApp Activated)</label>
+                                        <input type="text" name="number" id="number" class="form-control alumin" required="required" >
+                                </div>
+                                </div>
+                                
+                                
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Designation</label>
+                                        <select name="designation" id="designation" class="form-control alumin" required="required">
+                                            <option value="">Select</option>
+                                            <option value="Faculty Member">Faculty Member</option>
+                                            <option value="PG Student">PG Student</option>
+                                            <option value="Research Scholar">Research Scholar</option>
+                                            <option value="Other Professional">Other Professional</option>
+                                        </select>
+                                        
+                                </div>
+                                </div>
+    
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Title of the Paper</label>
+                                        <input type="text" name="title" id="title" class="form-control alumin" required="required" >
+                                </div>
+                                </div>
+                                   <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Choose Sub-Theme of the Paper</label>
+                                          <select name="theme" id="theme" class="form-control alumin" required="required">
+                                            <option value="">Select</option>
+                                            <option value="Trends of Urbanization in the world">Trends of Urbanization in the world</option>
+                                            <option value="Trends of Urbanization in post-independent India">Trends of Urbanization in post-independent India</option>
+                                            <option value="Urban Systems">Urban Systems</option>
+                                            <option value="Ecology of cities and towns">Ecology of cities and towns</option>
+                                            <option value="Urban environmental issues">Urban environmental issues</option>
+                                            <option value="Urban societies">Urban societies</option>
+                                            <option value="Amenities and Services">Amenities and Services</option>
+                                            <option value="Changing landscape and land use of urban centres">Changing landscape and land use of urban centres</option>
+                                            <option value="Urban economy">Urban economy</option>
+                                            <option value="Urbanization and gender issues">Urbanization and gender issues</option>
+                                            <option value="Smart City- Concept, Development and Challenges">Smart City- Concept, Development and Challenges</option>
+                                            <option value="Urban Problems and Slum improvement">Urban Problems and Slum improvement</option>
+                                            <option value="Urban Planning">Urban Planning</option>
+                                            <option value="Towards Sustainable Development">Towards Sustainable Development</option>
+                                            <option value="Sustainable Development Goals">Sustainable Development Goals</option>
+                                            <option value="Women Work-force">Women Work-force</option>
+                                            <option value="Urban Governance">Urban Governance</option>
+                                            <option value="Any other relevant topic/issue">Any other relevant topic/issue</option>
+                                        </select>
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Institutional Affiliation/Organization</label>
+                                        <input type="text" name="instituition" id="instituition" required="required" class="form-control alumin" >
+                                </div>
+                                </div>
+                                   <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>State</label>
+                                        <input type="text" name="state" id="state" class="form-control alumin" >
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Nationality</label><br>
+                                        <select name="nationality" id="nationality" class="form-control alumin" required="required">
+                                            <option value="">Select</option>
+                                            <option value="Indian">Indian</option>
+                                            <option value="Foreign National">Foreign National</option>
+                                        </select>
+                                </div>
+                                </div>
+                                   <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Payment Mode</label>
+                                        <select name="pay_mode" id="pay_mode" class="form-control alumin">
+                                            <option value="">Select</option>
+                                            <option value="Online">Online</option>
+                                            <option value="NEFT">NEFT</option>
+                                            <option value="RTGS">RTGS</option>
+                                        </select>
+                                        
+                                </div>
+                                </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Life Membership Registration Amount(Rs)</label>
+                                        <input type="text" name="reg_amt" id="reg_amt" class="form-control alumin" value="500" readonly="readonly" >
+                                </div>
+                                </div>
+                              </div>
+                              </div>
+                                 <div class="row">
+                                   <div class="col-md-3" id="payment" style="display:none">
+                                    <div class="form-group">
+                                        <label>Bank Name</label>
+                                        <input type="text" name="bank_name" id="bank_name" class="form-control alumin" >
+                                </div>
+                                </div>
+                                   <div class="col-md-3" id="payment1" style="display:none">
+                                    <div class="form-group">
+                                        <label>Transaction ID</label>
+                                        <input type="text" name="mmp_txn" id="transaction_id" class="form-control alumin">
+                                </div>
+                                </div>
+                                  <div class="col-md-3" id="payment2" style="display:none">
+                                    <div class="form-group">
+                                        <label>UTR No.</label>
+                                        <input type="text" name="bank_txn" id="utr_no" class="form-control alumin">
+                                </div>
+                                </div>
+                                  <div class="col-md-3" id="payment3" style="display:none">
+                                    <div class="form-group">
+                                        <label>Transaction Date</label>
+                                        <input type="date" name="date" id="adhar_doc" class="form-control alumin" >
+                                </div>
+                                </div>
+                                  <div class="col-md-3" id="payment4" style="display:none">
+                                    <div class="form-group">
+                                        <label> Document (Allow Only .jpg/.png/.pdf)</label>
+                                        <input type="file" name="document" id="document" class="form-control alumin" style="height:50px;" >
+                                </div>
+                                </div>
+                                </div>
+                              <div class="row"><input type="submit" value="submit" class="btn btn-info"></div>
+                              </form>
+                          </div>
+                        
+                         <div class="description" style="margin-top: 25px;">
+                              <div class="row">                                        
+                               <div class="col-md-6">
+                             <u><p> <strong>Account Details For NEFT/RTGS</strong></p></u>
+                              <p>Account Name:  Principal PWC</p>
+                              <p>Account No  :  85970200000018</p>
+                              <p>Bank Name   :  Bank of Baroda</p>
+                              <p>Bank Branch :  Patna Women's College</p>
+                              <p>IFSC Code   :  BARB0VJPAWC</p>
+                              <p>MICR Code   :  800012048</p>
+                                  </div>
+                                  
+                                  <div class="col-md-6">
+                                      <p><strong>Note: If the payment is done through RTGS/NEFT it is mandatory to fill the Seminar Association Form.</strong></p>  
+                                      
+                                  </div>
+                          </div>
+                          </div>
+                          </div>
+                       
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+
+        $('body').on('keyup change drop paste',"#designation",function() {
+            var ind = $('option:selected',this).index();
+                if(ind==2 || ind == 3){
+                   $('input[readonly]').val(200);
+                }
+                else
+                {
+                  $('input[readonly]').val(500);
+                }
+        });
+    $('body').on('keyup change drop paste',"#pay_mode",function() {
+    var pay=$("#pay_mode").val();
+    
+   // alert(pay);
+    if(pay=='NEFT' || pay=='RTGS') {
+        $("#payment").show();
+        $("#payment1").show();
+        $("#payment2").show();
+        $("#payment3").show();
+        $("#payment4").show();
+        
+         $("#payment .form-control").attr("required","required");
+        $("#payment1 .form-control").attr("required","required");
+        $("#payment2 .form-control").attr("required","required");
+        $("#payment3 .form-control").attr("required","required");
+        $("#payment4 .form-control").attr("required","required");
+     
+        }
+        else {
+        $('#payment').hide();
+        $('#payment1').hide();
+        $('#payment2').hide();
+        $('#payment3').hide();
+        $('#payment4').hide(); 
+         $("#payment .form-control").removeAttr("required");
+        $("#payment1 .form-control").removeAttr("required");
+        $("#payment2 .form-control").removeAttr("required");
+        $("#payment3 .form-control").removeAttr("required");
+        $("#payment4 .form-control").removeAttr("required");
+     
+        }
+    });    
+        $('body').on('keyup change drop paste',"#mpay_mode",function() {
+    var pay=$("#mpay_mode").val();
+    
+   
+    if(pay=='NEFT' || pay=='RTGS') {
+       
+        
+        $("#payement5").show();
+        $("#payement6").show();
+        $("#payement7").show();
+        $("#payement8").show();
+        $("#payement9").show();
+    $("#payement5 .form-control").attr("required","required");
+        $("#payement6 .form-control").attr("required","required");
+        $("#payement7 .form-control").attr("required","required");
+        $("#payement8 .form-control").attr("required","required");
+        $("#payement9 .form-control").attr("required","required");
+        }
+        else {
+ 
+        
+         $('#payement5').hide();
+        $('#payement6').hide();
+        $('#payement7').hide();
+        $('#payement8').hide();
+        $('#payement9').hide(); 
+    $('#payement5 .form-control').removeAttr("required");
+        $('#payement6 .form-control').removeAttr("required");
+        $('#payement7 .form-control').removeAttr("required");
+        $('#payement8 .form-control').removeAttr("required");
+        $('#payement9 .form-control').removeAttr("required");
+        }
+    }); 
+   
+    </script>

@@ -1,0 +1,125 @@
+
+
+<table class="table table-striped table-bordered mb30 jambo_table bulk_action" id="dataTable" >
+    <thead>
+        <tr>
+            <th>S.No.</th>
+            <th> Students Name</th> 
+            <th>Form Id</th>  
+            <th>Roll No</th>  
+            <th>Exam Roll No</th>  
+            <th style="width:50%">Non Academic Course</th>  
+        </tr>
+
+    </thead>
+    <tbody>
+        <?php
+        $i = 1;
+        $pagination_tr = '';
+        if (count($this->paginator) != 0) {
+            //echo '<pre>'; print_r($this->session);exit;
+            foreach ($this->paginator as $results) {
+                //echo '<pre>'; print_r($results);exit;
+                ?>
+                <tr>
+                    <td><?php
+                        echo $i;
+
+                        $i++;
+                        ?>
+                    </td>						
+            <input type="hidden" name="stu_id[]" id="student_id" value="<?php echo $results['student_id']; ?>" /> 
+            <td><?php echo $results['students']; ?></td>
+            <td><?php echo $results['stu_id']; ?></td>
+            <td><?php echo $results['roll_no']; ?></td>
+            <td> <?php echo $results['exam_roll']; ?></td>
+            <td class="no_print">
+                <input type="hidden" name="stu_id" id="stu_id" value="<?php echo $results['stu_id']; ?>" /> 
+                <select class="form-control selected_courses select2" name='selected_courses[]' id="select_<?= $results['stu_id']; ?>"  multiple="multiple">
+
+                    <?php
+                    $creditcourse = new Application_Model_NonAcademicCourse();
+                    $studentCreditAllot = new Application_Model_NonAcademicCreditCourseAllotmentModel();
+
+                    $courseDetails = $creditcourse->getRecordsBySession($this->session);
+                    
+                    $studentAddon = $studentCreditAllot->getStudentRecords($results['stu_id']);
+                    //echo '<pre>'; print_r($courseDetails);exit;
+                    
+                    foreach ($courseDetails as $courseIndex => $Coursevalue) {
+                        $chk = 0;
+                        foreach ($studentAddon as $addonIndex => $addCourse) {
+                            if ($addCourse['credit_course_id'] == $Coursevalue['id']) {
+                                ?>
+                                <option value="<?= $Coursevalue['id']; ?>" selected ><?= $Coursevalue['credit_course']; ?></option>
+
+
+                                <?php $chk = 1;
+                            } //======[end if]=========//
+                            ?>
+
+                            <?php
+                        }//==end inner foreach==//
+                        if ($chk == 0) { ?>
+                           
+                            
+                                <option value="<?= $Coursevalue['id']; ?>" ><?= $Coursevalue['credit_course']; ?></option>
+                           
+                       <?php }
+                    } //==end outer Foreach==//
+                    ?>    
+
+                   
+                </select>
+            </td>
+
+        </tr>            
+
+        <?php
+    }
+    $pagination_tr = $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
+}
+?>
+
+</tbody>
+</table>
+<?php echo $pagination_tr; ?>
+<script src="<?php echo $this->mainconfig['publicpath']; ?>js/customradio.js"></script> 
+<script>
+    $(document).ready(function () {
+        $('.selected_courses').select2();
+
+    });
+    setDatatables();
+    $('.selected_courses').select2();
+    $('select').on('change', function (e) {
+
+        //var form_id = '<?= $results['student_id'] ?>';
+        let form_id = $(this).closest("td").find("#stu_id").val();
+        var selectId = 'select_' + form_id;
+        var select = $('#' + selectId + '>option');
+        console.log(select);
+        var course_id = [];
+        //alert(selectId + 'll');
+        select.each(function () {
+
+            if ($(this).prop("selected")) {
+                //alert('d');
+                course_id.push($(this).val());
+            }
+        });
+        //alert(course_id);
+        if (course_id) {
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'student/ajax-insert-credit-course'; ?>',
+                data: {form_id: form_id, course_id: course_id}
+            }).done(function (data) {
+                $('#alert_msg').text(data);
+            });
+        }
+
+
+    });
+    //end
+</script>
