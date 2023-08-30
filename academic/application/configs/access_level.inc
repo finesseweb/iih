@@ -75,7 +75,7 @@ $security_areas = array(//===[ACADEMIC SETUP]
     'SA_ACAD_PROG_CAL_VIEW' => array(SS_ACAD_M | 30, ("Program Calendar View")),
     'SA_ACAD_GLOBAL_SET' => array(SS_ACAD_M | 31, ("Global Settings")),
     'SA_ACAD_TERM_MASTER' => array(SS_ACAD_M | 32, ("Term Master")),
-    'SA_ACAD_COURSE_FEE' => array(SS_ACAD_M | 33, ('Exam Fee')),
+    'SA_ACAD_COURSE_FEE' => array(SS_ACAD_M | 33, ("Exam Fee")),
     'SA_ACAD_ROOMMAP' => array(SS_ACAD_M | 34, ("Room Mapping")),
     'SA_ACAD_GE' => array(SS_ACAD_M | 35, ("Elective category")),
     'SA_ACAD_AECC_GE' => array(SS_ACAD_M | 36, ("Elective type")),

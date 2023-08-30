@@ -638,7 +638,7 @@ $bool = $exp_learn->getRecordById($_SESSION['admin_login']['admin_login']->empl_
 <?php
                                         //Hide it for faculty
                                         //if (in_array($this->role_id, $this->administrator_role)) {
-
+//print_r($this->login_storage->role_set); die();
 
 
 if ($this->action_name) {
@@ -655,15 +655,16 @@ if ($master_active) {
 echo 'style="display:block"';
 }
 ?>> 
-<li <?php if ($this->sub_title_name == 'Academic') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_COURSE_DEG, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
+<li <?php if ($this->sub_title_name == 'degree') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_COURSE_DEG, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
+ <a href="<?php echo $this->mainconfig['host']; ?>master/degree" >Programme </a>
+ </li>
+<li <?php if ($this->sub_title_name == 'Academic') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_COURSE_CAT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
  <a href="<?php echo $this->mainconfig['host']; ?>plan/academic-year" >Academic Year</a>
  </li>
 <li <?php if ($this->sub_title_name == 'session') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_COURSE_CAT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>master/session" >Session </a>
  </li>
-<li <?php if ($this->sub_title_name == 'degree') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_COURSE_DEG, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
- <a href="<?php echo $this->mainconfig['host']; ?>master/degree" >Programme </a>
- </li>
+
 <li <?php if ($this->sub_title_name == 'department_type') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_DEPARTMENT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
  <a href="<?php echo $this->mainconfig['host']; ?>plan/department-type" >Course</a>
  </li>
@@ -871,7 +872,7 @@ echo 'style="display:block"';
 </ul>  
 
 <li <?php if ($this->sub_title_name == 'Promotion') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_PROM, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?> >
-<a href="<?php echo $this->mainconfig['host']; ?>promotion" target="_blank">Promotion Rules</a>
+<a href="<?php echo $this->mainconfig['host']; ?>promotion/promotion" target="_blank">Promotion Rules</a>
 </li>
 <li <?php if ($this->sub_title_name == 'Result Details') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_PART_SCHOLAR_SHIP, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>result-details/index" target="_blank">Promotion to Semester </a>

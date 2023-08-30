@@ -12,11 +12,11 @@ class Application_Model_SemesterRule extends Zend_Db_Table_Abstract {
     public function getRecords(){       
         $select=$this->_db->select()
             ->from($this->_name)
-            ->join(array("term"=>"declared_terms" ),"term.term_des=$this->_name.semester",array("term_name"))
-            ->join(array("terms"=>"declared_terms"),"terms.term_des=$this->_name.nextSem",array("term_name as next_sem"))
+            //->join(array("term"=>"declared_terms" ),"term.term_des=$this->_name.semester",array("term_name"))
+           // ->join(array("terms"=>"declared_terms"),"terms.term_des=$this->_name.nextSem",array("term_name as next_sem"))
             ->join(array("degree"=>"degree_info"),"degree.id=$this->_name.degree_id",array("degree as degree_name"))
             ->join(array("session"=>"session_info"),"session.id=$this->_name.session",array("session"))
-            ->joinLeft(array("sep"=>"promotion_seperate_items"),"sep.master_id = $this->_name.id and $this->_name.seperate_status = 0",array("GROUP_CONCAT(sep.cmn_terms ORDER by sep.cmn_terms) as sep_terms","GROUP_CONCAT(sep.semester_paper_count ORDER by sep.cmn_terms) as sep_count"))
+         //   ->joinLeft(array("sep"=>"promotion_seperate_items"),"sep.master_id = $this->_name.id and $this->_name.seperate_status = 0",array("GROUP_CONCAT(sep.cmn_terms ORDER by sep.cmn_terms) as sep_terms","GROUP_CONCAT(sep.semester_paper_count ORDER by sep.cmn_terms) as sep_count"))
             ->join(array("academic"=>"academic_year"),"academic.year_id=$this->_name.academic_year_list",array("academic_year"))
             ->where("$this->_name.status !=?",2)
             ->group("$this->_name.id");

@@ -280,4 +280,182 @@ class PromotionController extends Zend_Controller_Action {
         }die;
     }
 
+
+
+    public function promotionAction() {
+        $this->view->action_name = 'Promotion';
+        $this->view->sub_title_name = 'Promotion';
+        $this->accessConfig->setAccess('SA_ACAD_PROM');
+        $Form_validation = new Application_Model_FormValidation();
+        $promotion_form = new Application_Form_PromotionStructure();
+        $promotionRuleModel = new Application_Model_SemesterRule();
+        $seperatePromotions =  new Application_Model_PromotionSeperate();
+        $semester_id = $this->_getParam("id");
+        //print_r($semester_id);die;
+        $type = $this->_getParam("type");
+        $this->view->type = $type;
+        $this->view->form = $promotion_form;
+        if (empty($_SESSION['token'])) {
+            $_SESSION['token'] = bin2hex(random_bytes(32));
+        }
+        $token = $_SESSION['token'];
+        switch ($type) {
+            case "add":
+                if ($this->getRequest()->isPost()) {
+
+                    $data = $_POST;
+					
+					//print_r($data); die();
+                    //$last_insert_id = $FeeStructure_model->insert($data);
+
+                    $semesterRuleData = array(
+                        'semester' => $data['semester'],
+                        'nextSem' => $data['nextSem'],
+                        'degree_id' => $data['degree_id'],
+                        'year_id' => $data['year_id'],
+                        'nextyear' => $data['nextyear'],
+                        'academic_id' => $data['academic_id'],
+                        'academic_year_list' => $data['academic_year_list'],
+                        'session' => $data['session'],
+						'fees' => $data['fees']
+                        
+                       
+                    );
+                    if (!empty($_POST['csrftoken'])) {
+                        if ($_POST['csrftoken'] === $token) {
+                           $last_insert_id =$promotionRuleModel->insert($semesterRuleData);
+                            if($data['prom_type']==0){
+                                $seperate_terms_rules = array();
+                                foreach($data['seprate_term'] as $key => $val){
+                                    if( !$val)
+                                    continue;
+                                    $seperate_terms_rules['cmn_terms'] = $val;
+                                    $seperate_terms_rules['semester_paper_count'] = $data['semester_paper_no'][$key];
+                                    $seperate_terms_rules['master_id'] = $last_insert_id;
+                                    $seperatePromotions->insert($seperate_terms_rules);
+                                }
+                            }
+                            unset($_SESSION["token"]);
+                            $this->_flashMessenger->addMessage('Promotion Rule Successfully added');
+                            $this->_redirect('promotion/promotion');
+                        } else {
+                            $message = "Invalid Token";
+                            $_SESSION['message_class'] = 'alert-danger';
+                            $this->_flashMessenger->addMessage($message);
+                            $this->_redirect('promotion/promotion');
+                        }
+                    }
+                }
+
+            break;
+
+            case 'edit':
+
+                $result = $promotionRuleModel->getRecordById($semester_id);
+                if($result['seperate_status']==0){
+                 $seperatePromotionsresult = $seperatePromotions->getRecordByMasterId($semester_id);
+                }
+                $result['component_paper'] = explode(',', $result['component_paper']);
+                 $result['cmn_terms'] = explode(',', $result['cmn_terms']);
+
+             //   print_r($result); die();
+                $promotion_form->populate($result);
+				
+				
+
+                $this->view->result = $result;
+                $this->view->sepresult = $seperatePromotionsresult;
+                    
+                if ($this->getRequest()->isPost()) {
+
+                    $data = $_POST;
+                   
+                    $updateRuleData = array(
+                        'semester' => $data['semester'],
+                        'nextSem' => $data['nextSem'],
+                        'degree_id' => $data['degree_id'],
+                        'year_id' => $data['year_id'],
+                        'nextyear' => $data['nextyear'],
+                        'academic_id' => $data['academic_id'],
+                        'academic_year_list' => $data['academic_year_list'],
+                        'session' => $data['session'],
+						'fees' => $data['fees']
+                    );
+                    if (!empty($_POST['csrftoken'])) {
+                        if ($_POST['csrftoken'] === $token) {
+                            $promotionRuleModel->update($updateRuleData,array("id=?"=>"$semester_id"));
+                            $last_insert_id = $semester_id;
+                                $seperatePromotions->trashItems($last_insert_id);
+                            if($data['prom_type']==0){
+                                $seperate_terms_rules = array();
+                                foreach($data['seprate_term'] as $key => $val){
+                                    if( !$val)
+                                    continue;
+                                    $seperate_terms_rules['cmn_terms'] = $val;
+                                    $seperate_terms_rules['semester_paper_count'] = $data['semester_paper_no'][$key];
+                                    $seperate_terms_rules['master_id'] = $last_insert_id;
+                                    $seperatePromotions->insert($seperate_terms_rules);
+                                }
+                            }
+
+                            //$Fee = $this->getRequest()->getPost('Fee');
+                            //print_r($Fee);die;
+                            // $Scholarship_model->trashItems($feehead_id); //Delete Fields in Company	
+
+                            $this->_flashMessenger->addMessage('Details Updated Successfully');
+
+                            $this->_redirect('promotion/promotion');
+                        }
+                    } else {
+
+                        $message = "Invalid Token";
+                        $_SESSION['message_class'] = 'alert-danger';
+                        $this->_flashMessenger->addMessage($message);
+                        $this->_redirect('promotion');
+                    }
+                }
+
+                break;
+
+            case 'delete':
+
+                $data['status'] = 2;
+
+                if ($semester_id) {
+
+                    $promotionRuleModel->update($data, array('id=?' => $semester_id));
+
+                    //$FeeHeadItems_model->update($data, array('feehead_id=?' => $feehead_id));
+
+                    $this->_flashMessenger->addMessage('Details Deleted Successfully');
+
+                    $this->_redirect('promotion');
+                }
+
+                break;
+
+            default:
+
+                $messages = $this->_flashMessenger->getMessages();
+
+                $this->view->messages = $messages;
+
+                $result = $promotionRuleModel->getRecords();
+
+                $page = $this->_getParam('page', 1);
+
+                $paginator_data = array(
+                    'page' => $page,
+                    'result' => $result
+                );
+
+                //echo"<pre>";print_r($paginator_data);exit;
+
+                $this->view->paginator = $this->_act->pagination($paginator_data);
+
+                break;
+        }
+    }
+
+
 }

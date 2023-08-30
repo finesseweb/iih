@@ -44,7 +44,7 @@ class Application_Form_PromotionStructure extends Zend_Form {
                 ->removeDecorator('label')
                 ->setAttrib('required', 'required')->setRequired(true)
                 ->setAttrib('class', array('form-control'))
-                 ->addMultioptions(array(''=>'--select--','8'=>'PG(MCA)'))
+                 ->addMultioptions(array(''=>'--select--'))
                 ->addMultioptions($data)
                 ->removeDecorator('htmlTag');
         $this->addElement($degree_id);
@@ -74,30 +74,70 @@ class Application_Form_PromotionStructure extends Zend_Form {
                 ->removeDecorator("htmlTag");
         $this->addElement($year_id);
         
-//        $Department_model = new Application_Model_Academic();
-//        $data = $Department_model->getDropDownList();
-//        $academic_id = $this->createElement('select', 'academic_id')
-//                ->removeDecorator('label')
-//                ->setAttrib('class', array('form-control', 'chosen-select'))
-//                //->setAttrib('required','required')
-//                ->addMultiOptions(array('' => 'Filter by Department'))
-//                ->addMultiOptions($data)
-//                ->removeDecorator("htmlTag");
-//        $this->addElement($academic_id);
-        
-$declaredTerms = new Application_Model_Declaredterms();
-        $data = $declaredTerms->getDropDownList();
-        $term = $this->createElement('select', 'cmn_terms')
+        $Department_model = new Application_Model_Academic();
+        $data = $Department_model->getDropDownList();
+        $academic_id = $this->createElement('select', 'academic_id')
                 ->removeDecorator('label')
-                ->setAttrib('class', array('form-control', 'select2'))
-                ->setAttrib('multiple', 'multipe')
-                // ->setAttrib('required', 'required')->setRequired(true)
-                ->removeDecorator("htmlTag")
-                ->addMultiOptions(array('' => 'Select Semester'))
-                ->addMultiOptions($data);
-        $this->addElement($term);
+                ->setAttrib('class', array('form-control', 'chosen-select'))
+                //->setAttrib('required','required')
+                ->addMultiOptions(array('' => 'Filter by Department'))
+                ->addMultiOptions($data)
+                ->removeDecorator("htmlTag");
+        $this->addElement($academic_id);
+		
+		$year_drop_down = new Application_Model_Year();
+        $year_arr = $year_drop_down->getDropDownList();
+        $year_id = $this->createElement('select', 'year_id')
+                ->removeDecorator('label')->setAttrib('class', array('form-control'))
+                ->addMultiOptions(array('' => 'Select  Year'))
+                ->addMultiOptions($year_arr)
+                ->removeDecorator("htmlTag");
+        $this->addElement($year_id);
+		
+		$nextyear = $this->createElement('select', 'nextyear')
+                ->removeDecorator('label')
+                ->setAttrib('class', array('form-control'))
+                ->setRegisterInArrayValidator(false)
+                ->setAttrib('readonly', 'readonly')
+                ->removeDecorator("htmlTag");
+                
+        $this->addElement($nextyear);
+		/* $Department = new Application_Model_DepartmentType();
+        $data = $Department->getDropDownList();
+        $department = $this->createElement('select', 'department')
+                ->removeDecorator('label')
+                ->setAttrib('class', array('form-control', 'chosen-select'))
+                //->setAttrib('required','required')
+                ->addMultiOptions(array('' => 'Filter by Department'))
+                ->addMultiOptions($data)
+                ->removeDecorator("htmlTag");
+        $this->addElement($department); */
+		
+		
+		
+		//$Department = new Application_Model_DepartmentType();
+        //$data = $Department->getDropDownList();
+        $fees = $this->createElement('text', 'fees')
+                ->removeDecorator('label')
+                ->setAttrib('class', array('form-control'))
+                //->setAttrib('required','required')
+              
+                ->removeDecorator("htmlTag");
+        $this->addElement($fees);
         
-        $no_papers = $this->createElement('select', 'semester_paper_count')
+//$declaredTerms = new Application_Model_Declaredterms();
+ //       $data = $declaredTerms->getDropDownList();
+ //       $term = $this->createElement('select', 'cmn_terms')
+ ///               ->removeDecorator('label')
+  //              ->setAttrib('class', array('form-control', 'select2'))
+ //               ->setAttrib('multiple', 'multipe')
+ //               // ->setAttrib('required', 'required')->setRequired(true)
+   //             ->removeDecorator("htmlTag")
+ //               ->addMultiOptions(array('' => 'Select Semester'))
+    //            ->addMultiOptions($data);
+  //      $this->addElement($term);
+        
+        /* $no_papers = $this->createElement('select', 'semester_paper_count')
                 ->removeDecorator('label')
                 ->setAttrib('class', array('form-control' ,'chosen-select'))
                 // ->setAttrib('required', 'required')->setRequired(true)
@@ -129,9 +169,9 @@ $declaredTerms = new Application_Model_Declaredterms();
                                     '22' => '22',
                                     '23' => '23',
                                     '24' => '24'));
-        $this->addElement($no_papers);
+        $this->addElement($no_papers); */
 
-        $appeared_paper = $this->createElement('select', 'appeared_paper')
+      /*   $appeared_paper = $this->createElement('select', 'appeared_paper')
               ->removeDecorator('label')
                 ->setAttrib('class', array('form-control' ,'chosen-select'))
                 ->setAttrib('required', 'required')->setRequired(true)
@@ -162,8 +202,10 @@ $declaredTerms = new Application_Model_Declaredterms();
                                             '22' => '22',
                                             '23' => '23',
                                             '24' => '24'));
-        $this->addElement($appeared_paper);
-        $promotion_dropdown = new Application_Model_Component();
+        $this->addElement($appeared_paper); */
+		
+		
+        /* $promotion_dropdown = new Application_Model_Component();
         $drop = $promotion_dropdown->getDropDownList2();
         $ese_paper =  $this->createElement('select', 'component_paper')
                 ->removeDecorator('label')
@@ -173,6 +215,6 @@ $declaredTerms = new Application_Model_Declaredterms();
                   ->setAttrib('multiple', 'multiple')
                 ->removeDecorator("htmlTag")
                 ->addMultiOptions($drop);
-        $this->addElement($ese_paper);
+        $this->addElement($ese_paper); */
     }
 }

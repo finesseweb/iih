@@ -5,7 +5,7 @@ class Application_Form_BatchSchedule extends Zend_Form
 	{
 		
             
-                 $department_master = new Application_Model_Department();
+                 $department_master = new Application_Model_DepartmentType();
                                $department_lists = $department_master->getDropDownList(); 
                                //echo '<pre>';print_r($department_lists);exit;
 			$department = $this->createElement('select','department')

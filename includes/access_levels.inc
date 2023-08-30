@@ -482,7 +482,18 @@ $security_areas =array(
         'SA_ACAD_PROG_CAL_VIEW' => array(SS_ACAD_M | 30, _("Program Calendar View")),
         'SA_ACAD_GLOBAL_SET' => array(SS_ACAD_M | 31, _("Global Settings")),
         'SA_ACAD_TERM_MASTER' => array(SS_ACAD_M | 32, _("Term Master")),
-	'SA_ACAD_ROOMMAPPING' => array(SS_ACAD_M | 34, _("Room Mapping")),
+	    'SA_ACAD_ROOMMAPPING' => array(SS_ACAD_M | 34, _("Room Mapping")),
+		'SA_ACAD_GE' => array(SS_ACAD_M | 35, ("Elective category")),
+    'SA_ACAD_AECC_GE' => array(SS_ACAD_M | 36, ("Elective type")),
+    'SA_ACAD_ACC' => array(SS_ACAD_M | 37, ("Account Master")),
+    'SA_ACAD_TCHRDEPT' => array(SS_ACAD_M | 38, ("Teacher Department")),
+    'SA_ACAD_PROM' => array(SS_ACAD_M | 39, ("Promotion Rules")),
+    'SA_ACAD_ROUTINE' => array(SS_ACAD_M | 40, ("Add Routine")),
+    'SA_ACAD_EXAMDATE' => array(SS_ACAD_M | 41, ("Exam Dates")),
+    'SA_ACAD_EAR_CREDIT' => array(SS_ACAD_M | 42, ("Academics Credit")),
+    'SA_ACAD_EAR_CREDITCOURSE' => array(SS_ACAD_M | 43, ("Academics Credit Course")),
+    'SA_ACAD_COURSE_DEG' => array(SS_ACAD_M | 44, ("Degree")),
+    
     
       //transaction
         'SA_ACAD_TO_DO_LIST' => array(SS_ACAD_T | 1, _("To Do List")),
