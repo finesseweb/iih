@@ -1485,7 +1485,7 @@ public function getSecondLastTerm($session="",$department="",$academic_id=""){
         $select->order("$this->_name.$this->_id DESC");
        
 
-    //   echo "<pre>".$select;die;
+    //  echo "<pre>".$select;die;
 
         $result = $this->getAdapter()
             ->fetchAll($select);

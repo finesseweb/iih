@@ -46,11 +46,11 @@ $extras = $this->result;
                                 <thead>
                                     <tr>
                                         <th style="padding:0.5em !important">Course</th>
-                                       <th style="padding:0.5em !important">Batch</th> 
-                                       <!-- <th style="padding:0.5em !important">Term</th> -->
+                                       <!--<th style="padding:0.5em !important">Batch</th> 
+                                        <th style="padding:0.5em !important">Term</th> -->
                                        <!-- <th style="padding:0.5em !important">Section</th> -->
                                         <th style="padding:0.5em !important">Time</th>
-                                        <th style="padding:0.5em !important">Room</th>
+                                        <!--<th style="padding:0.5em !important">Room</th>-->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -58,11 +58,11 @@ $extras = $this->result;
                                         <?php if (!empty($code_value)) { ?>
                                             <tr>
                                                 <th style="padding:0.5em !important"><?= $code_value; ?></th>
-                                                           <th style="padding:0.5em !important"><?= $new_faculty_routine[$key][$class]['batch'][$code_key]; ?></th> 
+                                                       <!--     <th style="padding:0.5em !important"><?= $new_faculty_routine[$key][$class]['batch'][$code_key]; ?></th> -->
                                                 <!--<th style="padding:0.5em !important"><?= $new_faculty_routine[$key][$class]['term'][$code_key]; ?></th>-->
                                                 <!--<th style="padding:0.5em !important"><?= $new_faculty_routine[$key][$class]['section'][$code_key]; ?></th>-->
                                                 <th style="padding:0.5em !important"><?= $new_faculty_routine[$key][$class]['time'][$code_key]; ?></th>
-                                                <th style="padding:0.5em !important"><?= $new_faculty_routine[$key][$class]['room'][$code_key]; ?></th>
+                                                <!--<th style="padding:0.5em !important"><?= $new_faculty_routine[$key][$class]['room'][$code_key]; ?></th>-->
                                             </tr>
                                         <?php }
                                     } ?>

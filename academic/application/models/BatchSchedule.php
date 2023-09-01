@@ -513,7 +513,7 @@ class Application_Model_BatchSchedule extends Zend_Db_Table_Abstract {
     //Get all records
     public function getRecords() {
         $select = $this->_db->select()
-                ->from($this->_name)
+                ->from($this->_name,array("$this->_name.*","$this->_name.status as restatus"))
                 ->joinLeft(array("master" => "academic_master"), "master.academic_year_id=$this->_name.batch")
                 ->joinLeft(array("term" => "term_master"), "term.term_id=$this->_name.term_id")
                 //->joinleft(array("term"=>"term_master"),"term.term_id=components_items.term_id",array("term_name"))

@@ -668,6 +668,10 @@ echo 'style="display:block"';
 <li <?php if ($this->sub_title_name == 'department_type') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_DEPARTMENT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
  <a href="<?php echo $this->mainconfig['host']; ?>plan/department-type" >Course</a>
  </li>
+ 
+  <li <?php if ($this->sub_title_name == 'department') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_DEPARTMENT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
+ <a href="<?php echo $this->mainconfig['host']; ?>plan/department" >Hon's Course/Paper</a>
+ </li>
  <!--<li <?php if ($this->sub_title_name == 'teacher_dept') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_TCHRDEPT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
  <a href="<?php echo $this->mainconfig['host']; ?>plan/teacher-dept" >Teacher Department</a>
  </li>-->
@@ -687,9 +691,7 @@ echo 'style="display:block"';
  <li <?php if ($this->sub_title_name == 'Termmaster') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_TERM_MASTER, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>master/termmaster" >Semester</a>
 </li>
- <li <?php if ($this->sub_title_name == 'department') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_DEPARTMENT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
- <a href="<?php echo $this->mainconfig['host']; ?>plan/department" >Hon's Course/Paper</a>
- </li>
+
  <li <?php if ($this->sub_title_name == 'coursecategory') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_COURSE_CAT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
  <a href="<?php echo $this->mainconfig['host']; ?>master/coursecategory" >Course Category</a>
  </li>
@@ -706,7 +708,7 @@ echo 'style="display:block"';
 <a href="<?php echo $this->mainconfig['host']; ?>master/componentmaster" target="_blank">Component</a>
 </li>
 <li <?php if ($this->sub_title_name == 'course') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_COURSE, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
-<a href="<?php echo $this->mainconfig['host']; ?>master/course" target="_blank">Course</a>
+<a href="<?php echo $this->mainconfig['host']; ?>master/course" target="_blank">Paper</a>
 </li>
 <li <?php if ($this->sub_title_name == 'corecourselearning') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_CORE_COURSE, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>master/corecourselearning" target="_blank">Core Course Learning</a>
