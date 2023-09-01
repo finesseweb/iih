@@ -21,7 +21,8 @@ class Application_Form_Academic extends Zend_Form {
         $this->addElement($frequency);
         
         
-        $Department_model = new Application_Model_DepartmentType();
+        //$Department_model = new Application_Model_DepartmentType();
+		       $Department_model = new Application_Model_Department();
         $data = $Department_model->getDropDownList();
         //print_r($data); die;
         $department_id = $this->createElement('select', 'department_type')

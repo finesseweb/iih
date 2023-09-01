@@ -5,7 +5,7 @@ class Application_Form_BatchSchedule extends Zend_Form
 	{
 		
             
-                 $department_master = new Application_Model_DepartmentType();
+                 $department_master = new Application_Model_Department();
                                $department_lists = $department_master->getDropDownList(); 
                                //echo '<pre>';print_r($department_lists);exit;
 			$department = $this->createElement('select','department')
@@ -40,6 +40,18 @@ class Application_Form_BatchSchedule extends Zend_Form
 							//->addMultiOptions($data)
 							->removeDecorator("htmlTag");
         $this->addElement($academic_year_id);
+		
+		
+		
+		$status = $this->createElement('select','status')
+							->removeDecorator('label')
+							->setAttrib('class',array('form-control','chosen-select'))
+                               ->setAttrib('required','required')
+                            ->setRequired(true)
+							->addMultiOptions(array('' => 'Select'))
+							 ->addMultiOptions(array('0'=>'Active','1'=>'Deactive'))
+							->removeDecorator("htmlTag");
+        $this->addElement($status);
 		
 		/*$HRMModel_model = new Application_Model_HRMModel();
 		$data = $HRMModel_model->getDepartments();

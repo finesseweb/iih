@@ -44,21 +44,21 @@
                                     <input type="hidden" name="submit_type" id="submit_type" value=""/>
                                       <?php if ($this->type == 'edit') { ?>
                                             <?php } else { ?>
-                                                                        <div class="col-sm-3 employee_class">
+                                        <div class="col-sm-3 employee_class">
                                         <div class="form-group">
-                                            
-
-                                          
-                                                <?php ?>
-                                                
-                                            <label class="control-label">Department<span class="asterisk">*</span></label>
-                                                    <?php echo $this->form->department; ?>
-                                                
-    <?php } ?>
+                                            <label class="control-label">Session <span class="asterisk">*</span></label>
+                                             <?php echo $this->form->session_id; ?>
                                         </div>
-                                    </div>
-                                  <?php  
-                                                ?>
+										</div>
+										
+										
+										<div class="col-sm-3 employee_class">
+                                        <div class="form-group">
+                                            <label class="control-label">Department<span class="asterisk">*</span></label>
+                                             <?php echo $this->form->department; ?>
+                                        </div>
+										</div>
+                                  <?php  }    ?>
                                     
                                     <div class="col-sm-3 employee_class">
                                         <div class="form-group">
@@ -172,8 +172,9 @@
                                                                     <th>Terms</th>
                                                                     <th>Status</th>
                                                                     <th>Updated Date</th>
+																	<th>Status</th>
                                                                     <th>Action</th>
-                                                                    <!--<th>View</th>-->
+                                                                    
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -578,7 +579,7 @@
                                         <th>Version No</th>
                                         <th>Updated Date</th>
                                         <th>Action</th>
-                                        <!--<th>View</th>-->
+                                        <th>View</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -590,14 +591,14 @@
 
                                         foreach ($this->paginator as $results) {
                                             ?>
-                                        <td><?= ++$i; ?></td>
+                                        <td><?= ++$i; ?><input type="hidden" value="<?=$results['term_id']?>" id="batch_id"></td>
                                         <td><?= $results['short_code']; ?></td>
                                         <td><?= $results['term_name']; ?></td>
                                         <td><?= $results['name']; ?></td>
                                         <td><?= $results['publish']; ?></td>
                                         <td><?= $results['updated_date']; ?></td>
                                         <td><a href="<?php echo $this->mainconfig['host']; ?>batch-schedule/newindex/type/edit/id/<?php echo $results['batch_schedule_id']; ?>/version/<?= $results['publish']; ?>/section/<?php echo $results['section']; ?>" class="edit" title="Edit">View</a></td>
-                                        <!--<td><a class="component_view" id="<?php //echo $results['ec_id'];  ?>"> View</a></td>-->
+                                        <td><input type="hidden" value="<?=$results['restatus']?>" id="rstatus"><a href="#" class="Status" title="Status" onclick="updateRoutine()"><? if($results['restatus']==0) { echo "Active"; } else { echo "Deactive"; }  ?></a></td>
 
                                         </tr>            
 
@@ -1238,6 +1239,23 @@ var dayName = days[d.getDay()];
     });
     
    
-
+function updateRoutine() {
+	
+	var routine = $('#rstatus').val();
+	var batch_id = $('#batch_id').val();
+	
+	$.ajax({
+           type: "POST",
+            url: '<?php echo $this->mainconfig['host'] . 'batch-schedule/ajax-routine-schedule-update'; ?>',
+	data: {routine: routine,batch_id:batch_id }}).done(function (data) {
+		
+		if(data) {
+		 setInterval('location.reload()', 5000);      
+			
+		} 
+		
+	});
+	
+} 
 </script>
 <?php // echo "<pre>"; print_r($this->result);exit; ?>

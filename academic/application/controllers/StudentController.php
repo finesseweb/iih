@@ -2852,7 +2852,7 @@ $added_date['NonTblId'] = $examinationDates['result_publish_date'] > $NonCollegi
                 $messages = $this->_flashMessenger->getMessages();
                 $this->view->messages = $messages;
                 $result = $student_model->getRecordsBySessionselected($session_id, $department_id);
-
+//echo "<pre>"; print_r($result); die();
                 foreach ($result as $key => $value) {
 
                     $result[$key]['term_name'] = $term_master->getAcademicMinTerms1($value['academic_id']);
