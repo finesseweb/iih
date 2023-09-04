@@ -6,42 +6,91 @@
 					<div><i class="fa fa-eye"> Fee Collection</i></div>
 				</h3>
 				<div class="panel panel-default">
-					<!-- <form class="no-margin" id="formValidate1" action="<?php // echo $this->form->getAction() ?>" method="post" data-validate="parsley" >
+					<form class="no-margin" id="formValidate1" action="<?php echo $this->form->getAction() ?>" method="post" data-validate="parsley" >
 						<div class="panel-body">
 							<div class="row">
-								<div class="col-sm-12 col-md-3">
-									<div class="form-group">
-										<label class="control-label"> Session <span class="asterisk">*</span></label>
-										<?php // echo $this->form->session_id; ?>
+								<div class="col-sm-4">
+									<div class="form-group" >
+										<label  class="control-label" >Year <span class="asterisk">*</span></label>
+										<?php echo $this->form->academic_year_list; ?>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group" >
+										<label  class="control-label" >Session <span class="asterisk">*</span></label>
+										<?php echo $this->form->session; ?>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group" >
+										<label  class="control-label" >Batch <span class="asterisk">*</span></label>
+										<?php echo $this->form->academic_id; ?>
 									</div>
 								</div>
 							</div>
 						</div>
-					</form> -->
+					</form>
 				</div>
 			</div>
 		</div>
-		<!-- <div id="ajaxData"></div> -->
+		<div id="ajaxData"></div>
 	</div>
 </div>
 <div class="load-box" style="top:0px;">
-    <img src="<?php echo $this->mainconfig['publicpath']; ?>/images/loader.gif" width='200px'  class="loder_img1" />
+	<img src="<?php echo $this->mainconfig['publicpath']; ?>/images/loader.gif" width='200px'  class="loder_img1" />
 </div>
 
 <script>
-	// $('#session_id').change( function() {
-	// 	let session_id = $('#session_id').val();
-	// 	if (session_id) {
-	// 		$('.load-box').show();
-	// 		$.ajax({
-    //             type: "POST",
-    //             url: '<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-students'; ?>',
-    //             data: {session_id: session_id}
-    //         }).done(function (data) {
-    //             $('#ajaxData').empty('');
-    //             $('#ajaxData').html(data);
-    //             $('.load-box').css('display','none');
-    //         });
-	// 	}
-	// });
+	$(document).ready( function() {
+		$('#session').empty();
+		$('#academic_id').empty();
+
+		console.log('<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-year'; ?>');
+	});
+
+	$('#academic_year_list').change(function(){
+        //alert('x');
+		$.ajax({
+			type: "POST",
+			url: '<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-session'; ?>',
+			data: {academic_year_id: $('#academic_year_list').val()}
+		}).done(function (data) {
+            // console.log(data);
+			$('#session').empty();
+			$('#session').html(data);
+			$("#session").trigger("chosen:updated");
+		});
+	});
+
+	$('#session').change(function(){
+        //alert('x');
+		$.ajax({
+			type: "POST",
+			url: '<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-academic-id'; ?>',
+			data: {session: $('#session').val()}
+		}).done(function (data) {
+            // console.log(data);
+			$('#academic_id').empty();
+			$('#academic_id').html(data);
+			$("#academic_id").trigger("chosen:updated");
+		});
+	});
+
+	$('#academic_id').change(function(){
+        //alert('x');
+		$.ajax({
+			type: "POST",
+			url: '<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-students'; ?>',
+			data: {
+				// degree: $('#degree_id').val(),
+				year: $('#academic_year_list').val(),
+				session: $('#session').val(),
+				batch: $('#academic_id').val()
+			}
+		}).done(function (data) {
+			// console.log(data);
+			$('#ajaxData').empty('');
+			$('#ajaxData').html(data);
+		});
+	});
 </script>
