@@ -384,6 +384,7 @@ class TimetableController extends Zend_Controller_Action {
                          }
                       else
                       $version_details = $batch_schedule->getAllversionWithBatchTerm($batch, $term);
+				 //   echo"<pre>"; print_r($version_details);exit;
                      $courses = array();
                       foreach($version_details as $key => $version_detail){
                         $courses[$version_detail['max_version']] = $batch_schedule->getCourseDayWise($max_no_of_classes,$version_detail['max_version']);
@@ -398,7 +399,7 @@ class TimetableController extends Zend_Controller_Action {
                       }
                       $course = array_filter($course, function($value){ return $value != '';});
                       $course = array_unique($course);
-                  //  echo"<pre>"; print_r($version_details);exit;
+                 
           foreach($version_details as $key => $version_detail){
               $no_of_classes = $max_no_of_classes;
                 $result[$academic_model->getBatchCodeRecord($version_detail['batch'])['short_code']][$version_detail['term_id']][$version_detail['section']]  = $attendance_model->getAllDateDetailsWeekly($version_detail['term_id'], $version_detail['batch'], $course, date('d-m-Y'), $version_detail['max_version'], $no_of_classes,$version_detail['section']);  
@@ -435,10 +436,17 @@ class TimetableController extends Zend_Controller_Action {
              }
              $class_records = $class_model->getRecords();
              $class_records = $this->mergData($class_records, array('class_name'),count($class_records));
+            if($version_details) {
             $this->view->classrecords = $class_records ;
             $this->view->no_of_classes = $max_no_of_classes ;
             $this->view->result = $result;  
             $this->view->faculty_routine = $new_faculty_routine;
+            }   else {
+            $this->view->classrecords = '' ;
+            $this->view->no_of_classes = '' ;
+            $this->view->result = '';  
+            $this->view->faculty_routine = '';
+            }
                      
             }
                 

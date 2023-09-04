@@ -36,7 +36,7 @@ class Application_Model_BatchSchedule extends Zend_Db_Table_Abstract {
                 ->from($this->_name, array('max(publish) as max_version','term_id','batch','section'))
                 ->where('batch =?',$batch)
                 ->where('term_id =?',$term)
-                ->where("status!=?", 2)
+                ->where("status!=?", 1)
                 ->group(array('batch','term_id','section'));
      // echo $select; die;
         $result = $this->getAdapter()
