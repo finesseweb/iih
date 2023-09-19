@@ -6,7 +6,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $front = Zend_Controller_Front::getInstance();
 
      
-        $front->setBaseUrl('/nep_merged_gh/academic/');
+        $front->setBaseUrl('/iih/academic/');
     }
 
 }
