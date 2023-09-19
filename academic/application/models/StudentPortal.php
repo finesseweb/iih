@@ -3150,7 +3150,7 @@ $result = $this->getAdapter()
         $select = $this->_db->select()
             ->from($this->_name)
             ->where("$this->_name.status !=?", 2)
-            ->where("$this->_name.stu_mobileno =?", $id);
+            ->where("$this->_name.stu_id =?", $id);
              $result = $this->getAdapter()
             ->fetchRow($select);
        // echo $select;die;

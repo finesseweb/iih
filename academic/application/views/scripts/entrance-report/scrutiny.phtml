@@ -153,14 +153,14 @@
 
                                         foreach ($this->paginator as $results) {
 											
-											  //$res= $stuportal->getsturecordsbyph($results['phone']);
+											  $res= $stuportal->getsturecordsbyph($results['user_id']);
 											   //$deptinfo->getRecordbyDepartmentType($results['course']);
 											 // print_r($results); die();
 											  
 											 
-											 // if($res) {
-												//  continue;
-											  //}
+											 if($res) {
+												  continue;
+											  }
 
                                           
                                             ?>
