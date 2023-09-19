@@ -104,18 +104,31 @@ class Application_Form_Assignment extends Zend_Form {
                 
         $declaredTerms =  new Application_Model_Declaredterms();
         $data = $declaredTerms->getDropDownList();
-           $term = $this->createElement('select', 'cmn_terms')
+        $term = $this->createElement('select', 'cmn_terms')
                 ->removeDecorator('label')
                 ->setAttrib('class', array('form-control', 'chosen-select'))
                 ->setAttrib('required', 'required')
-                   ->setRequired(true)
+                 ->setRequired(true)
                 ->removeDecorator("htmlTag")
                 ->addMultiOptions(array('' => 'Select'))
-                   ->addMultiOptions($data);
-                   $this->addElement($term);
+                 ->addMultiOptions($data);
+                $this->addElement($term);
+				
+				
+				
+		
+        $termid = $this->createElement('select', 'term_id')
+                ->removeDecorator('label')
+                ->setAttrib('class', array('form-control', 'chosen-select'))
+                ->setAttrib('required', 'required')
+                 ->setRequired(true)
+                ->removeDecorator("htmlTag")
+                ->addMultiOptions(array('' => 'Select'));
+                 
+                $this->addElement($termid);		
                    
                    
-                   $Coursecategory_model = new Application_Model_Coursecategory();
+        $Coursecategory_model = new Application_Model_Coursecategory();
 		$data = $Coursecategory_model->getDropDownList();
 		//print_r($data); die;
                                     $cc_id = $this->createElement('select','cc_id')

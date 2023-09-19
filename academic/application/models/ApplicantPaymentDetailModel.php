@@ -23,6 +23,21 @@ class Application_Model_ApplicantPaymentDetailModel extends Zend_Db_Table_Abstra
         //echo"<pre>";print_r($result);die;	  
         return $result;
     }
+	
+	
+	 public function getRecordsprint() {
+        $select = $this->_db->select()
+                ->from($this->_name)
+                ->joinLeft(array('record' => 'applicant_payment_record'), "record.payment_id = $this->_name.id", array())
+				->joinLeft(array('department' => 'department_type'), "department.id = $this->_name.course", array("department_type"))
+                ->where("$this->_name.payment_status=?", 1)
+                ->order("$this->_name.id desc");
+        // echo $select;die;
+        $result = $this->getAdapter()
+                ->fetchAll($select);
+        //echo"<pre>";print_r($result);die;	  
+        return $result;
+    }
 
     //Added By Kedar : 07 Oct 2020
     public function getRecordByYearId($yearId) {
@@ -56,14 +71,16 @@ class Application_Model_ApplicantPaymentDetailModel extends Zend_Db_Table_Abstra
           
         $sql = "Select  roll_no,payment_status,applicant_course_details.*,
             applicant_educational_details.*,
-            applicant_personal_details.*
+            applicant_personal_details.*,
+			applicant_registration.*
       
        from
        applicant_payement_details,
        applicant_educational_details,
        applicant_course_details,
        applicant_payment_record,
-       applicant_personal_details
+       applicant_personal_details,
+	   applicant_registration
        where 
        
        applicant_payment_record.payment_id=applicant_payement_details.id
@@ -72,7 +89,7 @@ class Application_Model_ApplicantPaymentDetailModel extends Zend_Db_Table_Abstra
        and applicant_personal_details.application_no = applicant_payement_details.application_no
        
        and applicant_payement_details.course != ''";
-       $sql.=$academic?" and applicant_course_details.core_course1 = '$id'":" and applicant_payement_details.course = '$id'";
+       $sql.=$academic?" and applicant_course_details.course = '$id'":" and applicant_payement_details.course = '$id'";
        $sql.="and applicant_payement_details.payment_status = '1' 
        and applicant_payement_details.roll_no != 0 
        and applicant_payment_record.f_code= 'Ok' 
@@ -87,30 +104,56 @@ class Application_Model_ApplicantPaymentDetailModel extends Zend_Db_Table_Abstra
 
     }
 	
-	public function getRecordByCouse1($id,$acad_id= '5',$academic=false) {
-      $acad_id  = empty($acad_id)?5:$acad_id;
+	public function getRecordByCouse1($id,$acad_id) {
     
-          
-        $sql = "Select educourse.*,applicant_educational_details.*,
+    
+            $select = $this->_db->select()
+                ->from("applicant_course_details")
+				->joinleft(array("applicant_registration"), "applicant_registration.application_no=applicant_course_details.application_no")
+				->joinleft(array("applicant_personal_details"), "applicant_personal_details.application_no=applicant_course_details.application_no")
+                ->where("applicant_course_details.course=?", $id)
+				->where("applicant_course_details.acad_year_id=?", $acad_id);
+               
+        //->order('id desc')
+        //->limit(1);
+        $result = $this->getAdapter()
+                ->fetchAll($select);
+        // echo"<pre>";print_r($result);exit;	  
+        return $result;
+      
+      
+
+
+    }
+	
+	public function getRecordByCouse2($id,$acad_id,$course) {
+      
+    $sql = "Select educourse.*,applicant_educational_details.*,
             
-            applicant_personal_details.*,
-           applicant_registration.*
+       applicant_personal_details.*,
+       applicant_registration.*
        from
        applicant_educational_details ,
        applicant_course_details as educourse,
        applicant_personal_details,
-	   applicant_registration
-     
-    where educourse.course = $id and educourse.acad_year_id = $acad_id";
-      
-      /// echo "<pre>".$sql;die;
+	   applicant_registration";
+	   if($course==1) {
+	  $sql.= ",applicant_payment_record,
+	    applicant_payement_details";
+	  
+	   }
+        $sql.=" where educourse.course = $id and educourse.acad_year_id = $acad_id";
+		if($course==1)   
+        $sql.=" and applicant_payement_details.payment_status = '1'" ;
+      // echo "<pre>".$sql; die;
         $result = $this->getAdapter()
                 ->fetchAll($sql);
       //  echo"<pre>";print_r($result);die;	
-        return $result;
+        return $result; 
 
 
     }
+	
 	
 	
      public function getRecordByStuid($stu_id) {
@@ -350,7 +393,7 @@ class Application_Model_ApplicantPaymentDetailModel extends Zend_Db_Table_Abstra
         // $select->order(array('department_type.degree_id'));
      //   echo "<pre>".$select; die;
  
-$select = "SELECT count(applicant_course_details.core_course1) as total_count,department_type.department_type, session_id,department.department,academic_master.academic_year_id  FROM `applicant_course_details` 
+$select = "SELECT count(applicant_payement_details.course) as total_count,department_type.department_type, session_id,department.department,department_type.id as academic_year_id  FROM `applicant_course_details` 
 ,applicant_payement_details
 ,applicant_payment_record
 ,department_type
@@ -361,7 +404,8 @@ applicant_payement_details.application_no = applicant_course_details.application
 and applicant_payment_record.payment_id = applicant_payement_details.id
 and applicant_payment_record.application_id = applicant_payement_details.application_no
 and department_type.id = applicant_course_details.course
-and academic_master.academic_year_id =  applicant_course_details.core_course1
+and department.department_type = department_type.id
+and academic_master.department =  department.id
 and department.id = academic_master.department
 and applicant_payement_details.payment_status = 1
 and applicant_payement_details.acad_year_id= $year_id
@@ -571,20 +615,20 @@ $result = $this->getAdapter()
            $select = $this->_db->select();
         $select->from(array($this->_name), array('course', 'count(applicant_payement_details.course) as total_count'));
 
-        $select->joinleft(array("department_type"), "department_type.id=$this->_name.course", array("department_type", "session_id"));
+        $select->joinleft(array("department_type"), "department_type.id=$this->_name.course", array("department_type", "session_id", "id as academic_year_id"));
 
         $select->joinLeft(array('record' => 'applicant_payment_record'), "record.payment_id = applicant_payement_details.id", array());
          $select->joinLeft(array("applicant_course_details"), "applicant_course_details.application_no=$this->_name.application_no");
-        $select->joinleft(array('seat' => 'sanctioned_seat'), "seat.course = $this->_name.course", array("max_seat"));
-        $select->joinLeft(array("academic_master"), "academic_master.academic_year_id=applicant_course_details.core_course1");
+        //$select->joinleft(array('seat' => 'sanctioned_seat'), "seat.course = $this->_name.course", array("max_seat"));
+        //$select->joinLeft(array("academic_master"), "academic_master.academic_year_id=applicant_course_details.core_course1");
      //   $select->joinleft(array('follow' => 'applicant_documents_followup'), "follow.application_no = $this->_name.application_no");
      
         $select->where("applicant_payement_details.payment_status=?", 1);
         if (!empty($year_id)) {
             $select->where("applicant_payement_details.acad_year_id=?", $year_id);
         }
-        $select->where("seat.core_course=?", 0);
-        $select->where("seat.generic_elective=?", 0);
+      //  $select->where("seat.core_course=?", 0);
+       // $select->where("seat.generic_elective=?", 0);
         $select->where("record.f_code=?", Ok);
        //  $select->where("follow.acad_year_id=?",$year_id);
         $select->where("department_type.degree_id !=?", 1);
@@ -596,7 +640,7 @@ $result = $this->getAdapter()
         
         $result = $this->getAdapter()
                 ->fetchAll($select);
-        //echo "<pre>".$select; die;
+       // echo "<pre>".$select; die;
         //echo"<pre>";print_r($result);exit;
         return $result;
     }
@@ -634,6 +678,39 @@ $result = $this->getAdapter()
         //echo"<pre>";print_r($result);exit;
         return $result;
     }
+
+ public function getallcount($course) { 
+ 
+   $select = $this->_db->select();
+        $select->from(array($this->_name), array('course', 'count(applicant_payement_details.course) as total_count'));
+        $select->where("course=?", $course);
+		$select->group(array('applicant_payement_details.course'));
+		$result = $this->getAdapter()
+                ->fetchRow($select);
+		  //echo"<pre>";print_r($result);exit;		
+		 return $result['total_count'];
+ }
+ 
+ 
+ public function GetTransactionDetails($form_id,$acad_id) {
+        $select = $this->_db->select();
+        $select->from(array($this->_name,array("$this->_name.*")));
+        $select->joinLeft(array('record' => 'applicant_payment_record'), "record.payment_id = applicant_payement_details.id", array("record.mmp_txn","record.bank_name"));
+        $select->joinLeft(array("applicant_course_details"), "applicant_course_details.application_no=$this->_name.application_no");
+        $select->joinLeft(array('personal' => 'applicant_personal_details'), "personal.application_no = $this->_name.application_no", array('personal.*'));
+		$select->joinLeft(array('registration' => 'applicant_registration'), "registration.application_no = $this->_name.application_no", array('registration.*'));
+     
+        $select->where("applicant_payement_details.payment_status=?", 1);
+        $select->where("applicant_payement_details.acad_year_id=?", $acad_id);
+        $select->where("applicant_payement_details.form_id=?", $form_id);
+        $result = $this->getAdapter()
+                ->fetchRow($select);
+        //echo "<pre>".$select; die;
+        //echo"<pre>";print_r($result);exit;
+        return $result;
+    }
+ 
+ 
 
     //ENd 
 }

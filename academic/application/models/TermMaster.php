@@ -131,10 +131,23 @@ class Application_Model_TermMaster extends Zend_Db_Table_Abstract {
         $select = $this->_db->select()
             ->from($this->_name)
             ->where("academic_year_id=?", $academic_id)
-            ->where("$this->_name.status !=?", 2)
-            ->order("$this->_name.cmn_terms");
+            ->where("$this->_name.status !=?", 2);
+            //->order("$this->_name.cmn_terms");
         $result = $this->getAdapter()
             ->fetchAll($select);
+        return $result;
+    }
+	
+	
+	
+	 public function getRecordAllAcademicId($academic_id) {
+        $select = $this->_db->select()
+            ->from($this->_name)
+            ->where("academic_year_id=?", $academic_id)
+            ->where("$this->_name.status !=?", 2);
+            //->order("$this->_name.cmn_terms");
+        $result = $this->getAdapter()
+            ->fetchRow($select);
         return $result;
     }
     

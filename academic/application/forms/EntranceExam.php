@@ -38,8 +38,8 @@ class Application_Form_EntranceExam extends Zend_Form
         $email = $this->createElement('text', 'email_id')
                 ->removeDecorator('label')->setAttrib('class', array('form-control form-control-lg'))
                 ->setAttrib('placeholder','example@gmail.com')
-                ->setAttrib('required','required')->setRequired(true)
-                ->setAttrib('pattern', '^[a-zA-Z0-9._-]+@[a-zA-Z]+\.[a-z]+$')
+               // ->setAttrib('required','required')->setRequired(true)
+               // ->setAttrib('pattern', '^[a-zA-Z0-9._-]+@[a-zA-Z]+\.[a-z]+$')
                 ->setAttrib('title', 'example@gmail.com')
                 ->setRequired(true)
                    

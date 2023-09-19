@@ -30,7 +30,19 @@ class Application_Model_Department extends Zend_Db_Table_Abstract {
        // echo '<pre>'; print_r($result); exit;
         return $result;
     }
-    
+    public function getRecordbyDepartmentType($id) {
+        $select = $this->_db->select()
+            ->from($this->_name)
+             ->where("$this->_name.department_type =?", $id);
+            
+                // ->where("status=?",0);r
+        $result = $this->getAdapter()
+                ->fetchRow($select);
+				//   echo $select; die();
+        //$result['batch_id'] = $this->academic($id);
+       // echo '<pre>'; print_r($result); exit;
+        return $result;
+    }
     public function academic($id){
             
      $select = $this->_db->select()

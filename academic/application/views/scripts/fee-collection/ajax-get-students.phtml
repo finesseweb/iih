@@ -9,8 +9,8 @@
 			<!-- <th style="text-align:center;" >Course Category Name</th>-->
 			<th style="text-align:center;" >Student Name</th>
 			<th style="text-align:center;" >Total Amount</th>
-
-			<th style="text-align:center;" >Total Paid</th>
+            <th style="text-align:center;" >Total Paid</th>
+			<th style="text-align:center;" >Discount</th>
 			<th style="text-align:center;" >Total Due</th>
 
 			<th class="no_print"  style="text-align:center;" >Action</th>
@@ -23,16 +23,21 @@
 
 		<?php
 		$i = 1;
+ $fee_collector_model = new Application_Model_FeeCollector();
 
+          
 		$pagination_tr = '';
 
 		if (count($this->paginator) != 0) {
 
-
-
-			foreach ($this->paginator as $results) {
-
-                //print_r($results);die;
+                  
+	foreach ($this->paginator as $results) {
+		
+    $total_fees=$this->semFee[$results['academic_id']];
+	  $result1 = $fee_collector_model->get_student_paid($results['stid'],$this->termdata['term_id']);
+	//  print_r($results); die();
+    $due_fees = round($total_fees-$result1['totalpaid']-$result1['discount']);
+              
 				?>
 
 				<tr>
@@ -53,12 +58,60 @@
 
 				<!-- <td><?php //echo $results['cc_name']; ?></td>-->
 				<td><?php echo $results['stu_fname']; ?></td>
-				<td><?php echo $results['cat_row_total'] ?></td>
-
-				<!-- <td><?php // echo $results['degree_id'] ?></td> -->
-				<td><?php echo $results['total_paid'] ?></td>
-				<td><?php echo ($results['cat_row_total'] - $results['total_paid']) ?></td>
-				<td><a href="<?php echo $this->mainconfig['host']; ?>fee-collection/pay?stid=<?php echo $results['stid'] ?>&total=<?php echo $results['cat_row_total'] ?>" class="edit" title="Edit"><span class="fa fa-edit fa-lg"></span></a></td>
+				 <td><?php echo $total_fees; ?></td>
+				<!--<td><?php 
+				/*  if($this->termdata['cmn_terms']!='') {
+				     switch ($this->termdata['cmn_terms']) {
+                        case "t1":
+                        echo "Sem-1";
+                        break;
+                        case "t2":
+                        echo "Sem-2";
+                        break;
+                        case "t3":
+                        echo "Sem-3";
+                        break;
+                        case "t4":
+                        echo "Sem-4";
+                        break;
+                        case "t5":
+                        echo "Sem-5";
+                        break;
+                        case "t6":
+                        echo "Sem-6";
+                        break;
+                        default:
+                        echo "n/a";
+                         }
+				
+				 }
+				 else {
+					 
+					 switch ($this->termdata['year_id']) {
+                        case "1":
+                        echo "First Year";
+                        break;
+                        case "2":
+                        echo "Second Year";
+                        break;
+                        case "3":
+                        echo "Third Year";
+                        break;
+                        case "4":
+                        echo "Forth Yeat";
+                        
+                        break;
+                        default:
+                        echo "n/a";
+                         } 
+					 
+				 } */
+				
+				?></td> -->
+				<td><?php echo $result1['totalpaid'];  ?></td>
+				<td><?php echo $result1['discount'];  ?></td>
+				 <td><?php echo $due_fees; ?></td>
+				<td><a href="<?php echo $this->mainconfig['host']; ?>fee-collection/pay?stid=<?php echo $results['stid'] ?>&academic=<?php echo $results['academic_id'] ?>&term=<?=$this->semester?>&collection_id=<?php echo $result1['id'] ?>" class="edit" title="Edit"><span class="fa fa-edit fa-lg"></span></a></td>
 
 
 

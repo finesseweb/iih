@@ -25,9 +25,11 @@
 
 
 <?php
-error_reporting(0);
+//error_reporting(0);
 $date = new Zend_Date();
 $col_span = 2 + count($this->term_data);
+
+ 
 ?>
 <tr class="purchase-quatation-items-close ">
     <td colspan="6">
@@ -58,10 +60,11 @@ $col_span = 2 + count($this->term_data);
 
                                                 </tr>
                                                 <tr>
-                                                    <?php if (($this->term_data) > 0) { ?>
+                                                    <?php  if (($this->term_data) > 0) { ?>
                                                         <?php foreach ($this->term_data as $key => $term_details) { ?>
                                                             <?php $inc = $key + 1; ?>
                                                     <input type ="text" style="display:none;" value="<?= $term_details['cmn_terms']; ?>" name='term_id[]' > 
+													 <input type ="text" style="display:none;" value="<?= $term_details['term_id']; ?>" name='terms_id[]' > 
                                                     <th style="text-align:center;" bgcolor="#f7ffe6" ><?= strtoupper($term_details['term_name']); ?></th>
                                                 <?php } ?>
 
@@ -91,7 +94,7 @@ $col_span = 2 + count($this->term_data);
 
 
                                                     <?php
-                                                    print_r($this->academics_data);
+                                                   // print_r($this->academics_data);
                                                 } else {
 
                                                   //  echo '<pre>'; print_r($this->Feeheads_data['feehead_name']);						
@@ -140,8 +143,11 @@ $col_span = 2 + count($this->term_data);
                                                                             ?>
                                                                                 <?php $inc = $key + 1; ?> 				
                                                                             <td>
-                                                                                <?php $term1_result = $TermItems_model->getFeesRecords($this->structure_id, $cat_ids, $fhead_ids, $this->term_data[$key]['cmn_terms']); ?>
-                            <?php $term1_cat_tot += $term1_result['fees']; ?>
+                                                                                <?php $term1_result = $TermItems_model->getFeesRecords($this->structure_id, $cat_ids, $fhead_ids, $this->term_data[$key]['term_id']); ?>
+                                                                                <?php 
+																				 // print_r($term1_result); die();
+																				
+																				$term1_cat_tot += $term1_result['fees']; ?>
 
                                                                                 <input type="text" name="term_<?php echo $categories['category_id']; ?>_<?php echo $vals['feehead_id']; ?>_<?= $inc; ?>" id ="term<?php echo $j; ?>_<?= $inc; ?>" class="form-control-sm term<?= $inc; ?><?php echo $categories['category_id']; ?> term" onchange="select_term_fees(this.val,<?php echo $j; ?>,<?php echo $i; ?>,<?php echo $categories['category_id']; ?>,<?= $inc; ?>)" style="text-align:right;" value="<?php echo!empty($term1_result['fees']) ? $term1_result['fees'] : 0; ?>"/></td>
                         <?php } ?>

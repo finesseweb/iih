@@ -27,7 +27,7 @@
 
                 </div>
 
-                <?php
+                <?php  
             }
         }
         ?>
@@ -45,7 +45,7 @@
                     <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
 
                         <h3 class="page-title txt-color-blueDark">
-                            <i class="fa fa-bars"> Entrance Exam (Scrutiny Interface) </i>
+                            <i class="fa fa-bars"> Scrutiny Interface </i>
                         </h3>
                     </div>
 
@@ -108,17 +108,13 @@
                                         <th style="text-align:center;" rowspan="2">S. No.</th>
                                         <th style="text-align:center;" rowspan="2">Applicant Name</th>
 
-                                        <th style="text-align:center;" rowspan="2">Roll No</th>
+                                        <th style="text-align:center;" rowspan="2">User ID</th>
 
-                                        <th style="text-align:center;" rowspan="2">Form Id</th>
+                                        <th style="text-align:center;" rowspan="2">Enrollment Id</th>
 
                                         <th style="text-align:center" rowspan="2">Course</th>
 
-                                        <th style="text-align:center" colspan="3">First Preference</th>
-                                        <th style="text-align:center" colspan="2">Second Preference</th>
-                                        <th style="text-align:center"rowspan="2">AddOn Courses</th>
-                                        <th style="text-align:center"rowspan="2">Save AddOn's</th>
-                                        <!--<th style="text-align:center"rowspan="2">Photo</th>-->
+                                        
                                         <th style="text-align:center"rowspan="2">Edit Form</th>
                                         <th style="text-align:center"rowspan="2">Doc. Submitted</th>
 
@@ -128,24 +124,24 @@
 
 
                                     </tr>
-                                    <tr>
-                                        <th>Core Course</th>
-                                        <th>Generic</th>
-                                        <th>Aecc</th>
-                                        <th>Core Course</th>
-                                        <th>Generic</th>
-                                    </tr>
+                                   
                                 </thead>
 
                                 <tbody style="text-align:center;">
 
                                     <?php
-                                    $geinfo = new Application_Model_Ge();
-                                    $deptinfo = new Application_Model_Department();
+									//echo 'hii'; die();
+                                   
+                                     $deptinfo = new Application_Model_Department();
+									  $acadid = new Application_Model_Academic();
                                     $deptType = new Application_Model_DepartmentType();
-                                    $educdet = new Application_Model_ApplicantCourseDetailModel();
-                                    $addoncourse = new Application_Model_AddonCourseModel();
-                                    $addons = new Application_Model_AddonCourseAssignmentModel();
+                                    $stuportal = new Application_Model_StudentPortal();
+									        $max_reg = $stuportal->getmaxRegno();
+											$max_exam = $stuportal->getmaxExamno();
+									
+                                  //  $addoncourse = new Application_Model_AddonCourseModel();
+                                  //  $addons = new Application_Model_AddonCourseAssignmentModel();
+								      //$deptid= $deptinfo->getRecordbyDepartmentType($results['course'])['id'];
 
                                     $i = 1;
 
@@ -156,91 +152,55 @@
 
 
                                         foreach ($this->paginator as $results) {
+											
+											  //$res= $stuportal->getsturecordsbyph($results['phone']);
+											   //$deptinfo->getRecordbyDepartmentType($results['course']);
+											 // print_r($results); die();
+											  
+											 
+											 // if($res) {
+												//  continue;
+											  //}
 
-                                            //echo '<pre>'; print_r($results);die;
+                                          
                                             ?>
 
                                             <tr>
 
-                                                <td><?php
-                                echo $i;
-                                $i++;
-                                            ?>
-
-                                                </td>
+                                                <td><?php echo $i; $i++;?></td>
                                                 <td><?php echo $results['applicant_name']; ?></td>
-                                                    <?php //$edu_details = $educdet->getApplicationCourseDetails($results['form_id']); ?>
-                                                <td><?= $results['roll_no']; ?></td>
-
+                                                <td><?= $results['user_id']; ?></td>
                                                 <td><?php echo $results['form_id']; ?></td>
-
                                                 <td><?php echo $deptType->getRecord($results['course'])['department_type']; ?></td>
-                                                <td><?php if ($results['core_course1']) {
-                                        echo $deptinfo->getRecordbyAcademic($results['core_course1'])['dpt_name'];
-                                    } else {
-                                        echo '--';
-                                    } ?></td>
-
-                                                <td><?php if ($results['ge1']) {
-                                        echo $geinfo->getRecord($results['ge1'])['general_elective_name'];
-                                    } else echo '--'; ?></td>
-                                                <td><?= !empty($results['aecc1']) ? $results['aecc1'] : '--' ?></td>
-                                                <td><?php if ($results['core_course2']) {
-                                        echo $deptinfo->getRecordbyAcademic($results['core_course2'])['dpt_name'];
-                                    } else {
-                                        echo '--';
-                                    } ?></td>
-
-                                                <td><?php if ($results['ge2']) {
-                                                echo $geinfo->getRecord($results['ge2'])['general_elective_name'];
-                                            } else echo '--'; ?></td>
-                                                <td><select class="form-control selected_courses select2" name='selected_courses[]' id="select_<?= $results['form_id']; ?>" required="required"  multiple="multiple">
-
-                                                        <?php
-                                                        $studentAddon = $addons->getStudentRecords($results['form_id']);
-                                                        $courseDetails = $addoncourse->getRecords($this->acad);
-                                                        
-                                                       // echo "<pre>"; print_r($courseDetails);
-                                                        foreach ($courseDetails as $courseIndex => $Coursevalue) {
-                                                            $chk = 0;
-                                                            foreach ($studentAddon as $addonIndex => $addCourse) {
-                                                                
-                                                                
-                                                                if ($addCourse['addon_course_id'] == $Coursevalue['id']) {
-                                                                    ?>
-                                                                    <option value="<?= $Coursevalue['id']; ?>" selected ><?= $Coursevalue['name']; ?></option>
-
-
-                                                                    <?php $chk = 1;
-                                                                } //======[end if]=========//?>
-
-                                                                <?php
-                                                            }//==end inner foreach==//
-                                                            if ($chk == 0) {
-                                                                $seats = $addons->getStudentAddonUniqueFee($Coursevalue['id']);
-                                                                 // echo "<pre>"; print_r($Coursevalue); die();
-                                                                //if ($seats['total_seat_no'] < $Coursevalue['capacity']) {
-                                                                    ?>
-                                                                    <option value="<?= $Coursevalue['id']; ?>" ><?= $Coursevalue['name']; ?></option>
-                                                        <?php //}
-                                                    }
-                                                } //==end outer Foreach==//
-                                                ?>
-                                                    </select></td>
-                                                <td><input type="checkbox" style="height: 25px; width: 25px;" name="check[]"  id="check_<?= $results['form_id']; ?>"></td>
-                                            <!--<td><?= !empty($results['aecc2']) ? $results['aecc2'] : '--' ?></td>-->
-                                                <!--<td><img src = "/academic/<?= $results['photo']; ?>" width ="70em" alt ='NA'/></td>-->
-            <?php if ($results['scrutiny_status'] != 1) { ?>
-                                                    <td><a href="<?php echo $this->mainconfig['host']; ?>multi-step-form/index/type/step4/a_id/<?php echo md5($results['application_no']); ?>/role/admin/"target="_blank" class="edit" title="Edit"><span class="fa fa-edit fa-lg"></span></a></td>
-            <?php } else { ?>
-                                                    <td>
-                                                        <a href="<?php echo $this->mainconfig['host']; ?>multi-step-form/index/type/step4/a_id/<?php echo md5($results['application_no']); ?>/role/admin/"target="_blank" class="edit" title="Edit"><span class="fa fa-edit fa-lg"></span></a> <button type="#" class="btn btn-primary" >Scrutiny Completed.</button></td>
-                                                    </td> 
-                                            <?php } ?>
-
+                                                <?php if ($results['scrutiny_status'] != 1) { ?>
+                                                <td><a href="<?php echo $this->mainconfig['host']; ?>multi-step-form/index/type/step4/a_id/<?php echo md5($results['application_no']); ?>/role/admin/"target="_blank" class="edit" title="Edit"><span class="fa fa-edit fa-lg"></span></a></td>
+                                                <?php } else { ?>
+                                                <td>
+												<input type="hidden" name="stu_name"   id="stu_name"   value="<?php echo $results['applicant_name']; ?>">
+												<input type="hidden" name="stu_fname"   id="stu_fname"   value="<?php echo $results['father_name']; ?>">
+												<input type="hidden" name="father_contact" id="father_contact" value="<?php echo $results['father_contact']; ?>">
+												<input type="hidden" name="stu_email"  id="stu_email"    value="<?php echo $results['email_id']; ?>">
+												<input type="hidden" name="stu_phone" id="stu_phone"     value="<?php echo $results['phone']; ?>">
+												<input type="hidden" name="gender"  id="gender"       value="<?php echo $results['gender']; ?>">
+												<input type="hidden" name="dob"  id="dob"          value="<?php echo $results['dob_date']; ?>">
+												<input type="hidden" name="aadhar" id="aadhar"        value="<?php echo $results['aadhar_number']; ?>">
+												<input type="hidden" name="caste_category" id="caste_category" value="<?php echo $results['caste_category']; ?>">
+												<input type="hidden" name="religion"  id="religion"     value="<?php echo $results['religion']; ?>">
+												<input type="hidden" name="nationality" id="nationality"    value="<?php echo $results['nationality']; ?>">
+												<input type="hidden" name="academic_id" id="academic_id"    value="<?php echo $acadid->getRecordByDeptyear($results['acad_year_id'],$deptinfo->getRecordbyDepartmentType($results['course'])['id']); ?>">
+												<input type="hidden" name="reg_no"  id="reg_no"       value="<?php echo $max_reg+1; ?>">
+												<input type="hidden" name="exam_roll" id="exam_roll"     value="<?php echo $max_exam+1; ?>">
+												<input type="hidden" name="roll_no"   id="roll_no"     value="<?php echo $max_exam+1; ?>">
+												<input type="hidden" name="year_id"   id="year_id"     value="<?php echo $results['acad_year_id']; ?>">
+												
+												
+                                                <a href="<?php echo $this->mainconfig['host']; ?>multi-step-form/index/type/step4/a_id/<?php echo md5($results['application_no']); ?>/role/admin/" target="_blank" class="edit" title="Edit"><span class="fa fa-edit fa-lg"></span></a>
+												<a href="#" onclick="SubmitFormData()" class="btn btn-primary" title="Edit">Pay Now</a></td>
+                                                </td> 
+                                                <?php } ?>
                                                 <td class="view_document">
-                                                    <input type="hidden" value="<?= $results['application_no']; ?>" id="app_number">
-                                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">View Docs.</button></td>
+                                                <input type="hidden" value="<?= $results['application_no']; ?>" id="app_number">
+                                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">View Docs.</button></td>
                                             </tr>            
 
                                             <?php
@@ -307,7 +267,7 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <h3 class="page-title txt-color-blueDark">
-                        <i class="fa fa-bars">Entrance Exam [Scrutiny Interface]</i>
+                        <i class="fa fa-bars"> Scrutiny Interface  </i>
 
                     </h3>
                 </div>
@@ -358,7 +318,12 @@
     $pagination_tr = '';
     if (count($this->paginator) != 0) {
         foreach ($this->paginator as $results) {
-            //echo '<pre>'; print_r($results);
+           // echo '<pre>'; print_r($results);
+			
+			 $applicantCourseData = new Application_Model_ApplicantPaymentDetailModel();
+			 
+			 
+			  
             ?>
                                             <tr>
                                                 <td><?php
@@ -372,10 +337,10 @@
                                                 <td><?php echo $results['department_type']; ?></td>
                                                 <td><?php echo $results['department']; ?></td>
                                                 <!--<td><?php echo $results['max_seat']; ?></td>-->
-                                                <td><?php echo $results['total_count']; ?></td>
+                                                <td><?php echo $applicantCourseData->getallcount($results['academic_year_id']);?></td>
 
 
-                                                <td style="text-align:center"><a class="report" href="<?php echo $this->mainconfig['host']; ?>entrance-report/scrutiny/type/getStudents/dept_id/<?php echo $results['academic_year_id']; ?>/acad/5" target="_blank" class="edit" title="Edit"><button type="button" class="btn btn-info">View Applicants</button></a></td>
+                                                <td style="text-align:center"><a class="report" href="<?php echo $this->mainconfig['host']; ?>entrance-report/scrutiny/type/getStudents/dept_id/<?php echo $results['academic_year_id']; ?>/acad/<?=$this->acad;?>" target="_blank" class="edit" title="Edit"><button type="button" class="btn btn-info">View Applicants</button></a></td>
                                             </tr>            
 
             <?php
@@ -407,7 +372,7 @@
                                             <tr>
                                                 <th>S.No.</th>
                                                 <th> Course Name</th>
-                                                <th>Sanctioned Seats</th>  
+												<th> Batch Name</th>
                                                 <th>Applied Students</th>   
                                                 <th class="no_print">On-Board Applicants</th>
                                             </tr>
@@ -430,7 +395,7 @@
 
 
                                                         <td><?php echo $results['department_type']; ?></td>
-                                                        <td><?php echo $results['max_seat']; ?></td>
+														<td><?php echo $results['department_type']; ?></td>
                                                         <td><?php echo $results['total_count']; ?></td>
                                                         </td>
 
@@ -438,7 +403,7 @@
                                                         <td style="text-align:center">
 
 
-                                                            <a class="btn btn-info" class="report"  href="<?php echo $this->mainconfig['host']; ?>entrance-report/scrutiny/type/getStudents/dept_id/<?php echo $results['academic_year_id']; ?>/acad/5" target="_blank">View Applicants </a>  
+                                                            <a class="btn btn-info" class="report"  href="<?php echo $this->mainconfig['host']; ?>entrance-report/scrutiny/type/getStudents/dept_id/<?php echo $results['academic_year_id']; ?>/acad/<?=$this->acad;?>" target="_blank">View Applicants </a>  
                                                         </td>
                                                     </tr>            
 
@@ -549,7 +514,7 @@
                         $.ajax({
                             type: "POST",
                             url: '<?php echo $this->mainconfig['host'] . 'entrance-report/ajax-insert-addons'; ?>',
-                            data: {form_id: form_id[0], course_id: course_id,acad_id: <?=$this->acad;?>}
+                            data: {form_id: form_id[0], course_id: course_id}
                         }).done(function (data) {
                            courseval = JSON.parse(data);
                            for(i in courseval){
@@ -602,6 +567,7 @@
                 }).done(function (data) {
                     //alert(data);
                     $('#alert_msg').text(data);
+					setTimeout("location.reload(true);",2000)
                     //$('#msg').html(data);
                 });
                 //console.log(docArray);
@@ -625,5 +591,43 @@
                 }
             });
             //End : 08 Oct 2020
+
+function SubmitFormData(){
+	
+	//alert('hii');
+	
+	 let stu_name = $('#stu_name').val();
+	 let stu_fname = $('#stu_fname').val();
+	 let father_contact = $('#father_contact').val();
+	 let stu_email = $('#stu_email').val();
+	 let stu_phone = $('#stu_phone').val();
+	 let gender = $('#gender').val();
+	 let dob = $('#dob').val();
+	 let aadhar = $('#aadhar').val();
+	 let caste_category = $('#caste_category').val();
+	 let religion = $('#religion').val();
+	 let nationality = $('#nationality').val();
+	 let academic_id = $('#academic_id').val();
+	 let reg_no = $('#reg_no').val();
+	 let exam_roll = $('#exam_roll').val();
+	 let roll_no = $('#roll_no').val();
+	 let year_id = $('#year_id').val();
+	 
+	   $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'entrance-report/ajax-insert-erp-records'; ?>',
+                     data: {stu_name: stu_name,stu_fname:stu_fname,father_contact:father_contact,stu_email:stu_email,stu_phone:stu_phone,gender:gender,dob:dob,aadhar:aadhar,caste_category:caste_category,religion:religion,nationality:nationality,academic_id:academic_id,reg_no:reg_no,exam_roll:exam_roll,roll_no:roll_no,year_id:year_id}
+                    }).done(function (data) {
+						
+					
+						var dt = JSON.parse(data);
+					    window.location.href = "<?php echo $this->mainconfig['host'] ?>fee-collection/pay?stid="+dt['sid']+"&academic="+dt['academic']+"&term="+dt['term']+"&collection_id=";
+                        
+                    });
+	
+	
+	
+}
+
 
         </script>

@@ -27,7 +27,18 @@
 										<?php echo $this->form->academic_id; ?>
 									</div>
 								</div>
-							</div>
+								
+								<div class="col-sm-4">
+									<div class="form-group" >
+								<label class="control-label">Semester/Year</label>
+								<select type="text" name="semester" id="semseter" class="form-control">
+								
+								</select>
+								</div>
+								</div>
+								
+								</div>
+								
 						</div>
 					</form>
 				</div>
@@ -80,12 +91,31 @@
         //alert('x');
 		$.ajax({
 			type: "POST",
-			url: '<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-students'; ?>',
+			url: '<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-semester'; ?>',
 			data: {
 				// degree: $('#degree_id').val(),
-				year: $('#academic_year_list').val(),
-				session: $('#session').val(),
+				
 				batch: $('#academic_id').val()
+			}
+		}).done(function (data) {
+			// console.log(data);
+			$('#semseter').empty('');
+			$('#semseter').html(data);
+		});
+	});
+	
+	
+	
+	$('#semseter').change(function(){
+    //alert('x');
+		$.ajax({
+			type: "POST",
+			url: '<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-students'; ?>',
+		data: {
+		    sem: $('#semseter').val(),
+			year: $('#academic_year_list').val(),
+			session: $('#session').val(),
+		    batch: $('#academic_id').val()
 			}
 		}).done(function (data) {
 			// console.log(data);

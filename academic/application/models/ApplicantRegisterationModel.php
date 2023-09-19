@@ -88,7 +88,7 @@ class Application_Model_ApplicantRegisterationModel extends Zend_Db_Table_Abstra
     public function checkEmail($emailData){       
         $select=$this->_db->select()
             ->from(array($this->_name))	
-            ->where("$this->_name.email_id=?", $emailData['email_id']);	
+            ->where("$this->_name.application_no=?", $emailData);	
             $result=$this->getAdapter()
             ->fetchRow($select);    
             
@@ -165,7 +165,13 @@ public function getRecordByYearId($yearId) {
         return $result;
     }
     
-  
+  function getNextUserId(){
+        $select = 'SELECT max(user_id) as nextId  FROM `applicant_registration`';
+$result=$this->getAdapter()
+            ->fetchRow($select);
+            return $result;
+        
+    }
 }
 
 ?>

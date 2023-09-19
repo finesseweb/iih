@@ -85,7 +85,7 @@ class Application_Form_MultiStepExamFormStep2 extends Zend_Form {
         
         $aadhar = $this->createElement('text', 'aadhar_number')
                 ->removeDecorator('label')->setAttrib('class', array('form-control'))
-                ->setAttrib('required', 'required')->setRequired(true)
+              
                 ->setAttrib('data-toggle', 'number')
                 ->setAttrib('placeholder','Enter 12 digits aadhar number')
                 ->setAttrib('autocomplete', 'off')
@@ -136,7 +136,7 @@ class Application_Form_MultiStepExamFormStep2 extends Zend_Form {
         
         $father_qual = $this->createElement('text', 'father_qual')
             ->removeDecorator('label')->setAttrib('class', array('form-control'))
-            ->setAttrib('required', 'required')->setRequired(true)
+           // ->setAttrib('required', 'required')->setRequired(true)
             ->setAttrib('data-toggle', 'albphabets')
             ->setAttrib('autocomplete', 'off')
             ->removeDecorator("htmlTag");
@@ -151,7 +151,7 @@ class Application_Form_MultiStepExamFormStep2 extends Zend_Form {
         $father_qual = $this->createElement('text', 'father_occup')
             ->removeDecorator('label')->setAttrib('class', array('form-control'))
             ->setAttrib('data-toggle', 'albphabets')
-            ->setAttrib('required', 'required')->setRequired(true)
+           // ->setAttrib('required', 'required')->setRequired(true)
             //->setAttrib('placeholder',"Enter Your Father's Occupation")
             ->setAttrib('autocomplete', 'off')
             ->removeDecorator("htmlTag");

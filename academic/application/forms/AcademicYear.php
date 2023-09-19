@@ -52,17 +52,17 @@ class Application_Form_AcademicYear extends Zend_Form {
                 ->removeDecorator("htmlTag");
         $this->addElement($year_id);
 
-        $Addon_model = new Application_Model_AddonCourseModel();
-        $data = $Addon_model->getDropDownList();
+        //$Addon_model = new Application_Model_AddonCourseModel();
+        //$data = $Addon_model->getDropDownList();
         //print_r($data); die;
-        $addon_id = $this->createElement('select', 'addon_course')
+        $status = $this->createElement('select', 'status')
                 ->removeDecorator('label')
                 ->setAttrib('class', array('form-control', 'chosen-select'))
                 ->setRequired(true)
-                ->addMultiOptions(array('' => 'Select'))
-                ->addMultiOptions($data)
+                ->addMultiOptions(array('0' => 'All'))
+                ->addMultiOptions(array('1'=>'Paid','2'=>'Pending'))
                 ->removeDecorator("htmlTag");
-        $this->addElement($addon_id);
+        $this->addElement($status);
 
         $effective_date = $this->createElement('text', 'effective_date')
                 ->removeDecorator('label')->setAttrib('class', array('form-control', 'monthYearPicker'))

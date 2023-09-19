@@ -36,10 +36,11 @@ class EntranceExamFormController extends Zend_Controller_Action {
         $storage = new Zend_Session_Namespace("user_login");
         $this->login_storage = $data = $storage->user_login;
         $this->view->login_storage = $data;
-        //echo '<pre>'; print_r($storage->user_login);exit;
+        
         $user_log = new Application_Model_UserLog();
-        //echo '<pre>'; print_r($storage->unique_id);exit;
+      
         if (isset($data)) {
+			// echo '<pre>'; print_r($data);exit;
             $user_log_details = $user_log->getRecordByemplId($data['app_id'], $storage->unique_id);
             if ($user_log_details) {
 
@@ -73,11 +74,13 @@ class EntranceExamFormController extends Zend_Controller_Action {
     protected function authonticate() {
  
         $storage = new Zend_Session_Namespace("user_login");
+		 //echo '<pre>'; print_r($storage->user_login);exit;
         $this->login_storage = $data = $storage->user_login;
+		 
         $this->view->login_storage = $data;
-       
+        
         if (!empty($data['app_id'])) {
-            
+         
              // echo '<pre>'; print_r($data);exit;
             $courseModel = new Application_Model_ApplicantCourseDetailModel();
           
@@ -109,6 +112,8 @@ class EntranceExamFormController extends Zend_Controller_Action {
                 //$this->_redirect("entrance-exam-form/welcome-page/a_id/".md5($data['app_id']));
             }
         }
+		
+		 
     }
 
     public function indexAction() {
@@ -264,7 +269,11 @@ class EntranceExamFormController extends Zend_Controller_Action {
         //echo '<pre>'; print_r($token);exit;
         if ($this->getRequest()->getPost()) {
             $data = $this->getRequest()->getPost();
-            //echo '<pre>'; print_r($data);exit;
+			 
+			$checkRegisterMail=$entrance_model->checkEmail($data['applicant_no']);
+                if(!empty($checkRegisterMail))
+                   $this->_refresh(3,"/academic/entrance-exam-form/registeration",'*Username is already registered with us....');
+            
             if(!empty($data['csrftoken'])) {
                 if($data['csrftoken']===$token ){
                 if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -274,7 +283,7 @@ class EntranceExamFormController extends Zend_Controller_Action {
                 } else {
                     $ip = $_SERVER['REMOTE_ADDR'];
                 }
-				
+				 $userID = $entrance_model->getNextUserId();
 				
                 $data['applicant_name']  = strtoupper($data['applicant_name']);
                 $data['ip'] = $ip;
@@ -284,14 +293,13 @@ class EntranceExamFormController extends Zend_Controller_Action {
 				$data['session'] = $data['session'];
 				$data['course'] = $data['course'];
 				$data['application_no'] = $data['applicant_no'];
+				$data['user_id'] = $userID['nextId']+1;
+				// echo '<pre>'; print_r($data);exit;
+				
                 unset($data['cnf_password'], $data['check_otp'], $data['csrftoken'],$data['academic_year_list'],$data['degree_id'],$data['applicant_no']);
                 
-                 $emailData = array(
-                    'email_id' => trim(strtolower($data['email_id']))
-                );
-                $checkRegisterMail=$entrance_model->checkEmail($emailData);
-                if(!empty($checkRegisterMail))
-                   $this->_refresh(3,"/academic/entrance-exam-form/registeration",'*Email id is already registered with us....');
+                
+                
                    $insert_id = $entrance_model->insert($data);
                 unset($_SESSION["token"]);
               

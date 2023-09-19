@@ -389,6 +389,7 @@ class MultiStepFormController extends Zend_Controller_Action {
                                'l_state' => $data['l_state'],
                                'l_code_number' => $data['l_code_number'],
                                'blood_group' =>$data['blood_group'],
+							   'acad_year_id'=>$followUpData['acad_year_id'],
                                'country' => $data['country'],
                                'oth_country' => $data['oth_country'],
                                'i_country' =>$data['sameAddress']==1?$data['country']:((!empty($data['i_country']) && is_numeric($data['i_country']))?1:2),
@@ -713,7 +714,7 @@ class MultiStepFormController extends Zend_Controller_Action {
                     $application_no = $application_id;
                     if($application_no){
                         $formFilledData=$allFormData->getAllFormFilledData($application_no);         
-                     // echo"<pre>";print_r($formFilledData);exit;
+                    //echo"<pre>";print_r($formFilledData);exit;
                         $this->view->paginator = $formFilledData;
                     }
                     
@@ -1059,13 +1060,34 @@ class MultiStepFormController extends Zend_Controller_Action {
         $this->_helper->layout->disableLayout();
         if ($this->_request->isPost() && $this->getRequest()->isXmlHttpRequest()) {
             $application_no = $this->_getParam("application_no");
+			
+			$enrollment_no = $allFormData->getNextUserId();
+			
+			
+		   $enrollexit = $allFormData->getExitUserId($application_no);
+		   
+		   if($enrollexit['form_id']=='0') {
+			   $upenrollment=$enrollment_no['nextId']+1;
+			 
+		   }
+		   else {
+			     $upenrollment=$enrollexit['form_id'];
+		   }
+			    
+			$updata= array('form_id'=>$upenrollment);
+			// echo '<pre>'; print_r($updata); 
+			
             
-            $formId=$allFormData->generateFormId($application_no);
-            if($formId){
-                //$this->_redirect($this->base_url."multi-step-form/index/type/step5/a_id/{$application_no}"); 
+            
+            if($enrollment_no){
+              $update=  $allFormData->update($updata,array("md5(application_no)=?" =>$application_no));
+			
+			  if( $update) {
+				   echo json_decode($application_no);
+			  }
             }
-            echo json_encode($formId);
-        }die;
+           
+        } die();
     }
     
  public function verifyAction(){

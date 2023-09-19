@@ -134,16 +134,19 @@ class Application_Model_ApplicantCourseDetailModel extends Zend_Db_Table_Abstrac
        where 
        applicant_personal_details.application_no=applicant_course_details.application_no
        and applicant_educational_details.application_no=applicant_course_details.application_no
-      
+    
        and md5(applicant_course_details.application_no)='$application_no'";
+	   
+	   //step 4 related function
+	   
          //and entrance_exam_schedule.session_id = applicant_course_details.session
        //and entrance_exam_schedule.degree_id = applicant_course_details.degree_id
        //and entrance_exam_schedule.department = applicant_course_details.course
 	   //and entrance_exam_schedule.department = applicant_course_details.course
-      //  echo "<pre>".$sql;die;
+      //echo "<pre>".$sql;die;
         $result = $this->getAdapter()
                 ->fetchRow($sql);
-        //echo '<pre>';print_r($result);exit;
+      //  echo '<pre>';print_r($result);exit;
         if ($result) {
             $select = $this->_db->select()
                     ->from('department_type', array('department_type', 'session'))
@@ -189,13 +192,105 @@ class Application_Model_ApplicantCourseDetailModel extends Zend_Db_Table_Abstrac
             $result7 = $this->getAdapter()->fetchRow($select);
 
             $result['course_name'] = $result1['department_type'];
-            $result['session'] = $result1['session'];
+           // $result['session'] = $result1['session'];
             $result['corecourse1'] = $result3['department'];
             $result['corecourse2'] = $result5['department'];
             $result['ge1'] = $result6['general_elective_name'];
             $result['ge2'] = $result7['general_elective_name'];
 
-            //echo '<pre>';print_r($result);exit;
+            //echo '<pre>';print_r($result1);exit;
+            return $result;
+        }
+    }
+	
+	
+	
+	public function getAllFormFilledDataForPayment($application_no) {
+        $sql = "Select applicant_course_details.degree_id as degree,applicant_course_details.session,
+       applicant_course_details.course,applicant_course_details.core_course1,
+       applicant_course_details.ge1,
+       applicant_course_details.aecc1,
+       applicant_course_details.core_course2,
+       applicant_course_details.ge2,
+	   applicant_course_details.acad_year_id as year_id,
+       applicant_course_details.aecc2,
+       applicant_course_details.comp_evs,applicant_course_details.form_id,
+       applicant_personal_details.*,
+       applicant_educational_details.*
+      
+       from
+       applicant_course_details,
+       applicant_personal_details,
+       applicant_educational_details
+      
+       where 
+       applicant_personal_details.application_no=applicant_course_details.application_no
+       and applicant_educational_details.application_no=applicant_course_details.application_no
+    
+       and applicant_course_details.form_id='$application_no'";
+	   
+	   //step 4 related function
+	   
+         //and entrance_exam_schedule.session_id = applicant_course_details.session
+       //and entrance_exam_schedule.degree_id = applicant_course_details.degree_id
+       //and entrance_exam_schedule.department = applicant_course_details.course
+	   //and entrance_exam_schedule.department = applicant_course_details.course
+      //echo "<pre>".$sql;die;
+        $result = $this->getAdapter()
+                ->fetchRow($sql);
+      //  echo '<pre>';print_r($result);exit;
+        if ($result) {
+            $select = $this->_db->select()
+                    ->from('department_type', array('department_type', 'session'))
+                    ->where("department_type.id=?", $result['course']);
+
+            $result1 = $this->getAdapter()
+                    ->fetchRow($select);
+
+            $select = $this->_db->select()
+                    ->from("academic_master", array("department"))
+                    ->where("academic_master.academic_year_id =?", $result['core_course1']);
+
+            $result2 = $this->getAdapter()->fetchRow($select);
+            if ($result2) {
+                $select = $this->_db->select()
+                        ->from("department", array("department"))
+                        ->where("department.id =?", $result2['department']);
+
+                $result3 = $this->getAdapter()->fetchRow($select);
+            }
+            $select = $this->_db->select()
+                    ->from("academic_master", array("department"))
+                    ->where("academic_master.academic_year_id =?", $result['core_course2']);
+
+            $result4 = $this->getAdapter()->fetchRow($select);
+            if ($result4) {
+                $select = $this->_db->select()
+                        ->from("department", array("department"))
+                        ->where("department.id =?", $result4['department']);
+
+                $result5 = $this->getAdapter()->fetchRow($select);
+            }
+            $select = $this->_db->select()
+                    ->from("master_ge", array("general_elective_name"))
+                    ->where("master_ge.ge_id =?", $result['ge1']);
+
+            $result6 = $this->getAdapter()->fetchRow($select);
+
+            $select = $this->_db->select()
+                    ->from("master_ge", array("general_elective_name"))
+                    ->where("master_ge.ge_id =?", $result['ge2']);
+            //echo $select;die;
+            $result7 = $this->getAdapter()->fetchRow($select);
+
+            $result['course_name'] = $result1['department_type'];
+           // $result['session'] = $result1['session'];
+            $result['corecourse1'] = $result3['department'];
+            $result['corecourse2'] = $result5['department'];
+            $result['ge1'] = $result6['general_elective_name'];
+            $result['ge2'] = $result7['general_elective_name'];
+
+            //echo '<pre>';print_r($result1);exit;
             return $result;
         }
     }
@@ -347,6 +442,28 @@ class Application_Model_ApplicantCourseDetailModel extends Zend_Db_Table_Abstrac
                 ->fetchRow($select);
         //echo"<pre>";print_r($result);die;	  
         return $result;
+    }
+	
+	
+	
+	function getNextUserId(){
+        $select = 'SELECT max(form_id) as nextId  FROM `applicant_course_details`';
+$result=$this->getAdapter()
+            ->fetchRow($select);
+            return $result;
+        
+    }
+	
+	function getExitUserId($app){
+         $select = $this->_db->select()
+                ->from($this->_name, array('form_id'))
+				 ->where("md5($this->_name.application_no)=?", $app);
+				 
+				 //echo  $select; die();
+$result=$this->getAdapter()
+            ->fetchRow($select);
+            return $result;
+        
     }
 
     //End

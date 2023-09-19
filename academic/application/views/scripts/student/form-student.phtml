@@ -118,11 +118,17 @@
 
                 <div class="x_panel">
 
-
+	
 
                     <div class="x_title">
-
-                        <h2 class="title1">New Admission  Records</h2>
+					
+				   
+                    <div class="col-sm-3 employee_class">
+                    <div class="form-group disabled" >
+                    <label class="control-label">Filter Status<span class="asterisk">*</span></label>
+                     <?php echo $this->form->status; ?>
+                     </div>
+                    </div>
 
                         <ul class="nav navbar-right panel_toolbox">
 
@@ -143,14 +149,14 @@
                         </ul>
 
                         <div class="clearfix"></div>
-
+ 
                     </div>
 
                     <div class="x_content">
 
 
 
-                        <div class="padding-md clearfix table-responsive">
+                        <div class="padding-md clearfix table-responsive" id="studatat">
 
 
 
@@ -162,16 +168,17 @@
 
                                         <th style="text-align:center;">S. No.</th>	
                                         <th style="text-align:center;">Applicant Name</th>
+										
                                         <th style="text-align:center;">Father's Name</th>
-                                       
-                                        <th style="text-align:center;">Form Id</th>
+                                        <th style="text-align:center;">User ID</th>
+                                        <th style="text-align:center;">Enrollment No</th>
 
                                         <th style="text-align:center">Course</th>
 
                                         
                                         <th style="text-align:center">Pay Status</th>
-                                        <th style="text-align:center">Photo</th>
-                                        <th style="text-align:center">Admit Card</th>
+                                       
+                                        <th style="text-align:center">Action</th>
 
                                             <!--<th class="no_print" style="text-align:center">Edit | Delete</th>-->
 
@@ -215,7 +222,9 @@
 
                                                 </td>	
                                                 <td><?php echo $results['applicant_name']; ?></td>
+												
                                                 <td><?php echo $results['father_name']; ?></td>
+												<td><?php echo $results['user_id']; ?></td>
                                                     <?php $edu_details = $educdet->getApplicationCourseDetails($results['form_id']); ?>
                                                
 
@@ -232,10 +241,9 @@
                                 } else {
                                     echo "NA";
                                 } ?></td>
-                                    <td><img src = "/academic/<?= $results['photo']; ?>" width ="70em" alt ='NA'/></td>
-									<!--  <td><a class="btn btn-primary" target='_blank' href ='/academic/multi-step-form/document-dashboard/a_id/<?= md5($results['application_no']); ?>'>click here</a></td>-->
-
-                                         <td><a href="<?php echo $this->mainconfig['host']; ?>multi-step-form/index/type/step4/a_id/<?php echo md5($results['application_no']); ?>/role/admin/"target="_blank" class="edit" title="Edit"><span class="fa fa-edit fa-lg"></span></a></td>
+                                   
+                                         <td><a href="<?php echo $this->mainconfig['host']; ?>multi-step-form/index/type/step4/a_id/<?php echo md5($results['application_no']); ?>/role/admin/"target="_blank" class="edit" title="Edit"><span class="fa fa-edit fa-lg"></span></a> 
+                                           <a href="<?php echo $this->mainconfig['host']; ?>student/entrance-form-fee-collection/type/view/a_id/<?php echo $results['form_id']; ?> "target="_blank" class="btn btn-primary" title="Edit">Pay Now</a></td>
            
                                             </tr>            
 
@@ -479,5 +487,24 @@
         }
     });
 
+
+<?php if($this->type) { ?>
+$('body').on('change', '#status', function () {
+        let status = $('#status').val();
+        
+        if (status) {
+            $('.load-box').css('display', 'block');
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->mainconfig['host'] . 'student/ajax-get-record-by-status'; ?>',
+                data: {status: status,acad:<?=$this->acad_year?>,course:<?=$this->id?>}
+            }).done(function (data) {
+                $('#studatat').empty('');
+                $('#studatat').html(data);
+                $('.load-box').css('display', 'none');
+            });
+        }
+    });
+<?php } ?>
 </script>
 

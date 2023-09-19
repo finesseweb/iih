@@ -198,14 +198,16 @@ class EntranceReportController extends Zend_Controller_Action {
         $acad_id = $this->_getParam("acad");
         $this->view->type = $type;
         $this->view->acad = $acad_id;
+		
+		//echo $acad_id ; die();
         switch ($type) {
 
 
             case "getStudents":
                 $paymentModel = new Application_Model_ApplicantPaymentDetailModel();
                 $dept_id = $this->_getParam("dept_id");
-                $result = $paymentModel->getRecordByCouse($dept_id,$acad_id,true);
-              //  echo "<pre>";print_r($result);die;
+                $result = $paymentModel->getRecordByCouse1($dept_id,$acad_id,true);
+              // echo '<pre>'; print_r($result);exit;
                 $page = $this->_getParam('page', 1);
                 $paginator_data = array(
                     'page' => $page,
@@ -222,7 +224,7 @@ class EntranceReportController extends Zend_Controller_Action {
                 //echo '<pre>'; print_r($yearId);exit;
                 $ugCourseCountData = $applicantCourseData->getAllUgCourseCount($yearId);
                 $pgCourseCountData = $applicantCourseData->getAllPgCourseCount($yearId);
-                //  echo '<pre>'; print_r($pgCourseCountData);exit;
+                // echo '<pre>'; print_r($ugCourseCountData);exit;
                 //$this->view->result = $courseCountData;
                 $page = $this->_getParam('page', 1);
                 $paginator_data = array(
@@ -232,6 +234,7 @@ class EntranceReportController extends Zend_Controller_Action {
                 $pg_data = array(
                     'result' => $pgCourseCountData
                 );
+				 $this->view->acad = $yearId['year_id'];
                 //echo"<pre>";print_r($paginator_data);exit;
                 $this->view->paginator = $this->_act->pagination($paginator_data);
                 $this->view->pgData = $this->_act->pagination($pg_data);
@@ -1954,9 +1957,11 @@ public function addonCourseReportAction() {
                 $checkData = $sanction_seat_model->checkExistedData($form_id);
                 if ($checkData['form_id']) {
                     $updateDocument_data = $sanction_seat_model->updateDocuments($docArray, $form_id, $app_id);
+					 $updateScrutinyStatus = $sanction_seat_model->updateScrutinyStatus($form_id);
                     echo 'Records updated successfully';
                 } else {
                     $document_data = $sanction_seat_model->insertDocuments($docArray, $form_id, $app_id, $course_id);
+					 $updateScrutinyStatus = $sanction_seat_model->updateScrutinyStatus($form_id);
                     echo 'Records inserted successfuly';
                 }
             }
@@ -2629,22 +2634,100 @@ public function ajaxGetValueCourseAddedMigAction() {
 }    
 
 
-public function ajaxGetSessionAction() {
-        $this->_helper->layout->disableLayout();
+ public function ajaxInsertErpRecordsAction() {
+        
+         $stuportal = new Application_Model_StudentPortal();
+		 $termmaster = new Application_Model_TermMaster();
+		 $this->_helper->layout->disableLayout();
+		 
         if ($this->_request->isPost() && $this->getRequest()->isXmlHttpRequest()) {
-            $year_id = $this->_getParam("year");
-            //print_r($short_code); die;
-            $session_model = new Application_Model_Session();
-            $result = $session_model->getSessionRecordByYearId($year_id);
+			
+            $stu_name = $this->_getParam("stu_name");
+            $stu_fname = trim($this->_getParam("stu_fname"));
+            $father_contact = trim($this->_getParam("father_contact"));
+            $stu_email = $this->_getParam("stu_email");
+			$stu_phone = $this->_getParam("stu_phone");
+			$gender = $this->_getParam("gender");
+			$dob = $this->_getParam("dob");
+			$aadhar = $this->_getParam("aadhar");
+			$caste_category = $this->_getParam("caste_category");
+			$religion = $this->_getParam("religion");
+			$nationality = $this->_getParam('nationality');
+			$academic_id = $this->_getParam("academic_id");
+			$reg_no = $this->_getParam("reg_no");
+			$exam_roll = $this->_getParam("exam_roll");
+			$roll_no = $this->_getParam("roll_no");
+			$year_id = $this->_getParam("year_id");
+			
+			
+            
+            if ($stu_name) {
+				
+				
+                     $data = array(
+					 
+					 
+                    'stu_fname' => $stu_name,
+                    'father_fname' =>$stu_fname,
+                    'father_mobileno' => $father_contact,
+                    'stu_email_id' =>  $stu_email,
+                    'stu_mobileno' => $stu_phone,
+                    'gender' => $gender ,
+                    'stu_dob' => $dob,
+                    'stu_aadhar' => $aadhar,
+                    'cast_category' => $caste_category,
+                    'religion' => $religion,
+                    'stu_nationality' => $nationality,
+                    'academic_id' => $academic_id,
+                    'reg_no' =>$reg_no,
+                    'exam_roll' => $exam_roll,
+                    'roll_no'=> $roll_no,
+					'year_id'=> $year_id,
+                    'stu_status' => 1
+                );
+				
+				$recordinsert= $stuportal->insert($data);
+				
+				if($recordinsert){
+					
+					$termrow = $termmaster->getRecordAllAcademicId($academic_id);
+					
+					
+					$data = array('sid'=>$recordinsert,'academic'=>$academic_id,'term'=>$termrow['term_id']);
+					
+					echo json_encode($data); 
+                       
+					
+				}
+				
+				
+             
+				
 
-            //echo '<pre>'; print_r($result);
-            echo '<option value="">Select Session</option>';
-            foreach ($result as $k => $val) {
 
-                echo '<option value="' . $val['id'] . '" >' . $val['session'] . '</option>';
-            }
+               
+            } 
         }die;
-    }    
+    }
+
+
+
+  public function printslipAction() { 
+   
+   
+$this->_helper->layout->setLayout("applicationlayout");
+   
+   
+  $enroll_id = $this->_getParam("id");
+  $acad_year = trim($this->_getParam("acad"));
+  
+      $applicantCourseData = new Application_Model_ApplicantPaymentDetailModel();
+        $allresult= $applicantCourseData->GetTransactionDetails($enroll_id,$acad_year);
+		//	echo "<pre>";print_r($allresult); die();
+		$this->view->result=$allresult;
+        
+ 
+  }	
 }
 
 ?>

@@ -3119,6 +3119,44 @@ $result = $this->getAdapter()
 
         return $result;
     }
-    
+	
+	
+  public function getmaxRegno(){
+        $select = $this->_db->select()
+        ->from('erp_student_information', array('MAX(reg_no) as reg_no'));
+        
+        $result = $this->getAdapter()
+                ->fetchRow($select);
+        //echo $select;die;
+      return $result['max_roll'];
+      
+    }
+	
+	 public function getmaxExamno(){
+        $select = $this->_db->select()
+        ->from('erp_student_information', array('MAX(exam_roll) as exam_roll'));
+        
+        $result = $this->getAdapter()
+                ->fetchRow($select);
+        //echo $select;die;
+      return $result['max_roll'];
+      
+    }
+	
+   public function getsturecordsbyph($id) {
+
+
+
+        $select = $this->_db->select()
+            ->from($this->_name)
+            ->where("$this->_name.status !=?", 2)
+            ->where("$this->_name.stu_mobileno =?", $id);
+             $result = $this->getAdapter()
+            ->fetchRow($select);
+       // echo $select;die;
+        //  echo "<pre>";  print_r($result);exit;
+
+        return $result;
+    }     
 }
 //end

@@ -507,7 +507,20 @@ class Application_Model_Academic extends Zend_Db_Table_Abstract {
         return $result;
     }
     
-    
+    public function getRecordByDeptyear($academic_year,$department) {
+       
+            $select = $this->_db->select()
+                ->from($this->_name, array('academic_year_id'))
+                ->where("$this->_name.department =?", $department)
+                ->where("$this->_name.academic_year =?", $academic_year)
+                ->where("$this->_name.status!=?", 2);
+            //->order('academic_year_id  ASC');
+            //echo $select;die;
+            $result = $this->getAdapter()
+                ->fetchRow($select);
+      
+        return $result['academic_year_id'];
+    }
 
 // ramesh for enabled between dates in year 
     public function getyearRecord($academic_id) {

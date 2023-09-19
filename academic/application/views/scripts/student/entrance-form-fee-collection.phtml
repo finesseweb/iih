@@ -20,7 +20,7 @@
 
         <div class="col-sm-4 employee_class">
             <div class="form-group" >
-                <label  class="control-label" >Form Id.</label>
+                <label  class="control-label" >Enrollment Id.</label>
                 <?php //echo $this->form->stu_id; ?>
                 <input type="text" name="form_id" id="form_id" class="form-control" readonly="readonly" value="<?=$this->stud_info['form_id']?>">
             </div>
@@ -96,6 +96,7 @@
                 <label  class="control-label" >Txn Date </label>
                 <?php //echo $this->form->stu_id; ?>
                 <input type="text" name="submit_date" id="submit_date" required="required" class="form-control" value="">
+				<input type="hidden" name="year_id" id="submit_date" class="form-control" value="<?=$this->stud_info['year_id']?>">
             </div>
         </div>
 
@@ -153,7 +154,7 @@
                 <div class="x_title">
                     <div class="row">
                         <div class="col-sm-5">
-                            <h2 class="title1">Entrance Form Fee Collection (NEFT/RTGS/ONLINE)</h2></div>
+                            <h2 class="title1">Regitration Fee Collection/Slip</h2></div>
                        
                     <div class="clearfix"></div>
                 </div>
@@ -170,7 +171,7 @@
                             <div class="panel-body">
                                 <div class="row">
 
-                                    <div class="col-sm-2 employee_class">
+                                   <!-- <div class="col-sm-2 employee_class">
                                         <div class="form-group" >
                                             <label  class="control-label" >Registeration  ID . <span class="asterisk">*</span></label>
                                             <input type="text" name="stu_id" id="stu_id" placeholder="R-20XX-XXXX" class="form-control" required="required">
@@ -183,7 +184,77 @@
                                         <div class="form-group" >
                                             <input type="submit" class="btn btn-primary" name="submit" value="Search">
                                         </div>
-                                    </div>
+                                    </div-->
+									
+									<div class="x_content">
+
+                    <div class="padding-md clearfix">
+                        <div class="table-responsive" id="ajaxData">
+                            <table class="table table-striped table-bordered mb30 jambo_table bulk_action" id="dataTable" >
+                                
+                                <thead>
+                                    <tr>
+                                        <th>S.No.</th>
+                                        <th>Course</th>
+										<th>Student Name</th>
+										<th>Enrollment ID</th>
+                                        <th> Phone No</th>
+                                        <th>Email ID </th>
+                                        <th>Amount</th>  
+										 <th>Payment Date</th>  
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+								<?php
+    $i = 1;
+    $pagination_tr = '';
+    if (count($this->paginator) != 0) {
+        foreach ($this->paginator as $results) {
+          // echo '<pre>'; print_r($results);
+			
+			 $applicantCourseData = new Application_Model_ApplicantPaymentDetailModel();
+			 
+			 
+			  
+            ?>
+                                            <tr>
+                                                <td><?php
+            echo $i;
+
+            $i++;
+            ?>
+                                                </td>
+
+
+                                                <td><?php echo $results['department_type']; ?></td>
+												 <td><?php echo $results['applicant_name']; ?></td>
+												  <td><?php echo $results['form_id']; ?></td>
+                                                <td><?php echo $results['phone']; ?></td>
+                                              
+                                                <td><?php echo $results['email_id'];?></td>
+                                                <td><?php echo $results['form_fee'];?></td>
+												<td><?php echo date('d-m-Y',strtotime($results['submit_date']));?></td>
+
+                                                <td style="text-align:center"><a class="report" href="<?php echo $this->mainconfig['host']; ?>entrance-report/printslip/id/<?php echo $results['form_id']; ?>/acad/<?=$results['acad_year_id'];?>" target="_blank" class="edit" title="Edit">Print</a></td>
+                                            </tr>            
+
+            <?php
+        }
+        //$pagination_tr = $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
+    } else {
+        ?>
+                                        <tr>
+                                            <td colspan="5">
+                                                <h2 style="color:red">
+                                                    No Records Available.
+                                                </h2>
+                                            </td>
+                                        </tr>
+    <?php } ?>
+
+                                </tbody>
+								</table>
                                 </div>
                                
                             </div>

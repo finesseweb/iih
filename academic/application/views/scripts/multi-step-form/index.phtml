@@ -402,7 +402,7 @@ $prefArray= array(
                 </div>	
                 <div class="col-sm-3 employee_class">
                     <div class="form-group">
-                        <label class="control-label">Aadhar No:<span class="asterisk">*</span></label>
+                        <label class="control-label">Aadhar No:<label>
                         <?php echo $this->form->aadhar_number; ?>
                           <span id="aadharError" style="color:red;  position: absolute;"></span>
                     </div>
@@ -417,13 +417,13 @@ $prefArray= array(
                 
                 <div class="col-sm-3 employee_class">
                     <div class="form-group">
-                        <label class="control-label">Father's Qualification<span class="asterisk">*</span></label>
+                        <label class="control-label">Father's Qualification</label>
                         <?php echo $this->form->father_qual; ?>
                     </div>
                 </div>
                 <div class="col-sm-3 employee_class">
                     <div class="form-group">
-                        <label class="control-label">Father's occupation<span class="asterisk">*</span></label>
+                        <label class="control-label">Father's occupation</label>
                         <?php echo $this->form->father_occup; ?>
                     </div>
                 </div>
@@ -771,6 +771,25 @@ $prefArray= array(
                             </td>
                                 
                         </tr>
+						 <tr>
+                            <td> <b>Diploma </b></td>
+                            <td>
+                                <?php echo $this->form->cert_board;   ?>
+                            </td>
+                            <td>
+                               <?php  echo $this->form->cert_school;   ?>
+                            </td>
+                            <td>
+                                <?php  echo $this->form->cert_division;  ?>
+                            </td>
+                            <td>
+                               <?php echo $this->form->cert_subject;  ?>
+                            </td>
+                            <td>
+                               <?php echo $this->form->cert_pass_year;   ?>
+                            </td>
+                                
+                        </tr>
                         <tr>
                             <td><b> Other </b></td>
                             <td>
@@ -925,31 +944,31 @@ $prefArray= array(
                         <?php echo $this->form->caste_category; ?>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 employee_class">
+                <!--<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 employee_class">
                     <div class="form-group">
                         <label class="control-label"> Caste <span class="asterisk">*</span></label>
-                        <?php echo $this->form->caste; ?>
+                        <?php //echo $this->form->caste; ?>
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 employee_class">
+                </div>-->
+                <!--<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 employee_class">
                     <div class="form-group">
                         <label class="control-label"> Certificate Issued by <span class="asterisk">*</span></label>
-                        <?php echo $this->form->certificate_issued; ?>
+                        <?php ///echo $this->form->certificate_issued; ?>
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 employee_class">
+                </div>-->
+                <!--<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 employee_class">
                     <div class="form-group">
                         <label class="control-label"> Caste / EWS Certificate No. <span class="asterisk">*</span></label>
-                        <?php echo $this->form->certificate_no; ?>
+                        <?php ///echo $this->form->certificate_no; ?>
                     </div>
-                </div>
+                </div>-->
                
                &nbsp;
                	
                 </fieldset>  
             </div>
             <!---Extra-Curricular Activities----->
-            <div class="col-xs-12 col-sm-12  col-md-12  col-lg-12 col-sm-12">
+            <!--<div class="col-xs-12 col-sm-12  col-md-12  col-lg-12 col-sm-12">
                 <?php //echo '<pre>'; print_r($savedData);?>
                 <fieldset>
                     &nbsp;<b><legend >  &nbsp;Extra-Curricular Activities</legend></b>
@@ -1030,7 +1049,7 @@ $prefArray= array(
                 </div>
           
             </fieldset>  
-            </div> 
+            </div> -->
             <!--- Upload Photo Or Signature Section ----->
 <div class="col-xs-12 col-sm-12  col-md-12  col-lg-12 col-sm-12">
 <fieldset>
@@ -1057,7 +1076,11 @@ $prefArray= array(
 
     </div>
     </form>
-        <?php } if($this->type== 'step4'){ ?>
+        <?php }   
+		
+		$sessioninfo = new Application_Model_Session();
+		
+		if($this->type== 'step4'){ ?>
        
         <div class="multistepformArea col-xs-12 col-xs-offset-0  col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2  col-lg-8 col-lg-offset-2" id="previeDivision">
              <form class="regForm" id="formValidate1" action="<?php echo $this->form->getAction() ?>" method="post" data-validate="parsley" enctype="multipart/form-data" >
@@ -1076,7 +1099,7 @@ $prefArray= array(
                     <div class="col-sm-3 employee_class">
                         <div class="form-group">
                             <label class="control-label">Session<span class="asterisk">*</span></label><br>
-                           <?php echo $this->paginator['session']; ?>
+                           <?php echo $sessioninfo->getRecord($this->paginator['session'])['session']; ?>
                         </div>
                     </div>
                     <div class="col-sm-3  employee_class">
@@ -1101,7 +1124,7 @@ $prefArray= array(
                 
                 <div class="col-sm-3 employee_class">
                     <div class="form-group">
-                        <label class="control-label">Email<span class="asterisk">*</span></label><br>
+                        <label class="control-label">Email</label><br>
                         <?php echo $this->paginator['email_id']; ?>    
                     </div>
                 </div>
@@ -1125,16 +1148,18 @@ $prefArray= array(
                     <div class="form-group">
                         <label class="control-label"> Gender<span class="asterisk">*</span></label><br>
                          <?php if($this->paginator['gender'] == 1){
+                            echo 'Male';
+                         }else if($this->paginator['gender'] == 2){
                             echo 'Female';
-                         }else{
-                            echo 'Transgender';
-                         }  ?>
+                         }  else {
+                             echo 'Transgender';
+						 }?>
                     </div>
                 </div>
                 
                 <div class="col-sm-3 employee_class">
                     <div class="form-group">
-                        <label class="control-label">Aadhar No:<span class="asterisk">*</span></label><br>
+                        <label class="control-label">Aadhar No:</label><br>
                          <?php echo $this->paginator['aadhar_number']; ?>
                     </div>
                 </div>
@@ -1167,13 +1192,13 @@ $prefArray= array(
                 
                 <div class="col-sm-3 employee_class">
                     <div class="form-group">
-                        <label class="control-label">Father's Qualification<span class="asterisk">*</span></label><br>
+                        <label class="control-label">Father's Qualificatio</label><br>
                         <?php echo $this->paginator['father_qual']; ?>
                     </div>
                 </div>
                 <div class="col-sm-3 employee_class">
                     <div class="form-group">
-                        <label class="control-label">Father's occupation<span class="asterisk">*</span></label><br>
+                        <label class="control-label">Father's occupation</label><br>
                         <?php echo $this->paginator['father_occup']; ?>
                     </div>
                 </div>
@@ -1479,6 +1504,25 @@ $prefArray= array(
                             </td>
                             <td>
                                 <?= !empty($this->paginator['grad_pass_year'])?$this->paginator['grad_pass_year']:'N/A' ?>
+                            </td>
+                                
+                        </tr>
+					     <tr>
+                            <td> <b>Diploma</b></td>
+                            <td>
+                                <?php echo $this->paginator['cert_board'];   ?>
+                            </td>
+                            <td>
+                                <?php  echo $this->paginator['cert_school'];   ?>
+                            </td>
+                            <td>
+                                <?php  echo $this->paginator['cert_division'];  ?>
+                            </td>
+                            <td>
+                                <?php echo $this->paginator['cert_subject'];  ?>
+                            </td>
+                            <td>
+                                <?php echo $this->paginator['cert_pass_year'];   ?>
                             </td>
                                 
                         </tr>
@@ -3075,6 +3119,7 @@ $('body').on('click','#finalSubmit', function(){
         data: {application_no: application_no}
     }).done(function (data) {
         if(data){
+			//alert(data);
             // $('#modal').trigger('click');
             // var obj = JSON.parse(data);
             // $('#app_name').text(obj.applicant_name);
@@ -3082,7 +3127,7 @@ $('body').on('click','#finalSubmit', function(){
             // $('#amount_pay').text(obj.amount);
            location.href = '<?=$this->baseUrl("multi-step-form/atompayment/a_id/".md5($this->paginator['application_no'])); ?>';
         }else{
-            //alert('no');
+          //  alert('no');
         }
     });
     

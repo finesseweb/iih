@@ -1093,11 +1093,13 @@ class StudentController extends Zend_Controller_Action {
         $type = $this->_getParam("type");
 
         $this->view->type = $type;
+		$this->view->id = $id;
 
         switch ($type) {
 
             case 'students':
                 $acadid = $this->_getParam("acad");
+				$this->view->acad_year = $acadid;
                 $result = $razor->getRecordByCouse1($id,$acadid);
               //  echo "<pre>";print_r($result);die;
                 $page = $this->_getParam('page', 1);
@@ -1154,7 +1156,7 @@ class StudentController extends Zend_Controller_Action {
         $this->_helper->layout->disableLayout();
 
         if ($this->_request->isPost() && $this->getRequest()->isXmlHttpRequest()) {
-            $razor = new Application_Model_AddonCourseModel();
+           // $razor = new Application_Model_AddonCourseModel();
             $yearId = $this->_getParam("year_id");
             $courseId = $this->_getParam("course");
             $result = $razor->getAddonCourseDetails($yearId,$courseId);
@@ -1174,7 +1176,7 @@ class StudentController extends Zend_Controller_Action {
         $this->_helper->layout->disableLayout();
 
         if ($this->_request->isPost() && $this->getRequest()->isXmlHttpRequest()) {
-            $razor = new Application_Model_AddonCourseModel();
+           // $razor = new Application_Model_AddonCourseModel();
             $yearId = $this->_getParam("year_id");
             $result = $razor->getRecords($yearId);
          // echo '<pre>'; print_r($result);
@@ -1195,7 +1197,7 @@ class StudentController extends Zend_Controller_Action {
 
         $this->accessConfig->setAccess('SA_ACAD_STUD_ADDON');
 
-        $razor = new Application_Model_AddonCourseModel();
+      //  $razor = new Application_Model_AddonCourseModel();
 
         $academic_year_form = new Application_Form_AcademicYear();
         $this->view->form = $academic_year_form;
@@ -1863,7 +1865,7 @@ $applicantDetails['cgpa'] = $marksDetails['cgpa'];
     
         public function addoncertificateAction(){
        
-        $addon_model = new Application_Model_AddonCourseModel();
+       // $addon_model = new Application_Model_AddonCourseModel();
         $refgradeaddons  = new Application_Model_AddonMarksheets();
              $index = $this->_getParam("id");
              $dept = $this->_getParam("dept");
@@ -2831,7 +2833,7 @@ $added_date['NonTblId'] = $examinationDates['result_publish_date'] > $NonCollegi
         $course_credit_master = new Application_Model_Corecourselearning();
         $ElectiveItems_model = new Application_Model_ElectiveSelectionItems();
          $addons = new Application_Model_AddonCourseAssignmentModel();
-         $addoncourse = new Application_Model_AddonCourseModel();
+        // $addoncourse = new Application_Model_AddonCourseModel();
                                                       
         if ($this->_request->isPost() && $this->getRequest()->isXmlHttpRequest()) {
             $session_id = $this->_getParam("session_id");
@@ -4009,16 +4011,27 @@ $added_date['NonTblId'] = $examinationDates['result_publish_date'] > $NonCollegi
         $student_report_form = new Application_Form_StudentsAdmitcard();
         //$academic_id = $this->_getParam("id");
         $type = $this->_getParam("type");
+		
+		$user_id = $this->_getParam("a_id");
         $studetails = new Application_Model_ApplicantCourseDetailModel();
+		$applicantPayment = new Application_Model_ApplicantPaymentDetailModel();
         $this->view->type = $type;
         $this->view->form = $student_report_form;
 
         switch ($type) {
 
             case "view":
-
-                $studDetails = $studetails->getAllFormFilledData(trim(md5($_POST['stu_id'])));
-                //echo '<pre>'; print_r($studDetails); exit;
+			
+		if($user_id)
+		{
+			 $studDetails = $studetails->getAllFormFilledDataForPayment($user_id);
+			
+		}
+         else {
+                $studDetails = $studetails->getAllFormFilledDataForPayment($user_id);
+				
+		 }
+               // echo '<pre>'; print_r($studDetails); exit;
 
                 $this->view->stud_info = $studDetails;
 
@@ -4026,7 +4039,7 @@ $added_date['NonTblId'] = $examinationDates['result_publish_date'] > $NonCollegi
             case "save":
                 $splitdate = explode("/", $_POST['submit_date']);
                 $submitDate = $splitdate[2] . "-" . $splitdate[1] . "-" . $splitdate[0];
-              //  echo '<pre>'; print_r($_POST); exit;
+              // echo '<pre>'; print_r($_POST); exit;
                 $insertData = array(
                     'application_no' => $_POST['application_no'],
                     'applicant_name' => $_POST['name'],
@@ -4039,7 +4052,8 @@ $added_date['NonTblId'] = $examinationDates['result_publish_date'] > $NonCollegi
                     'phone' => $_POST['phone'],
                     'college_account_name' => "",
                     'submit_date' => $submitDate,
-                    'payment_status' => 1
+                    'payment_status' => 1,
+					'acad_year_id'=> $_POST['year_id']
                 );
 
                 $applicantPaymentDetailModel = new Application_Model_ApplicantPaymentDetailModel();
@@ -4089,7 +4103,9 @@ $added_date['NonTblId'] = $examinationDates['result_publish_date'] > $NonCollegi
 
                 break;
             default:
-
+                  $results= $applicantPayment->getRecordsprint();
+				  
+				 $this->view->paginator = $results;
                 $messages = $this->_flashMessenger->getMessages();
                 $this->view->messages = $messages;
                 break;
@@ -4386,7 +4402,27 @@ $added_date['NonTblId'] = $examinationDates['result_publish_date'] > $NonCollegi
             }
         }
     }
-    
+	
+    public function ajaxGetRecordByStatusAction() {
+        $this->_helper->layout->disableLayout();
+          $ApplicantPayment = new Application_Model_ApplicantPaymentDetailModel();
+       
+        
+        if ($this->_request->isPost() && $this->getRequest()->isXmlHttpRequest()) {
+            $status = $this->_getParam("status");
+			$acad = $this->_getParam("acad");
+			$course = $this->_getParam("course");
+			
+            
+
+            if ($status) {
+               $acadid = $this->_getParam("acad");
+                $result = $ApplicantPayment->getRecordByCouse2($course,$acad,$status);
+              $this->view->paginator = $result;
+              
+            }
+        }
+    }
          public function semLateFineCollectionAction() {
         $this->view->action_name = 'SEMFEECOLL';
         $this->view->sub_title_name = 'SEMFEECOLL';

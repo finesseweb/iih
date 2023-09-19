@@ -118,6 +118,25 @@ class FeeCollectionController extends Zend_Controller_Action {
             }
         }die;
     }
+	
+	
+	
+	public function ajaxGetSemesterAction() {
+        $this->_helper->layout->disableLayout();
+        if ($this->_request->isPost() && $this->getRequest()->isXmlHttpRequest()) {
+            $session = $this->_getParam("batch");
+            // echo $academic_year_id; die;
+            $fee_collector_model = new Application_Model_TermMaster();
+
+            $result = $fee_collector_model->getRecordByAcademicId($session);
+          echo '<option value="">Select</option>';
+            foreach ($result as $k => $val) {
+                echo '<option value="' . $val['term_id'] . '" >' . $val['term_name'] . '</option>';
+             }
+           
+            
+        }die;
+    }
 
     public function ajaxGetStudentsAction() {
         $this->_helper->layout->disableLayout();
@@ -126,15 +145,93 @@ class FeeCollectionController extends Zend_Controller_Action {
             $year = $this->_getParam("year");
             $session = $this->_getParam("session");
             $batch = $this->_getParam("batch");
+			 $sem = $this->_getParam("sem");
+			 $feeStr = new Application_Model_FeeStructure();
+            $feeStrItem = new Application_Model_FeeStructureItems();
+			$termmaster= new Application_Model_TermMaster();
+			      $termdata=   $termmaster->getRecord($sem);
+			
+			 $strId = $feeStr->getStructIdAll($batch);
+              
+            $allTermFee = $feeStrItem->getStructureRecordsAll($strId);
+			
+			
+            $semFee = array();
+			
+			foreach($allTermFee as $key => $value){
+				if($termdata['cmn_terms']!='') {
+                    switch ($termdata['cmn_terms']) {
+                        case "t1":
+                            $semFee[$value['academic_id']]= $value['grand_term1_result'];
+                            break;
+                        case "t2":
+                           $semFee[$value['academic_id']]= $value['grand_term2_result'];
+                            break;
+                        case "t3":
+                            $semFee[$value['academic_id']]= $value['grand_term3_result'];
+                            break;
+                        case "t4":
+                            $semFee[$value['academic_id']]= $value['grand_term4_result'];
+                            break;
+                        case "t5":
+                            $semFee[$value['academic_id']]= $value['grand_term5_result'];
+                            break;
+                        case "t6":
+                            $semFee[$value['academic_id']]= $value['grand_term6_result'];
+						case "t7":
+                            $semFee[$value['academic_id']]= $value['grand_term7_result'];
+							  break;
+						case "t8":
+                            $semFee[$value['academic_id']]= $value['grand_term8_result'];
+                            break;
+                        default:
+                            echo "n/a";
+                    }
+				}
+				else {
+				
+				switch ($termdata['year_id']) {
+                        case "1":
+                            $semFee[$value['academic_id']]= $value['grand_term1_result'];
+                            break;
+                        case "2":
+                           $semFee[$value['academic_id']]= $value['grand_term2_result'];
+                            break;
+                        case "3":
+                            $semFee[$value['academic_id']]= $value['grand_term3_result'];
+                            break;
+                        case "4":
+                            $semFee[$value['academic_id']]= $value['grand_term4_result'];
+                            break;
+                        case "5":
+                            $semFee[$value['academic_id']]= $value['grand_term5_result'];
+                            break;
+                        case "6":
+                            $semFee[$value['academic_id']]= $value['grand_term6_result'];
+                            break;
+                        default:
+                            echo "n/a";
+                    }
+			     }
+            }
+			
+			
+			
             $fee_collector_model = new Application_Model_FeeCollector();
 
-            $result = $fee_collector_model->get_student_record($year, $session, $batch);
-            // echo "<pre>";print_r($result); exit;
+            $result = $fee_collector_model->get_student_record($year, $session, $batch,$sem);
+           
             $page = $this->_getParam('page', 1);
             $paginator_data = array(
                 'page' => $page,
                 'result' => $result
             );
+			 
+			$this->view->semester = $sem;
+			$this->view->termdata= $termdata;
+            $this->view->semFee = $semFee;
+			 
+			 //echo "<pre>";print_r($result);exit;
             $this->view->paginator = $this->_act->pagination($paginator_data);
             // $result;
             // echo "<pre>";print_r($this->view->paginator);exit;
@@ -149,37 +246,209 @@ class FeeCollectionController extends Zend_Controller_Action {
         $this->view->action_name = 'Fees Collection';
         $this->view->sub_title_name = 'Fee Collection';
         $this->accessConfig->setAccess("SA_ACAD_FEE_HEADS");
-
+		
+        $fee_model= new Application_Model_FeeCollector();
+		$fee_collection_items= new Application_Model_FeeCollectorItems();
+		
+		$feehostroy = new Application_Model_FeeHistroy();
+			   
         $this->view->stid = $_GET['stid'];
-        $this->view->total = $_GET['total'];
+        $this->view->academic = $_GET['academic'];
+		$this->view->semester = $_GET['term'];
+		$collection_id=$_GET['collection_id'];
+	if($_POST) {
+		
+		//echo "<pre>";  print_r($_POST); die();
+		if($collection_id)  {
+			
+			$getreords= $fee_model->getRecord($collection_id);
+			
+		for($i=0; $i<count($_POST['pay_amt']);$i++) {
+			$totalpaid+=$_POST['pay_amt'][$i];
+			
+		      }
+			 $totalpaid= $totalpaid+$getreords['total_paid'];
+			  
+		$totaldues= $_POST['terms_amt']-$totalpaid;
+		
+		$inserdata = array(
+		
+		'student_id'=>$_POST['student_id'],
+		'total_fees'=>$_POST['terms_amt'],
+		'total_paid'=>$totalpaid,
+		'total_due'=>$totaldues,
+		'sem_year'=>$_POST['term_id'],
+		'academic_year_id'=>$_POST['academic_year_id'],
+	    'discount'=>$_POST['discount'],
+		);
+		
+		 $new_slip_no = $feehostroy->getNextSlipNo();
+             
+			 if($new_slip_no['nextslip']) 
+			 {
+				 $next_slip_no=$new_slip_no['nextslip']+1;
+			 } else { $next_slip_no=1; }
+		 $feehistory= array(
+		     's_id'=>$_POST['student_id'],
+			 'collect_id'=>$last_insert_id,
+			 'slip_no'=>$next_slip_no,
+			 'admin_id'=>$_POST['userid'],
+			 'total_amount'=>$_POST['terms_amt'],
+			 'duse'=>$_POST['terms_amt']-$_POST['sumtotal'],
+			 'paid'=>$_POST['sumtotal'],
+			 'fee'=>$_POST['sumtotal'],
+			 'pay_status'=>$_POST['payment_mode'],
+			 'txn_id'=>$_POST['transaction_id'],
+			 'bank_id'=>$_POST['account_id'],
+			 'paid_date'=>$_POST['paid_date'],
+			 'check_dd'=>$_POST['check_dd'],
+			 'remarks'=>$_POST['remarks'],
+			 'discount'=>$_POST['discount'],
+			 
+		 
+		 );
+		 
+		 $last_history_id= $feehostroy->insert($feehistory);
+		 
+		$last_insert_id= $fee_model->update($inserdata,array('id=?' => $collection_id));
+		//print_r($last_insert_id); die();
+		 for ($k = 0; $k < count($_POST['feehead_id']); $k++) {
+
+            $terms_data['collector_id'] = $last_insert_id;
+			$terms_data['t_history_id'] = $last_history_id;
+            $terms_data['head_id'] = $_POST['feehead_id'][$k];
+		    $terms_data['paid_amt'] = $_POST['pay_amt'][$k];
+			$terms_data['dues_amt'] = $_POST['terms_dues_head'][$k]-$_POST['pay_amt'][$k];
+			$terms_data['account_id']= $_POST['account_id'];	
+            $terms_data['pay_mode']= $_POST['payment_mode'];		
+            $terms_data['transaction_id']= $_POST['transaction_id'];							
+			$last= $fee_collection_items->insert($terms_data);						
+		 }	
+			
+		} 
+		else {
+		for($i=0; $i<count($_POST['pay_amt']);$i++) {
+			$totalpaid+=$_POST['pay_amt'][$i];
+			
+		      }
+		$totaldues= $_POST['terms_amt']-$totalpaid;
+		
+		$inserdata = array(
+		
+		'student_id'=>$_POST['student_id'],
+		'total_fees'=>$_POST['terms_amt'],
+		'total_paid'=>$totalpaid,
+		'total_due'=>$totaldues,
+		'sem_year'=>$_POST['term_id'],
+		'academic_year_id'=>$_POST['academic_year_id']
+		);
+		$last_insert_id= $fee_model->insert($inserdata);
+		
+		  $new_slip_no = $feehostroy->getNextSlipNo();
+             
+			 if($new_slip_no['nextslip']) 
+			 {
+				 $next_slip_no=$new_slip_no['nextslip']+1;
+			 } else { $next_slip_no=1; }
+		 $feehistory= array(
+		     's_id'=>$_POST['student_id'],
+			 'collect_id'=>$last_insert_id,
+			 'slip_no'=>$next_slip_no,
+			 'admin_id'=>$_POST['userid'],
+			 'total_amount'=>$_POST['terms_amt'],
+			 'duse'=>$_POST['terms_amt']-$_POST['sumtotal'],
+			 'paid'=>$_POST['sumtotal'],
+			 'fee'=>$_POST['sumtotal'],
+			 'pay_status'=>$_POST['payment_mode'],
+			 'txn_id'=>$_POST['transaction_id'],
+			 'bank_id'=>$_POST['account_id'],
+			 'paid_date'=>$_POST['paid_date'],
+			 'check_dd'=>$_POST['check_dd'],
+			 'remarks'=>$_POST['remarks'],
+			 
+		 
+		 );
+		 
+		 $last_history_id= $feehostroy->insert($feehistory);
+		
+		 for ($k = 0; $k < count($_POST['feehead_id']); $k++) {
+
+            $terms_data['collector_id'] = $last_insert_id;
+			$terms_data['t_history_id'] = $last_history_id;
+            $terms_data['head_id'] = $_POST['feehead_id'][$k];
+		    $terms_data['paid_amt'] = $_POST['pay_amt'][$k];
+			$terms_data['dues_amt'] = $_POST['terms_amt_head'][$k]-$_POST['pay_amt'][$k];
+			$terms_data['account_id']= $_POST['account_id'];	
+            $terms_data['pay_mode']= $_POST['payment_mode'];		
+            $terms_data['transaction_id']= $_POST['transaction_id'];
+
+			
+			$last= $fee_collection_items->insert($terms_data);						
+		 }
+		 
+		
+		 
+		}
+		$_SESSION['message_class'] = 'alert-success';
+        $this->_flashMessenger->addMessage('Fee Structure Successfully added');
+		$this->_redirect('fee-collection/index');
+	}
+		
+		
+		
+		 $this->view->collection=$collection_id;
+		
+		
+		///$fee_form= new Application_Form_FeeCollector();
+		//$this->view->form = $fee_form;
+		
     }
 
     public function ajaxGetFeeStructureAction() {
 
         $this->_helper->layout->disableLayout();
+		
+		$storage = new Zend_Session_Namespace("admin_login");
+    	$data = $storage->admin_login;
+			
+			//print_r($data->empl_id);	die();
+				
+            $Academic_model = new Application_Model_Academic();
+            $FeeCategory_model = new Application_Model_FeeCategory();
+            $FeeHeads_model = new Application_Model_FeeHeads();
+            $FeeStructure_model = new Application_Model_FeeStructure();
+            $StructureItems_model = new Application_Model_FeeStructureItems();
+            $term_model = new Application_Model_TermMaster();
+            $TermItems_model = new Application_Model_FeeStructureTermItems();
+            $dept_details = new Application_Model_Department();
+            $dept_type_details = new Application_Model_DepartmentType();
+			$fee_form= new Application_Form_FeeCollector();
+			$feecollection =  new Application_Model_FeeCollector();
+			$feecollectionitems =  new Application_Model_FeeCollectorItems();
+			$feehostroy = new Application_Model_FeeHistroy();
+		    $this->view->form = $fee_form;
+			
+		   $Erpstu = new Application_Model_StudentPortal();
 
         if ($this->_request->isPost() && $this->getRequest()->isXmlHttpRequest()) {
 
             $academic_year_id = $this->_getParam("academic_year_id");
-
-            $structure_id = $this->_getParam("structure_id");    
             $this->view->stid = $this->_getParam("stid");    
-            $this->view->total = $this->_getParam("total");    
-            $Academic_model = new Application_Model_Academic();
-            $FeeCategory_model = new Application_Model_FeeCategory();
-          // $academic_year_id = $Academic_model->getRecordsByDepartment($department)[0]['academic_year_id'];
-            $FeeHeads_model = new Application_Model_FeeHeads();
-
-            $FeeStructure_model = new Application_Model_FeeStructure();
-
-            $StructureItems_model = new Application_Model_FeeStructureItems();
-
-            $term_model = new Application_Model_TermMaster();
-
-            $TermItems_model = new Application_Model_FeeStructureTermItems();
-            $dept_details = new Application_Model_Department();
-            $dept_type_details = new Application_Model_DepartmentType();
-
+            $this->view->term = $this->_getParam("total");    
+			$term_id= $this->_getParam("term");
+			$stuid = $this->_getParam("stid");
+			//$collectID = $this->_getParam("collect");
+	        $strId = $FeeStructure_model->getStructIdAll($academic_year_id);
+            $studetials= $Erpstu->getStudenInfo($this->_getParam("stid"));
+					 
+			$getallfeesdetails=$feecollection->getTotalpaidfeebystu($stuid,$term_id,$academic_year_id);
+		//echo "<pre>";print_r($getallfeesdetails); die();
+		if($getallfeesdetails) {
+			$getallpaidfee=$feecollectionitems->getTotalfee($getallfeesdetails);
+			
+		   $getallpaidfee1=$feecollectionitems->getTotalfee1($getallfeesdetails);
+		}
+			
             $acad_details =  $Academic_model->getRecord($academic_year_id);
 
             $department = $acad_details['department'];
@@ -188,32 +457,43 @@ class FeeCollectionController extends Zend_Controller_Action {
 
             $dept_type_id = $dept_details->getRecord($department)['department_type'];
             $dept_type_id = !empty($dept_type_id)?$dept_type_id:exit;
+              
+			  
+			  
             
-            
-            if (!empty($structure_id)) {
+            if (!empty($strId)) {
 
-             $result = $TermItems_model->getItemRecords($structure_id);
-
+             $result = $TermItems_model->getItemRecords1($strId,$term_id);
+			 
+          
              $this->view->result = $result;
 
-             $result1 = $StructureItems_model->getStructureRecords($structure_id);
+             $result1 = $StructureItems_model->getStructureRecords($strId);
 
              $this->view->result1 = $result1;
-             $academic_id  = $TermItems_model->getAcademicId($structure_id);
-             $terms_data = $term_model->getRecordByAcademicId($academic_year_id);
+             $academic_id  = $TermItems_model->getAcademicId($strId);
+             $terms_data = $term_model->getRecord($term_id);
 
              $degree_id = $Academic_model->getAcademicDegree($academic_year_id);
              $this->view->term_data = $terms_data; 
-             $this->view->structure_id = $structure_id;
+             $this->view->structure_id = $strId;
              $Category_data = $FeeCategory_model->getCategory($degree_id['degree_id'],$session,$dept_type_id);
-
+        
              $this->view->Category_data = $Category_data;
 
              $Feeheads_data = $FeeHeads_model->getFeeheads($degree_id['degree_id'],$session,$dept_type_id);
 
-
-
+            
              $this->view->Feeheads_data = $Feeheads_data;
+			 $this->view->accounts=$account;
+			 $this->view->studetails=$studetials;
+			 $this->view->acad_details=$acad_details;
+			 $this->view->fee_acad_details=$getallpaidfee;
+			 
+			  $this->view->userid=$data->empl_id;
+			
+			
+			 
 
          } else {
 
@@ -248,7 +528,15 @@ class FeeCollectionController extends Zend_Controller_Action {
             }
 
         }
-
+		
+		   if($getallfeesdetails) {
+			   
+			 
+            $allrecords= $feehostroy->getRecords($getallfeesdetails);
+			  //echo "<pre>";  print_r($allrecords);die;
+		    $this->view->allrecords = $allrecords;
+			
+			}
     }
 }
 
@@ -267,7 +555,25 @@ class FeeCollectionController extends Zend_Controller_Action {
             );
             // exit;
             $fee_collector_model->update($upd_data, array('student_id=?' => $_POST['student_id']));
-            print_r($_POST); exit;
+           // print_r($_POST); exit;
         }
     }
+	
+	
+function printslipAction () {
+        $this->_helper->layout->setLayout("applicationlayout");
+
+        $s_id = $this->_getParam("stuid");
+        $collect = $this->_getParam("collect");
+		
+        $fee_collector_model = new Application_Model_FeeCollector();
+        $allresult= $fee_collector_model->GetTransactionDetails($s_id,$collect);
+		//print_r($allresult); die();
+		$this->view->result=$allresult;
+        
+         
+      
+    }	
+	
+	
 }

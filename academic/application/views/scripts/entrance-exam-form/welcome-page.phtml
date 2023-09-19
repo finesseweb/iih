@@ -94,7 +94,7 @@ h3,h2,h1,h5,p,b{
 
                         <h5>&nbsp;Dear Applicant <?= ucfirst($this->paginator['applicant_name'])?> ,</h5>
                         <div class="col-sm-12 employee_class" style="margin-top:20px;">
-                         <p> Your Registration Number is IIHER-00<?=$this->a_id ?>  </p>
+                         <p> Your Registration Number - <?=$this->paginator['user_id']?>  </p>
 						 <input type="hidden" name="application_no" id="a_id"  value="<?=$this->paginator['application_no']?>">
 						 <input type="hidden" name="password" id="p_id"  value="<?=$this->paginator['password']?>">
                          
