@@ -15,12 +15,10 @@
                                     <th>Father Name</th>
                                     <th>Batch</th>
                                     <th>Programme</th>
-                                    <th>Religion</th>
                                     <th>Caste Category</th>
-                                    <th>state</th>
-                                    <th>REG NO.</th>
-                                    <th>Exam Roll No.</th>
-                                    <th>Class Roll No.</th>
+                                    <th>University REG NO.</th>
+                                    <th>User ID</th>
+                                    <th>Enrollment ID.</th>
                                     <th>Save & Edit</th>
                                     <th>Status</th>
                                     <th>Migration</th> 
@@ -38,11 +36,7 @@
                                 if (count($this->paginator) != 0) {
 
                                     foreach ($this->paginator as $results) {
-                                        foreach($results as $key =>$val)
-                                            if(!is_numeric($val)){
-                                                $val = str_replace("/","-",$val);
-                                                $results[$key] = preg_replace('/[^a-zA-Z0-9.\s-=+@]/',"",trim(preg_replace('/\s\s+/', ' ', str_replace("\n", " ", $val))));
-                                            }
+                                        
                                         
                                         
                                            
@@ -61,12 +55,8 @@
                                             <td><?php echo $results['father_fname'].' '.$results['father_lname']; ?></td>
                                             <td><?php echo $results['academic_year']; ?></td>
                                             <td><?php echo $results['dept_name']; ?></td>
-                                                
-                                            
-                                           
-                                             <td><?php echo $results['religion']; ?></td>
-                                                  <td><?php echo $results['cast_category']; ?></td>
-                                                   <td><?php echo $results['state']; ?></td>
+                                            <td><?php echo $results['cast_category']; ?></td>
+                                                  
                                             
                                             <td style="vertical-align:middle;" class="form-group-sm">
                                                 <?php if ($results['reg_no'] != '0000' && !empty($results['reg_no'])) { ?>
@@ -76,17 +66,17 @@
                                                 <?php } ?>
                                             </td>
                                             <td style="vertical-align:middle;" class="form-group-sm"><?php // echo $results['reg_no'];  ?>
-                                                <?php if ($results['exam_roll'] != '0000' &&  !empty($results['exam_roll']) ) { ?>
-                                                    <label class='changebox' style='font-weight:normal;' ><?php echo $results['exam_roll']; ?></label>
+                                                <?php if ($results['stu_id'] != '0000' &&  !empty($results['stu_id']) ) { ?>
+                                                    <label class='changebox' style='font-weight:normal;' ><?php echo $results['stu_id']; ?></label>
                                                 <?php } else { ?>
-                                                    <input type='text' class='changebox form-control' size="12" name='exam_roll' data-exam = '<?php echo $results['student_id']; ?>' value="<?php echo $results['exam_roll']; ?>"/>
+                                                    <input type='text' class='changebox form-control' size="12" name='stu_id' data-exam = '<?php echo $results['student_id']; ?>' value="<?php echo $results['stu_id']; ?>"/>
                                                 <?php } ?>
                                             </td>
                                             <td style="vertical-align:middle;" class="form-group-sm">
-                                                <?php if ($results['roll_no'] != '0000' &&  !empty($results['roll_no']) ) { ?>
-                                                    <label class='changebox' style='font-weight:normal;' ><?php echo $results['roll_no']; ?></label>
+                                                <?php if ($results['exam_roll'] != '0000' &&  !empty($results['exam_roll']) ) { ?>
+                                                    <label class='changebox' style='font-weight:normal;' ><?php echo $results['exam_roll']; ?></label>
                                                 <?php } else { ?>
-                                                    <input type='text' class='changebox form-control' size="12" name='roll_no' data-roll = '<?php echo $results['student_id']; ?>' value="<?php echo $results['roll_no']; ?>"/>
+                                                    <input type='text' class='changebox form-control' size="12" name='exam_roll' data-roll = '<?php echo $results['student_id']; ?>' value="<?php echo $results['exam_roll']; ?>"/>
                                                 <?php } ?>
                                                 </td>
                                                 

@@ -2654,9 +2654,11 @@ $Degree_model->update($data, array('id=?' => $cc_id));
             if (!empty($reg_no))
                 $data['reg_no'] = $reg_no;
             if (!empty($exam_roll))
-                $data['exam_roll'] = $exam_roll;
-                 if (!empty($roll))
+                $data['stu_id'] = $exam_roll;
+                 if (!empty($roll)){
                 $data['roll_no'] = $roll;
+			    $data['exam_roll'] = $roll;
+				 }
                 $data['earned_credit'] = $earned_credit;
             if ($student_db->update($data, array('student_id=?' => $id))) {
 
