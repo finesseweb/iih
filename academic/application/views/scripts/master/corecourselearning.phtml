@@ -104,30 +104,14 @@
                                       <div class="col-sm-3 employee_class">
                                         <div class="form-group">
                                             <label class="control-label">Countable<span class="asterisk">*</span></label>
+											<input type="hidden" name="tot_credit" id="tot_credit" class="form-control" readonly>
+											<input type="hidden" name="re_credit" id="re_credit" class="form-control" readonly value="<?php echo $this->result['re_credit']; ?>" >
                                             <?php echo $this->form->count_id; ?>
                                         </div>
                                     </div>
 
                                 </div>
-                                <div class="row">
-                                    
-                                    
-                                    <div class="col-sm-3 employee_class">
-                                        <div class="form-group">
-                                            <label class="control-label">Total Credits:</label>
-                                            <input type="text" name="tot_credit" id="tot_credit" class="form-control" readonly>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3 employee_class">
-                                        <div class="form-group">
-                                            <label class="control-label">Remaining Credits:</label>
-                                            <input type="text" name="re_credit" id="re_credit" class="form-control" readonly value="<?php echo $this->result['re_credit']; ?>" >
-                                        </div>
-                                    </div> 
-<!--                                    <input type="hidden" name="ccl_id" id="ccl_id" value="<?php echo $this->result['ccl_id']; ?>"/>-->
-
-                                </div>
+                               
                             </div>
                             <div>
                                 <div class="panel-footer">									
@@ -241,8 +225,8 @@
                                         <th style="text-align:center;" >Course Category</th>
                                         <th style="text-align:center;" >Course Name</th>
                                         <th style="text-align:center;" >Course Code</th>
-                                        <th style="text-align:center;" >Countable</th>
-                                        <th style="text-align:center;" >Credit</th>
+                                        <!--<th style="text-align:center;" >Countable</th>
+                                        <th style="text-align:center;" >Credit</th>-->
                                         <th class="no_print" style="text-align:center;" >Action</th>
                                     </tr>
                                 </thead>
@@ -266,10 +250,10 @@
                                                 <td><?php echo $results['cc_name'] ?></td>
                                                 <td><?php echo $results['course_name'] ?></td>
                                                 <td><?php echo $results['course_code'] ?></td>
-                                                <td><?php if($results['count_id'] == 0){echo 'YES';}else{
-                                                    echo "NO";
-                                                } ?></td>
-                                                <td><?php echo $results['credit_value'] ?></td>
+                                                <td><?php //if($results['count_id'] == 0){echo 'YES';}else{
+                                                    //echo "NO";
+                                               // } ?></td>
+                                              <!--  <td><?php //echo $results['credit_value'] ?></td>-->
                                                 <td><a href="<?php echo $this->mainconfig['host']; ?>master/corecourselearning/type/edit/id/<?php echo $results['ccl_id']; ?>" class="edit" title="Edit"><span class="fa fa-edit fa-lg"></span></a><!--&nbsp; | &nbsp;  <a href="<?php echo $this->mainconfig['host']; ?>master/corecourselearning/type/delete/id/<?php // echo $results['ccl_id'];  ?>" onclick="return ConfirmDelete();" title="Delete" class="delete"> <span class="fa fa-trash-o fa-lg"></span> </a>--></td>
 
                                             </tr>            

@@ -55,7 +55,7 @@ class Application_Form_AcademicYear extends Zend_Form {
         //$Addon_model = new Application_Model_AddonCourseModel();
         //$data = $Addon_model->getDropDownList();
         //print_r($data); die;
-        $status = $this->createElement('select', 'status')
+        $status = $this->createElement('select', 'pay_status')
                 ->removeDecorator('label')
                 ->setAttrib('class', array('form-control', 'chosen-select'))
                 ->setRequired(true)

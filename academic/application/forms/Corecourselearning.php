@@ -170,8 +170,9 @@ class Application_Form_Corecourselearning extends Zend_Form
 						   ->setAttrib('required','required')
                         ->setRequired(true)
 							->removeDecorator("htmlTag")
-							->addMultiOptions(array('' => 'Select'))
-							->addMultiOptions($data);
+							//->addMultiOptions(array('' => 'Select'))
+							->addMultiOptions(array('1' => '1'));
+							//->addMultiOptions($data);
         $this->addElement($credit_id);
         
         //To add academic year id
