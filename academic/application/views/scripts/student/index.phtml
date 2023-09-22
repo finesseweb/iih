@@ -145,42 +145,42 @@
                                             </div>
                                         </div>
                                         
-                                        
-
-                                        
-                                       <div class="col-sm-2 employee_class">
+                                        <div class="col-sm-2 employee_class">
                                             <div class="form-group disabled">
-                                                <label class="control-label">UID<span class="asterisk">*</span></label>
+                                                <label class="control-label">Enrollment Id<span class="asterisk">*</span></label>
                                                
                                                     <?php echo $this->form->stu_id; ?>
                                              
                                             </div>
                                         </div>
                                         <?php echo $this->form->csrftoken; ?>
-                                         <div class="col-sm-2 employee_class">
-                                            <div class="form-group disabled">
-                                                <label class="control-label">Reg. No.<span class="asterisk">*</span></label>
-                                                
-                                                    <?php echo $this->form->reg_no; ?>
-                                              
-                                            </div>
-                                        </div>
+                                         
                                         <div class="col-sm-2 employee_class">
                                             <div class="form-group disabled">
-                                                <label class="control-label">Exam Roll No.<span class="asterisk">*</span></label>
+                                                <label class="control-label">User Id.<span class="asterisk">*</span></label>
                                                 
                                                     <?php echo $this->form->exam_roll; ?>
                                               
                                             </div>
                                         </div>
-                                        <div class="col-sm-2 employee_class">
+											<div class="col-sm-2 employee_class">
                                             <div class="form-group disabled">
-                                                <label class="control-label">Class Roll No.<span class="asterisk">*</span></label>
+                                                <label class="control-label">Uni.Reg. No.<span class="asterisk">*</span></label>
                                                 
-                                                    <?php echo $this->form->roll_no; ?>
+                                                    <?php echo $this->form->reg_no; ?>
                                               
                                             </div>
                                         </div>
+                                        
+                                       
+                                        <!--<div class="col-sm-2 employee_class">
+                                            <div class="form-group disabled">
+                                                <label class="control-label">Class Roll No.<span class="asterisk">*</span></label>
+                                                
+                                                    <?php ///echo $this->form->roll_no; ?>
+                                              
+                                            </div>
+                                        </div>-->
 
     <?php if ($this->type == 'edit'): ?>
                                             <div class="col-sm-2 employee_class pull-right">
@@ -312,12 +312,12 @@
                                             </div>
                                         </div>  
                                         
-                                        <div class="col-sm-3 employee_class">
+                                       <!-- <div class="col-sm-3 employee_class">
                                             <div class="form-group disabled">
                                                 <label class="control-label">Caste<span class="asterisk">*</span></label>
-    <?php echo $this->form->stu_caste; ?>
+    <?php ///echo $this->form->stu_caste; ?>
                                             </div>
-                                        </div>  
+                                        </div> --> 
                                          <div class="col-sm-3 employee_class">
                                             <div class="form-group disabled">
                                                 <label class="control-label">Caste Category<span class="asterisk">*</span></label>
@@ -384,12 +384,12 @@
     <?php echo $this->form->session_for_char; ?>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3 employee_class">
+                                       <!-- <div class="col-sm-3 employee_class">
                                             <div class="form-group disabled">
                                                 <label class="control-label tc_class"> Admitted Semester <span class="asterisk">*</span></label>
-    <?php echo $this->form->adm_sem; ?>
+    <?php //echo $this->form->adm_sem; ?>
                                             </div>
-                                        </div>
+                                        </div>-->
 
                                         <div class="col-sm-3 employee_class">
                                             <div class="form-group disabled">
@@ -410,12 +410,12 @@
                                             </div>
                                         </div>
                                         
-                                        <div class="col-sm-3 employee_class">
+                                       <!-- <div class="col-sm-3 employee_class">
                                             <div class="form-group disabled">
                                                 <label class="control-label tc_class"> Leaving Semester <span class="asterisk">*</span> </label>
-                                                <?php echo $this->form->leaving_sem; ?>
+                                                <?php //echo $this->form->leaving_sem; ?>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         
                                         <div class="col-sm-3 employee_class">
                                             <div class="form-group disabled">
@@ -850,7 +850,7 @@
             var current = selected_date;
             var date_components = current.split("/");
             var current_year = parseInt(date_components[2]);
-            //console.log(current_year);
+           
             var day = parseInt(date_components[0]);
             var month = parseInt(date_components[1]);
             var age = 16;
@@ -862,7 +862,7 @@
                 $('#dobError').text("");
                 
             } else {
-               $('#dobError').text("Your age less than 16 yrs");
+               //$('#dobError').text("Your age less than 16 yrs");
 
             }       
         }

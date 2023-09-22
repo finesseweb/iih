@@ -1063,6 +1063,17 @@ class Application_Model_TermMaster extends Zend_Db_Table_Abstract {
             ->fetchAll($select);
         return $result;
     }
+public function getYearcmterm($id) {
+        $select = $this->_db->select()
+            ->from($this->_name)
+			->joinleft(array("year" => "year_master"), "year.id=$this->_name.year_id", array("cm_terms"))
+            ->where("$this->_id=?", $id)
+            ->where("$this->_name.status !=?", 2);
+
+        $result = $this->getAdapter()
+            ->fetchRow($select);
+        return $result['cm_terms'];
+    }
 
 }
 

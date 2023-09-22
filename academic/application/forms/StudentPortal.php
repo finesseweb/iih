@@ -109,7 +109,7 @@ class Application_Form_StudentPortal extends Zend_Form {
                 ->addMultiOptions(array(
             '1' => 'Male',
 			'2' => 'Female',
-            '2' => 'Transgender'));
+            '3' => 'Transgender'));
         $this->addElement($gender);
 
         $participant_username = $this->createElement('text', 'participant_username')

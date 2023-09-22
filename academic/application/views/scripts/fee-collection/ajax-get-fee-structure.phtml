@@ -97,6 +97,7 @@ $col_span = 2 + count($this->term_data);
                                         </thead>
                                         <tbody>
                                             <?php
+											$account =  new Application_Model_Account();
 											 //echo "<pre>"; print_r($term_details); die();
                                                 // print_r($this->academics_data);
                                                 // $i=1;
@@ -153,7 +154,7 @@ $col_span = 2 + count($this->term_data);
                                                               //  foreach ($this->term_data as $key => $term_details) {
 																  
 																 $term_details=$this->term_data;
-																  //print_r($term_details);die();
+																  //print_r($this->fee_acad_details);die();
                                                                     ?>
                                                                     <?php $inc =  1; ?> 
                                                                     <?php $term1_result = $TermItems_model->getFeesRecords($this->structure_id, $cat_ids, $fhead_ids, $term_details['term_id']); ?>
@@ -192,8 +193,8 @@ $col_span = 2 + count($this->term_data);
                                                     <td colspan="1"></td>
 													<td colspan="1"> Discount : </td>
 													<td><?php //echo $term1_cat_tot ?></td>
-													<td><?php //echo $ttotalpaysamt ?></td>
-													<td colspan="1"><?php //echo $ttotalduesamt ?></td>
+													<td><?php echo $this->discount ?></td>
+													<td colspan="1"><?php //echo $this->discount ?></td>
 													<td colspan="1"><input type="text" name="discount" id="discount"  value="<?php //echo $ttotalduesamt ?>"></td>
                                                     
                                                 </tr> 
@@ -204,8 +205,8 @@ $col_span = 2 + count($this->term_data);
                                                     <td colspan="1"></td>
 													<td colspan="1"> Total Amount : </td>
 													<td><?php echo $term1_cat_tot ?></td>
-													<td><?php echo $ttotalpaysamt ?></td>
-													<td colspan="1"><?php echo $ttotalduesamt ?></td>
+													<td><?php echo $ttotalpaysamt+$this->discount ?></td>
+													<td colspan="1"><?php echo $ttotalduesamt-$this->discount ?></td>
 													<td colspan="1"><input type="text" name="sumtotal" id="sumtotal"  value="" readonly></td>
                                                     
                                                 </tr> 
@@ -252,9 +253,9 @@ $col_span = 2 + count($this->term_data);
 						 <tr>
 						<td>#<?=$record['id']?></td>
 						<td><?=date('d-m-Y',strtotime($record['paid_date']))?></td>
-						<td><?=$record['acc_name']?></td>
+						<td><? if($record['bank_id']==0) { echo 'Cash'; } else { echo $account->getRecord($record['bank_id'])['acc_name']; }?></td>
 						<td><?=$record['paid']?></td>
-					    <td><a target="_blank" href="<?php echo $this->mainconfig['host']; ?>fee-collection/printslip/stuid/<?=$record['s_id']?>/collect/<?=$record['collect_id']?>">Print</a></td>
+					    <td><a target="_blank" href="<?php echo $this->mainconfig['host']; ?>fee-collection/printslip/stuid/<?=$record['s_id']?>/collect/<?=$record['collect_id']?>/hid/<?=$record['id']?>">Print</a></td>
 						 </tr>
 						 
 						 <?php } ?>

@@ -66,7 +66,21 @@ class Application_Model_SemesterRule extends Zend_Db_Table_Abstract {
     }
     
     
-
+ 
+    public function checkpromRule($batch='',$degree_id='',$session_id='',$cmn_term=''){       
+        $select=$this->_db->select()
+            ->from(array($this->_name))   
+            ->where("$this->_name.degree_id=?", $degree_id)	
+            ->where("$this->_name.nextyear=?", $cmn_term)
+            ->where("$this->_name.session=?", $session_id)
+			->where("$this->_name.academic_id=?", $batch)
+            ->group("$this->_name.id");	
+            $result=$this->getAdapter()
+            ->fetchRow($select);  
+            //echo $select;die;
+            //echo"<pre>";print_r($result);die;	  
+        return $result['fees'];
+    }
     
     
 }

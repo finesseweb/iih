@@ -312,11 +312,15 @@ z-index: 999;
 <li <?php if ($this->sub_title_name == 'evaluationcomponents') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_EVALUATION_COMPONENT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>evaluation-components/index" target="_blank">Evaluation Components</a>
 </li>
+
 <li style="display:none;" <?php if ($this->sub_title_name == 'viewsession') echo 'class="active"'; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>view-session/index/type/edit/id/1/version/0.1">View Session</a>
 </li>
 <li <?php if ($this->sub_title_name == 'gradeallocationcollegiate') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_GRADE_ALLOCATION, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>grade-allocation/index" target="_blank">Grade Allocation</a>
+</li>
+<li <?php if ($this->sub_title_name == 'direct-final-grade') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_FEE_INSDETAIL, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
+<a href="<?php echo $this->mainconfig['host']; ?>fee-collection/promotion/" target="_blank"> Promotion</a>
 </li>
 <!--<li <?php if ($this->sub_title_name == 'gradeallocation') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_BACK_GRADE_ALLOCATION, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>grade-allocation/back-paper" target="_blank">Grade Allocation (Non-Collegiate)</a>

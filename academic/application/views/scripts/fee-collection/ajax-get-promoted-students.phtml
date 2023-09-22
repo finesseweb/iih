@@ -1,0 +1,87 @@
+<table class="table table-striped table-bordered mb30 jambo_table bulk_action" id="datatable-responsive">
+
+	<thead>
+
+		<tr>
+
+			<th style="text-align:center;" >S.  No.</th>												
+
+			<!-- <th style="text-align:center;" >Course Category Name</th>-->
+			<th style="text-align:center;" >Year</th>
+			<th style="text-align:center;" >Session </th>
+			<th style="text-align:center;" >Batch Name</th>
+			<th style="text-align:center;" >Total Student</th>
+            <th class="no_print"  style="text-align:center;" >Action</th>
+
+		</tr>
+
+	</thead>
+
+	<tbody style="text-align:center;" >
+
+<?php  if (count($this->paginator) != 0) {
+$i=1;
+      //  print_r($this->paginator); die()   ;       
+	        foreach ($this->paginator as $results) {?>
+<tr>
+<td><?php 	echo $i;  $i++;	?> </td>						
+				<td><?php echo $results['academic_year']; ?></td>
+				<td><?php echo $results['session'];  ?></td>
+				<td><?php echo $results['batch_code'];  ?></td>
+				<td><?php echo $results['tottalstudent'];; ?></td>
+				<td><a href="<?php echo $this->mainconfig['host']; ?>fee-collection/promotion/type/edit/id/<?php echo $results['promo_id']; ?>" class="edit" title="Edit"> Edit</a></td>
+
+
+
+			</tr>            
+
+
+
+			<?php
+		}
+
+		$pagination_tr = $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
+	}
+	?>
+
+
+
+</tbody>
+
+</table>
+<script>
+	setDatatables();
+	
+ $(".allowedBtn").click(function() {
+    let id = $(this).closest("td").find("#update_id").val();
+    let buttonValue=$(this).closest("td").find('#allowedBtn').val();
+    let remarks= $("#attend_remarks-"+id).val();
+    
+    $.ajax({
+        type: "POST",
+        url: '<?php echo $this->mainconfig['host'] . 'batch-attendance/ajax-update-attend-status'; ?>',
+        data: {id:id,buttonValue:buttonValue,remarks:remarks}
+    }).done(function (data) {
+        $("#attend_status-"+id).text('Allowed'); 
+        //alert("The Application Form this "+update_id+' is approved');
+    });     
+});
+$(".notallowedBtn").click(function() {
+
+    let id = $(this).closest("td").find("#update_id").val();
+    let buttonValue=$(this).closest("td").find('#notallowedBtn').val();
+    let remarks= $("#attend_remarks-"+id).val();
+	alert(buttonValue);
+    $.ajax({
+        type: "POST",
+        url: '<?php echo $this->mainconfig['host'] . 'batch-attendance/ajax-update-attend-status'; ?>',
+        data: {id:id,buttonValue:buttonValue,remarks:remarks}
+    }).done(function (data) {
+        $("#attend_status-"+id).text('Not Allowed'); 
+        //alert("The Application Form this "+update_id+' is rejected');
+
+    });   
+});	
+	
+	
+</script>

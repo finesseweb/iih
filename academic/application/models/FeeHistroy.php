@@ -59,6 +59,8 @@ class Application_Model_FeeHistroy extends Zend_Db_Table_Abstract {
 		$select->from('t_history');
 		//$select->join(array("account_master"), "account_master.id=t_history.bank_id");
 		$select->where("collect_id=?", $id);
+		
+		//echo $select; die();
 		$result = $this->getAdapter()->fetchAll($select);
         return $result;	
 	}

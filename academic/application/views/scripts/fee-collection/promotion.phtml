@@ -1,0 +1,353 @@
+<? 
+
+ 
+if($this->type) {
+	
+	?>
+
+<div class="right_col">
+	<div class="padding-md">
+		<div class="row">
+			<div class="col-md-12 " >
+				<h3 class="page-title txt-color-blueDark" >
+					<div><i class="fa fa-eye"> Promotion</i></div>
+				</h3>
+			<form class="no-margin" id="formValidate1" action="<?php echo $this->form->getAction() ?>" method="post" data-validate="parsley" >	
+				<div class="panel panel-default">
+					
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<div class="form-group" >
+										<label  class="control-label" >Year <span class="asterisk">*</span></label>
+										<?php echo $this->form->academic_year_list; ?>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group" >
+										<label  class="control-label" >Session <span class="asterisk">*</span></label>
+										<?php echo $this->form->session; ?>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group" >
+										<label  class="control-label" >Batch <span class="asterisk">*</span></label>
+										<?php echo $this->form->academic_id; ?>
+									</div>
+								</div>
+								
+								<div class="col-sm-4">
+									<div class="form-group" >
+								<label class="control-label">Semester/Year</label>
+								<select type="text" name="semester" id="semseter" class="form-control">
+								
+								</select>
+								</div>
+								</div>
+								
+								<div class="col-sm-4">
+									<div class="form-group" >
+								<label class="control-label">Semester/Year</label>
+								
+								<? if($this->type=='edit') {
+									$termmaster= new Application_Model_TermMaster();
+									?>
+								<select type="text" name="next_term" id="next_term" class="form-control">
+								<option  value="<?=$this->result['next_term']?>"><?=$termmaster->getRecord($this->result['next_term'])['term_name']?></option>
+								</select>
+								<? } else {?>
+								<select type="text" name="next_semester" id="nextsemseter" class="form-control">
+								
+								</select>
+								<?php } ?>
+								</div>
+								</div>
+								
+								</div>
+								
+						</div>
+				
+				</div>
+			
+		<div id="ajaxData"></div>
+		
+		
+		
+								<div class="col-sm-12">
+									<div class="form-group" >
+								
+							<center><input type="submit" name="submit" class="btn btn-success"></center>
+								</div>
+								</div>
+								
+			</form>
+			</div>
+		</div>
+	</div>
+</div>
+<? } else {?>
+        <?php
+        if (count($this->messages)) {
+            foreach ($this->messages as $message) {
+                ?>
+                <div class="alert <?php echo $_SESSION['message_class']; ?> ">
+                    <a type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
+                    <?php echo $this->escape($message); ?>
+                </div>
+                <?php
+            }
+        }
+        ?>
+<div class="right_col">
+	<div class="padding-md">
+		<div class="row">
+			<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+				<h3 class="page-title txt-color-blueDark" >
+					<div><i class="fa fa-eye"> Promotion</i></div>
+				</h3>
+				
+		    </div>
+			<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">	 
+              <a class="btn btn-primary pull-right" style="margin-top: 25px;" href="<?php echo $this->mainconfig['host']; ?>fee-collection/promotion/type/add">Add </a>
+            </div>
+			<div class="col-sm-12">
+			   
+		        <div class="panel panel-default">
+					
+						<div class="panel-body">
+							
+								<div class="col-sm-4">
+									<div class="form-group" >
+										<label  class="control-label" >Year <span class="asterisk">*</span></label>
+										<?php echo $this->form->academic_year_list; ?>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group" >
+										<label  class="control-label" >Session <span class="asterisk">*</span></label>
+										<?php echo $this->form->session; ?>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group" >
+										<label  class="control-label" >Batch <span class="asterisk">*</span></label>
+										<?php echo $this->form->academic_id; ?>
+									</div>
+								</div>
+								
+								<div class="col-sm-4">
+									<div class="form-group" >
+								<label class="control-label">Semester/Year</label>
+								<select type="text" name="semester" id="presemseter" class="form-control">
+								
+								</select>
+								</div>
+								
+								
+								</div>
+								
+						</div>
+				
+				</div>	
+				<div id="promotedData"></div>	
+				</div>
+				
+			
+				
+			
+		</div>
+		</div>
+</div>	
+
+<? } ?>
+<div class="load-box" style="top:0px;">
+	<img src="<?php echo $this->mainconfig['publicpath']; ?>/images/loader.gif" width='200px'  class="loder_img1" />
+</div>
+
+<script>
+	$(document).ready( function() {
+		$('#session').empty();
+		$('#academic_id').empty();
+
+		console.log('<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-year'; ?>');
+	});
+
+	$('#academic_year_list').change(function(){
+        //alert('x');
+		$.ajax({
+			type: "POST",
+			url: '<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-session'; ?>',
+			data: {academic_year_id: $('#academic_year_list').val()}
+		}).done(function (data) {
+            // console.log(data);
+			$('#session').empty();
+			$('#session').html(data);
+			$("#session").trigger("chosen:updated");
+		});
+	});
+
+var acadid= $('#academic_year_list').val();
+$.ajax({
+			type: "POST",
+			url: '<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-session'; ?>',
+			data: {academic_year_id: acadid}
+		}).done(function (data) {
+            // console.log(data);
+			$('#session').empty();
+			$('#session').html(data);
+			$("#session").trigger("chosen:updated");
+			$('#session').val(<?=$this->result['session']?>);
+
+		})
+
+
+	$('#session').change(function(){
+        //alert('x');
+		$.ajax({
+			type: "POST",
+			url: '<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-academic-id'; ?>',
+			data: {session: $('#session').val()}
+		}).done(function (data) {
+            // console.log(data);
+			$('#academic_id').empty();
+			$('#academic_id').html(data);
+			$("#academic_id").trigger("chosen:updated");
+		});
+	});
+	
+	
+var sessionid= $('#session').val();
+$.ajax({
+			type: "POST",
+			url: '<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-academic-id'; ?>',
+			data: {session: sessionid}
+		}).done(function (data) {
+            // console.log(data);
+			$('#academic_id').empty();
+			$('#academic_id').html(data);
+			$('#academic_id').val(<?=$this->result['academic_id']?>);
+			$("#academic_id").trigger("chosen:updated");
+		});
+
+	$('#academic_id').change(function(){
+        //alert('x');
+		$.ajax({
+			type: "POST",
+			url: '<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-semester'; ?>',
+			data: {
+				// degree: $('#degree_id').val(),
+				
+				batch: $('#academic_id').val()
+			}
+		}).done(function (data) {
+			// console.log(data);
+			$('#semseter').empty('');
+			$('#semseter').html(data);
+			$('#presemseter').html(data);
+		});
+	});
+	
+var semseterid= $('#academic_id').val();	
+
+$.ajax({
+			type: "POST",
+			url: '<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-semester'; ?>',
+			data: {
+				// degree: $('#degree_id').val(),
+				
+				batch: semseterid,
+			}
+		}).done(function (data) {
+			// console.log(data);
+			$('#semseter').empty('');
+			$('#semseter').html(data);
+			$('#semseter').val(<?=$this->result['prev_term']?>);
+			$('#presemseter').html(data);
+		});
+	
+	$('#semseter').change(function(){
+    //alert('x');
+		$.ajax({
+			type: "POST",
+			url: '<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-promotion-students'; ?>',
+		data: {
+		    sem: $('#semseter').val(),
+			year: $('#academic_year_list').val(),
+			session: $('#session').val(),
+		    batch: $('#academic_id').val()
+			}
+		}).done(function (data) {
+			// console.log(data);
+			$('#ajaxData').empty('');
+			$('#ajaxData').html(data);
+		});
+	});
+	
+	
+	var semid= '<?=$this->result['prev_term']?>';
+    //alert(semid);
+		$.ajax({
+			type: "POST",
+			url: '<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-promotion-students'; ?>',
+		data: {
+		    sem: semid,
+			year: $('#academic_year_list').val(),
+			session: $('#session').val(),
+		    batch: $('#academic_id').val()
+			}
+		}).done(function (data) {
+			// console.log(data);
+			$('#ajaxData').empty('');
+			$('#ajaxData').html(data);
+		});
+
+	
+	$('#presemseter').change(function(){
+    //alert('x');
+		$.ajax({
+			type: "POST",
+			url: '<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-promoted-students'; ?>',
+		data: {
+		    sem: $('#presemseter').val(),
+			year: $('#academic_year_list').val(),
+			session: $('#session').val(),
+		    batch: $('#academic_id').val()
+			}
+		}).done(function (data) {
+			// console.log(data);
+			$('#promotedData').empty('');
+			$('#promotedData').html(data);
+		});
+	});
+	
+	 $(document).on('change', '#semseter', function () {
+
+
+
+        var semester_id = $('#semseter>option:selected').index();
+		
+		
+
+        $('#semseter>option').each(function (e) {
+
+
+
+            if (semester_id == (e)) {
+
+                $('#nextsemseter').empty();
+
+                $('#nextsemseter').html("<option value='" + $(this).next().val() + "'>" + $(this).next().text() + "</option>");
+
+            }
+
+        });
+
+    });
+	
+	
+	
+
+
+    
+ 
+</script>
