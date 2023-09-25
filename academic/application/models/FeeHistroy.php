@@ -95,4 +95,20 @@ $result=$this->getAdapter()
             return $result;
         
     }
+	
+	public function getFullTrans($stid,$term_id) {
+		
+		
+		$select = $this->_db->select();
+		$select->from('t_history');
+		$select->joinleft(array("fee_collector"), "fee_collector.id=t_history.collect_id",array("sem_year"));
+		//$select->joinleft(array("erp_student_information"), "erp_student_information.student_id=t_history.s_id");
+	    $select->joinleft(array("term_master"), "term_master.term_id=fee_collector.sem_year",array("term_name"));
+		$select->where("s_id=?", $stid);
+		$select->where("fee_collector.sem_year=?", $term_id);
+		$result = $this->getAdapter()->fetchAll($select);
+        return $result;	
+	}
+	
+	
 }

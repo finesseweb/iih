@@ -1941,21 +1941,19 @@ $no_of_classes  = $class_master->getRecordByTermIdAndBatch(0, 0);
     }
 
     public function printTransctionReportAction() {
-        $batch_id = $this->_getParam("batch_id");
-        $term_id = $this->_getParam("term_id");
-        $term_name = $this->_getParam('term_name');
-        $result = $this->getTrans($batch_id, $term_id);
-        $result['due_fee_in_words'] = $this->number_to_word($result['due_fee']);
-        $result['total_in_words'] = $this->number_to_word($result['total']);
-        //========Term name to view for pdf ====//
-        $result['term_name'] = $term_name;
-        $this->view->data = $result;
+       $this->_helper->layout->setLayout("applicationlayout");
 
-        $htmlcontent = $this->view->render('report/transction_report.phtml');
-       // echo $htmlcontent; exit;
-        $pdfheader = '';
-        $pdffooter = '';
-        $this->_act->generatePdf1($pdfheader, $pdffooter, $htmlcontent, "Transaction-on-" . date('d-m-Y'));
+        $s_id = $this->_getParam("stuid");
+        $collect = $this->_getParam("collect");
+		$hid = $this->_getParam("hid");
+		
+        $fee_collector_model = new Application_Model_FeeCollector();
+        $allresult= $fee_collector_model->GetTransactionDetails($s_id,$collect,$hid);
+		//print_r($allresult); die();
+		$this->view->result=$allresult;
+        
+
+        
     }
 
     public function number_to_word($num = '') {
@@ -2467,5 +2465,25 @@ $no_of_classes  = $class_master->getRecordByTermIdAndBatch(0, 0);
         $this->view->result = $results;
     }
     }
+	
+	
+public function ajaxGetTransactionView11Action() {
+           $this->_helper->layout->disableLayout();
+		   
+		$feeshis=  new Application_Model_FeeHistroy();
+        $this->view->action_name = 'Fee History';
+        $this->view->sub_title_name = 'Fee History';
+        if ($this->_request->isPost() && $this->getRequest()->isXmlHttpRequest()) {
+            $term_id = $this->_getParam("term_id");
+            $term_name = $this->_getParam("term_name");
+            
+        $academic_year_id = $_SESSION['admin_login']['admin_login']->student_id;
+		
+        $results = $feeshis->getFullTrans($academic_year_id, $term_id);
+		
+		
+        $this->view->result = $results;
+    }
+    }	
 
 }

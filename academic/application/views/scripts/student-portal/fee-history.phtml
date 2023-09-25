@@ -32,15 +32,11 @@
                                     <th style="text-align:center;">S. No.</th>
                                     <th class='text-center'>Term</th>
                                     <th style="text-align:center;">Tuition Fee</th>
-                                    <th style="text-align:center;">Service Fee</th>
-                                    <th style="text-align:center;">Other Annual Charges</th>
-                                    <th style="text-align:center;">Total Fee</th>
-                                    <th style="text-align:center">Scholarship</th>
-                                    <th style="text-align:center">Fee to be Paid</th>
-                                    <th style="text-align:center;">Due Date</th>
-                                    <th style="text-align:center;">Paid Amt.</th>
-                                    <th style="text-align:center">Dues Amt.</th>
-                                     <th style="text-align:center">Print</th>
+                                    <th style="text-align:center;">Paid Amount</th>
+                                    <th style="text-align:center">Dues</th>
+                                    <th style="text-align:center;">Discount</th>
+                                    <th style="text-align:center;">Date</th>
+                                    <th style="text-align:center">Print</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -108,7 +104,7 @@
         
          $.ajax({
                     type: "POST",
-                    url: '<?php echo $this->mainconfig['host'] . 'student-portal/ajax-get-transaction-view'; ?>',
+                    url: '<?php echo $this->mainconfig['host'] . 'student-portal/ajax-get-transaction-view11'; ?>',
                     data: {term_id: $('#term_id').val(),term_name:$('#term_id>option:selected').text()}
                 }).done(function (data) {
                     //alert(json_new_obj.term_id);

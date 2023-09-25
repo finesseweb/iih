@@ -1,6 +1,10 @@
 
                                 <?php $i=0;?>
-                                <?php if(empty($this->result[0]['message'])){foreach($this->result as $key => $value) {?>
+                                <?php if(empty($this->result[0]['message'])){
+									
+									//print_r($this->result); die();
+									
+									foreach($this->result as $key => $value) {?>
                             <?php if($value['term_name'] || $value['tuition_fee']) {?>
                                         <tr>
                                             <td><?=++$i;?></td>

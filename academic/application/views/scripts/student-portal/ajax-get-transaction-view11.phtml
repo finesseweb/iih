@@ -1,0 +1,25 @@
+
+                                <?php $i=0;?>
+                                <?php if(empty($this->result[0]['message'])){
+									
+									//print_r($this->result); die();
+									
+									foreach($this->result as $key => $value) {?>
+                            <?php if($value['term_name'] || $value['tuition_fee']) {?>
+                                        <tr>
+                                            <td><?=++$i;?></td>
+                                            <td><?=$value['term_name'];?></td>
+                                            <td><?=$value['total_amount'];?></td>
+                                           
+                                            <td><?=$value['paid'];?></td>
+                                            <td><?=$value['duse'];?></td>
+                                            <td><?=$value['discount'];?></td>
+                                            
+                                            <td><?=date('d-m-Y',strtotime($value['due_date'])); ?></td>
+                                            
+                                            <td><a href='<?php echo $this->mainconfig['host'] . 'student-portal/print-transction-report/stuid/';   ?><?=$_SESSION['admin_login']['admin_login']->student_id;?>/collect/<?=$value['collect_id'];?>/hid/<?=$value['id'];?>'><span class='glyphicon glyphicon-print'></span></a></td>
+                                        </tr>
+                                
+                                <?php } }exit;}else{
+                                    echo "<tr><td colspan ='12' class='text-center' >".$this->result[0]['message']."</td></tr>";
+                                } exit; ?>
