@@ -529,7 +529,7 @@ public function ajaxGetPromotedStudentsAction() {
 		$collection_id=$_GET['collection_id'];
 	if($_POST) {
 		
-		//echo "<pre>";  print_r($_POST); die();
+		echo "<pre>";  print_r($_POST); die();
 		if($collection_id)  {
 			
 			$getreords= $fee_model->getRecord($collection_id);

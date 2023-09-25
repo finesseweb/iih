@@ -162,12 +162,27 @@ $col_span = 2 + count($this->term_data);
 
 																	<td> <input type="hidden" name="terms_amt_head[]" id="terms_amt_head" value="<?php echo $term1_result['fees'] ?>" /><?php echo $term1_result['fees']; ?></td>
 																	<td><?php echo $this->fee_acad_details[$keys]['paidamt']; ?></td>	
-																	<td><input type="hidden" name="terms_dues_head[]" id="terms_amt_head" value="<?php echo $term1_result['fees']-$this->fee_acad_details[$keys]['paidamt']; ?>" /><?php echo $term1_result['fees']-$this->fee_acad_details[$keys]['paidamt']; ?></td>	
-                                                                    <td>  <input type="text" name="pay_amt[]" id ="term<?php echo $j; ?>_<?= $inc; ?>"  class="form-control-sm term<?= $inc; ?><?php echo $categories['category_id']; ?> term payamt" style="text-align:right;"/></td>
+																	<td><input type="hidden" name="terms_dues_head[]" id="terms_amt_head<?=$j; ?>" value="<?php echo $term1_result['fees']-$this->fee_acad_details[$keys]['paidamt']; ?>" /><?php echo $term1_result['fees']-$this->fee_acad_details[$keys]['paidamt']; ?></td>	
+                                                                    <td>  <input type="text" name="pay_amt[]" id ="term_<?=$j; ?>"  class="form-control-sm term<?= $inc; ?><?php echo $categories['category_id']; ?> term payamt" style="text-align:right;"/></td>
                                                                     <?php //} ?>
 
                                                                 </tr>
-
+                                                                <script>
+																$('#term_<?=$j; ?>').blur(function() {
+																
+	                                                            var totpiad1 = $('#terms_amt_head<?=$j; ?>').val();
+																var totsum1 = $('#term_<?=$j; ?>').val();
+																//alert(totsum1);
+																if(Number.parseInt(totsum1) > Number.parseInt(totpiad1)) {
+																alert("Paid Amount Not Greater Than Dues Amount"); 
+																$('#term_<?=$j; ?>').val('0');
+																
+																return false;
+																}
+	 
+																});
+																
+																</script>
                                                                 <?php
                                                             }
                                                             $j++;
@@ -206,7 +221,7 @@ $col_span = 2 + count($this->term_data);
 													<td colspan="1"> Total Amount : </td>
 													<td><?php echo $term1_cat_tot ?></td>
 													<td><?php echo $ttotalpaysamt+$this->discount ?></td>
-													<td colspan="1"><?php echo $ttotalduesamt-$this->discount ?></td>
+													<td colspan="1"><input type="hidden" value="<?php echo $ttotalduesamt-$this->discount ?>" id="totaldues"><?php echo $ttotalduesamt-$this->discount ?></td>
 													<td colspan="1"><input type="text" name="sumtotal" id="sumtotal"  value="" readonly></td>
                                                     
                                                 </tr> 
@@ -222,7 +237,7 @@ $col_span = 2 + count($this->term_data);
 													<td class="td_3">Remarks : <input type="text" name="remarks"></td>
                                                     <td>Date :<input type="date" name="paid_date" value="<?=date('Y-m-d')?>"><input name="userid" type="hidden" value="<?=$this->userid?>"></td>
                                                 </tr>
-                                                 <tr><td colspan="6"><center><strong><input type="submit" class ="btn btn-success"id="pay_collect" value="Pay Now"></strong></center></td></tr> 
+                                                 <tr><td colspan="6"><center><strong><input type="submit" class ="btn btn-success" id="pay_collect" value="Pay Now"></strong></center></td></tr> 
 												
                                                 <?php //}  ?>	
                                             </tbody>
@@ -292,6 +307,18 @@ function sumOfIncome() {
 }
 $('.payamt').blur(function() {
   sumOfIncome();
+  
+   var totsum= $('#sumtotal').val();
+   var totdu= $('#totaldues').val();
+   if(parseInt(totsum)>parseInt(totdu)) {
+	   
+	   alert("Paid Total Amount Not Greater Than Total Dues Amount");
+	   
+	    $('#sumtotal').val('0');
+	   return false;
+	  
+   }
+   
 })
 
 
@@ -300,45 +327,7 @@ $('.payamt').blur(function() {
 	
  
 	
-    function payNow() {
-		alert('1');
-		
-		
-       /*  let total = 0;
-        let total_amt = <?php echo $this->total ?>;
-        $('.term').each( function () {
-            if (!$(this).val()) {
-                $(this).val(0);
-            }
-            total += parseFloat($(this).val());
-            console.log(total);
-        });
-        $('.term').each( function () {
-            let term = $(this).attr('id').split('term')[1];
-
-            $.ajax({
-                type: "POST",
-                url: "<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-pay-fee-structure'; ?>",
-                data: {
-                    head_id: term, 
-                    student_id: <?php echo $this->stid; ?>,
-                    paid_amount: $(this).val(),
-                    account: $('#account_num').val(),
-                    total_paid: total,
-                    total_due: total_amt - total,
-                }
-
-            }).done(function (data) {
-                console.log(data);
-
-                // $("#structure_data").empty('');
-
-                // $("#structure_data").html(data);
-            // $(".load-box").hide();
-
-            });
-        }); */
-    }
+  
 $(document).ready(function() {
     $(".td_1").hide();
 	$(".td_3").hide();
@@ -375,6 +364,27 @@ $(document).ready(function() {
 	
 });
 
-
+  $('#pay_collect').click(function() {
+	
+	 var totsum=	$('#sumtotal').val();
+	 var dis= $('#discount').val();
+	 var tdue= $('#totaldues').val();
+	
+	 if(totsum<=0) {
+		   alert("Paid Amount Not Greater Than Dues Amount"); 
+		   
+		   return false;
+	 }
+	 
+	 else if (parseInt(tdue) < parseInt(parseInt(+totsum + +dis))) {
+		
+		 alert("Total Paid Amount Not Greater Than Total  Dues Amount");  
+		  var dis= $('#discount').val('0');
+		  return false;
+		 
+	 }
+	 
+    });
+	
 
 </script>
