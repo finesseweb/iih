@@ -155,6 +155,8 @@ class FeeCategoryController extends Zend_Controller_Action {
                                         "degree_id" => $this->getRequest()->getPost('degree_id'),
                                         "session_id" => $this->getRequest()->getPost('session'),
                                         "dept_id" => $this->getRequest()->getPost('dept_id'),
+										"cast_wise" => $this->getRequest()->getPost('cast_wise'),
+										"caste_category" => $this->getRequest()->getPost('caste_category'),
                                         "category_name" => $feehead_name);
                                     // } else {
 
@@ -209,6 +211,7 @@ class FeeCategoryController extends Zend_Controller_Action {
                 $item_result['fund_type'] = $result[0]['fund_type'];
                 $item_result['session'] = $result[0]['session_id'];
                 $item_result['dept_id'] = $result[0]['dept_id'];
+				$item_result['cast_wise'] = $result[0]['cast_wise'];
                 $Category_form->populate($item_result);
 
                 if ($this->getRequest()->isPost()) {

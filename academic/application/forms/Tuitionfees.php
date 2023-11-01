@@ -72,7 +72,7 @@ if (empty($_SESSION['token'])) {
                  $declaredTerms =  new Application_Model_Declaredterms();
                   $data = $declaredTerms->getDropDownList();
         
-           $term = $this->createElement('select', 'cmn_terms')
+            $term = $this->createElement('select', 'cmn_terms')
                 ->removeDecorator('label')
                 ->setAttrib('class', array('form-control', 'chosen-select'))
                 ->setAttrib('required', 'required')
@@ -81,6 +81,20 @@ if (empty($_SESSION['token'])) {
                 ->addMultiOptions(array('' => 'Select Semester'))
                 ->addMultiOptions($data);
                 $this->addElement($term);
+				
+				
+				$declaredyear =  new Application_Model_Year();
+                  $data = $declaredyear->getDropDownList();
+        
+            $year = $this->createElement('select', 'year')
+                ->removeDecorator('label')
+                ->setAttrib('class', array('form-control', 'chosen-select'))
+                ->setAttrib('required', 'required')
+                   ->setRequired(true)
+                ->removeDecorator("htmlTag")
+                ->addMultiOptions(array('' => 'Select Semester'))
+                ->addMultiOptions($data);
+                $this->addElement($year);
                 
         $feeForm_start_date = $this->createElement('text', 'feeForm_start_date')
             ->removeDecorator('label')->setAttrib('class', array('form-control','examFeePicker'))

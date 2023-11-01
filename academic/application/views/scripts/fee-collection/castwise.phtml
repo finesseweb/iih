@@ -1,15 +1,10 @@
 <div class="right_col">
 	<div class="padding-md">
 		<div class="row">
-		
 			<div class="col-md-12 " >
-			<a class="btn btn-primary pull-right"  href="<?php echo $this->mainconfig['host']; ?>fee-collection/castwise">Cast Wise Collection </a>
 				<h3 class="page-title txt-color-blueDark" >
 					<div><i class="fa fa-eye"> Fee Collection</i></div>
 				</h3>
-				
-
-            
 				<div class="panel panel-default">
 					<form class="no-margin" id="formValidate1" action="<?php echo $this->form->getAction() ?>" method="post" data-validate="parsley" >
 						<div class="panel-body">
@@ -41,6 +36,14 @@
 								</select>
 								</div>
 								</div>
+								
+								<!--<div class="col-sm-4">
+								<div class="form-group" >
+								<label class="control-label">Cast Category</label>
+								  <?php //echo $this->form->cast_category; ?>
+								</select>
+								</div>
+								</div>-->
 								
 								</div>
 								
@@ -115,12 +118,13 @@
     
 		$.ajax({
 			type: "POST",
-			url: '<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-students'; ?>',
+			url: '<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-students1'; ?>',
 		data: {
 		    sem: $('#semseter').val(),
 			year: $('#academic_year_list').val(),
 			session: $('#session').val(),
-		    batch: $('#academic_id').val()
+		    batch: $('#academic_id').val(),
+			cast: $('#cast_category').val()
 			}
 		}).done(function (data) {
 			// console.log(data);

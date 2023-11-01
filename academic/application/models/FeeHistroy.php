@@ -109,6 +109,76 @@ $result=$this->getAdapter()
 		$result = $this->getAdapter()->fetchAll($select);
         return $result;	
 	}
+	public function getFullTrans1($stid,$term_id) {
+		
+		
+		$select = $this->_db->select();
+		$select->from('t_history');
+		$select->joinleft(array("fee_collector"), "fee_collector.id=t_history.collect_id",array("sem_year"));
+		$select->joinleft(array("dues_date"), "dues_date.history_id=t_history.id",array("dues_date"));
+	    $select->joinleft(array("term_master"), "term_master.term_id=fee_collector.sem_year",array("term_name"));
+		$select->where("s_id=?", $stid);
+		$select->where("fee_collector.sem_year=?", $term_id);
+		
+		//echo $select; die();
+		$result = $this->getAdapter()->fetchAll($select);
+        return $result;	
+	}	
+	
+	public function getUserTrans($empl_id,$f_date='',$to_date='') {
+		
+		
+		$select = $this->_db->select();
+		$select->from('t_history',array("SUM(paid) as Totalpaid"));
+		$select->joinleft(array("fee_collector"), "fee_collector.id=t_history.collect_id",array("sem_year","academic_year_id"));
+		$select->joinleft(array("academic_master"), "academic_master.academic_year_id=fee_collector.academic_year_id");
+		$select->joinleft(array("term_master"), "term_master.term_id=fee_collector.sem_year",array("term_name"));
+		
+		if($f_date && $to_date){
+			$select->where("paid_date >= ?",  $f_date);
+            $select->where("paid_date <= ?",  $to_date);
+		}
+		
+		if($f_date){ 
+		
+		$select->where("paid_date = ?",  $f_date);
+		}
+		
+		
+		$select->where("admin_id=?", $empl_id);
+		$select->group('fee_collector.academic_year_id');
+		
+		//$select->where("fee_collector.sem_year=?", $term_id);
+		
+		//echo $select; die();
+		$result = $this->getAdapter()->fetchAll($select);
+        return $result;	
+	}
+	
+	
+	public function getDropDownList() {
+		
+		
+		
+	$select=	"SELECT nep_erp.fa_kv_empl_info.empl_id,nep_erp.fa_kv_empl_info.empl_firstname,nep_erp.fa_kv_empl_info.empl_lastname FROM nep.t_history INNER JOIN nep_erp.fa_kv_empl_info ON nep.t_history.admin_id = nep_erp.fa_kv_empl_info.empl_id group by nep.t_history.admin_id";
+
+        //$select = $this->_db->select()
+        //    ->from($this->_name)
+       //     ->group("$this->_name.admin_id");
+        $result = $this->getAdapter()
+            ->fetchAll($select);
+       // print_r( $result);
+       // die();
+        $data = array();
+
+        foreach ($result as $k => $val) {
+
+            $data[$val['empl_id']] = $val['empl_firstname'].$val['empl_lastname'];
+        }
+
+        return $data;
+    }
+	
 	
 	
 }

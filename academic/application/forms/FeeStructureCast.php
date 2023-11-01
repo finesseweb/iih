@@ -1,6 +1,6 @@
 <?php
 
-class Application_Form_FeeStructure extends Zend_Form
+class Application_Form_FeeStructureCast extends Zend_Form
 {
 	public function init()
 	{
@@ -31,7 +31,7 @@ class Application_Form_FeeStructure extends Zend_Form
         $this->addElement($csrftoken); 
         
         $Academic_model = new Application_Model_Academic();
-        $data = $Academic_model->getFeeDropDownList();
+        $data = $Academic_model->getFeeDropDownList1();
         //print_r($data); die;
         $academic_id = $this->createElement('select', 'academic_id')
                 ->removeDecorator('label')
@@ -44,18 +44,18 @@ class Application_Form_FeeStructure extends Zend_Form
         $this->addElement($academic_id);
 		
 		
-		//$Academic_model = new Application_Model_CastCategory();
-        //$data = $Academic_model->getDropDownList();
-        //print_r($data); die;
-        //$cast = $this->createElement('select', 'cast_category')
-        //        ->removeDecorator('label')
-        //        ->setAttrib('class', array('form-control', 'chosen-select'))
-         //       ->setAttrib('required', 'required')->setRequired(true)
-         //       ->removeDecorator("htmlTag")
-         //       ->addMultiOptions(array('' => 'Select'))
-          //      ->addMultiOptions($data);
+		$Academic_model = new Application_Model_CastCategory();
+        $data = $Academic_model->getDropDownList();
+      
+        $cast = $this->createElement('select', 'cast_category')
+                ->removeDecorator('label')
+                ->setAttrib('class', array('form-control', 'chosen-select'))
+                ->setAttrib('required', 'required')->setRequired(true)
+                ->removeDecorator("htmlTag")
+                ->addMultiOptions(array('' => 'Select'))
+               ->addMultiOptions($data);
 
-        //$this->addElement($cast);
+        $this->addElement($cast);
 	}
 	
 	

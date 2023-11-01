@@ -104,6 +104,31 @@ class Application_Form_FeeCategory extends Zend_Form
 							->addMultiOptions($data)
 							->removeDecorator("htmlTag");
                 $this->addElement($session_id);
+				
+				
+		//$cast_wise= $this->createElement('select','cast_wise')
+		//	->removeDecorator('label')
+		//	->setAttrib('class',array('form-control','chosen-select'))
+         //   ->setAttrib('required','required')->setRequired(true)
+		//	->addMultiOptions(array('' => 'Select','1'=>'No','2'=>'Yes'))
+			
+		//	->removeDecorator("htmlTag");
+       // $this->addElement($cast_wise);		
+
+
+///////$caste_category = $this->createElement('select', 'caste_category')
+    //            ->removeDecorator('label')
+     //           ->setAttrib('class', array('form-control'))
+                //->setAttrib('required', 'required')->setRequired(true)
+       //         ->removeDecorator("htmlTag")
+       //         ->addMultiOptions(array(
+        //                'General' => 'General',
+         //               'EWS' => 'EWS',
+         //               'BC-1(EBC)' => 'BC-1(EBC)',
+         //               'BC-2(OBC)' => 'BC-2(OBC)',
+          //              'SC' => 'SC',
+          //              'ST' => 'ST'));
+       // $this->addElement($caste_category);		
 	
 	}
 	

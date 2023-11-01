@@ -757,6 +757,8 @@ class StudentPortalController extends Zend_Controller_Action {
         $this->view->action_name = 'structure';
         $this->view->sub_title_name = 'Fee Structure';
         $FeeStructure_model = new Application_Model_FeeStructure();
+		
+		$feecastmodel = new Application_Model_FeeStructureCast();
         $FeeStructure_form = new Application_Form_FeeStructure();
         $FeeStructureItems_model = new Application_Model_FeeStructureItems();
         $FeeStructureTermItems_model = new Application_Model_FeeStructureTermItems();
@@ -780,11 +782,20 @@ class StudentPortalController extends Zend_Controller_Action {
             default:
                 $messages = $this->_flashMessenger->getMessages();
                 $this->view->messages = $messages;
+				
                 $result = $FeeStructure_model->getRecordsForStudent();
+				$result2 = $feecastmodel->getRecordsForStudent();
+				if($result) {
+					$result1=$result;
+				}
+				else if($result2){
+					$result1=$result2;
+				}
+				
                 $page = $this->_getParam('page', 1);
                 $paginator_data = array(
                     'page' => $page,
-                    'result' => $result
+                    'result' => $result1
                 );
                 $this->view->paginator = $this->_act->pagination($paginator_data);
                 break;
@@ -2478,12 +2489,103 @@ public function ajaxGetTransactionView11Action() {
             $term_name = $this->_getParam("term_name");
             
         $academic_year_id = $_SESSION['admin_login']['admin_login']->student_id;
-		
-        $results = $feeshis->getFullTrans($academic_year_id, $term_id);
+		 $results = $feeshis->getFullTrans1($academic_year_id, $term_id);
 		
 		
         $this->view->result = $results;
     }
     }	
+	
+	
+	
+	public function ajaxGetTransactionView1Action() {
+           $this->_helper->layout->disableLayout();
+		   
+		$feeshis=  new Application_Model_FeeHistroy();
+        $this->view->action_name = 'Fee History';
+        $this->view->sub_title_name = 'Fee History';
+        if ($this->_request->isPost() && $this->getRequest()->isXmlHttpRequest()) {
+            $term_id = $this->_getParam("term_id");
+            $term_name = $this->_getParam("term_name");
+            
+        $academic_year_id = $_SESSION['admin_login']['admin_login']->student_id;
+		 $results = $feeshis->getFullTrans($academic_year_id, $term_id);
+		
+		
+        $this->view->result = $results;
+    }
+    }
+	///raushan///
+	
+	
+	
+	public function ajaxGetFeeDetailsView1Action() {
+
+
+        $FeeCategory_model = new Application_Model_FeeCategory();
+        $FeeHeads_model = new Application_Model_FeeHeads();
+        $FeeStructure_model = new Application_Model_FeeStructure();
+        $StructureItems_model = new Application_Model_FeeStructureItems();
+        $term_model = new Application_Model_TermMaster();
+        $TermItems_model = new Application_Model_FeeStructureTermItems();
+        $structure_id = $this->_getParam("id");
+        $this->view->structure_id = $structure_id;
+
+        $type = $this->_getParam("type");
+        $this->view->type = $type;
+        //$this->view->form = $GradeAllocationReport_form;
+        $this->_helper->layout->disableLayout();
+        if ($this->_request->isPost() && $this->getRequest()->isXmlHttpRequest()) {
+            $result = $TermItems_model->getItemRecords($structure_id);
+            $this->view->result = $result;
+            $result1 = $StructureItems_model->getStructureRecords($structure_id);
+            $this->view->result1 = $result1;
+            $academic_year_id = $TermItems_model->getAcademicId1($structure_id);
+
+            $terms_data = $term_model->getRecordByAcademicId($academic_year_id['academic_id']);
+            $this->view->term_data = $terms_data;
+
+            $Category_data = $FeeCategory_model->getCategory();
+            $this->view->Category_data = $Category_data;
+            $Feeheads_data = $FeeHeads_model->getFeeheads();
+            // print_r($Feeheads_data);die;
+            $this->view->Feeheads_data = $Feeheads_data;
+
+
+
+
+
+            /* $FeeCategory_model = new Application_Model_FeeCategory();
+              $FeeHeads_model = new Application_Model_FeeHeads();
+              $FeeStructure_model = new Application_Model_FeeStructure();
+              $StructureItems_model = new Application_Model_FeeStructureItems();
+              $TermItems_model = new Application_Model_FeeStructureTermItems();
+              $structure_id = $this->_getParam("id");
+              $this->view->structure_id = $structure_id;
+              //print_r($structure_id); die;
+              $type = $this->_getParam("type");
+              $this->view->type = $type;
+              //$this->view->form = $GradeAllocationReport_form;
+              $this->_helper->layout->disableLayout();
+              if ($this->_request->isPost() && $this->getRequest()->isXmlHttpRequest()) {
+              $result = $TermItems_model->getItemRecords($structure_id);
+              //print_r($result);die;
+              $this->view->result = $result;
+              $result1 = $StructureItems_model->getStructureRecords($structure_id);
+              //print_r($result1);die;
+              $this->view->result1 = $result1;
+
+              $Category_data = $FeeCategory_model->getCategory();
+              $this->view->Category_data = $Category_data;
+              $Feeheads_data = $FeeHeads_model->getFeeheads();
+              // print_r($Feeheads_data);die;
+              $this->view->Feeheads_data = $Feeheads_data;
+             * 
+             */
+        }
+    }
+
+	
+	
 
 }

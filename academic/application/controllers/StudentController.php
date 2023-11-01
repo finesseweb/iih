@@ -607,6 +607,7 @@ class StudentController extends Zend_Controller_Action {
                             $data2['fa_salutation'] = $result[0]['gender'];
                             $data2['alumni_url'] = str_replace(" ", "", $result[0]['stu_fname']) . $result[0]['stu_id'];
                             $data2['roll_no'] = $result[0]['stu_id'];
+							$data2['cast_category'] = $result[0]['cast_category'];
                             //echo '<pre>'; print_r($data2);exit;
                             if ($bool != 1) {
                                 $last_id = $participant_model->insert($data2);
@@ -1084,6 +1085,8 @@ class StudentController extends Zend_Controller_Action {
         $this->accessConfig->setAccess('SA_ACAD_STUD');
 
         $razor = new Application_Model_ApplicantPaymentDetailModel();
+		
+		$entrance_model = new Application_Model_ApplicantRegisterationModel();
 
         $academic_year_form = new Application_Form_AcademicYear();
         $this->view->form = $academic_year_form;
@@ -1101,11 +1104,21 @@ class StudentController extends Zend_Controller_Action {
                 $acadid = $this->_getParam("acad");
 				$this->view->acad_year = $acadid;
                 $result = $razor->getRecordByCouse1($id,$acadid);
-              //  echo "<pre>";print_r($result);die;
+				if($result) {
+					$result1=$result;
+				}
+				else {
+					 $result2 = $entrance_model->getRecordByYearCourseId($id,$acadid);
+					 $result1=$result2;
+					 //echo "<pre>";print_r('$result');die;
+					
+				}
+				
+             
                 $page = $this->_getParam('page', 1);
                 $paginator_data = array(
                     'page' => $page,
-                    'result' => $result
+                    'result' => $result1
                 );
                 $this->view->paginator = $this->_act->pagination($paginator_data);
 

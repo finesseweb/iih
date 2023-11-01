@@ -10,12 +10,21 @@
                                             <td><?=++$i;?></td>
                                             <td><?=$value['term_name'];?></td>
                                             <td><?=$value['total_amount'];?></td>
-                                           
                                             <td><?=$value['paid'];?></td>
-                                            <td><?=$value['duse'];?></td>
                                             <td><?=$value['discount'];?></td>
-                                            
-                                            <td><?=date('d-m-Y',strtotime($value['due_date'])); ?></td>
+											<td><?=$value['extra_charges'];?></td>
+											<td><?=date('d-m-Y',strtotime($value['paid_date'])); ?></td>
+                                            <td><?=$value['duse'];?></td>
+                                            <td><?
+											if($value['dues_date']){
+											
+											echo date('d-m-Y',strtotime($value['dues_date'])); 
+											}
+											else {
+												echo date('d-m-Y',strtotime($value['paid_date']));
+												
+											}
+											?></td>
                                             
                                             <td><a href='<?php echo $this->mainconfig['host'] . 'student-portal/print-transction-report/stuid/';   ?><?=$_SESSION['admin_login']['admin_login']->student_id;?>/collect/<?=$value['collect_id'];?>/hid/<?=$value['id'];?>'><span class='glyphicon glyphicon-print'></span></a></td>
                                         </tr>

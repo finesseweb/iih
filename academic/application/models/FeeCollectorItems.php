@@ -8,8 +8,9 @@ class Application_Model_FeeCollectorItems extends Zend_Db_Table_Abstract {
 		$select = $this->_db->select();
 		$select->from("fee_collector_item");
 		$select->joinleft(array("erp_fee_heads_master"), " erp_fee_heads_master.feehead_id=fee_collector_item.head_id ");
-		//$select->joinleft(array("erp_fee_structure_term_items"), " erp_fee_structure_term_items.fee_heads_id=erp_fee_heads_master.feehead_id");
+		$select->joinleft(array("t_history"), " t_history.id=fee_collector_item.t_history_id");
 		$select->where('fee_collector_item.t_history_id=?', $hid);
+		$select->where('t_history.id=?', $hid);
 		//echo $select ; die();
 		$result = $this->getAdapter()->fetchAll($select);
 		return $result;

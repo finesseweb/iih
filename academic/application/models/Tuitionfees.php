@@ -110,6 +110,19 @@ class Application_Model_Tuitionfees extends Zend_Db_Table_Abstract
                       ->fetchRow($select);       
         return $result;
     }
+	
+		public function getENDdate($term,$session_id,$acad)
+    {       
+        $select=$this->_db->select()
+                      ->from($this->_name,array("max(feeForm_start_date) as start_date","max(feeForm_end_date) as end_date","max(feeForm_extended_date) as extended_date"))                      				   
+					  ->where("$this->_name.year =?", $term)
+					  ->where("$this->_name.department =?", $acad)
+					  ->where("$this->_name.session_id in (?)", $session_id)
+					  ->where("$this->_name.status !=?", 2);
+        $result=$this->getAdapter()
+                      ->fetchRow($select);       
+        return $result;
+    }
 	public function isRecordExists($term,$degree,$batch,$session_id)
     {       
         $select=$this->_db->select()

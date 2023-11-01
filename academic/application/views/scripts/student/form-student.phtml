@@ -225,7 +225,7 @@
 												
                                                 <td><?php echo $results['father_name']; ?></td>
 												<td><?php echo $results['user_id']; ?></td>
-                                                    <?php $edu_details = $educdet->getApplicationCourseDetails($results['form_id']); ?>
+                                                    <?php if($results['form_id'])$edu_details = $educdet->getApplicationCourseDetails($results['form_id']); ?>
                                                
 
                                                 <td><?php echo $results['form_id']; ?></td>
@@ -242,8 +242,18 @@
                                     echo "NA";
                                 } ?></td>
                                    
-                                         <td><a href="<?php echo $this->mainconfig['host']; ?>multi-step-form/index/type/step4/a_id/<?php echo md5($results['application_no']); ?>/role/admin/"target="_blank" class="edit" title="Edit"><span class="fa fa-edit fa-lg"></span></a> 
-                                           <a href="<?php echo $this->mainconfig['host']; ?>student/entrance-form-fee-collection/type/view/a_id/<?php echo $results['form_id']; ?> "target="_blank" class="btn btn-primary" title="Edit">Pay Now</a></td>
+                                         <td>
+		<?php if($results['form_id']) { ?>
+				 <a href="<?php echo $this->mainconfig['host']; ?>multi-step-form/index/type/step4/a_id/<?php echo md5($results['application_no']); ?>/role/admin/"target="_blank" class="edit" title="Edit"><span class="fa fa-edit fa-lg"></span></a> 
+	             <a href="<?php echo $this->mainconfig['host']; ?>student/entrance-form-fee-collection/type/view/a_id/<?php echo $results['form_id']; ?> "target="_blank" class="btn btn-primary" title="Edit">Pay Now</a></td>       
+	
+	<?php } else { ?>  
+
+ <a href="<?php echo $this->mainconfig['host']; ?>multi-step-form/index/type/step1/a_id/<?php echo md5($results['application_no']); ?>/role/admin/"target="_blank" class="edit" title="Edit"><span class="fa fa-edit fa-lg"></span></a> 
+
+	<?php }?>
+
+										
            
                                             </tr>            
 

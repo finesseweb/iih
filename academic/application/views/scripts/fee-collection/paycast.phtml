@@ -1,0 +1,42 @@
+<div class="right_col">
+	<div class="padding-md">
+		<div class="row">
+			<div class="col-md-12 " >
+				<h3 class="page-title txt-color-blueDark" >
+					<div><i class="fa fa-eye"> Fee Collection</i></div>
+				</h3>
+				<div class="panel panel-default">
+					<div class="row" id="structure_data">
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	$(document).ready( function () {
+		
+		
+		
+		$.ajax({
+
+			type: "POST",
+             
+			url: "<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-fee-structure1'; ?>",
+         
+			data: {academic_year_id:<?=$this->academic?>, stid: <?php echo $this->stid; ?>, term: <?php echo $this->semester; ?>,cast:<?php echo $this->cast;?> }
+		 
+
+		}).done(function (data) {
+
+			$("#structure_data").empty('');
+
+			$("#structure_data").html(data);
+			// $(".load-box").hide();
+
+		});
+	});
+</script>

@@ -452,18 +452,24 @@ $bool = $exp_learn->getRecordById($_SESSION['admin_login']['admin_login']->empl_
 <!--<li <?php if ($this->sub_title_name == 'studentfailreport') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_PASSFAIL, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>report/studentfailreport" target="_blank">Fail Report</a>
 </li>-->
-<li <?php if ($this->sub_title_name == 'course-grade') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_GRADE_REPORT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
+<!--<li <?php if ($this->sub_title_name == 'course-grade') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_GRADE_REPORT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>course-grade/index" target="_blank">Courses Wise Grade Report</a>
-</li>
-<li <?php if ($this->sub_title_name == 'courses-wise-penalties-report') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_PENALTIES_REPORT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
+</li>-->
+<!--<li <?php if ($this->sub_title_name == 'courses-wise-penalties-report') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_PENALTIES_REPORT, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>course-grade/courses-wise-penalties-report" target="_blank">Courses Wise Penalties Report</a>
-</li>
-<li <?php if ($this->sub_title_name == 'courses-grade-after-penalties') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_AFTER_PENALTIES, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
+</li>-->
+<!--<li <?php if ($this->sub_title_name == 'courses-grade-after-penalties') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_AFTER_PENALTIES, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>course-grade/courses-grade-after-penalties" target="_blank">Courses Grade After Penalties</a>
-</li>
-	
+</li>-->
 <li <?php if ($this->sub_title_name == 'Student-Holiday') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_NON_UG, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
-<a href="<?php echo $this->mainconfig['host']; ?>report/holiday" target="_blank">Holiday List </a>
+<a href="<?php echo $this->mainconfig['host']; ?>report/collection-wise-report" target="_blank">Collection Report </a>
+</li>
+
+<li <?php if ($this->sub_title_name == 'Student-Holiday') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_NON_UG, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
+<a href="<?php echo $this->mainconfig['host']; ?>report/user-wise-report">User Collection Report </a>
+</li>	
+<li <?php if ($this->sub_title_name == 'Student-Holiday') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_NON_UG, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
+<a href="<?php echo $this->mainconfig['host']; ?>report/holiday">Holiday List </a>
 </li>
 <!--<li <?php if ($this->sub_title_name == 'Exprcourse-grade') echo 'class="active"'; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>experiential-course/grade">Experiential Course Wise Grade Report</a>
@@ -887,7 +893,9 @@ echo 'style="display:block"';
 <li <?php if ($this->sub_title_name == 'Result Details') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_PART_SCHOLAR_SHIP, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?>>
 <a href="<?php echo $this->mainconfig['host']; ?>result-details/index" target="_blank">Promotion to Semester </a>
 </li>
-
+<li <?php if ($this->sub_title_name == 'createtuitionfees') echo 'class="active"'; ?> <?= !in_array(SA_ACAD_COURSE_FEE, $this->login_storage->role_set) ? "style ='display:none !important'" : ''; ?> >
+<a href="<?php echo $this->mainconfig['host']; ?>master/createtuitionfees" target="_blank"> Tuition Fees Schedule</a>
+</li>
 <!-- <li <?php if ($this->sub_title_name == 'batch') echo 'class="active"'; ?>>
 <a href="<?php //echo $this->mainconfig['host'];            ?>master/batch">Batch Master</a>
 </li> -->

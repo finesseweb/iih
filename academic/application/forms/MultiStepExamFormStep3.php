@@ -77,7 +77,7 @@ class Application_Form_MultiStepExamFormStep3 extends Zend_Form {
         $grad_school = $this->createElement('text', 'grad_school')
                 ->removeDecorator('label')->setAttrib('class', array('form-control'))
                 ->setAttrib('data-toggle', 'albphabets')
-                ->setAttrib('required', 'required')->setRequired(true)
+               // ->setAttrib('required', 'required')->setRequired(true)
                 ->setAttrib('autocomplete', 'off')
                 ->removeDecorator("htmlTag");
         $this->addElement($grad_school);
@@ -98,7 +98,7 @@ class Application_Form_MultiStepExamFormStep3 extends Zend_Form {
         $certification_school = $this->createElement('text', 'cert_school')
                 ->removeDecorator('label')->setAttrib('class', array('form-control'))
                 ->setAttrib('data-toggle', 'albphabets')
-                ->setAttrib('required', 'required')->setRequired(true)
+                //->setAttrib('required', 'required')->setRequired(true)
                 ->setAttrib('autocomplete', 'off')
                 ->removeDecorator("htmlTag");
         $this->addElement($certification_school);
@@ -152,7 +152,7 @@ class Application_Form_MultiStepExamFormStep3 extends Zend_Form {
         $grad_board = $this->createElement('select', 'grad_board')
                 ->removeDecorator('label')->setAttrib('class', array('form-control'))
                 ->setAttrib('data-toggle', 'albphabets')
-                ->setAttrib('required', 'required')->setRequired(true)
+                //->setAttrib('required', 'required')->setRequired(true)
                 ->setAttrib('autocomplete', 'off')
                 ->removeDecorator("htmlTag")
                 ->addMultiOptions(array(
@@ -164,7 +164,7 @@ class Application_Form_MultiStepExamFormStep3 extends Zend_Form {
         $grad_oth_board = $this->createElement('text', 'grad_oth_board')
                 ->removeDecorator('label')->setAttrib('class', array('form-control'))
                 ->setAttrib('data-toggle', 'albphabets')
-                ->setAttrib('required', 'required')->setRequired(true)
+                //->setAttrib('required', 'required')->setRequired(true)
                 ->setAttrib('autocomplete', 'off')
                 ->removeDecorator("htmlTag");
                 
@@ -217,7 +217,7 @@ class Application_Form_MultiStepExamFormStep3 extends Zend_Form {
         $certification_board = $this->createElement('text', 'cert_board')
                 ->removeDecorator('label')->setAttrib('class', array('form-control'))
                 ->setAttrib('data-toggle', 'albphabets')
-                ->setAttrib('required', 'required')->setRequired(true)
+                //->setAttrib('required', 'required')->setRequired(true)
                 ->setAttrib('autocomplete', 'off')
                 ->removeDecorator("htmlTag");
         $this->addElement($certification_board);
@@ -292,7 +292,7 @@ class Application_Form_MultiStepExamFormStep3 extends Zend_Form {
         $grad_subject = $this->createElement('text', 'grad_subject')
                 ->removeDecorator('label')->setAttrib('class', array('form-control'))
                 ->setAttrib('data-toggle', 'albphabets')
-                ->setAttrib('required', 'required')->setRequired(true)
+                //->setAttrib('required', 'required')->setRequired(true)
                 ->setAttrib('autocomplete', 'off')
                 ->removeDecorator("htmlTag");
         $this->addElement($grad_subject);
@@ -313,7 +313,7 @@ class Application_Form_MultiStepExamFormStep3 extends Zend_Form {
         $certification_subject = $this->createElement('text', 'cert_subject')
                 ->removeDecorator('label')->setAttrib('class', array('form-control'))
                 ->setAttrib('data-toggle', 'albphabets')
-                ->setAttrib('required', 'required')->setRequired(true)
+                //->setAttrib('required', 'required')->setRequired(true)
                 ->setAttrib('autocomplete', 'off')
                 ->removeDecorator("htmlTag");
         $this->addElement($certification_subject);
@@ -342,7 +342,7 @@ class Application_Form_MultiStepExamFormStep3 extends Zend_Form {
         
         $grad_pass_year = $this->createElement('text', 'grad_pass_year')
                 ->removeDecorator('label')->setAttrib('class', array('form-control'))
-                ->setAttrib('required', 'required')->setRequired(true)
+               // ->setAttrib('required', 'required')->setRequired(true)
                 ->setAttrib('data-toggle', 'number')
                 ->setAttrib('autocomplete', 'off')
                 ->removeDecorator("htmlTag");
@@ -366,7 +366,7 @@ class Application_Form_MultiStepExamFormStep3 extends Zend_Form {
         
         $certification_pass_year = $this->createElement('text', 'cert_pass_year')
                 ->removeDecorator('label')->setAttrib('class', array('form-control'))
-                ->setAttrib('required', 'required')->setRequired(true)
+                //->setAttrib('required', 'required')->setRequired(true)
                 ->setAttrib('data-toggle', 'number')
                 ->setAttrib('autocomplete', 'off')
                 ->removeDecorator("htmlTag");

@@ -111,8 +111,11 @@ class Application_Model_ApplicantPaymentDetailModel extends Zend_Db_Table_Abstra
                 ->from("applicant_course_details")
 				->joinleft(array("applicant_registration"), "applicant_registration.application_no=applicant_course_details.application_no")
 				->joinleft(array("applicant_personal_details"), "applicant_personal_details.application_no=applicant_course_details.application_no")
+				->joinleft(array("applicant_educational_details"), "applicant_educational_details.application_no=applicant_course_details.application_no")
                 ->where("applicant_course_details.course=?", $id)
-				->where("applicant_course_details.acad_year_id=?", $acad_id);
+				->where("applicant_course_details.acad_year_id=?", $acad_id)
+				->where("applicant_personal_details.acad_year_id=?", $acad_id)
+				->where("applicant_educational_details.acad_year_id=?", $acad_id);
                
         //->order('id desc')
         //->limit(1);
@@ -125,6 +128,30 @@ class Application_Model_ApplicantPaymentDetailModel extends Zend_Db_Table_Abstra
 
 
     }
+	public function getRecordByCouseID1($id,$acad_id) {
+    
+    
+            $select = $this->_db->select()
+                ->from("applicant_course_details",array())
+				->joinleft(array("applicant_registration"), "applicant_registration.application_no=applicant_course_details.application_no")
+				->joinleft(array("applicant_personal_details"), "applicant_personal_details.application_no=applicant_course_details.application_no")
+                ->where("applicant_course_details.course=?", $id)
+				->where("applicant_course_details.acad_year_id=?", $acad_id);
+			///	->where("applicant_personal_details.acad_year_id=?", $acad_id);
+               
+        //->order('id desc')
+        //->limit(1);
+        $result = $this->getAdapter()
+                ->fetchAll($select);
+        // echo"<pre>";print_r($result);exit;	  
+        return $result;
+      
+      
+
+
+    }
+	
+	
 	
 	public function getRecordByCouse2($id,$acad_id,$course) {
       

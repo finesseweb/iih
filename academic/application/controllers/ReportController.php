@@ -5715,4 +5715,94 @@ while ($line = fgetcsv($csvFile)) {
 		
 		}
     }
+	
+public function collectionWiseReportAction() {
+        $this->view->action_name = 'student-term-report';
+        $this->view->sub_title_name = 'student-term-report';
+        $this->accessConfig->setAccess('SA_ACAD_TERM_GRADE_SHEET');
+        $student_report_form = new Application_Form_CollectionReport();
+        //$academic_id = $this->_getParam("id");
+        $type = $this->_getParam("type");
+        $this->view->type = $type;
+        $this->view->form = $student_report_form;
+    }
+
+
+
+public function getCollectionReportAction() {
+        $this->_helper->layout->disableLayout();
+        $studentreport_model = new Application_Model_StudentReport();
+        $Studentreport_model = new Application_Model_StudentPortal();
+		
+	    $collectionmodel = new Application_Model_FeeCollector();
+        $termMaster_model = new Application_Model_TermMaster();
+        $tr_model = new Application_Model_TabulationReport();
+        
+        //$result = $studentreport_model->getRecords();
+        if ($this->_request->isPost() && $this->getRequest()->isXmlHttpRequest()) {
+            $academic_id = $this->_getParam("academic_id");
+            $year_id = $this->_getParam("year_id");
+            $term_id = $this->_getParam("term_id");
+            $arc_status = $this->_getParam("arc_status");
+            $montharchive = $this->_getParam("arc");
+            $reval_status = $this->_getParam("reval_status");
+            $reval_date = $this->_getParam("revalDate");
+
+            $filter_status = $this->_getParam("filter_status");
+
+            $this->view->term_id = $term_id;
+            $this->view->year_id = $year_id;
+			$this->view->filter_status = $filter_status;
+            $this->view->arc_status = !$arc_status ? !$reval_status ? '' : 'R' : 'B';
+            $this->view->archive = !$montharchive ? !$reval_date ? '' : $reval_date : $montharchive;
+            $stu_id = $this->_getParam("stu_id");
+
+            $acadModel = new Application_Model_Academic();
+            $deptModel = new Application_Model_Department();
+
+            $getDepartMent = $acadModel->getDepartment($academic_id);
+          //  echo '<pre>';print_r($term_id);exit;
+            $getDegreeId = $deptModel->getRecord($getDepartMent['department']);
+            if($term_id){
+                //$termId= $termMaster_model->getTermId($academic_id,$term_id);
+               // echo '<pre>';print_r($academic_id);exit;
+                //$tablId= $tr_model->getTablIdForFilter($academic_id, $termId['term_id']);
+               /// echo '<pre>';print_r($tablId);exit;
+                $result = $collectionmodel->getCollectionWiseFilteredStudentRecord($academic_id,$term_id,$filter_status);
+            }
+            //echo '<pre>'; print_R($result);exit;
+            $this->view->corecourseresult = $result;
+        }
+    }
+
+public function userWiseReportAction() {
+        $this->view->action_name = 'student-term-report';
+        $this->view->sub_title_name = 'student-term-report';
+        $this->accessConfig->setAccess('SA_ACAD_TERM_GRADE_SHEET');
+        $student_report_form = new Application_Form_UserCollectionReport();
+        //$academic_id = $this->_getParam("id");
+        $type = $this->_getParam("type");
+        $this->view->type = $type;
+        $this->view->form = $student_report_form;
+    }	
+	
+public function getUserWiseReportAction() {
+        $this->_helper->layout->disableLayout();
+        $fee_hsitroy = new Application_Model_FeeHistroy();
+     
+        
+        //$result = $studentreport_model->getRecords();
+        if ($this->_request->isPost() && $this->getRequest()->isXmlHttpRequest()) {
+            $empl_id = $this->_getParam("empl_id");
+            $f_date = $this->_getParam("f_date");
+            $to_date = $this->_getParam("to_date");
+            
+                $result = $fee_hsitroy->getUserTrans($empl_id,$f_date,$to_date);
+          
+            //echo '<pre>'; print_R($result);exit;
+            $this->view->corecourseresult = $result;
+        }
+    }	
+	
+	
 }

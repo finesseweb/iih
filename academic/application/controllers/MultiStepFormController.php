@@ -447,7 +447,7 @@ class MultiStepFormController extends Zend_Controller_Action {
                        //echo '<pre>'; print_r($_POST); exit;
                        if ($this->getRequest()->getPost()) {
                         $data = $this->getRequest()->getPost();
-                       /// echo '<pre>'; print_r($token);exit;
+                       
                         if(!empty($data['csrftoken'])) {
                         //if($data['csrftoken']===$token ){
                         //echo '<pre>'; print_r($data); exit;
@@ -630,15 +630,17 @@ class MultiStepFormController extends Zend_Controller_Action {
                         $data['applicant_name'] =  $followUpData['applicant_name'];
                         $data['email_id'] =  $followUpData['email_id'];
                         $data['phone'] =  $followUpData['phone'];
+						$data['acad_year_id'] =  $followUpData['acad_year_id'];
                         
                        // $data['educertificate'] = $file_edu['educertificate'];
                       //  $data['casteCertificate'] =$file_caste['casteCertificate'];
                         $data['photo'] = $file_photo['photo'];
                         $data['baptism'] = $file_sign['baptism'];
-                        
+                       
                         $savedData = $applicantEducationalDetailModel->getsavedData($application_id);  
+						
                         unset($_SESSION["token"]);
-                        //echo '<pre>'; print_r($savedData); exit;
+                       // echo '<pre>'; print_r($followUpData); exit;
                         if($savedData){
                                 //echo '<pre>'; print_r($_FILES);exit;
                                 if(empty($_FILES['photo']['name'])){
@@ -715,6 +717,12 @@ class MultiStepFormController extends Zend_Controller_Action {
                     if($application_no){
                         $formFilledData=$allFormData->getAllFormFilledData($application_no);         
                     //echo"<pre>";print_r($formFilledData);exit;
+					if($formFilledData){
+                        $this->view->paginator = $formFilledData;
+                    }
+                    else {
+                         $this->_refresh(5,"https://iiher.shikshaerp.com/academic/",'*Form Not Compelted Please Use to Student Login and Complete It First ....');
+                    }
                         $this->view->paginator = $formFilledData;
                     }
                     

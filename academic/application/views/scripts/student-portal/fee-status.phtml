@@ -60,7 +60,7 @@
             var id = $(this).attr("structid");
             $.ajax({
                 type: "POST",
-                url: "<?php echo $this->mainconfig['host'] . 'student-portal/ajax-get-fee-details-view'; ?>",
+                url: "<?php echo $this->mainconfig['host'] . 'student-portal/ajax-get-fee-details-view1'; ?>",
                 data: {id: id}
             }).done(function (data) {
                 $(".feeclose").hide();

@@ -149,6 +149,18 @@ public function getRecordByYearId($yearId) {
         return $result;
     }
 
+public function getRecordByYearCourseId($course,$yearId) {
+        $select = $this->_db->select()
+                ->from($this->_name)
+                 ->where("$this->_name.course=?", $course)
+                ->where("$this->_name.acad_year_id=?", $yearId);
+                
+      //echo "<pre>".$select;die;
+        $result = $this->getAdapter()
+                ->fetchAll($select);
+        //echo"<pre>";print_r($result);die;	  
+        return $result;
+    }
 
 	
     public function validateOtp($phone_no,$email_id,$inputOtp){

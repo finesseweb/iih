@@ -547,7 +547,29 @@ class Application_Model_Academic extends Zend_Db_Table_Abstract {
 
         $select->where("erp_fee_structure_master.structure_id is Null");
         $select->where("$this->_name.status =?", 0);
-        $select->order('erp_fee_structure_master.department  ASC');
+      //  $select->order('erp_fee_structure_master.department  ASC');
+        // echo $select; die;
+        $result = $this->getAdapter()->fetchAll($select);
+        //echo $select;die;
+        $data = array();
+        $st_year = '';
+        $end_year = '';
+        foreach ($result as $val) {
+
+            $data[$val['academic_year_id']] = $val['short_code'];
+
+            // $data[$val['academic_id']] = substr($val['from_date']).'-'.substr($val['to_date']);
+            //echo "<pre>";print_r($data);
+        }
+        return $data;
+    }
+	
+	
+	public function getFeeDropDownList1() {
+        $select = $this->_db->select();
+        $select->from($this->_name, array('academic_year_id', 'short_code',));
+        $select->where("$this->_name.status =?", 0);
+      //  $select->order('erp_fee_structure_master.department  ASC');
         // echo $select; die;
         $result = $this->getAdapter()->fetchAll($select);
         //echo $select;die;

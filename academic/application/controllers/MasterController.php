@@ -1196,7 +1196,8 @@ protected function authonticate() {
                                     'fineFee' => $data['fineFee'],
                                     'perday_number' => $data['perday_number'],
                                     'product_id' => $data['product_id'],
-                                    'account_number' => $data['account_number']
+                                    'account_number' => $data['account_number'],
+									'year' => $data['year']
                                 );
 
                                 //echo "<pre>";print_r($insertData);die;
@@ -6482,6 +6483,22 @@ $this->view->hod = $hoddetails;
             echo '<option value="">Select </option>';
             foreach ($result as $row) {
                 echo '<option value="' . $row['cmn_terms'] . '" >' . $row['term_name'] . '</option>';
+            }
+        }
+        exit;
+    }
+	
+	
+	 public function ajaxGetTermYearBatch1Action() {
+        $this->_helper->layout->disableLayout();
+        if ($this->_request->isPost() && $this->getRequest()->isXmlHttpRequest()) {
+            $batch_id = $this->_getParam("batch_id");
+            $year_id = $this->_getParam("year_id");
+            $Term_model = new Application_Model_TermMaster();
+            $result = $Term_model->getTermRecordsByYear($batch_id, $year_id);
+            echo '<option value="">Select </option>';
+            foreach ($result as $row) {
+                echo '<option value="' . $row['term_id'] . '" >' . $row['term_name'] . '</option>';
             }
         }
         exit;

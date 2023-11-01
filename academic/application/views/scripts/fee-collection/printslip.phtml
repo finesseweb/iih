@@ -477,7 +477,9 @@ body * {
                                               <?php 
                                               
                                                   $i++;  $allpaid +=$value['paid_amt']; }  ?>
-												  <tr style=" background-color: #a3cacb;"><td colspan="2"><strong>Total Payment</strong></td> <td colspan="1" style="text-align:right"><?=$allpaid?></td></tr>
+												  <tr style=" background-color: #a3cacb;"><td colspan="2"><strong>Discount</strong></td> <td colspan="1" style="text-align:right"><?=$value['discount']?></td></tr>
+												  <tr style=" background-color: #a3cacb;"><td colspan="2"><strong>Extra charges</strong></td> <td colspan="1" style="text-align:right"><?=$value['extra_charges']?></td></tr>
+												  <tr style=" background-color: #a3cacb;"><td colspan="2"><strong>Total Payment</strong></td> <td colspan="1" style="text-align:right"><?=$allpaid+$value['extra_charges']-$value['discount']?></td></tr>
                                            </tbody>
                                             
                                         </table>
@@ -491,10 +493,26 @@ body * {
 	                                   
                                      <div class="col-sm-12">
 									 <label>Payment Detials</label></div>
-									 <div class="col-sm-4">
+									 <div class="col-sm-3">
                                         <p>Payment Date : <?=date('d-m-Y',strtotime($this->result['paid_date']));?></p>
                                     </div>
-                                    <div class="col-sm-4">
+									<div class="col-sm-3">
+                                        <p>Payment Mode : <? 
+										
+										 if($this->result['pay_status']=='1') { 
+										 
+										   echo  'CASH' ;
+										   
+										 } else if($this->result['pay_status']=='2') {
+											 echo  'Online' ; 
+											 
+										 }
+										 else if($this->result['pay_status']=='3') {
+											 echo  'BANK/CHECK/DD' ; 
+											 
+										 }?></p>
+                                    </div>
+                                    <div class="col-sm-3">
                                          <p>Transaction Details : <?  
 										 if($this->result['pay_status']=='1') { 
 										 
@@ -512,15 +530,15 @@ body * {
 										 
 										 ?> </p>
                                     </div>
-                                         <div class="col-sm-4">
+                                         <div class="col-sm-3">
                                          <p>Bank Name  : <?=$account->getRecord($this->result['bank_id'])['acc_name'];?></p>
                                     </div>
                                     </div>
                                    							  
 									  
                                 <div class="col-sm-12"><span style="color:#777; line-height:.75">
-                                <p> We thankfully anknowledge the receipt of INR <?=$this->result['paid'] ?>/-</p>
-                                  <p><?=AmountInWords($this->result['paid'])?></p>
+                                <p> We thankfully anknowledge the receipt of INR <?=$this->result['paid']+$value['extra_charges']-$value['discount'] ?>/-</p>
+                                  <p><?=AmountInWords($this->result['paid']+$value['extra_charges']-$value['discount'])?></p>
                                       
                                 </span></div>
                                     

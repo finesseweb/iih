@@ -92,11 +92,26 @@ class Application_Form_FeeCollector extends Zend_Form {
 		 $payment_mode = $this->createElement('select', 'payment_mode')
                 ->removeDecorator('label')
                 ->setAttrib('class', array('form-control', 'chosen-select'))
-                //->setAttrib('required','required')
+                ->setAttrib('required','required')
                 ->addMultiOptions(array('' => 'Select Mode'))
                 ->addMultiOptions(array('1'=>'Cash','2'=>'Online','3'=>'Check/DD'))
                 ->removeDecorator("htmlTag");
         $this->addElement($payment_mode);
+		
+		
+		
+		$Academic_model = new Application_Model_CastCategory();
+        $data = $Academic_model->getDropDownList();
+      
+        $cast = $this->createElement('select', 'cast_category')
+                ->removeDecorator('label')
+                ->setAttrib('class', array('form-control', 'chosen-select'))
+                ->setAttrib('required', 'required')->setRequired(true)
+                ->removeDecorator("htmlTag")
+                ->addMultiOptions(array('' => 'Select'))
+               ->addMultiOptions($data);
+
+        $this->addElement($cast);
 		
     }
 }
