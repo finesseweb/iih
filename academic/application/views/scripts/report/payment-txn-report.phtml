@@ -136,7 +136,7 @@ $('body').on('click', '#getRecords', function() {
     $('.load-box').css('display','block');
     $.ajax({
         type: "POST",
-        url: '<?php echo $this->mainconfig['host'] . 'report/ajax-get-txn-record'; ?>',
+        url: '<?php echo $this->mainconfig['host'] . 'report/ajax-get-txn-record1'; ?>',
         data: {to_date:to_date,from_date:from_date,department:department,sem:sem}
     }).done(function (data) {
         $('#ajajxData').empty('');
@@ -146,7 +146,24 @@ $('body').on('click', '#getRecords', function() {
     });
 });
 
-    
+  $('#department').change(function(){
+        //alert('x');
+		$.ajax({
+			type: "POST",
+			url: '<?php echo $this->mainconfig['host'] . 'fee-collection/ajax-get-semester'; ?>',
+			data: {
+				// degree: $('#degree_id').val(),
+				
+				batch: $('#department').val()
+			}
+		}).done(function (data) {
+			// console.log(data);
+			$('#cmn_terms').empty('');
+			$('#cmn_terms').html(data);
+			$("#cmn_terms").trigger("chosen:updated");
+		});
+	});
+	  
 
 </script>
 

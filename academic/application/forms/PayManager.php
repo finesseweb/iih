@@ -54,8 +54,8 @@ class Application_Form_PayManager extends Zend_Form
                 ->setAttrib('class', array('form-control', 'chosen-select'))
                 ->setAttrib('required', 'required')->setRequired(true)
                 ->removeDecorator("htmlTag")
-                ->addMultiOptions(array('' => 'Select Semester'))
-                   ->addMultiOptions($data);
+                ->addMultiOptions(array('' => 'Select Semester/year'));
+                   //->addMultiOptions($data);
                    $this->addElement($term);
 
         

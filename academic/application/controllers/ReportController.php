@@ -3697,6 +3697,38 @@ public function studentProficencyReportAction(){
             $this->view->paginator = $this->_act->pagination($paginator_data);
         }
     }
+	
+	
+	public function ajaxGetTxnRecord1Action() {
+        $this->_helper->layout->disableLayout();
+        if ($this->_request->isPost() && $this->getRequest()->isXmlHttpRequest()) {
+            $feehostroy = new Application_Model_FeeHistroy();
+            $to_date = $this->_getParam("to_date");
+            $from_date = $this->_getParam("from_date");
+            $dept = $this->_getParam("department");
+            $sem = $this->_getParam("sem");
+			
+		
+			
+			$from_date1= explode('/',$from_date);
+			
+            $to_date1 = explode('/',$to_date);
+			
+			$from_date2= $from_date1['2'].'-'. $from_date1['1'].'-'. $from_date1['0'];
+			
+			$to_date2= $to_date1['2'].'-'. $to_date1['1'].'-'. $to_date1['0'];
+			
+			//print_r($to_date2); die();
+			
+            $result = $feehostroy->getAllTrans($from_date2, $to_date2, $dept, $sem);
+            $paginator_data = array(
+                'result' => $result
+            );
+
+            //echo"<pre>";print_r($paginator_data);exit;
+            $this->view->paginator = $this->_act->pagination($paginator_data);
+        }
+    }
 
     public function studentFeeInstallmentAction() {
         $this->view->action_name = 'direct-final-grade';

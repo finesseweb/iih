@@ -135,13 +135,13 @@ $result=$this->getAdapter()
 		$select->joinleft(array("term_master"), "term_master.term_id=fee_collector.sem_year",array("term_name"));
 		
 		if($f_date && $to_date){
-			$select->where("paid_date >= ?",  $f_date);
-            $select->where("paid_date <= ?",  $to_date);
+			$select->where("DATE(paid_date) >= ?",  $f_date);
+            $select->where("DATE(paid_date) <= ?",  $to_date);
 		}
 		
 		if($f_date){ 
 		
-		$select->where("paid_date = ?",  $f_date);
+		$select->where("DATE(paid_date) = ?",  $f_date);
 		}
 		
 		
@@ -155,6 +155,36 @@ $result=$this->getAdapter()
         return $result;	
 	}
 	
+	public function getAllTrans($f_date='',$to_date='',$dept,$sem) {
+		
+		
+		$select = $this->_db->select();
+		$select->from('t_history');
+		$select->joinleft(array("fee_collector"), "fee_collector.id=t_history.collect_id",array("sem_year","academic_year_id"));
+		$select->joinleft(array("academic_master"), "academic_master.academic_year_id=fee_collector.academic_year_id");
+		$select->joinleft(array("term_master"), "term_master.term_id=fee_collector.sem_year",array("term_name"));
+		$select->joinleft(array("erp_student_information"), "erp_student_information.student_id=t_history.s_id");
+		
+		if($f_date && $to_date){
+			$select->where("DATE(paid_date) >= ?",  $f_date);
+            $select->where("DATE(paid_date) <= ?",  $to_date);
+		}
+		
+		elseif($f_date){ 
+		
+		$select->where("DATE(paid_date) = ?",  $f_date);
+		}
+		
+		
+		
+		$select->where("fee_collector.academic_year_id=?",$dept);
+		
+		$select->where("fee_collector.sem_year=?", $sem);
+		
+		//echo $select; die();
+		$result = $this->getAdapter()->fetchAll($select);
+        return $result;	
+	}
 	
 	public function getDropDownList() {
 		
