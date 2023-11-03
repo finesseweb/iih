@@ -139,7 +139,7 @@ $result=$this->getAdapter()
             $select->where("DATE(paid_date) <= ?",  $to_date);
 		}
 		
-		if($f_date){ 
+		elseif($f_date){ 
 		
 		$select->where("DATE(paid_date) = ?",  $f_date);
 		}

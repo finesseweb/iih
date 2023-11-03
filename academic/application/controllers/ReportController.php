@@ -5849,7 +5849,7 @@ public function getUserWiseReportAction() {
             
                 $result = $fee_hsitroy->getUserTrans($empl_id,$f_date,$to_date);
           
-            //echo '<pre>'; print_R($result);exit;
+           // echo '<pre>'; print_R($result);exit;
             $this->view->corecourseresult = $result;
         }
     }	
