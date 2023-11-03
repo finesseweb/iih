@@ -159,8 +159,8 @@ $result=$this->getAdapter()
 		
 		
 		$select = $this->_db->select();
-		$select->from('t_history');
-		$select->joinleft(array("fee_collector"), "fee_collector.id=t_history.collect_id",array("sem_year","academic_year_id"));
+		$select->from('t_history',array("SUM(paid) as Totalpaid","collect_id"));
+		$select->joinleft(array("fee_collector"), "fee_collector.id=t_history.collect_id",array("sem_year","academic_year_id","total_fees"));
 		$select->joinleft(array("academic_master"), "academic_master.academic_year_id=fee_collector.academic_year_id");
 		$select->joinleft(array("term_master"), "term_master.term_id=fee_collector.sem_year",array("term_name"));
 		$select->joinleft(array("erp_student_information"), "erp_student_information.student_id=t_history.s_id");
@@ -180,7 +180,7 @@ $result=$this->getAdapter()
 		$select->where("fee_collector.academic_year_id=?",$dept);
 		
 		$select->where("fee_collector.sem_year=?", $sem);
-		
+		$select->group('t_history.s_id');
 		//echo $select; die();
 		$result = $this->getAdapter()->fetchAll($select);
         return $result;	
@@ -188,10 +188,21 @@ $result=$this->getAdapter()
 	
 	public function getDropDownList() {
 		
-		
-		
-	$select=	"SELECT nep_erp.fa_kv_empl_info.empl_id,nep_erp.fa_kv_empl_info.empl_firstname,nep_erp.fa_kv_empl_info.empl_lastname FROM nep.t_history INNER JOIN nep_erp.fa_kv_empl_info ON nep.t_history.admin_id = nep_erp.fa_kv_empl_info.empl_id group by nep.t_history.admin_id";
+	$storage = new Zend_Session_Namespace("admin_login");
+    	$data = $storage->admin_login;
 
+//print_r($data->empl_id);	die();	
+	if($data->role_id=='2')	{
+	$select=	"SELECT nep_erp.fa_kv_empl_info.empl_id,nep_erp.fa_kv_empl_info.empl_firstname,nep_erp.fa_kv_empl_info.empl_lastname FROM nep.t_history INNER JOIN nep_erp.fa_kv_empl_info ON nep.t_history.admin_id = nep_erp.fa_kv_empl_info.empl_id group by nep.t_history.admin_id";
+//$select=	"SELECT academic_erp.fa_kv_empl_info.empl_id,academic_erp.fa_kv_empl_info.empl_firstname,academic_erp.fa_kv_empl_info.empl_lastname FROM fine_academic.t_history INNER JOIN academic_erp.fa_kv_empl_info ON fine_academic.t_history.admin_id = academic_erp.fa_kv_empl_info.empl_id group by fine_academic.t_history.admin_id";
+	}
+	
+	else {
+		$select=	"SELECT nep_erp.fa_kv_empl_info.empl_id,nep_erp.fa_kv_empl_info.empl_firstname,nep_erp.fa_kv_empl_info.empl_lastname FROM nep.t_history INNER JOIN nep_erp.fa_kv_empl_info ON nep.t_history.admin_id = nep_erp.fa_kv_empl_info.empl_id where  nep_erp.fa_kv_empl_info.empl_id='$data->empl_id'  group by nep.t_history.admin_id";
+//$select=	"SELECT academic_erp.fa_kv_empl_info.empl_id,academic_erp.fa_kv_empl_info.empl_firstname,academic_erp.fa_kv_empl_info.empl_lastname FROM fine_academic.t_history INNER JOIN academic_erp.fa_kv_empl_info ON fine_academic.t_history.admin_id = academic_erp.fa_kv_empl_info.empl_id where  academic_erp.fa_kv_empl_info.empl_id='$data->empl_id'   group by fine_academic.t_history.admin_id";
+	
+		
+	}
         //$select = $this->_db->select()
         //    ->from($this->_name)
        //     ->group("$this->_name.admin_id");
@@ -209,6 +220,18 @@ $result=$this->getAdapter()
         return $data;
     }
 	
-	
+	public function getAllTransactionDetails($id) {
+		
+	//	echo $id; die();
+		$select = $this->_db->select();
+		$select->from('t_history');
+		$select->joinleft(array("fee_collector"), "fee_collector.id=t_history.collect_id",array("sem_year","academic_year_id","total_fees"));
+		$select->where("t_history.collect_id=?",$id);
+		$select->where("fee_collector.id=?", $id);
+		
+		//echo $select; die();
+		$result = $this->getAdapter()->fetchAll($select);
+        return $result;	
+	}
 	
 }

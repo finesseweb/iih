@@ -28,13 +28,15 @@
                    <div class="col-sm-3 employee_class">
                         <div class="form-group">
                             <!--<label class="control-label" style="float:left;">From Date<span class="asterisk"></span></label>-->
-                           <?php echo $this->form->from_Date; ?>
+                           <?php //echo $this->form->from_Date; ?>
+						   <input type="date" name="from_Date" id="from_Date" value="<?=date('Y-m-d')?>" class="form-control" placeholder="From Date" autocomplete="off">
                         </div>
                    </div>
                    <div class="col-sm-3 employee_class">
                         <div class="form-group">
                             <!--<label class="control-label" style="float:left;">To Date<span class="asterisk"></span></label>-->
-                           <?php echo $this->form->to_Date; ?>
+                           <?php //echo $this->form->to_Date; ?>
+						   <input type="date" name="to_Date" id="to_Date" value="<?=date('Y-m-d')?>" class="form-control" placeholder="To Date" autocomplete="off">
                         </div>
                    </div>
                    <div class="col-sm-3 employee_class">

@@ -10,13 +10,14 @@
                                     <th>Student Name</th>
                                     <th>UID</th>
                                     <th>Semester</th>
-                                    <th>Transaction Id</th>
+                                    <!--<th>Transaction Id</th>-->
                                     
-                                    <th>Status</th>
-                                    <th>Pay Mode</th>
-                                    <th>Amount</th>
+                                    <!--<th>Status</th>-->
+                                    <th>Total Fee</th>
+                                    <th>Paid Amount</th>
+									 <th>Total Dues</th>
                                     <th>Batch</th>
-                                    <th>Date</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,12 +39,14 @@
                                             <td><?php echo $results['stu_fname']; ?></td>
                                             <td><?php echo $results['stu_id']; ?></td>
                                             <td><?php echo $results['term_name']; ?></td>
-                                            <td><?php echo !empty($results['txn_id']) ? $results['txn_id']:'N/A'; ?></td>
-                                            <td><?= !empty($results['live_status']) ?$results['live_status'] :'Success' ; ?></td>
-                                            <td><?php if($results['pay_status']=='1'){ echo "CASH" ;} elseif($results['pay_status']=='2') { echo "ONLINE" ; } elseif($results['pay_status']=='3') { echo "CHECK/DD" ; }  ?></td>
-                                            <td><?= !empty($results['fee']) ?$results['fee']:'N/A'?></td>
+											<td><?php echo $results['total_fees']; ?></td>
+                                            <!--<td><?php echo !empty($results['txn_id']) ? $results['txn_id']:'N/A'; ?></td>-->
+                                            <!--<td><? //!empty($results['live_status']) ?$results['live_status'] :'Success' ; ?></td>-->
+                                            <!--<td><?php //if($results['pay_status']=='1'){ echo "CASH" ;} elseif($results['pay_status']=='2') { echo "ONLINE" ; } elseif($results['pay_status']=='3') { echo "CHECK/DD" ; }  ?></td>-->
+                                            <td><?= !empty($results['Totalpaid']) ?$results['Totalpaid']:'N/A'?></td>
+											<td><?php echo $results['total_fees']-$results['Totalpaid']; ?></td>
                                             <td><?php echo $results['short_code']; ?></td>
-                                            <td><?php echo $results['paid_date']; ?></td>
+                                           <td><a href="javascript:void(0)" class="btn btn-success more" data-toggle="modal" data-target="#myModal" data-id="<?=$results['collect_id']?>">View More</a></td>
                                             
                                         </tr>            
 
@@ -62,7 +65,47 @@
 
                             </tbody>
                         </table>
+						
+						
+						
+<div class="modal fade" id="myModal" role="dialog">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal">&times;</button>
+<h4 class="modal-title">Transaction Details</h4>
+</div>
+<div class="modal-body">
+<div class="right_resale" id="resalemore"><table cellpadding="0" cellspacing="0">
+<tr><td>!! MORE DATA SHOULD BE DISPLAY HERE !!</td></tr>
+</table></div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>						
 <script>
+   
+ $(".more").click(function(){
+$('#resultTable tr').removeClass("done");
+$(this).parent().parent().addClass("done");
+var dataid=$(this).attr('data-id');
+$('#resalemore').html("<div class='loading'><img src='<?=SITE_PATH?>images/loader.gif'> Please wait .Loading........</div>");
+
+
+$.ajax({
+                type: "POST",
+                url: "<?php echo $this->mainconfig['host'] . 'report/ajax-get-transaction-alldata'; ?>",
+                data: {id: dataid}
+            }).done(function (data) {
+                if(data!=''){
+					$("#resalemore").html(data);
+					} else {$("#resalemore").html("<div class='loading'>Data not found</div>");}
+            });
+});  
+   
    
     setDatatables();
 </script>

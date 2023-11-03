@@ -513,6 +513,16 @@ $security_areas =array(
         'SA_ACAD_ENROLLMENT' => array(SS_ACAD_P | 1, _("Participants Enrollment")),
         'SA_ACAD_E_SELECTION' => array(SS_ACAD_P | 2, _("Elective Selection")),
         'SA_ACAD_APPLICATION_FORM' => array(SS_ACAD_P | 3, _("Application Form")),
+		'SA_ACAD_STUD' => array(SS_ACAD_P | 5, ("Admission Student")),
+		'SA_ACAD_PROMOTION' => array(SS_ACAD_P | 6, ("Promotion certification")),
+		'SA_ACAD_TC' => array(SS_ACAD_P | 7, ("TC certification")),
+		'SA_ACAD_CHAR' => array(SS_ACAD_P | 8, ("Character certification")),
+		'SA_ACAD_SEMFEECOLL' => array(SS_ACAD_P | 9, ("Semester Fee Collection")),
+		'SA_ACAD_FORMFEECOLL' => array(SS_ACAD_P | 10, ("Form Fee Collection")),
+		'SA_ACAD_PASSOUT' => array(SS_ACAD_P | 11, ("PassOut certificate")),
+		'SA_ACAD_SECTION_ALLOTMENT' => array(SS_ACAD_P | 12, ("Section Allotment")),
+		'SA_ACAD_ENTRANCEFEECOLL' => array(SS_ACAD_P | 13, ("Entrance Form Fee Collection")),
+		'SA_ACAD_CREDIT_ALLOTMENT' => array(SS_ACAD_P | 14, ("Non Academic Credit Allotment")),
                 
     //Reports
         'SA_ACAD_GRADE_REPORT' => array(SS_ACAD_R | 1, _("Course Wise Grade Report")),
@@ -522,6 +532,12 @@ $security_areas =array(
         'SA_ACAD_TERM_GRADE_SHEET' => array(SS_ACAD_R | 5, _("Generate Term Wise Grade Sheet")),
         'SA_ACAD_FINAL GRADE' => array(SS_ACAD_R | 6, _("Generate Final Grade")),
         'SA_ACAD_DIRECT_FINAL_GRADE' => array(SS_ACAD_R | 7, _("Direct Final Grade")),
+		
+		 'SA_ACAD_NON_UG' => array(SS_ACAD_R | 13, ("NON UG ADMIT CARD")),
+    'SA_ACAD_NON_PG' => array(SS_ACAD_R | 14, ("NON PG ADMIT CARD")),
+    'SA_ACAD_SHEET' => array(SS_ACAD_R | 20, ("Attendance sheet")),
+    'SA_ACAD_FEE_INSDETAIL' => array(SS_ACAD_R | 21, ("Fee Details")),
+    'SA_ACAD_TXN_DETAILS' => array(SS_ACAD_R | 22, ("Transaction Details")),
                 
     //Attendance
         'SA_ACAD_P_ATTENDANCE' => array(SS_ACAD_A | 1, _("Participant Attendance")),

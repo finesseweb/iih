@@ -3720,7 +3720,7 @@ public function studentProficencyReportAction(){
 			
 			//print_r($to_date2); die();
 			
-            $result = $feehostroy->getAllTrans($from_date2, $to_date2, $dept, $sem);
+            $result = $feehostroy->getAllTrans($from_date, $to_date, $dept, $sem);
             $paginator_data = array(
                 'result' => $result
             );
@@ -3728,6 +3728,24 @@ public function studentProficencyReportAction(){
             //echo"<pre>";print_r($paginator_data);exit;
             $this->view->paginator = $this->_act->pagination($paginator_data);
         }
+    }
+	
+	
+	
+	public function ajaxGetTransactionAlldataAction() {
+        $this->_helper->layout->disableLayout();
+		 if ($this->_request->isPost() && $this->getRequest()->isXmlHttpRequest()) {
+        $id = $this->_getParam("id");
+		 $feehostroy = new Application_Model_FeeHistroy();
+		//echo $id; die();	
+            $result = $feehostroy->getAllTransactionDetails($id);
+            $paginator_data = array(
+                'result' => $result
+            );
+
+          //  echo"<pre>";print_r($paginator_data);exit;
+            $this->view->paginator = $this->_act->pagination($paginator_data);
+		 } 
     }
 
     public function studentFeeInstallmentAction() {
